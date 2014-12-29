@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--
+
+This file is part of the h4cc/AliceFixtureBundle package.
+
+(c) Julius Beckmann <github@h4cc.de>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+-->
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!-- Classes -->
+        <parameter key="h4cc_alice_fixtures.loader.factory.class">h4cc\AliceFixturesBundle\Loader\Factory</parameter>
+
+        <parameter key="h4cc_alice_fixtures.manager.class">h4cc\AliceFixturesBundle\Fixtures\FixtureManager</parameter>
+
+        <parameter key="h4cc_alice_fixtures.orm.doctrine.class">Nelmio\Alice\ORM\Doctrine</parameter>
+
+        <parameter key="h4cc_alice_fixtures.orm.schema_tool.doctrine.class">h4cc\AliceFixturesBundle\ORM\DoctrineORMSchemaTool</parameter>
+        <parameter key="h4cc_alice_fixtures.orm.schema_tool.mongodb.class">h4cc\AliceFixturesBundle\ORM\MongoDBODMSchemaTool</parameter>
+    </parameters>
+
+    <services>
+        <!-- Factory for creating Alice loaders. -->
+        <service id="h4cc_alice_fixtures.loader.factory" class="%h4cc_alice_fixtures.loader.factory.class%"/>
+    </services>
+
+</container>

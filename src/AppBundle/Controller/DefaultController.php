@@ -17,4 +17,16 @@ class DefaultController extends Controller
 
 	    return array('name' => $name);
     }
+
+    public function listaFicherosAction($fichero){
+        $em = $this->getDoctrine()->getManager();
+        $ficheros = $em->getRepository('FicheroBundle:Fichero')->findAll();
+
+        return $this->render(
+            'FicheroBundle:Default:listaFicheros.html.twig',
+            array(
+                'ficheros'     => $ficheros
+            )
+        );
+    }
 }
