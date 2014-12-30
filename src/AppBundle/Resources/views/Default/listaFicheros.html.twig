@@ -1,0 +1,10 @@
+<table>
+	<tr>
+		<td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Fecha de borrado</td><td>Propietario</td>
+	</tr>
+{% for fichero in ficheros %}
+	<tr>
+		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida}}</td><td>{{fichero.fechaBorrado}}</td><td>{{fichero.propietario}}</td>
+	</tr>
+{% endfor %}
+</table>
