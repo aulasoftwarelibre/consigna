@@ -1,4 +1,5 @@
 #language: es
+@ficheros
 Característica: compartir ficheros
 Para compartir ficheros
 Como usuario de consigna
@@ -19,25 +20,26 @@ Y existen los usuarios;
 
 
 Escenario: compartir enlace sin autenticar
-Dado que estoy en la página de inicio
-Y no estoy autenticado
-Y selecciono "fichero1"
-Y selecciono "compartir"
-Entonces debo ver "Debe estar autenticado para compartir este fichero"
+  Dado que estoy en la página de inicio
+  Y no estoy autenticado
+  Y hago click en el botón "compartir" de "fichero1"
+  Entonces el sistema comprueba el propietario del fichero
+  Entonces debo ver "Debe estar autenticado para compartir este fichero"
 
 Escenario: compartir fichero subido mi mismo.
-Dado que estoy en la página de inicio
-Y estoy autenticado como "jamartinez@uco.es"
-Y selecciono "fichero2"
-Y selecciono "compartir"
-Entonces se genera enlace.
+  Dado que estoy en la página de inicio
+  Y estoy autenticado como "jamartinez@uco.es"
+  Y hago click en el botón "compartir" de  "fichero2"
+  Entonces el sistema comprueba el propietario del fichero.
+  Entonces se genera enlace.
 
 Escenario: compartir fichero subido por otro usuario.
-Dado que estoy en la página de inicio
-Y estoy autenticado como "jamartinez@uco.es"
-Y selecciono "fichero3"
-Y selecciono "compartir"
-Entonces debo ver "Solo 'sergio@uco.es' puede compartir este fichero "
+  Dado que estoy en la página de inicio
+  Y estoy autenticado como "jamartinez@uco.es"
+  Y hago click en el botón "compartir" de  "fichero3"
+  Entonces el sistema comprueba el propietario del fichero.
+  Entonces debo ver "Solo 'sergio@uco.es' puede compartir este fichero "
+
 
 
 

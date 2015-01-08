@@ -1,6 +1,7 @@
 #language: es
+@ficheros
 Característica: descargar ficheros
-Para descargar ficheros
+Para poder tener un fichero
 Como usuario de consigna
 Quiero poder descargar ficheros
 
@@ -21,29 +22,30 @@ Antecedentes:
 Escenario: descargar fichero subido por usuario anonimo sin estar autenticado
   Dado que estoy en la página de inicio
   Y no estoy autenticado
-  Y selecciono "fichero1"
-  Y selecciono "descargar"
+  Y hago click en el botón "descargar" de "fichero1"
+  Y introduzco la contraseña.
   Entonces debo ver "Debe estar autenticado para descargar este fichero"
 
 Escenario: descargar fichero subido por usuario anonimo como usuario autenticado
   Dado que estoy en la página de inicio
   Y estoy autenticado como "jamartinez@uco.es"
-  Y selecciono "fichero1"
-  Y selecciono "descargar"
+  Y hago click en el botón "descargar" de "fichero1"
+  Y introduzco la contraseña.
   Entonces se descarga "fichero1"
+  Y debo ver "El fichero se ha descargado correctamente"
 
 Escenario: descargar fichero subido por usuario autenticado como usuario anónimo
   Dado que estoy en la página de inicio
   Y no estoy autenticado
-  Y selecciono "fichero2"
-  Y selecciono "descargar"
+  Y hago click en el botón "descargar" de "fichero2"
+  Y introduzco la contraseña
   Entonces se descarga "fichero2"
+  Y debo ver "El fichero se ha descargado correctamente"
 
 Escenario: descargar fichero subido por usuario autenticado como usuario autenticado
   Dado que estoy en la página de inicio
   Y estoy autenticado como "sergio@uco.es"
-  Y selecciono "fichero2"
-  Y selecciono "descargar"
+  Y hago click en el botón "descargar" de "fichero2"
+  Y introduzco la contraseña
   Entonces se descarga "fichero2"
-
-
+  Y debo ver "El fichero se ha descargado correctamente"
