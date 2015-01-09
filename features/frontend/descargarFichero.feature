@@ -49,3 +49,4 @@ Escenario: descargar fichero subido por usuario autenticado como usuario autenti
   Y introduzco la contraseña
   Entonces se descarga "fichero2"
   Y debo ver "El fichero se ha descargado correctamente"
+
