@@ -1,10 +1,20 @@
 <table>
 	<tr>
-		<td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Fecha de borrado</td><td>Propietario</td>
+		<td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Fecha de borrado</td>
 	</tr>
 {% for fichero in ficheros %}
+
 	<tr>
-		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida}}</td><td>{{fichero.fechaBorrado}}</td><td>{{fichero.propietario}}</td>
+		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{fichero.fechaBorrado|date}}</td>
 	</tr>
+	{% else %}
+		<tr>
+			<td colspan="5">No hay datos</td>
+		</tr>
+
 {% endfor %}
+	<tr>
+		<td colspan="5">Número de archivos: {{ ficheros|length}}</td>
+	</tr>
+
 </table>

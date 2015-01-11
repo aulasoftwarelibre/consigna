@@ -23,6 +23,14 @@ default:
             filters:
                 tags: "@symfony"
 
+        lista:
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - AppBundle\Behat\CoreContext
+                - AppBundle\Behat\FicheroContext
+            filters:
+                tags: "@lista"
+
 javascript:
     gherkin:
         filters:
