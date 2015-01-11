@@ -1,7 +1,0 @@
-*.tgz
-*.phar
-composer.lock
-vendor
-testapp/app/cache
-testapp/app/logs
-.htaccess
