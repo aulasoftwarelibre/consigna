@@ -30,4 +30,12 @@ class FicheroContext extends CoreContext
         }
         $em->flush();
     }
+
+    /**
+     * @Given fecha actual
+     */
+    public function fechaActual()
+    {
+        return getdate();
+    }
 }

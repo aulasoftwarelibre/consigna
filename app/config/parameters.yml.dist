@@ -16,5 +16,8 @@ parameters:
 
     locale:            en
 
+    google_app_id:  ~
+    google_app_secret: ~
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

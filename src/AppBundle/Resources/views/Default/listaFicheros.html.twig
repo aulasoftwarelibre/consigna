@@ -5,7 +5,7 @@
 {% for fichero in ficheros %}
 
 	<tr>
-		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{fichero.fechaBorrado|date}}</td>
+		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{fichero.fechaBorrado|date("d/m/y")}}</td>
 	</tr>
 	{% else %}
 		<tr>
