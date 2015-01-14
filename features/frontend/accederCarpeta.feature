@@ -1,24 +1,26 @@
 #language: es
 @carpetas
 
-  Característica: Acceder a una carpeta
-    Para poder ver los ficheros que me han compartido en una carpeta
+  Característica: Acceso a carpeta
+    Para ver ficheros de una carpeta
     Como usuario de consigna
-    Quiero poder acceder a carpetas
+    Quiero acceder a carpetas
 
   Antecedentes:
 
-    existe la carpeta:
+    Dado existen las carpetas:
 
-    |id|nombre  |fechaCreacion|fechaBorrado|propietario      |
-    |01|Carpeta1|  08/01/2015 |15/01/2015  |jamartinez@uco.es|
+    |nombre  | descripción      |fechaCreacion| password  |
+    |Carpeta1| carpeta número 1 | 12015/08/01 | pCarpeta1 |
 
-  Escenario: Acceder a una carpeta
+    Y estoy autorizado
 
-    Dado que estoy en la página de inicio
-    Y hago click en la carpeta "Carpeta1"
-    Entonces debo ver "Introduzca la contraseña para acceder a la carpeta"
-    Cuando introduzco "ContraseñaCarpeta1" en el cuadro de texto de password.
-    Entonces debo estar en la página de la carpeta.
+    Escenario: Acceder a carpeta con clave
+
+      Dado estoy en la página de inicio
+      Cuando presiono "Carpeta1"
+      Entonces debo ver "Introduzca la contraseña para acceder a la carpeta"
+      Cuando relleno "password" con "ContraseñaCarpeta1"
+      Entonces debo estar en Carpeta1.
 
 
