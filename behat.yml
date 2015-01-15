@@ -31,14 +31,6 @@ default:
             filters:
                 tags: "@lista"
 
-        borradoAutomatico:
-            contexts:
-                - Behat\MinkExtension\Context\MinkContext
-                - AppBundle\Behat\CoreContext
-                - AppBundle\Behat\FicheroContext
-            filters:
-                tags: "@borradoAutomatico"
-
 javascript:
     gherkin:
         filters:

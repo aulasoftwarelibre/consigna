@@ -1,20 +1,20 @@
 #language: es
 @lista
-  Característica: ficheros
+  Característica: Listar ficheros
     Para saber qué ficheros existen en consigna
     Como usuario de consigna
-    Quiero poder listar todos los ficheros y buscar el que me interese.
+    Quiero una lista de los ficheros
 
   Antecedentes:
     Dado existen los ficheros:
-    | nombre | fechaSubida  | fechaBorrado  | propietario       |
-    |fichero1| 2014/12/27     | 2015/01/05      | anonimo           |
-    |fichero2| 2014/12/28     | 2015/01/06      | jamartinez@uco.es |
-    |fichero3| 2014/12/29     | 2015/01/07      | sergio@uco.es     |
+    | nombre | descripcion      | fechaSubida  | password  | propietario        |
+    |fichero1| fichero creado 1 | 2014/12/27   | pfichero1 | anonimo            |
+    |fichero2| fichero creado 1 | 2014/12/28   | pfichero2 | jamartinez@uco.es  |
+    |fichero3| fichero creado 1 | 2014/12/29   | pfichero3 | sergio@uco.es      |
 
     Escenario: Listar ficheros
       Dado estoy en la página de inicio
-      Entonces debo ver "Número de archivos: 3"
+      Entonces debo ver "Número de elementos: 3"
 
 #  Escenario: Buscar fichero existente
 #    Dado que estoy en la página de inicio
