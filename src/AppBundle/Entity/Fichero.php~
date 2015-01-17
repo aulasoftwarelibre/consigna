@@ -1,0 +1,184 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Fichero
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Fichero
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=255)
+     */
+    private $descripcion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaSubida", type="datetime")
+     */
+    private $fechaSubida;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="propietario", type="string", length=255)
+     */
+    private $propietario;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Fichero
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Fichero
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set fechaSubida
+     *
+     * @param \DateTime $fechaSubida
+     * @return Fichero
+     */
+    public function setFechaSubida($fechaSubida)
+    {
+        $this->fechaSubida = $fechaSubida;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaSubida
+     *
+     * @return \DateTime 
+     */
+    public function getFechaSubida()
+    {
+        return $this->fechaSubida;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Fichero
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set propietario
+     *
+     * @param string $propietario
+     * @return Fichero
+     */
+    public function setPropietario($propietario)
+    {
+        $this->propietario = $propietario;
+
+        return $this;
+    }
+
+    /**
+     * Get propietario
+     *
+     * @return string 
+     */
+    public function getPropietario()
+    {
+        return $this->propietario;
+    }
+}

@@ -12,9 +12,9 @@
     |fichero2| fichero creado 1 | 2014/12/28   | pfichero2 | jamartinez@uco.es  |
 
   Escenario: subir fichero
-  Dado que estoy en la página de inicio
-  Y fecha actual "2015/01/14"
-  Cuando presiono "subir fichero"
-  Y adjunto el archivo "fichero1"
-  Y relleno "password" con "pfichero1"
-  Entonces debo ver "Número de elementos: 3"
+    Dado estoy en la página de inicio
+    Y fecha actual "2015/01/14"
+    Cuando presiono "subir fichero"
+    Y adjunto el archivo "fichero1"
+    Y relleno "password" con "pfichero1"
+    Entonces debo ver "Número de elementos: 3"

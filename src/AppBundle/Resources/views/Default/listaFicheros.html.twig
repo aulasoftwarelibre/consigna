@@ -1,11 +1,10 @@
 <table>
 	<tr>
-		<td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Fecha de borrado</td>
+		<td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Descripción</td><td>Password</td><td>Propietario</td>
 	</tr>
 {% for fichero in ficheros %}
-
 	<tr>
-		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{fichero.fechaBorrado|date("d/m/y")}}</td>
+		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{ fichero.descripcion}}</td><td>{{ fichero.password}}</td><td>{{ fichero.propietario}}</td>
 	</tr>
 	{% else %}
 		<tr>
@@ -14,7 +13,7 @@
 
 {% endfor %}
 	<tr>
-		<td colspan="5">Número de archivos: {{ ficheros|length}}</td>
+		<td colspan="5">Número de elementos: {{ ficheros|length}}</td>
 	</tr>
 
 </table>

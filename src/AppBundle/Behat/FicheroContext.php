@@ -17,14 +17,17 @@ class FicheroContext extends CoreContext
     /**
      * @Given existen los ficheros:
      */
+
     public function crearLista (TableNode $tableNode)
     {
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash){
             $fichero = new Fichero();
             $fichero->setNombre($hash['nombre']);
+            $fichero->setDescripcion($hash['descripcion']);
             $fichero->setFechaSubida(new \DateTime($hash['fechaSubida']));
-            $fichero->setFechaBorrado(new \DateTime($hash['fechaBorrado']));
+            $fichero->setPassword($hash['password']);
+            $fichero->setPropietario($hash['propietario']);
 
             $em-> persist($fichero); //preparamos la entidad para guardarla en la BD
         }
