@@ -3,5 +3,5 @@
         nombre: <word()>
         fechaSubida: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
         descripcion: <text($maxNbChars = 200)>
-        password: <password>
+        password: <password(8,10)>
         propietario: <username()>
