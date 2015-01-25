@@ -2,34 +2,49 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Fichero;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
-     */
-    public function indexAction($name)
-    {
-	    return $this->render('Default/index.html.twig', array('name' => $name));
-
-	    return array('name' => $name);
-    }
-
-    /**
      *
-     * @Route("/")
+     * @Route("/" , name="listaFicheros")
      */
-    public function listaFicherosAction(){
+    public function listaFicherosAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $ficheros = $em->getRepository('AppBundle:Fichero')->findAll();
+        $securityContext = $this->container->get('security.context');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $usuario = $this->get('security.context')->getToken()->getUser();
+        } else {
+            $usuario = null;
+        }
+
         return $this->render(
             'AppBundle:Default:listaFicheros.html.twig',
             array(
-                'ficheros'     => $ficheros
+                'ficheros' => $ficheros,
+                'usuario' => $usuario
             )
         );
+    }
+
+    /**
+     * @Route("/delete/{id}", name="eliminarFichero")
+     * @Security("fichero.isOwner(user)")
+     */
+    public function eliminarFicheroAction(Fichero $fichero)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($fichero);
+        $em->flush();
+
+        return $this->redirectToRoute("listaFicheros");
     }
 }

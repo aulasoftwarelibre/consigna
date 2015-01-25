@@ -1,0 +1,7 @@
+\AppBundle\Entity\User:
+    usuarios{1..3}:
+        username: <username()>
+        email: <email()>
+        password: <password(8,10)>
+        plainpassword: paquete
+        enabled: 1

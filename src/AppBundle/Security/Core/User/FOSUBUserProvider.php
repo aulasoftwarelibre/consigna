@@ -75,5 +75,4 @@ class FOSUBUserProvider extends BaseClass
 
         return $user;
     }
-
 }

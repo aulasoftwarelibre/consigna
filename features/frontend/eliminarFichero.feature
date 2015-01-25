@@ -1,30 +1,33 @@
 #language: es
+  @borrar
   Característica: Eliminar fichero
   Para borrar un fichero del sistema
   Como usuario de consigna
   Quiero eliminar ficheros
 
   Antecedentes:
-    Dado existen los ficheros:
-    | nombre | descripcion      | fechaSubida  | password  | propietario        |
-    |fichero1| fichero creado 1 | 2014/12/27   | pfichero1 | anonimo            |
-    |fichero2| fichero creado 1 | 2014/12/28   | pfichero2 | jamartinez@uco.es  |
-    |fichero3| fichero creado 1 | 2014/12/29   | pfichero3 | sergio@uco.es      |
 
-    Y existen los usuarios;
-    |nombre       |email            |password|
-    |Juan Antonio |jamartinez@uco.es|paquete |
+    Dado existen los usuarios:
+    |username     |email            |password|
+    |Juanan       |jamartinez@uco.es|paquete |
     |Sergio       |sergio@uco.es    |putoamo |
 
-    Y estoy autenticado como "jamartinez@uco.es"
+    Y estoy autenticado como "Juanan"
+
+    Y existen los ficheros:
+    | nombre | descripcion      | fechaSubida  | password  | propietario        |
+    |fichero1| fichero creado 1 | 2014/12/27   | pfichero1 | anonimo            |
+    |fichero2| fichero creado 1 | 2014/12/28   | pfichero2 | Juanan             |
+    |fichero3| fichero creado 1 | 2014/12/29   | pfichero3 | Sergio             |
+
 
     Escenario: Eliminar fichero propio.
       Dado estoy en la página de inicio.
-      Cuando presiono "Eliminar fichero2"
-      Y relleno "password" con "pfichero2"
+      Y debo ver "Eliminar fichero2"
+      Cuando sigo "Eliminar fichero2"
       Entonces debo ver "Número de elementos: 2"
 
     Escenario: Eliminar fichero que no es mio.
       Dado estoy en la página de inicio.
-      Cuando presiono "Eliminar fichero3"
-      Entonces debo ver "No puede eliminar el fichero"
+      Entonces no debo ver "Eliminar fichero1"
+      Y no debo ver "Eliminar fichero3"

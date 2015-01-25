@@ -1,19 +1,35 @@
-<table>
-	<tr>
-		<td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Descripción</td><td>Propietario</td>
-	</tr>
-{% for fichero in ficheros %}
-	<tr>
-		<td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{ fichero.descripcion}}</td><td>{{ fichero.propietario}}</td>
-	</tr>
-	{% else %}
-		<tr>
-			<td colspan="5">No hay datos</td>
-		</tr>
+{% extends 'base.html.twig' %}
 
-{% endfor %}
-	<tr>
-		<td colspan="5">Número de elementos: {{ ficheros|length}}</td>
-	</tr>
+{% block body %}
+    {% block saludo %}
+    {% if usuario %}
+        Bienvenido {{ usuario.username }}
+    {% endif %}
+    {% endblock %}
 
-</table>
+    <table>
+    <tr>
+        <td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Descripción</td><td>Propietario</td>
+        {% if usuario %}
+            <td>¿Eliminar?</td>
+        {% endif %}
+    </tr>
+    {% for fichero in ficheros %}
+        <tr>
+            <td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{ fichero.descripcion}}</td><td>{{ fichero.propietario}}</td>
+            {% if fichero.isOwner(app.user) %}
+                <td><a href="{{ path('eliminarFichero', {'id': fichero.id}) }}"> Eliminar {{ fichero.nombre }}</a></td>
+            {% endif %}
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">No hay datos</td>
+        </tr>
+
+    {% endfor %}
+    <tr>
+        <td colspan="5">Número de elementos: {{ ficheros|length}}</td>
+    </tr>
+    </table>
+
+{% endblock %}

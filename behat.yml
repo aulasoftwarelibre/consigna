@@ -31,6 +31,15 @@ default:
             filters:
                 tags: "@lista"
 
+        borrar:
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - AppBundle\Behat\CoreContext
+                - AppBundle\Behat\FicheroContext
+                - AppBundle\Behat\UserContext
+            filters:
+                tags: "@borrar"
+
 javascript:
     gherkin:
         filters:
