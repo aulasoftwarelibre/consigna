@@ -2,17 +2,13 @@
 
 {% block body %}
     {% block saludo %}
-    {% if usuario %}
-        Bienvenido {{ usuario.username }}
-    {% endif %}
+        Bienvenido {{ app.user }}
     {% endblock %}
 
     <table>
     <tr>
         <td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Descripción</td><td>Propietario</td>
-        {% if usuario %}
-            <td>¿Eliminar?</td>
-        {% endif %}
+
     </tr>
     {% for fichero in ficheros %}
         <tr>

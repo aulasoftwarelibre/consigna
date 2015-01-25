@@ -19,18 +19,17 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $ficheros = $em->getRepository('AppBundle:Fichero')->findAll();
-        $securityContext = $this->container->get('security.context');
-        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $usuario = $this->get('security.context')->getToken()->getUser();
-        } else {
-            $usuario = null;
-        }
+       # $securityContext = $this->container->get('security.context');
+        #if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+         #   $usuario = $this->get('security.context')->getToken()->getUser();
+        #} else {
+         #   $usuario = null;
+        #}
 
         return $this->render(
             'AppBundle:Default:listaFicheros.html.twig',
             array(
-                'ficheros' => $ficheros,
-                'usuario' => $usuario
+                'ficheros' => $ficheros
             )
         );
     }
