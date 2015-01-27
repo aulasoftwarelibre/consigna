@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block greeting %}
+        Bienvenido {{ app.user }}
+    {% endblock %}
+
+    <table>
+    <tr>
+        <td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Descripción</td><td>Propietario</td>
+
+    </tr>
+    {% for file in files %}
+        <tr>
+            <td>{{file.id}}<td>{{file.filename}}</td><td>{{file.uploadDate|date("d/m/y")}}</td><td>{{ file.description}}</td><td>{{ file.owner}}</td>
+            {% if file.hasOwner(app.user) %}
+                <td><a href="{{ path('deleteFile', {'id': file.id}) }}"> Eliminar {{ file.filename }}</a></td>
+            {% endif %}
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">No hay datos</td>
+        </tr>
+
+    {% endfor %}
+    <tr>
+        <td colspan="5">Número de elementos: {{ files|length}}</td>
+    </tr>
+    </table>
+
+{% endblock %}

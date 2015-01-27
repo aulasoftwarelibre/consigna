@@ -7,14 +7,9 @@
 
   Antecedentes:
     Dado existen los usuarios;
-    |nombre       |email            |password|
-    |Juan Antonio |jamartinez@uco.es|paquete |
-    |Sergio       |sergio@uco.es    |putoamo |
-
-  Escenario: acceder a la página de login desde página principal
-    Dado estoy en la página principal
-    Cuando presiono "autenticarme"
-    Entonces debo estar en "página de login"
+    |nombre       |email             |plainPassword |Enabled |
+    |juanan       |jamartinez@uco.es |paquete       | 1      |
+    |sergio       |sergio@uco.es     |putoamo       | 1      |
 
   Escenario: hacer login con usuario existente
     Dado estoy en "página de login"
@@ -35,6 +30,11 @@
     Cuando relleno "password" con "paquete"
     Y presiono "submit"
     Entonces debo ver "Debe completar el campo 'usuario'"
+
+  Escenario: acceder a la página de login desde página principal
+  Dado estoy en la página principal
+  Cuando presiono "autenticarme"
+  Entonces debo estar en "página de login"
 
   Escenario: hacer login con un usuario no existente en la BD, pero existente en RedIris.
     Dado estoy en "página de login"

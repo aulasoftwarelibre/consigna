@@ -10,16 +10,14 @@ namespace AppBundle\Behat;
 use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Security\Core\SecurityContext;
-
 
 class UserContext extends CoreContext
 {
     /**
-     * @Given existen los usuarios:
+     * @Given existing users:
      */
 
-    public function crearLista (TableNode $tableNode)
+    public function createList (TableNode $tableNode)
     {
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash){
@@ -29,16 +27,15 @@ class UserContext extends CoreContext
             $user->setEmail($hash['email']);
             $user->setEnabled($hash['enabled']);
 
-
-            $em-> persist($user); //preparamos la entidad para guardarla en la BD
+            $em-> persist($user);
         }
         $em->flush();
     }
 
     /**
-     * @Given estoy autenticado como :username
+     * @Given I am authenticated as :username
      */
-    public function autenticadoComo ($username)
+    public function authenticatedAs ($username)
     {
         $this->getSession()->visit($this->generatePageUrl('fos_user_security_login'));
         $this->fillField('username', $username);

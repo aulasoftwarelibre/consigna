@@ -2,9 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Fichero;
+use AppBundle\Entity\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -13,31 +12,31 @@ class DefaultController extends Controller
 {
     /**
      *
-     * @Route("/" , name="listaFicheros")
+     * @Route("/" , name="filesList")
      */
-    public function listaFicherosAction()
+    public function filesListAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $ficheros = $em->getRepository('AppBundle:Fichero')->findAll();
+        $files = $em->getRepository('AppBundle:File')->findAll();
 
         return $this->render(
-            'AppBundle:Default:listaFicheros.html.twig',
+            'AppBundle:Default:filesList.html.twig',
             array(
-                'ficheros' => $ficheros
+                'files' => $files
             )
         );
     }
 
     /**
-     * @Route("/delete/{id}", name="eliminarFichero")
-     * @Security("fichero.isOwner(user)")
+     * @Route("/delete/{id}", name="deleteFile")
+     * @Security("file.hasOwner(user)")
      */
-    public function eliminarFicheroAction(Fichero $fichero)
+    public function deleteFileAction(File $file)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($fichero);
+        $em->remove($file);
         $em->flush();
 
-        return $this->redirectToRoute("listaFicheros");
+        return $this->redirectToRoute("filesList");
     }
 }

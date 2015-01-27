@@ -8,8 +8,8 @@ $set = new FixtureSet(array(
     'do_persist' => true,
 ));
 
-$set->addFile(__DIR__.'/usuarios.yml', 'yaml');
-$set->addFile(__DIR__.'/ficheros.yml', 'yaml');
+$set->addFile(__DIR__.'/users.yml', 'yaml');
+$set->addFile(__DIR__.'/files.yml', 'yaml');
 
 
 return $set;

@@ -23,22 +23,22 @@ default:
             filters:
                 tags: "@symfony"
 
-        lista:
+        list:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - AppBundle\Behat\CoreContext
-                - AppBundle\Behat\FicheroContext
+                - AppBundle\Behat\FileContext
             filters:
-                tags: "@lista"
+                tags: "@list"
 
-        borrar:
+        delete:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - AppBundle\Behat\CoreContext
-                - AppBundle\Behat\FicheroContext
+                - AppBundle\Behat\FileContext
                 - AppBundle\Behat\UserContext
             filters:
-                tags: "@borrar"
+                tags: "@delete"
 
 javascript:
     gherkin:
