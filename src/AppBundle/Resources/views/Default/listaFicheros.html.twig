@@ -14,7 +14,7 @@
         <tr>
             <td>{{fichero.id}}<td>{{fichero.nombre}}</td><td>{{fichero.fechaSubida|date("d/m/y")}}</td><td>{{ fichero.descripcion}}</td><td>{{ fichero.propietario}}</td>
             {% if fichero.isOwner(app.user) %}
-                <td><a href="{{ path('eliminarFichero', {'id': fichero.id}) }}"> Eliminar {{ fichero.nombre }}</a></td>
+                <td><a href="{{ path('eliminarFichero', {'id': fichero.id}) }}">Eliminar {{ fichero.nombre }}</a></td>
             {% endif %}
         </tr>
     {% else %}

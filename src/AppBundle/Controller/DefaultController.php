@@ -4,8 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Fichero;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
@@ -19,12 +19,6 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $ficheros = $em->getRepository('AppBundle:Fichero')->findAll();
-       # $securityContext = $this->container->get('security.context');
-        #if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-         #   $usuario = $this->get('security.context')->getToken()->getUser();
-        #} else {
-         #   $usuario = null;
-        #}
 
         return $this->render(
             'AppBundle:Default:listaFicheros.html.twig',
