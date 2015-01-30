@@ -1,4 +1,4 @@
-@delete
+@sprint1
   Feature: Delete File
     In order to delete a file of the system
     As a consigna user
@@ -12,10 +12,10 @@
     And I am authenticated as "juanan"
 
     And existing files:
-    |filename  | description      | uploadDate   | password  | owner              |
-    |fichero1  | fichero creado 1 | 2014/12/27   | pfichero1 | anonimo            |
-    |fichero2  | fichero creado 1 | 2014/12/28   | pfichero2 | juanan             |
-    |fichero3  | fichero creado 1 | 2014/12/29   | pfichero3 | sergio             |
+    |filename  | description      | uploadDate   | password  | owner   |
+    |fichero1  | fichero creado 1 | 2014/12/27   | pfichero1 | anonimo |
+    |fichero2  | fichero creado 1 | 2014/12/28   | pfichero2 | juanan  |
+    |fichero3  | fichero creado 1 | 2014/12/29   | pfichero3 | sergio  |
 
 
     Scenario: Delete my own file

@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% if not app.user %}
+        <a href="{{ path('fos_user_security_login') }}">login</a>
+        <br/>
+    {% endif %}
+
     {% block greeting %}
         Bienvenido {{ app.user }}
     {% endblock %}
@@ -28,4 +34,5 @@
     </tr>
     </table>
 
+    <a href="{{ path('find/fich') }}"> Prueba </a>
 {% endblock %}

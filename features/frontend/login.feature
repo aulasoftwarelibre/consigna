@@ -1,45 +1,44 @@
-#language: es
-@login
-  Característica: Identificación de usuario.
-  Para poder acceder a consigna como usuario autenticado
-  Como usuario de consigna
-  Quiero poder identificarme mediante un formulario de login
+@sprint1
+  Feature: User identification
+    In order to access to consigna as authenticated user
+    As a consigna user
+    I want to get identification with a login form
 
-  Antecedentes:
-    Dado existen los usuarios;
-    |nombre       |email             |plainPassword |Enabled |
+  Background:
+    Given existing users:
+    |username     |email             |plainPassword |enabled |
     |juanan       |jamartinez@uco.es |paquete       | 1      |
     |sergio       |sergio@uco.es     |putoamo       | 1      |
 
-  Escenario: hacer login con usuario existente
-    Dado estoy en "página de login"
-    Cuando relleno "usuario" con "jamartinez@uco.es"
-    Y relleno "password" con "paquete"
-    Y presiono "submit"
-    Entonces debo ver "Autenticado como Juan Antonio"
+    Scenario: login with an existing user
+      Given I am on "/login"
+      When I fill in "username" with "juanan"
+      And I fill in "password" with "paquete"
+      And I press "submit"
+      Then I should see "Bienvenido juanan"
 
-  Escenario: hacer login como usuario no existente
-    Dado estoy en "página de login"
-    Cuando relleno "usuario" con "pericoeldelospalotes"
-    Y relleno "password" con "palotes"
-    Y presiono "submit"
-    Entonces debo ver "Usuario no registrado, regístrese previamente"
+    Scenario: login with a non existing user
+      Given I am on "login"
+      When I fill in "username" with "pedro"
+      And I fill in "password" with "pedro"
+      And I press "submit"
+      Then I should see "Bad credentials"
 
-  Escenario: hacer login y olvidar escribir un campo.
-    Dado estoy en "página de login"
-    Cuando relleno "password" con "paquete"
-    Y presiono "submit"
-    Entonces debo ver "Debe completar el campo 'usuario'"
+    Scenario: go to /login from homepage
+      Given I am on the homepage
+      When I follow "login"
+      Then I am on "/login"
 
-  Escenario: acceder a la página de login desde página principal
-  Dado estoy en la página principal
-  Cuando presiono "autenticarme"
-  Entonces debo estar en "página de login"
 
-  Escenario: hacer login con un usuario no existente en la BD, pero existente en RedIris.
-    Dado estoy en "página de login"
-    Cuando presiono "autenticar como usuario de Universidad de Córdoba"
-    Entonces debo estar en "página de redIris".
-    Cuando relleno "usuario" con "sergio@uco.es"
-    Y relleno "password" con "contraseñasergio"
-    Entonces debo ver "Autenticado como Sergio"
+#  Escenario: acceder a la página de login desde página principal
+#  Dado estoy en la página principal
+#  Cuando presiono "autenticarme"
+#  Entonces debo estar en "página de login"
+#
+#  Escenario: hacer login con un usuario no existente en la BD, pero existente en RedIris.
+#    Dado estoy en "página de login"
+#    Cuando presiono "autenticar como usuario de Universidad de Córdoba"
+#    Entonces debo estar en "página de redIris".
+#    Cuando relleno "usuario" con "sergio@uco.es"
+#    Y relleno "password" con "contraseñasergio"
+#    Entonces debo ver "Autenticado como Sergio"

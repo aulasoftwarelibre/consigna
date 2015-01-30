@@ -2,11 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\File;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 
 class DefaultController extends Controller
 {
@@ -18,6 +17,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->findAll();
+
+
 
         return $this->render(
             'AppBundle:Default:filesList.html.twig',
@@ -38,5 +39,21 @@ class DefaultController extends Controller
         $em->flush();
 
         return $this->redirectToRoute("filesList");
+    }
+
+    /**
+     * @Route("/find/{word}", name="find")
+     *
+     */
+    public function findFileAction($word)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $foundFiles= $em->getRepository('AppBundle:File')->findFiles($word); #el findFiles no lo ve.
+
+
+        return $this->render(
+            'AppBundle:Default:filesList.twig', array(
+               'files' => $foundFiles
+        ));
     }
 }

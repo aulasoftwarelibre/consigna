@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+#   - { resource: bundles/sylius.yml }
 
 framework:
     #esi:             ~
@@ -105,3 +106,14 @@ hwi_oauth:
             scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
 
 # here you will add one (or more) configurations for resource owners
+#sylius_resource:
+#    resources:
+#        AppBundle.entity_key:
+#            driver: doctrine/orm
+#            manager: default
+#            templates: App:File
+#            classes:
+#                model: MyApp\Entity\File
+#                interface: AppBundle\Entity\FileKeyInterface
+#                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
+#                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\FileRepository

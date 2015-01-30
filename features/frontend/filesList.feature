@@ -1,4 +1,4 @@
-@list
+@sprint1
   Feature: List files
     In order to know what files are in consigna
     As a consigna user
