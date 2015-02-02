@@ -22,7 +22,7 @@ class FileRepository extends EntityRepository
             FROM AppBundle:File c
             WHERE c.filename LIKE :word'
         );
-        $query->setParameter('word', $word);
+        $query->setParameter('word', '%'.$word.'%');
         return $query->getResult();
     }
 }

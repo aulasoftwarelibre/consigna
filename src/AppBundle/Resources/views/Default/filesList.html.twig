@@ -33,6 +33,10 @@
         <td colspan="5">Número de elementos: {{ files|length}}</td>
     </tr>
     </table>
+    <form name="form" action="{{ path('find') }}" method="get">
+        Buscar por nombre de fichero:
+        <input type="search" name="word"><br>
+    </form>
 
-    <a href="{{ path('find/fich') }}"> Prueba </a>
+    {#<a href="{{ path('find',{'word': text }) }}"> Buscar </a>#}
 {% endblock %}
