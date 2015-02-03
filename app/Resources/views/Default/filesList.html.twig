@@ -2,18 +2,26 @@
 
 {% block body %}
 
+    {#{% render controller("FOSUserBundle:Security:login") %}#}
+    {#{% render controller("FOSUserBundle:Profile:show") %}#}
     {% if not app.user %}
-        <a href="{{ path('fos_user_security_login') }}">login</a>
+        {#<a href="{{ path('fos_user_security_login') }}">login</a>#}
+        <a href="{{ path('new_login') }}">login</a>
+
         <br/>
     {% endif %}
 
     {% block greeting %}
         <h2>Bienvenido {{ app.user }} </h2>
+        <div class="progress">
+            <div class="progress-bar" style="width: 70%;"></div>
+        </div>
     {% endblock %}
 
-    <table>
+
+    <table class="table table-striped table-hover ">
     <tr>
-        <td>id</td><td>Nombre</td><td>Fecha de subida</td><td>Descripción</td><td>Propietario</td>
+        <th>id</th><th>Nombre</th><th>Fecha de subida</th><th>Descripción</th><th>Propietario</th>
 
     </tr>
     {% for file in files %}
@@ -24,18 +32,18 @@
             {% endif %}
         </tr>
     {% else %}
-        <tr>
+        <tr class="warning">
             <td colspan="5">No hay datos</td>
         </tr>
 
     {% endfor %}
-    <tr>
+    <tr class="success">
         <td colspan="5">Número de elementos: {{ files|length}}</td>
     </tr>
     </table>
     <form name="form" action="{{ path('find') }}" method="get">
         Buscar por nombre de fichero:
-        <input type="search" name="word"><br>
+        <input type="search" name="word" ><br>
     </form>
 
     {#<a href="{{ path('find',{'word': text }) }}"> Buscar </a>#}

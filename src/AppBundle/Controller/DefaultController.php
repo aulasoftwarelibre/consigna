@@ -22,7 +22,7 @@ class DefaultController extends Controller
 
 
         return $this->render(
-            'AppBundle:Default:filesList.html.twig',
+            'Default/filesList.html.twig',
             array(
                 'files' => $files
             )
@@ -54,8 +54,18 @@ class DefaultController extends Controller
 
 
         return $this->render(
-            'AppBundle:Default:filesList.html.twig', array(
+            'Default/filesList.html.twig', array(
                'files' => $foundFiles
         ));
+    }
+
+    /**
+     * @Route("/Login/", name="new_login")
+     *
+     */
+    public function newLoginAction()
+    {
+        return $this->render(
+            'Default/newLogin.html.twig');
     }
 }
