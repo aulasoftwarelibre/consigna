@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-
+use AppBundle\Entity\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -36,6 +36,7 @@ class DefaultController extends Controller
     public function deleteFileAction(File $file)
     {
         $em = $this->getDoctrine()->getManager();
+
         $em->remove($file);
         $em->flush();
 
