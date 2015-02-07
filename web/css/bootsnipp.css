@@ -5,15 +5,15 @@
     margin-right: 0;
     margin-left: 0;
 }
-/*
+/* 
     Sometimes the sub menus get too large for the page and prevent the menu from scrolling, limiting functionality
-    A quick fix is to change .side-menu to
+    A quick fix is to change .side-menu to 
 
     -> position:absolute
-
+    
     and uncomment the code below.
-    You also need to uncomment
-
+    You also need to uncomment 
+    
     -> <div class="absolute-wrapper"> </div> in the html file
 
     you also need to tweek the animation. Just uncomment the code in that section
