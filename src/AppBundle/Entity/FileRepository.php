@@ -32,7 +32,7 @@ class FileRepository extends EntityRepository
         $query=$em->createQuery('
             SELECT c
             FROM AppBundle:File c
-            WHERE c.owner LIKE :owner'
+            WHERE c.user LIKE :owner'
         );
         $query->setParameter('owner', $owner);
         return $query->getResult();

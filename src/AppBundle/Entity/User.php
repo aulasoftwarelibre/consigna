@@ -65,6 +65,47 @@ class User extends BaseUser
         $this->google_access_token = $google_access_token;
     }
 
+    /**
+     * @ORM\OneToMany(targetEntity="File", mappedBy="user")
+     */
+    private $files;
 
-    //YOU CAN ADD MORE CODE HERE !
+    public function __construct()
+    {
+        parent::__construct();
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add files
+     *
+     * @param \AppBundle\Entity\File $files
+     * @return User
+     */
+    public function addFile(\AppBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \AppBundle\Entity\File $files
+     */
+    public function removeFile(\AppBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
 }

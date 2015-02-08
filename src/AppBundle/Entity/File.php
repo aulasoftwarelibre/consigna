@@ -51,11 +51,11 @@ class File
     private $password;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="owner", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
      */
-    private $owner;
+    private $user;
 
 
     /**
@@ -160,31 +160,27 @@ class File
         return $this->password;
     }
 
+
     /**
-     * Set owner
+     * Set user
      *
-     * @param string $owner
+     * @param \AppBundle\Entity\User $user
      * @return File
      */
-    public function setOwner($owner)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->owner = $owner;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get owner
+     * Get user
      *
-     * @return string 
+     * @return \AppBundle\Entity\User 
      */
-    public function getOwner()
+    public function getUser()
     {
-        return $this->owner;
-    }
-
-    public function hasOwner(User $user=null)
-    {
-        return $user==$this->getOwner();
+        return $this->user;
     }
 }
