@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\File;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -57,6 +58,24 @@ class DefaultController extends Controller
         return $this->render(
             'Default/filesList.html.twig', array(
                'files' => $foundFiles
+        ));
+    }
+
+
+    /**
+     * @Route("/myFiles/{owner}", name="myFiles")
+     * @Security("file.hasOwner(user)")
+     */
+
+    public function myFilesAction(Request $request)
+    {
+        $owner = $request->get('owner');
+        $em=$this->getDoctrine()->getManager();
+        $foundFiles= $em->getRepository('AppBundle:File')->myFiles($owner);
+
+        return $this->render(
+            'Default/filesList.html.twig', array(
+            'files' => $foundFiles
         ));
     }
 

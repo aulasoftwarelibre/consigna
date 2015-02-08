@@ -25,6 +25,18 @@ class FileRepository extends EntityRepository
         $query->setParameter('word', '%'.$word.'%');
         return $query->getResult();
     }
+
+    public function myFiles($owner)
+    {
+        $em = $this->getEntityManager();
+        $query=$em->createQuery('
+            SELECT c
+            FROM AppBundle:File c
+            WHERE c.owner LIKE :owner'
+        );
+        $query->setParameter('owner', $owner);
+        return $query->getResult();
+    }
 }
 
 

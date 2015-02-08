@@ -27,45 +27,44 @@
     <body>
         {% block body %}
 
-
-            {#<form name="form" action="{{ path('find') }}" method="get">#}
-            {#Buscar por nombre de fichero:#}
-            {#<input type="search" name="word" ><br>#}
-            {#</form>#}
-            <div class="row">
-                <!-- uncomment code for absolute positioning tweek see top comment in css -->
-                <!-- <div class="absolute-wrapper"> </div> -->
-                <!-- Menu -->
-                <div class="side-menu">
-                    <div class="brand-name-wrapper">
-                        <a class="navbar-brand">
-                            Consigna 2.0
-                        </a>
-                    </div>
-                    <nav class="navbar navbar-default" role="navigation">
-
-                        <!-- Main Menu -->
-                        <div class="side-menu-container">
-                            <ul class="nav navbar-nav">
-
-                                <li><a href="#"><span class="glyphicon glyphicon-file"></span> Todos los archivos</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Tus carpetas</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Tus archivos</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-share"></span> Compartido contigo</a></li>
-                            </ul>
-                        </div><!-- /.navbar-collapse -->
-                    </nav>
-
+        <div class="row">
+            <!-- uncomment code for absolute positioning tweek see top comment in css -->
+            <!-- <div class="absolute-wrapper"> </div> -->
+            <!-- Menu -->
+            <div class="side-menu">
+                <div class="brand-name-wrapper">
+                    <a class="navbar-brand">
+                        Consigna 2.0
+                    </a>
                 </div>
+                <nav class="navbar navbar-default" role="navigation">
 
-                <!-- Main Content -->
-                <div class="container-fluid">
-                    <div class="side-body">
-                        {% block mainContent %}{% endblock %}
-                    </div>
+                    <!-- Main Menu -->
+                    <div class="side-menu-container">
+                        <ul class="nav navbar-nav">
+
+                            <li><a href="{{ path('filesList') }}"><span class="glyphicon glyphicon-file"></span> Todos los archivos</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Tus carpetas</a></li>
+                            {% if app.user %}
+                                <li><a href="{{ path('myFiles', {'owner': app.user}) }}"><span class="glyphicon glyphicon-user"></span> Tus archivos</a></li>
+                            {% else %}
+                                <li><span class="glyphicon glyphicon-user"></span> Tus archivos</li>
+                            {% endif %}
+                            <li><a href="#"><span class="glyphicon glyphicon-share"></span> Compartido contigo</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+
+            </div>
+
+            <!-- Main Content -->
+            <div class="container-fluid">
+                <div class="side-body">
+                    {% block mainContent %}{% endblock %}
                 </div>
             </div>
-        {% endblock %}
+        </div>
+    {% endblock %}
     </body>
         {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
             <script src="{{ asset('js/jquery.min.js') }}"></script>
