@@ -1,31 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block mainContent %}
-                {#{% render controller("FOSUserBundle:Security:login") %}#}
-                {#{% render controller("FOSUserBundle:Profile:show") %}#}
 
     <div class="navbar navbar-default" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
     {% if not app.user %}
         <div class="row col-lg-12">
-        <form class="form-signin pull-right" id="login" role="form" action="{{ path('new_login') }}">
-            <button class="btn btn-lg btn-primary " type="submit">Sign in</button>
-        </form>
+            <form class="form-signin pull-right" id="login" role="form" action="{{ path('new_login') }}">
+                <button class="btn btn-lg btn-primary " type="submit">Sign in</button>
+            </form>
         </div>
-        {% else %}
-                <h2>{{ app.user }}</h2>
+    {% else %}
+        <p class="navbar-text">Logueado como: <a href="#" class="navbar-link">{{ app.user }}</a></p>
     {% endif %}
-        <form class="navbar-form navbar-right" name="form" action="{{ path('find') }}" method="get" >
-            <input type="text" class="form-control col-lg-8" placeholder="Search" name="word">
-        </form>
+
     </div>
 
 
-    <div class="row">
-        <div class="well well-sm col-md-12">
-            Número de elementos: {{ files|length}}
-        </div>
-    </div> <!-- row -->
+
+    <div class="well well-sm row col-lg-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Library</a></li>
+            <button type="button" class="btn btn-default navbar-btn col-md-offset-2"><i class="fa fa-folder">Subir carpeta</i></button>
+            <button type="button" class="btn btn-default navbar-btn "><i class="fa fa-file">Subir fichero</i></button>
+
+            <form class="navbar-form navbar-right" name="form" action="{{ path('find') }}" method="get" >
+                <input type="text" class="form-control " placeholder="Search" name="word">
+            </form>
+        </ol>
+
+
+            <p>Número de elementos: {{ files|length}}</p>
+    </div>
 
     <div class="row">
     <div class="col-md-12">
@@ -33,12 +40,11 @@
         {% for file in files %}
             <li>
                 <div class="info">
-                    <h4 class="title"><i class="fa fa-file-o">{{file.filename}}</i></h4>
-                    <p class ="desc"><span class="label label-default ">Etiqueta</span></p>
-                    <p class ="desc">Tamaño. Subido por {{ file.user}}</p>
+                    <h4 class="title"><i class="fa fa-file-o"> {{file.filename}}</i></h4>
+                    <p class ="desc">Tamaño. 15Mb. Subido por {{ file.user}} <span class="label label-default"> Etiqueta </span> <span class="label label-default"> Etiqueta </span> <span class="label label-default"> Etiqueta </span> <span class="label label-default"> Etiqueta </span></p>
                     <ul>
-                        <li><i class="fa fa-download push"></i></li>
-                        <li><i class="fa fa-trash-o"></i></li>
+                        <li><i class="fa fa-download push"></i>Descargar </li>
+                        <li><i class="fa fa-trash-o"></i>Borrar </li>
                     </ul>
                 </div>
             </li>

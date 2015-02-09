@@ -43,14 +43,13 @@
                     <div class="side-menu-container">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="{{ path('filesList') }}"><span class="glyphicon glyphicon-file"></span> Todos los archivos</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Tus carpetas</a></li>
+                            <li><a href="{{ path('files-list') }}"><span class="glyphicon glyphicon-file"></span> Todos los archivos</a></li>
                             {% if app.user %}
-                                <li><a href="{{ path('myFiles', {'owner': app.user}) }}"><span class="glyphicon glyphicon-user"></span> Tus archivos</a></li>
-                            {% else %}
-                                <li><span class="glyphicon glyphicon-user"></span> Tus archivos</li>
-                            {% endif %}
+                            <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Tus carpetas</a></li>
+                            <li><a href="{{ path('my-files') }} "><span class="glyphicon glyphicon-user"></span> Tus archivos</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-share"></span> Compartido contigo</a></li>
+                            {% endif %}
+
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
