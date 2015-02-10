@@ -15,7 +15,7 @@
       When I fill in "username" with "juanan"
       And I fill in "password" with "paquete"
       And I press "submit"
-      Then I should see "Bienvenido juanan"
+      Then I should see "Sign out"
 
     Scenario: login with a non existing user
       Given I am on "login"
@@ -26,8 +26,8 @@
 
     Scenario: go to /login from homepage
       Given I am on the homepage
-      When I follow "login"
-      Then I am on "/login"
+      When I follow "Sign in"
+      Then I am on "/Login"
 
 
 #  Escenario: acceder a la página de login desde página principal

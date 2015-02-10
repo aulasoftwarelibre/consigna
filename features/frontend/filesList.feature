@@ -5,16 +5,24 @@
     I want a list of files
 
   Background:
-    Given existing files:
-    | filename | description      | uploadDate   | password  | owner              |
-    |fichero1  | fichero creado 1 | 2014/12/27   | pfichero1 | anonimo            |
-    |fichero2  | fichero creado 1 | 2014/12/28   | pfichero2 | juanan             |
-    |fichero3  | fichero creado 1 | 2014/12/29   | pfichero3 | sergio             |
+
+    Given existing users:
+      |username     |email             |plainPassword    |enabled |
+      |juanan       |jamartinez@uco.es |paquete          |  1     |
+      |sergio       |sergio@uco.es     |putoamo          |  1     |
+      |anonimo      |anonimo@uco.es    |putoamo          |  1     |
+
+    And existing files:
+    | filename |   uploadDate   | password   |username|
+    |fichero1  |   2014/12/27   | pfichero1  |juanan  |
+    |fichero2  |   2014/12/28   | pfichero2  |sergio  |
+    |fichero3  |   2014/12/29   | pfichero3  |anonimo |
 
     Scenario: List files
       Given I am on the homepage
-      Then  I should see "Número de elementos: 3"
-
+      Then  I should see "fichero1"
+      And  I should see "fichero2"
+      And  I should see "fichero3"
 
     #Escenario: Buscar fichero existente
     #  Dado estoy en la página de inicio

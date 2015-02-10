@@ -2,37 +2,22 @@
 
 {% block mainContent %}
 
-    <div class="navbar navbar-default" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
-    {% if not app.user %}
-        <div class="row col-lg-12">
-            <form class="form-signin pull-right" id="login" role="form" action="{{ path('new_login') }}">
-                <button class="btn btn-lg btn-primary " type="submit">Sign in</button>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <p class="navbar-text">Inicio / Carpeta</p>
+            <a class="btn btn-default navbar-btn" href="#"><i class="fa fa-cloud-upload "></i> Subir archivo</a>
+            <a class="btn btn-default navbar-btn" href="#"><i class="fa fa-folder"></i> Crear carpeta</a>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
-        </div>
-    {% else %}
-        <p class="navbar-text">Logueado como: <a href="#" class="navbar-link">{{ app.user }}</a></p>
-    {% endif %}
+        </div><!-- /.container-fluid -->
+    </nav>
 
-    </div>
-
-
-
-    <div class="well well-sm row col-lg-12">
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Library</a></li>
-            <button type="button" class="btn btn-default navbar-btn col-md-offset-2"><i class="fa fa-folder">Subir carpeta</i></button>
-            <button type="button" class="btn btn-default navbar-btn "><i class="fa fa-file">Subir fichero</i></button>
-
-            <form class="navbar-form navbar-right" name="form" action="{{ path('find') }}" method="get" >
-                <input type="text" class="form-control " placeholder="Search" name="word">
-            </form>
-        </ol>
-
-
-            <p>Número de elementos: {{ files|length}}</p>
-    </div>
 
     <div class="row">
     <div class="col-md-12">
@@ -40,11 +25,18 @@
         {% for file in files %}
             <li>
                 <div class="info">
-                    <h4 class="title"><i class="fa fa-file-o"> {{file.filename}}</i></h4>
-                    <p class ="desc">Tamaño. 15Mb. Subido por {{ file.user}} <span class="label label-default"> Etiqueta </span> <span class="label label-default"> Etiqueta </span> <span class="label label-default"> Etiqueta </span> <span class="label label-default"> Etiqueta </span></p>
+                    <h4 class="title"><i class="fa fa-file-o"></i> {{file.filename}}</h4>
+                    <p class ="desc">
+                        Tamaño: 15Mb - Subido por {{ file.user}} -
+                        <span class="label label-default">Etiqueta</span>
+                        <span class="label label-default">Etiqueta</span>
+                        <span class="label label-default">Etiqueta</span>
+                    </p>
                     <ul>
                         <li><i class="fa fa-download push"></i>Descargar </li>
-                        <li><i class="fa fa-trash-o"></i>Borrar </li>
+                        {% if file.getUser() == app.user %}
+                        <a href="{{ path('deleteFile',{'id':file.id}) }}" title="Eliminar {{ file.filename }}"><li><i class="fa fa-trash-o"></i>Borrar </li></a>
+                        {% endif %}
                     </ul>
                 </div>
             </li>

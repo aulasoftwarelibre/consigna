@@ -13,7 +13,7 @@
             <link href={{ asset('css/bootstrap.css') }} rel="stylesheet" media="screen">
             <link href={{ asset('css/bootsnipp.css') }} rel="stylesheet" media="screen">
             <link href={{ asset('css/bootstrapEventList.css') }} rel="stylesheet" media="screen">
-
+            <link href={{ asset('css/consigna.css') }} rel="stylesheet" media="screen">
 
 
             <!-- librerías opcionales que activan el soporte de HTML5 para IE8 -->
@@ -25,25 +25,39 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}
+    {% block body %}
 
-        <div class="row">
-            <!-- uncomment code for absolute positioning tweek see top comment in css -->
-            <!-- <div class="absolute-wrapper"> </div> -->
-            <!-- Menu -->
-            <div class="side-menu">
-                <div class="brand-name-wrapper">
-                    <a class="navbar-brand">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a id="brand" class="navbar-brand" href="#">
                         Consigna 2.0
                     </a>
                 </div>
+                {% if app.user %}
+                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn navbar-right">Sign out</a>
+                {% else %}
+                    <a id="Sign in" href ="{{ path('new_login') }}" class="btn btn-default navbar-btn navbar-right">Sign in</a>
+                {% endif %}
+            </div>
+        </nav>
+
+        <div class="row">
+            <div class="side-menu">
                 <nav class="navbar navbar-default" role="navigation">
 
                     <!-- Main Menu -->
                     <div class="side-menu-container">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="{{ path('files-list') }}"><span class="glyphicon glyphicon-file"></span> Todos los archivos</a></li>
+                            <li><a href="{{ path('files-list') }}"><span class="fa fa-file"></span> Todos los archivos</a></li>
+                            <li><a href="#"><span class="fa fa-folder-open"></span> Todos las carpetas</a></li>
                             {% if app.user %}
                             <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Tus carpetas</a></li>
                             <li><a href="{{ path('my-files') }} "><span class="glyphicon glyphicon-user"></span> Tus archivos</a></li>
@@ -53,7 +67,6 @@
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
-
             </div>
 
             <!-- Main Content -->
@@ -65,12 +78,9 @@
         </div>
     {% endblock %}
     </body>
-        {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
-            <script src="{{ asset('js/jquery.min.js') }}"></script>
-
-            <!-- Todos los plugins JavaScript de Bootstrap (también puedes
-                 incluir archivos JavaScript individuales de los únicos
-                 plugins que utilices) -->
-            <script src="{{ asset('js/bootstrap.js') }}"></script>
+    {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/consigna.js') }}"></script>
     {% endblock %}
 </html>

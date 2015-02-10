@@ -24,20 +24,6 @@ class User extends BaseUser
     protected $google_access_token;
 
     /**
-     * @ORM\OneToMany(targetEntity="File", mappedBy="user")
-     */
-    private $files;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -90,6 +76,17 @@ class User extends BaseUser
     public function setGoogleAccessToken( $google_access_token )
     {
         $this->google_access_token = $google_access_token;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="File", mappedBy="user")
+     */
+    private $files;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

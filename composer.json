@@ -21,8 +21,8 @@
 
         "hwi/oauth-bundle":                     "~0.4@dev",
 
-        "sylius/resource-bundle":               "~0.12",
-        "sylius/resource":                      "~0.12",
+        "sylius/resource-bundle":               "0.12.0",
+        "sylius/resource":                      "0.12.0",
         "friendsofsymfony/rest-bundle":         "~1.5.0@RC",
         "friendsofsymfony/user-bundle":         "~1.3",
         "fzaninotto/faker":                     "1.5.*@dev"

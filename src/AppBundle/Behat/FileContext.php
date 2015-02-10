@@ -20,14 +20,18 @@ class FileContext extends CoreContext
 
     public function createList (TableNode $tableNode)
     {
+
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash){
+
             $file = new File();
+
+            $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
             $file->setFilename($hash['filename']);
-            $file->setDescription($hash['description']);
             $file->setUploadDate(new \DateTime($hash['uploadDate']));
             $file->setPassword($hash['password']);
-            $file->setOwner($hash['owner']);
+            $file->setUser($user);
+
 
             $em-> persist($file);
         }

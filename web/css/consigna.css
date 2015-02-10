@@ -1,0 +1,12 @@
+
+@media (min-width: 767px) {
+    .side-menu-container > .navbar-nav {
+        position: fixed;
+        top: 51px;
+        width: 300px;
+    }
+
+    .side-body {
+        padding-top: 64px;
+    }
+}

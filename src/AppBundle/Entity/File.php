@@ -29,12 +29,6 @@ class File
      */
     private $filename;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255)
-     */
-    private $description;
 
     /**
      * @var \DateTime
@@ -56,6 +50,16 @@ class File
      * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
      */
     private $user;
+
+    /**
+     * To String
+     *
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->getFilename();
+    }
 
 
     /**
@@ -91,28 +95,6 @@ class File
         return $this->filename;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return File
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 
     /**
      * Set uploadDate
@@ -167,7 +149,7 @@ class File
      * @param \AppBundle\Entity\User $user
      * @return File
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser($user)
     {
         $this->user = $user;
 

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5a3f7a4c65a9934bf6ecb27b7686c891",
+    "hash": "44a2f68bb047e563b8afb9efa1cba702",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -720,17 +720,17 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "a9377f6a05fb516423d6adf9079c6e5fb41e4799"
+                "reference": "4f9526ddec7fd951433586c45a78a5001d4a6997"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/a9377f6a05fb516423d6adf9079c6e5fb41e4799",
-                "reference": "a9377f6a05fb516423d6adf9079c6e5fb41e4799",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/4f9526ddec7fd951433586c45a78a5001d4a6997",
+                "reference": "4f9526ddec7fd951433586c45a78a5001d4a6997",
                 "shasum": ""
             },
             "require": {
@@ -794,7 +794,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2015-01-27 09:39:58"
+            "time": "2015-02-09 12:18:56"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -1759,17 +1759,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.15",
+            "version": "v3.0.16",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "0692cd6a8fcf645abce8ea45f7cbbd1942e2b23c"
+                "reference": "aa30f8cd3ee68144e043ca30713aa7d7df35c5fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/0692cd6a8fcf645abce8ea45f7cbbd1942e2b23c",
-                "reference": "0692cd6a8fcf645abce8ea45f7cbbd1942e2b23c",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/aa30f8cd3ee68144e043ca30713aa7d7df35c5fa",
+                "reference": "aa30f8cd3ee68144e043ca30713aa7d7df35c5fa",
                 "shasum": ""
             },
             "require": {
@@ -1808,7 +1808,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-01-07 07:13:43"
+            "time": "2015-02-01 05:42:21"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2347,16 +2347,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "c34ef418015793a4653f2670afb69dd167ebf578"
+                "reference": "23b647f1e4eeb24a457d3c47f5f5046377d5a3bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/c34ef418015793a4653f2670afb69dd167ebf578",
-                "reference": "c34ef418015793a4653f2670afb69dd167ebf578",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/23b647f1e4eeb24a457d3c47f5f5046377d5a3bf",
+                "reference": "23b647f1e4eeb24a457d3c47f5f5046377d5a3bf",
                 "shasum": ""
             },
             "require": {
@@ -2459,7 +2459,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-01-07 14:47:29"
+            "time": "2015-02-02 18:02:30"
         },
         {
             "name": "twig/extensions",
@@ -3023,16 +3023,16 @@
         },
         {
             "name": "behat/mink",
-            "version": "v1.6.0",
+            "version": "v1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/minkphp/Mink.git",
-                "reference": "090900a0049c441f1e072bbd837db4079b2250c5"
+                "reference": "8b68523a339ec991bcd638b39dc8f04f808da88a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/090900a0049c441f1e072bbd837db4079b2250c5",
-                "reference": "090900a0049c441f1e072bbd837db4079b2250c5",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/8b68523a339ec991bcd638b39dc8f04f808da88a",
+                "reference": "8b68523a339ec991bcd638b39dc8f04f808da88a",
                 "shasum": ""
             },
             "require": {
@@ -3052,8 +3052,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Behat\\Mink": "src/"
+                "psr-4": {
+                    "Behat\\Mink\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3067,14 +3067,14 @@
                     "homepage": "http://everzet.com"
                 }
             ],
-            "description": "Web acceptance testing framework for PHP 5.3",
+            "description": "Browser controller/emulator abstraction for PHP",
             "homepage": "http://mink.behat.org/",
             "keywords": [
                 "browser",
                 "testing",
                 "web"
             ],
-            "time": "2014-09-26 09:25:05"
+            "time": "2015-02-04 17:02:06"
         },
         {
             "name": "behat/mink-browserkit-driver",

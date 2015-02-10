@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\File;
 
 class DefaultController extends Controller
 {
@@ -30,17 +31,17 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/delete/{id}", name="deleteFile")
-     * @Security("file.hasOwner(user)")
+     * @Route("/delete/", name="deleteFile")
      */
-    public function deleteFileAction(File $file)
+    public function deleteFileAction(Request $request)
     {
+        $file=$this->getDoctrine()->getRepository('AppBundle:File')->findOneByid($request->get('id'));
         $em = $this->getDoctrine()->getManager();
-
         $em->remove($file);
         $em->flush();
 
-        return $this->redirectToRoute("filesList");
+        return $this->redirectToRoute('files-list');
+
     }
 
     /**
