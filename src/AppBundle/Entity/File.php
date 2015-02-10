@@ -52,6 +52,16 @@ class File
     private $user;
 
     /**
+     * @var Tag
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
+     */
+    private $tag;
+
+
+    public function __construct(){
+        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    /**
      * To String
      *
      * @return string
@@ -60,7 +70,6 @@ class File
     {
         return $this->getFilename();
     }
-
 
     /**
      * Get id
@@ -165,6 +174,4 @@ class File
     {
         return $this->user;
     }
-
-
 }
