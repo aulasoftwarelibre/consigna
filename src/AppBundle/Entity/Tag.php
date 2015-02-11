@@ -13,6 +13,21 @@ use Doctrine\ORM\Mapping as ORM;
 class Tag
 {
     /**
+     * @return Tag
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param Tag $files
+     */
+    public function setFiles($files)
+    {
+        $this->files = $files;
+    }
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")

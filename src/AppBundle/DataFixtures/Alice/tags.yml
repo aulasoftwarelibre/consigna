@@ -1,0 +1,4 @@
+\AppBundle\Entity\Tag:
+    tag{1..30}:
+        tagName: <word()>
+
