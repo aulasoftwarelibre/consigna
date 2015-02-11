@@ -55,7 +55,7 @@ class File
      * @var Tag
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
      */
-    private $tag;
+    private $tags;
 
 
     public function __construct(){

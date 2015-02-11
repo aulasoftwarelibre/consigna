@@ -23,9 +23,9 @@ class Tag
 
     /**
      * @var Tag
-     * @ORM\ManyToMany(targetEntity="File", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="File", mappedBy="tags")
      */
-    private $file;
+    private $files;
 
     public function __construct(){
         $this->files= new \Doctrine\Common\Collections\ArrayCollection();
