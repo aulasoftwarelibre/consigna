@@ -31,11 +31,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/delete/", name="deleteFile")
+     * @Route("/file/{slug}/delete/", name="delete-file")
      */
     public function deleteFileAction(Request $request)
     {
-        $file=$this->getDoctrine()->getRepository('AppBundle:File')->findOneByid($request->get('id'));
+        $file=$this->getDoctrine()->getRepository('AppBundle:File')->findOneByslug($request->get('slug'));
         $em = $this->getDoctrine()->getManager();
         $em->remove($file);
         $em->flush();

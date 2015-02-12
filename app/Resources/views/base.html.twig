@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <title>
-            {% block title %}La mejor consigna de mi vida!{% endblock %}
+            {% block title %}University of Cordoba. Consigna 2.0{% endblock %}
         </title>
         {% block stylesheets %}
             <!-- CSS de Bootstrap -->
@@ -16,7 +16,7 @@
             <link href={{ asset('css/consigna.css') }} rel="stylesheet" media="screen">
 
 
-            <!-- librerías opcionales que activan el soporte de HTML5 para IE8 -->
+            <!-- HTML5 for IE8 -->
             <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -56,12 +56,12 @@
                     <div class="side-menu-container">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="{{ path('files-list') }}"><span class="fa fa-file"></span> Todos los archivos</a></li>
-                            <li><a href="#"><span class="fa fa-folder-open"></span> Todos las carpetas</a></li>
+                            <li><a href="{{ path('files-list') }}"><span class="fa fa-file"></span> All files</a></li>
+                            <li><a href="#"><span class="fa fa-folder-open"></span> All folders</a></li>
                             {% if app.user %}
-                            <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Tus carpetas</a></li>
-                            <li><a href="{{ path('my-files') }} "><span class="glyphicon glyphicon-user"></span> Tus archivos</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-share"></span> Compartido contigo</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Your folders</a></li>
+                            <li><a href="{{ path('my-files') }} "><span class="glyphicon glyphicon-user"></span> Your files</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-share"></span> Shared with you</a></li>
                             {% endif %}
 
                         </ul>

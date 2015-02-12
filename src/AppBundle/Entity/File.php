@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * File
@@ -13,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 class File
 {
+
     /**
      * @var integer
      *
@@ -57,19 +60,15 @@ class File
      */
     private $tags;
 
-
     public function __construct(){
         $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
     }
+
     /**
-     * To String
-     *
-     * @return string
+     * @Gedmo\Slug(fields={"filename"})
+     * @ORM\Column(length=128, unique=true)
      */
-    function __toString()
-    {
-        return $this->getFilename();
-    }
+    private $slug;
 
     /**
      * Get id
@@ -174,4 +173,47 @@ class File
     {
         return $this->user;
     }
+
+    /**
+     * @return Tag
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param Tag $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * To String
+     *
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->getFilename();
+    }
+
 }

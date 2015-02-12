@@ -105,6 +105,11 @@ hwi_oauth:
             client_secret:       "%google_app_secret%"
             scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
 
+#stof_doctrine_extensions:
+#    orm:
+#        default:
+#            sluggable: true
+#            timestampable: true
 # here you will add one (or more) configurations for resource owners
 #sylius_resource:
 #    resources:
@@ -117,3 +122,4 @@ hwi_oauth:
 #                interface: AppBundle\Entity\FileKeyInterface
 #                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
 #                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\FileRepository
+

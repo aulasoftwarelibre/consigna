@@ -30,8 +30,8 @@ Feature: List files
     @sprint1
     Scenario Outline: Search files by name
         Given I am on the homepage
-        When I fill in "search" with "<word>"
-        And I press "search-button"
+        When I fill in "search-button" with "<word>"
+        And I press "input"
         Then I should see <number> files
 
         Examples:
