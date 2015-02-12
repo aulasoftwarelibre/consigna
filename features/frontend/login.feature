@@ -1,44 +1,28 @@
-@sprint1
-  Feature: User identification
-    In order to access to consigna as authenticated user
+@login
+Feature: User identification
+    In order to access to consigna
     As a consigna user
     I want to get identification with a login form
 
-  Background:
-    Given existing users:
-    |username     |email             |plainPassword |enabled |
-    |juanan       |jamartinez@uco.es |paquete       | 1      |
-    |sergio       |sergio@uco.es     |putoamo       | 1      |
+    Background:
+        Given existing users:
+            | username    | email             | plainPassword | enabled  |
+            | user1       | user1@uco.es      | secret1       | 1        |
+            | user2       | user2@uco.es      | secret2       | 1        |
 
-    Scenario: login with an existing user
-      Given I am on "/login"
-      When I fill in "username" with "juanan"
-      And I fill in "password" with "paquete"
-      And I press "submit"
-      Then I should see "Sign out"
+    @sprint1
+    Scenario: Login with an existing user
+        Given I am on "/login"
+        When I fill in "username" with "user1"
+        And I fill in "password" with "secret1"
+        And I press "submit"
+        Then I should be on the homepage
+        And I should see "Sign out"
 
-    Scenario: login with a non existing user
-      Given I am on "login"
-      When I fill in "username" with "pedro"
-      And I fill in "password" with "pedro"
-      And I press "submit"
-      Then I should see "Bad credentials"
-
-    Scenario: go to /login from homepage
-      Given I am on the homepage
-      When I follow "Sign in"
-      Then I am on "/Login"
-
-
-#  Escenario: acceder a la página de login desde página principal
-#  Dado estoy en la página principal
-#  Cuando presiono "autenticarme"
-#  Entonces debo estar en "página de login"
-#
-#  Escenario: hacer login con un usuario no existente en la BD, pero existente en RedIris.
-#    Dado estoy en "página de login"
-#    Cuando presiono "autenticar como usuario de Universidad de Córdoba"
-#    Entonces debo estar en "página de redIris".
-#    Cuando relleno "usuario" con "sergio@uco.es"
-#    Y relleno "password" con "contraseñasergio"
-#    Entonces debo ver "Autenticado como Sergio"
+    @sprint1
+    Scenario: Login with a non existing user
+        Given I am on "/login"
+        When I fill in "username" with "user3"
+        And I fill in "password" with "secret"
+        And I press "submit"
+        Then I should see "Bad credentials"

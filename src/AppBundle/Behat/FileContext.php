@@ -17,10 +17,8 @@ class FileContext extends CoreContext
     /**
      * @Given existing files:
      */
-
     public function createList (TableNode $tableNode)
     {
-
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash){
 
@@ -29,12 +27,20 @@ class FileContext extends CoreContext
             $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
             $file->setFilename($hash['filename']);
             $file->setUploadDate(new \DateTime($hash['uploadDate']));
-            $file->setPassword($hash['password']);
+            $file->setPassword('secret');
             $file->setUser($user);
 
 
             $em-> persist($file);
         }
         $em->flush();
+    }
+
+    /**
+     * @Then /^I should see (\d+) files/
+     */
+    public function iShouldSeeFiles( $numFiles )
+    {
+        $this->assertSession()->elementsCount('css', '.list', $numFiles);
     }
 }

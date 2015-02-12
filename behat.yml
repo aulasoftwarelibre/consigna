@@ -16,21 +16,21 @@ default:
             files_path: features/images
         Behat\Symfony2Extension: ~
     suites:
-        symfony:
+        login:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - AppBundle\Behat\CoreContext
+                - AppBundle\Behat\UserContext
             filters:
-                tags: "@symfony"
-
-        sprint1:
+                tags: "@login,@sprint1"
+        files:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - AppBundle\Behat\CoreContext
                 - AppBundle\Behat\FileContext
                 - AppBundle\Behat\UserContext
             filters:
-                tags: "@sprint1"
+                tags: "@files,@sprint1"
 
 javascript:
     gherkin:
