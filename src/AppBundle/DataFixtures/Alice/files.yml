@@ -5,6 +5,5 @@
         password: <password(8,10)>
         user: @user1
         tags: <numberBetween(1, 10)>x @tag*
-        slug: <word()>
 
 

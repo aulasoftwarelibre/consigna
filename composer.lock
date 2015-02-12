@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "063d58612addd3ac688b74c6d7a2d5b7",
+    "hash": "f2559e69231b5bc8f2ac080977994f84",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -760,17 +760,17 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "4f9526ddec7fd951433586c45a78a5001d4a6997"
+                "reference": "d72f3a41409997ebd91ca34561075c615d2ddcc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/4f9526ddec7fd951433586c45a78a5001d4a6997",
-                "reference": "4f9526ddec7fd951433586c45a78a5001d4a6997",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/d72f3a41409997ebd91ca34561075c615d2ddcc0",
+                "reference": "d72f3a41409997ebd91ca34561075c615d2ddcc0",
                 "shasum": ""
             },
             "require": {
@@ -834,7 +834,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2015-02-09 12:18:56"
+            "time": "2015-02-09 12:22:33"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -957,16 +957,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "dev-master",
+            "version": "v2.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "61a13a7d5febaae676519c595b6caeda1e23ff4c"
+                "reference": "5e19886a64ef7e3540bb362eacfdf7d60c5608e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/61a13a7d5febaae676519c595b6caeda1e23ff4c",
-                "reference": "61a13a7d5febaae676519c595b6caeda1e23ff4c",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5e19886a64ef7e3540bb362eacfdf7d60c5608e6",
+                "reference": "5e19886a64ef7e3540bb362eacfdf7d60c5608e6",
                 "shasum": ""
             },
             "require": {
@@ -1031,7 +1031,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-02-10 16:59:37"
+            "time": "2015-01-28 09:12:46"
         },
         {
             "name": "hwi/oauth-bundle",
@@ -2027,6 +2027,67 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2015-01-26 16:25:19"
+        },
+        {
+            "name": "stof/doctrine-extensions-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
+                "reference": "2ff8473e33e224af87dc00d48a552a35a75115af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/2ff8473e33e224af87dc00d48a552a35a75115af",
+                "reference": "2ff8473e33e224af87dc00d48a552a35a75115af",
+                "shasum": ""
+            },
+            "require": {
+                "gedmo/doctrine-extensions": "~2.3.1",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "to use the ORM extensions",
+                "doctrine/mongodb-odm-bundle": "to use the MongoDB ODM extensions"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stof\\DoctrineExtensionsBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                }
+            ],
+            "description": "Integration of the gedmo/doctrine-extensions with Symfony2",
+            "homepage": "https://github.com/stof/StofDoctrineExtensionsBundle",
+            "keywords": [
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree"
+            ],
+            "time": "2014-09-30 08:24:40"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4136,17 +4197,17 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "9e23fc3de265ae013690d84aab98e7a84f46edcd"
+                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/9e23fc3de265ae013690d84aab98e7a84f46edcd",
-                "reference": "9e23fc3de265ae013690d84aab98e7a84f46edcd",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/4b09746520a826a7bf34a466ba31c7d8740fef7e",
+                "reference": "4b09746520a826a7bf34a466ba31c7d8740fef7e",
                 "shasum": ""
             },
             "require": {
@@ -4180,7 +4241,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2015-01-13 07:33:46"
+            "time": "2015-02-11 07:21:23"
         }
     ],
     "aliases": [],
@@ -4189,7 +4250,7 @@
         "hwi/oauth-bundle": 20,
         "friendsofsymfony/rest-bundle": 5,
         "fzaninotto/faker": 20,
-        "gedmo/doctrine-extensions": 20,
+        "stof/doctrine-extensions-bundle": 20,
         "elao/web-profiler-extra-bundle": 20
     },
     "prefer-stable": false,
