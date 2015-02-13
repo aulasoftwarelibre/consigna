@@ -41,6 +41,6 @@ class FileContext extends CoreContext
      */
     public function iShouldSeeFiles( $numFiles )
     {
-        $this->assertSession()->elementsCount('css', '.list', $numFiles);
+        $this->assertSession()->elementsCount('css', '.info', $numFiles);
     }
 }

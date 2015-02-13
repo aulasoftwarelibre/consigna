@@ -22,16 +22,16 @@ Feature: List files
 
     @sprint1
     Scenario: List files by logged user
-        Given I am authenticated as "user1"
-        When I follow "My files"
-        Then I should be on the homepage
+        Given I am authenticated as "user1" with "secret1"
+        When I follow "Your files"
+        Then I should be on "/my-files/"
         And I should see 1 files
 
     @sprint1
     Scenario Outline: Search files by name
         Given I am on the homepage
         When I fill in "search-button" with "<word>"
-        And I press "input"
+        And I press "Submit"
         Then I should see <number> files
 
         Examples:

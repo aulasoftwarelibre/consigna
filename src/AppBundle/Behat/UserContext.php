@@ -33,13 +33,13 @@ class UserContext extends CoreContext
     }
 
     /**
-     * @Given I am authenticated as :username
+     * @Given I am authenticated as :username with :password
      */
-    public function authenticatedAs ($username)
+    public function authenticatedAs ($username,$password)
     {
         $this->getSession()->visit($this->generatePageUrl('fos_user_security_login'));
         $this->fillField('username', $username);
-        $this->fillField('password', 'paquete');
+        $this->fillField('password', $password);
         $this->pressButton('submit');
     }
 }

@@ -5,9 +5,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\File;
 
 class DefaultController extends Controller
 {
@@ -35,6 +33,12 @@ class DefaultController extends Controller
      */
     public function deleteFileAction(Request $request)
     {
+        $user= $this->get('security.context')->getToken()->getUser();
+
+        if ($user != $request->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $file=$this->getDoctrine()->getRepository('AppBundle:File')->findOneByslug($request->get('slug'));
         $em = $this->getDoctrine()->getManager();
         $em->remove($file);
