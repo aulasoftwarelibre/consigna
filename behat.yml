@@ -22,7 +22,7 @@ default:
                 - AppBundle\Behat\CoreContext
                 - AppBundle\Behat\UserContext
             filters:
-                tags: "@login,@sprint1"
+                tags: "@login"
         files:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
@@ -30,7 +30,7 @@ default:
                 - AppBundle\Behat\FileContext
                 - AppBundle\Behat\UserContext
             filters:
-                tags: "@files,@sprint1"
+                tags: "@files"
 
 javascript:
     gherkin:

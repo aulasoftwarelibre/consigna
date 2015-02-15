@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,21 +32,21 @@ class DefaultController extends Controller
     /**
      * @Route("/file/{slug}/delete/", name="delete-file")
      */
-    public function deleteFileAction(Request $request)
+    public function deleteFileAction(File $file)
     {
-        $user= $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if ($user != $request->getUser()) {
+        if (!$user || !$file->getUser() || $user != $file->getUser()) {
             throw $this->createAccessDeniedException();
         }
 
-        $file=$this->getDoctrine()->getRepository('AppBundle:File')->findOneByslug($request->get('slug'));
         $em = $this->getDoctrine()->getManager();
         $em->remove($file);
         $em->flush();
 
-        return $this->redirectToRoute('files-list');
+        $this->get('session')->getFlashBag()->set('success', 'File deleted successfully');
 
+        return $this->redirectToRoute('files-list');
     }
 
     /**

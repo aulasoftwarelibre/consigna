@@ -72,6 +72,13 @@
             <!-- Main Content -->
             <div class="container-fluid">
                 <div class="side-body">
+                    {% block alert %}
+                        {% for flashMessage in app.session.flashbag.get('success') %}
+                            <div class="alert alert-success">
+                                {{ flashMessage }}
+                            </div>
+                        {% endfor %}
+                    {% endblock %}
                     {% block mainContent %}{% endblock %}
                 </div>
             </div>

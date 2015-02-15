@@ -25,9 +25,7 @@ Feature: Delete files
     @sprint1
     Scenario: Remove file from another user
         Given I am authenticated as "user2" with "secret2"
-        And I am on the homepage
-        When I am on "/file/file1/delete/"
-        Then I should be on the homepage
-        And I should see "Access Denied"
+        And I am on "/file/file1/delete/"
+        Then I should see "Access Denied"
 
 
