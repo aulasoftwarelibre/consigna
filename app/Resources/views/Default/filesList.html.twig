@@ -22,7 +22,30 @@
     <div class="row">
     <div class="col-md-12">
         <ul class="event-list">
-        {% for file in files %}
+
+        {% for folder in folders %} <!-- list of folders -->
+            <li>
+                <div class="info">
+                    <h4 class="title"><i class="fa fa-folder-o"></i> {{ folder.folderName }}</h4>
+                    <p class ="desc">
+                        Size: 15Mb - Upload by {{ folder.user }}
+                        {% for tag in folder.tags  %}
+                            <span class="label label-default">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+                    <ul>
+                        <li><i class="fa fa-download push"></i>Download </li>
+                        {% if folder.getUser() == app.user %}
+                            <a href="#" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+        {% else %}
+            <li>No folders</li>
+        {% endfor %}
+
+        {% for file in files %} <!-- list of files -->
             <li>
                 <div class="info">
                     <h4 class="title"><i class="fa fa-file-o"></i> {{file.filename}}</h4>
@@ -42,7 +65,7 @@
             </li>
                 {% else %}
                          <li>No files</li>
-                {% endfor %}
+        {% endfor %}
          </ul>
     </div>
     </div> <!-- row -->

@@ -17,11 +17,13 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->findAllOrderedByName();
+        $folders = $em->getRepository('AppBundle:Folder')->findAllOrderedByName();
 
         return $this->render(
             'Default/filesList.html.twig',
             array(
-                'files' => $files
+                'files' => $files,
+                'folders' => $folders
             )
         );
     }

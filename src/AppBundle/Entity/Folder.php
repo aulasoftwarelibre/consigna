@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Folder
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\FolderRepository")
  */
 class Folder
 {
@@ -136,5 +136,47 @@ class Folder
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return Tag
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param Tag $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * To String
+     *
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->getFolderName();
     }
 }
