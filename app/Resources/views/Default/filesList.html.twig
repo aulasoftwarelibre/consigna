@@ -35,7 +35,7 @@
                     <ul>
                         <li><i class="fa fa-download push"></i>Download </li>
                         {% if file.getUser() == app.user %}
-                        <a href="{{ path('delete-file',{'slug':file.slug}) }}" title="Delete {{ file.filename }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
+                        <a href="{{ path('file_delete',{'slug':file.slug}) }}" title="Delete {{ file.filename }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
                         {% endif %}
                     </ul>
                 </div>

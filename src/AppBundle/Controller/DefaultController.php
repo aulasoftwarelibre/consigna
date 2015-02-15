@@ -12,7 +12,7 @@ class DefaultController extends Controller
 {
     /**
      *
-     * @Route("/" , name="files-list")
+     * @Route("/" , name="files")
      */
     public function filesListAction()
     {
@@ -30,7 +30,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/file/{slug}/delete/", name="delete-file")
+     * @Route("/file/{slug}/delete/", name="file_delete")
      */
     public function deleteFileAction(File $file)
     {
@@ -46,7 +46,7 @@ class DefaultController extends Controller
 
         $this->get('session')->getFlashBag()->set('success', 'File deleted successfully');
 
-        return $this->redirectToRoute('files-list');
+        return $this->redirectToRoute('files');
     }
 
     /**
@@ -68,14 +68,12 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/my-files/", name="my-files")
+     * @Route("/user/files", name="user_files")
      */
 
     public function myFilesAction()
     {
         $user=$this->getUser();
-
-
 
         return $this->render(
             'Default/filesList.html.twig', array(
@@ -83,13 +81,5 @@ class DefaultController extends Controller
         ));
     }
 
-    /**
-     * @Route("/Login/", name="new_login")
-     *
-     */
-    public function newLoginAction()
-    {
-        return $this->render(
-            'Default/newLogin.html.twig');
-    }
+
 }

@@ -43,7 +43,7 @@
                 {% if app.user %}
                     <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn navbar-right">Sign out</a>
                 {% else %}
-                    <a id="Sign in" href ="{{ path('new_login') }}" class="btn btn-default navbar-btn navbar-right">Sign in</a>
+                    <a id="Sign in" href ="{{ path('fos_user_security_login') }}" class="btn btn-default navbar-btn navbar-right">Sign in</a>
                 {% endif %}
             </div>
         </nav>
@@ -56,11 +56,11 @@
                     <div class="side-menu-container">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="{{ path('files-list') }}"><span class="fa fa-file"></span> All files</a></li>
+                            <li><a href="{{ path('files') }}"><span class="fa fa-file"></span> All files</a></li>
                             <li><a href="#"><span class="fa fa-folder-open"></span> All folders</a></li>
                             {% if app.user %}
                             <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span> Your folders</a></li>
-                            <li><a href="{{ path('my-files') }}"><span class="glyphicon glyphicon-user"></span>Your files</a></li>
+                            <li><a href="{{ path('user_files') }}"><span class="glyphicon glyphicon-user"></span>Your files</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-share"></span> Shared with you</a></li>
                             {% endif %}
 
