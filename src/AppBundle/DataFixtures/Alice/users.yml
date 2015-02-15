@@ -4,7 +4,7 @@
         email: admin@localhost.local
         plainPassword: admin
         enabled: 1
-    user{1..6}:
+    users{1..6}:
         username: <username()>
         email: <email()>
         plainPassword: paquete

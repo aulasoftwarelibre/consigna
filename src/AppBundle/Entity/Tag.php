@@ -13,6 +13,42 @@ use Doctrine\ORM\Mapping as ORM;
 class Tag
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tagName", type="string")
+     *
+     */
+    private $tagName;
+
+    /**
+     * @var Tag
+     * @ORM\ManyToMany(targetEntity="File", mappedBy="tags")
+     */
+    private $files;
+
+    public function __files_construct(){
+        $this->files= new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @var Tag
+     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="tags")
+     */
+    private $folders;
+
+    public function __folders_construct(){
+        $this->folders= new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    /**
      * @return Tag
      */
     public function getFiles()
@@ -27,32 +63,6 @@ class Tag
     {
         $this->files = $files;
     }
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var Tag
-     * @ORM\ManyToMany(targetEntity="File", mappedBy="tags")
-     */
-    private $files;
-
-    public function __construct(){
-        $this->files= new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tagName", type="string")
-     *
-     */
-    private $tagName;
 
     /**
      * Get id

@@ -29,6 +29,11 @@ class User extends BaseUser
     private $files;
 
     /**
+     * @ORM\OneToMany(targetEntity="Folder", mappedBy="user")
+     */
+    private $folders;
+
+    /**
      * Constructor
      */
     public function __construct()

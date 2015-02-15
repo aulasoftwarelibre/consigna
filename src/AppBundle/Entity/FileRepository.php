@@ -37,6 +37,17 @@ class FileRepository extends EntityRepository
         $query->setParameter('owner', $owner);
         return $query->getResult();
     }
+
+    public function findAllOrderedByName()
+    {
+        $em=$this->getEntityManager();
+        $query=$em->createQuery('
+            SELECT c
+            FROM AppBundle:File c
+            ORDER BY c.filename ASC
+        ');
+        return $query->getResult();
+    }
 }
 
 

@@ -11,15 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     *
-     * @Route("/" , name="files")
+     *@Route("/" , name="files")
      */
     public function filesListAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('AppBundle:File')->findAll();
-
-
+        $files = $em->getRepository('AppBundle:File')->findAllOrderedByName();
 
         return $this->render(
             'Default/filesList.html.twig',
@@ -66,7 +63,6 @@ class DefaultController extends Controller
         ));
     }
 
-
     /**
      * @Route("/user/files", name="user_files")
      */
@@ -80,6 +76,4 @@ class DefaultController extends Controller
             'files' => $user->getFiles()
         ));
     }
-
-
 }
