@@ -21,17 +21,24 @@ Feature: List files
         | folder2     |   2014/12/28   | user2       | description2  |
         | folder3     |   2014/12/29   | null        | description3  |
 
-    @sprint1
+    @sprint2
     Scenario: List elements
         Given I am on the homepage
         Then  I should see 6 elements
 
-    @sprint1
+    @sprint2
+    Scenario: List folders
+        Given I am on the homepage
+        When I follow "All folders"
+        Then I should see 3 elements
+
+    @sprint2
     Scenario: List elements by logged user
         Given I am authenticated as "user1" with "secret1"
-        When I follow "Your files"
+        When I follow "Your stuffs"
         Then I should be on "/user/files"
-        And I should see 1 elements
+        And I should see 2 elements
+
 
     @sprint1
     Scenario Outline: Search files by name

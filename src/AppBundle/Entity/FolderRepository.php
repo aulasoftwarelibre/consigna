@@ -29,7 +29,8 @@ class FolderRepository extends EntityRepository
         $query=$em->createQuery('
             SELECT c
             FROM AppBundle:Folder c
-            WHERE c.user LIKE :owner'
+            WHERE c.user LIKE :owner
+            ORDER BY c.foldername ASC'
         );
         $query->setParameter('owner', $owner);
         return $query->getResult();

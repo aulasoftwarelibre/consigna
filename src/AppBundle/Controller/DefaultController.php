@@ -29,6 +29,24 @@ class DefaultController extends Controller
     }
 
     /**
+     *@Route("/folders" , name="folders")
+     */
+    public function foldersListAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $files = null;
+        $folders = $em->getRepository('AppBundle:Folder')->findAllOrderedByName();
+
+        return $this->render(
+            'Default/filesList.html.twig',
+            array(
+                'files' => $files,
+                'folders' => $folders
+            )
+        );
+    }
+
+    /**
      * @Route("/file/{slug}/delete", name="file_delete")
      */
     public function deleteFileAction(File $file)
