@@ -15,27 +15,33 @@ Feature: List files
             | file2     |   2014/12/28   | user2       |
             | file3     |   2014/12/29   | null        |
 
-    @sprint1
-    Scenario: List files
-        Given I am on the homepage
-        Then  I should see 3 files
+      And existing folders:
+        | folderName  |   uploadDate   | username    | description   |
+        | folder1     |   2014/12/27   | user1       | description1  |
+        | folder2     |   2014/12/28   | user2       | description2  |
+        | folder3     |   2014/12/29   | null        | description3  |
 
     @sprint1
-    Scenario: List files by logged user
+    Scenario: List elements
+        Given I am on the homepage
+        Then  I should see 6 elements
+
+    @sprint1
+    Scenario: List elements by logged user
         Given I am authenticated as "user1" with "secret1"
         When I follow "Your files"
-        Then I should be on "/my-files/"
-        And I should see 1 files
+        Then I should be on "/user/files"
+        And I should see 1 elements
 
     @sprint1
     Scenario Outline: Search files by name
         Given I am on the homepage
         When I fill in "search-button" with "<word>"
         And I press "Submit"
-        Then I should see <number> files
+        Then I should see <number> elements
 
         Examples:
             | word      | number    |
             | file1     | 1         |
-            | file      | 3         |
+            | f         | 6         |
             | nothing   | 0         |

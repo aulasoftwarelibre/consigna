@@ -22,4 +22,16 @@ class FolderRepository extends EntityRepository
         ');
         return $query->getResult();
     }
+
+    public function myFolders($owner)
+    {
+        $em = $this->getEntityManager();
+        $query=$em->createQuery('
+            SELECT c
+            FROM AppBundle:Folder c
+            WHERE c.user LIKE :owner'
+        );
+        $query->setParameter('owner', $owner);
+        return $query->getResult();
+    }
 }

@@ -10,6 +10,7 @@ namespace AppBundle\Behat;
 
 
 use AppBundle\Entity\File;
+use AppBundle\Entity\Folder;
 use Behat\Gherkin\Node\TableNode;
 
 class FileContext extends CoreContext
@@ -17,7 +18,7 @@ class FileContext extends CoreContext
     /**
      * @Given existing files:
      */
-    public function createList (TableNode $tableNode)
+    public function createFileList (TableNode $tableNode)
     {
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash){
@@ -37,10 +38,31 @@ class FileContext extends CoreContext
     }
 
     /**
-     * @Then /^I should see (\d+) files/
+     * @Given existing folders:
      */
-    public function iShouldSeeFiles( $numFiles )
+    public function createFolderList(TableNode $tableNode)
     {
-        $this->assertSession()->elementsCount('css', '.info', $numFiles);
+        $em = $this->getEntityManager();
+        foreach ($tableNode as $hash) {
+
+            $folder = new Folder();
+
+            $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
+            $folder->setFolderName($hash['folderName']);
+            $folder->setDescription($hash['description']);
+            $folder->setUploadDate(new \DateTime($hash['uploadDate']));
+            $folder->setUser($user);
+
+            $em->persist($folder);
+        }
+        $em->flush();
+    }
+
+    /**
+     * @Then /^I should see (\d+) elements/
+     */
+    public function iShouldSeeFiles( $numElements )
+    {
+        $this->assertSession()->elementsCount('css', '.info', $numElements);
     }
 }

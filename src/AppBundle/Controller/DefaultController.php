@@ -29,7 +29,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/file/{slug}/delete/", name="file_delete")
+     * @Route("/file/{slug}/delete", name="file_delete")
      */
     public function deleteFileAction(File $file)
     {
@@ -49,7 +49,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/find/", name="find")
+     * @Route("/find", name="find")
      *
      */
     public function findFileAction(Request $request)
@@ -75,7 +75,8 @@ class DefaultController extends Controller
 
         return $this->render(
             'Default/filesList.html.twig', array(
-            'files' => $user->getFiles()
+            'files' => $user->getFiles(),
+            'folders'=> $user->getFolders()
         ));
     }
 }

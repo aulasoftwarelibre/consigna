@@ -10,6 +10,7 @@ use FOS\UserBundle\Entity\User as BaseUser;
  */
 class User extends BaseUser
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -128,5 +129,21 @@ class User extends BaseUser
     public function getFiles()
     {
         return $this->files;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
+     * @param mixed $folders
+     */
+    public function setFolders($folders)
+    {
+        $this->folders = $folders;
     }
 }

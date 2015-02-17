@@ -29,8 +29,18 @@ default:
                 - AppBundle\Behat\CoreContext
                 - AppBundle\Behat\FileContext
                 - AppBundle\Behat\UserContext
+                - AppBundle\Behat\FolderContext
             filters:
                 tags: "@files"
+        folder:
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - AppBundle\Behat\CoreContext
+                - AppBundle\Behat\FileContext
+                - AppBundle\Behat\UserContext
+                - AppBundle\Behat\FolderContext
+            filters:
+                tags: "@folder"
 
 javascript:
     gherkin:
