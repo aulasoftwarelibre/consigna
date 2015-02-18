@@ -10,7 +10,6 @@ use FOS\UserBundle\Entity\User as BaseUser;
  */
 class User extends BaseUser
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -37,11 +36,22 @@ class User extends BaseUser
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Folder", inversedBy="usersWithAccess"
+     */
+    private $sharedFolders;
+
+    public function __sharedFolders_construct(){
+        $this->sharedFolders=new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
 
     /**
      * Get id
@@ -145,5 +155,21 @@ class User extends BaseUser
     public function setFolders($folders)
     {
         $this->folders = $folders;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSharedFolders()
+    {
+        return $this->sharedFolders;
+    }
+
+    /**
+     * @param mixed $sharedFolders
+     */
+    public function setSharedFolders($sharedFolders)
+    {
+        $this->sharedFolders = $sharedFolders;
     }
 }

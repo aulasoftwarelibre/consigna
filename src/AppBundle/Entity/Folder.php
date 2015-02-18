@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Folder
 {
+
     /**
      * @var integer
      *
@@ -57,6 +58,15 @@ class Folder
 
     public function __construct(){
         $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="sharedFolders")
+     */
+    private $usersWithAccess;
+
+    public function __usersWithAccess_construct(){
+        $this->usersWithAccess=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -178,5 +188,21 @@ class Folder
     function __toString()
     {
         return $this->getFolderName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsersWithAccess()
+    {
+        return $this->usersWithAccess;
+    }
+
+    /**
+     * @param mixed $usersWithAccess
+     */
+    public function setUsersWithAccess($usersWithAccess)
+    {
+        $this->usersWithAccess = $usersWithAccess;
     }
 }
