@@ -41,8 +41,6 @@
                     </ul>
                 </div>
             </li>
-        {% else %}
-            <li>No folders</li>
         {% endfor %}
 
         {% for file in files %} <!-- list of files -->
@@ -63,9 +61,12 @@
                     </ul>
                 </div>
             </li>
-                {% else %}
-                         <li>No files</li>
         {% endfor %}
+        {% if files==null and folders==null %}
+        <li class="alert alert-danger">
+                No data
+        </li>
+        {% endif %}
          </ul>
     </div>
     </div> <!-- row -->

@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Folder
 {
-
     /**
      * @var integer
      *
@@ -56,18 +55,26 @@ class Folder
      */
     private $tags;
 
-    public function __construct(){
-        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="sharedFolders")
      */
     private $usersWithAccess;
 
-    public function __usersWithAccess_construct(){
-        $this->usersWithAccess=new \Doctrine\Common\Collections\ArrayCollection();
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="File", mappedBy="folder")
+     */
+    private $files;
+
+    /**
+     * Construct
+     */
+    public function __construct(){
+        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersWithAccess= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files= new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
     /**
      * Get id
@@ -204,5 +211,21 @@ class Folder
     public function setUsersWithAccess($usersWithAccess)
     {
         $this->usersWithAccess = $usersWithAccess;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param mixed $files
+     */
+    public function setFiles($files)
+    {
+        $this->files = $files;
     }
 }

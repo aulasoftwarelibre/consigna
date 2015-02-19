@@ -34,23 +34,18 @@ class User extends BaseUser
     private $folders;
 
     /**
-     * Constructor
+     * @ORM\ManyToMany(targetEntity="Folder", inversedBy="usersWithAccess")
+     */
+    private $sharedFolders;
+
+    /**
+     * Construct
      */
     public function __construct(){
         parent::__construct();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Folder", inversedBy="usersWithAccess"
-     */
-    private $sharedFolders;
-
-    public function __sharedFolders_construct(){
         $this->sharedFolders=new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 
 
     /**

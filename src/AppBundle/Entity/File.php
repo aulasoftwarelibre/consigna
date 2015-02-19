@@ -15,7 +15,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 class File
 {
-
     /**
      * @var integer
      *
@@ -69,6 +68,12 @@ class File
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Folder", inversedBy="files")
+     */
+    private $folder;
+
 
     /**
      * Get id
@@ -204,6 +209,22 @@ class File
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFolder()
+    {
+        return $this->folder;
+    }
+
+    /**
+     * @param mixed $folder
+     */
+    public function setFolder($folder)
+    {
+        $this->folder = $folder;
     }
 
     /**
