@@ -58,7 +58,7 @@ class Folder
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFolders")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="sharedFolders")
      */
     private $usersWithAccess;
 

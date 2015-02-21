@@ -34,7 +34,7 @@ class User extends BaseUser
     private $folders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Folder", inversedBy="usersWithAccess")
+     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="usersWithAccess")
      */
     private $sharedFolders;
 

@@ -1,7 +1,9 @@
 \AppBundle\Entity\Folder:
-    folders{1..4}:
+    folders{1..8}:
         folderName: <word()>
         uploadDate: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
         description: <text($maxNbChars = 200)>
         user: @users*
         tags: <numberBetween(1, 10)>x @tags*
+        usersWithAccess: <numberBetween(1, 10)>x @users*
+
