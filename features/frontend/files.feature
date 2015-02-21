@@ -27,6 +27,7 @@ Feature: List files
 
     Scenario: List elements in a folder
         Given I am on the homepage
+        And I am authenticated as "user1" with "secret1"
         When I follow "folder1"
         Then I should be on "/folder/folder1"
         And I should see 1 elements

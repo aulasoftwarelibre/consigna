@@ -25,9 +25,8 @@
 
         {% for folder in folders %} <!-- list of folders -->
             <li>
-                <div class="info"><
-                    <h4 class="title"><i class="fa fa-folder-o"></i> <a href='{{ path('folder_files',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a></h4>
-                    {#<a href={{ path('listFolder.html.twig',{'foldername':folder.foldername}) }}>Acceder</a>#}
+                <div class="info">
+                    <h4 class="title"><i class="fa fa-folder-o"></i>{% if folder.getUser==app.user %}<a href='{{ path('folder_files',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a>{% else %}{{ folder.folderName }}{% endif %}</h4>
                     <p class ="desc">
                         Size: 15Mb - Upload by {{ folder.user }}
                         {% for tag in folder.tags  %}
