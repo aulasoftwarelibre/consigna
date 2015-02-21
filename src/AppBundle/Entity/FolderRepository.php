@@ -35,4 +35,12 @@ class FolderRepository extends EntityRepository
         $query->setParameter('owner', $owner);
         return $query->getResult();
     }
+
+    public function listFilesFromFolders()
+    {
+        $em = $this->getEntityManager();
+        $query=$em->createQuery('
+        ');
+        return $query->getResult();
+    }
 }

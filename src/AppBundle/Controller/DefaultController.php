@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\File;
+use AppBundle\Entity\Folder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,19 +30,17 @@ class DefaultController extends Controller
     }
 
     /**
-     *@Route("/folders" , name="folders")
+     *@Route("/folder/{slug}" , name="folder_files")
      */
-    public function foldersListAction()
+    public function listFolderAction(Folder $folder)
     {
-        $em = $this->getDoctrine()->getManager();
-        $files = null;
-        $folders = $em->getRepository('AppBundle:Folder')->findAllOrderedByName();
+//        $em = $this->getDoctrine()->getManager();
+//        $folder=$em->getRepository('AppBundle:Folder')->findByFolderName($sendfolder);
 
         return $this->render(
-            'Default/filesList.html.twig',
+            'Default/listFolder.html.twig',
             array(
-                'files' => $files,
-                'folders' => $folders
+                'folder' => $folder
             )
         );
     }
@@ -97,4 +96,8 @@ class DefaultController extends Controller
             'folders'=> $user->getFolders()
         ));
     }
+
+    /**
+     * @
+     */
 }

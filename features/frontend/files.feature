@@ -16,10 +16,10 @@ Feature: List files
           | folder3     |   2014/12/29   | null        | description3  | folder3 | null           |
 
       And existing files:
-          | filename  |   uploadDate   | username    | folder  |
-          | file1     |   2014/12/27   | user1       | folder1 |
-          | file2     |   2014/12/28   | user2       | null    |
-          | file3     |   2014/12/29   | null        | folder2 |
+          | filename  |   uploadDate   | username    | folder      |
+          | file1     |   2014/12/27   | user1       | folder1     |
+          | file2     |   2014/12/28   | user2       | null        |
+          | file3     |   2014/12/29   | null        | folder2     |
 
     Scenario: List elements
         Given I am on the homepage

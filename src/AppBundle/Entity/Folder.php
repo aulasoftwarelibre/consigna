@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Folder
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Folder
 {
-    /**
+      /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -65,6 +67,12 @@ class Folder
      * @ORM\OneToMany(targetEntity="File", mappedBy="folder")
      */
     private $files;
+
+    /**
+     * @Gedmo\Slug(fields={"folderName"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * Construct
@@ -227,5 +235,90 @@ class Folder
     public function setFiles($files)
     {
         $this->files = $files;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     * @return Folder
+     */
+    public function addTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Add usersWithAccess
+     *
+     * @param \AppBundle\Entity\User $usersWithAccess
+     * @return Folder
+     */
+    public function addUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
+    {
+        $this->usersWithAccess[] = $usersWithAccess;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersWithAccess
+     *
+     * @param \AppBundle\Entity\User $usersWithAccess
+     */
+    public function removeUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
+    {
+        $this->usersWithAccess->removeElement($usersWithAccess);
+    }
+
+    /**
+     * Add files
+     *
+     * @param \AppBundle\Entity\File $files
+     * @return Folder
+     */
+    public function addFile(\AppBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \AppBundle\Entity\File $files
+     */
+    public function removeFile(\AppBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
     }
 }

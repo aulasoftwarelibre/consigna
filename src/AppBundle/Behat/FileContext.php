@@ -26,10 +26,12 @@ class FileContext extends CoreContext
             $file = new File();
 
             $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
+            $folder=$this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($hash['folder']);
             $file->setFilename($hash['filename']);
             $file->setUploadDate(new \DateTime($hash['uploadDate']));
             $file->setPassword('secret');
             $file->setUser($user);
+            $file->setFolder($folder);
 
 
             $em-> persist($file);

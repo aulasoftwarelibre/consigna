@@ -99,4 +99,68 @@ class Tag
     {
         return $this->getTagName();
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->folders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add files
+     *
+     * @param \AppBundle\Entity\File $files
+     * @return Tag
+     */
+    public function addFile(\AppBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \AppBundle\Entity\File $files
+     */
+    public function removeFile(\AppBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Add folders
+     *
+     * @param \AppBundle\Entity\Folder $folders
+     * @return Tag
+     */
+    public function addFolder(\AppBundle\Entity\Folder $folders)
+    {
+        $this->folders[] = $folders;
+
+        return $this;
+    }
+
+    /**
+     * Remove folders
+     *
+     * @param \AppBundle\Entity\Folder $folders
+     */
+    public function removeFolder(\AppBundle\Entity\Folder $folders)
+    {
+        $this->folders->removeElement($folders);
+    }
+
+    /**
+     * Get folders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
 }

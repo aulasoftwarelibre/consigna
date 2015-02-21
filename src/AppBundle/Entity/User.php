@@ -167,4 +167,50 @@ class User extends BaseUser
     {
         $this->sharedFolders = $sharedFolders;
     }
+
+    /**
+     * Add folders
+     *
+     * @param \AppBundle\Entity\Folder $folders
+     * @return User
+     */
+    public function addFolder(\AppBundle\Entity\Folder $folders)
+    {
+        $this->folders[] = $folders;
+
+        return $this;
+    }
+
+    /**
+     * Remove folders
+     *
+     * @param \AppBundle\Entity\Folder $folders
+     */
+    public function removeFolder(\AppBundle\Entity\Folder $folders)
+    {
+        $this->folders->removeElement($folders);
+    }
+
+    /**
+     * Add sharedFolders
+     *
+     * @param \AppBundle\Entity\Folder $sharedFolders
+     * @return User
+     */
+    public function addSharedFolder(\AppBundle\Entity\Folder $sharedFolders)
+    {
+        $this->sharedFolders[] = $sharedFolders;
+
+        return $this;
+    }
+
+    /**
+     * Remove sharedFolders
+     *
+     * @param \AppBundle\Entity\Folder $sharedFolders
+     */
+    public function removeSharedFolder(\AppBundle\Entity\Folder $sharedFolders)
+    {
+        $this->sharedFolders->removeElement($sharedFolders);
+    }
 }
