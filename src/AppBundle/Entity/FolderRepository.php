@@ -40,9 +40,11 @@ class FolderRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query=$em->createQuery('
-            SELECT c
+            SELECT c,d
             FROM AppBundle:Folder c
+            JOIN c.tags d
             WHERE c.folderName LIKE :word
+            OR d.tagName LIKE :word
             ORDER BY c.folderName ASC'
         );
         $query->setParameter('word', '%'.$word.'%');

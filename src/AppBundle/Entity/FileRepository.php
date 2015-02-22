@@ -18,9 +18,11 @@ class FileRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query=$em->createQuery('
-            SELECT c
+            SELECT c,d
             FROM AppBundle:File c
+            JOIN c.tags d
             WHERE c.filename LIKE :word
+            OR d.tagName LIKE :word
             ORDER BY c.filename ASC'
         );
         $query->setParameter('word', '%'.$word.'%');
