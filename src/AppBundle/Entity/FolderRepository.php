@@ -42,7 +42,7 @@ class FolderRepository extends EntityRepository
         $query=$em->createQuery('
             SELECT c,d
             FROM AppBundle:Folder c
-            JOIN c.tags d
+            LEFT JOIN c.tags d
             WHERE c.folderName LIKE :word
             OR d.tagName LIKE :word
             ORDER BY c.folderName ASC'

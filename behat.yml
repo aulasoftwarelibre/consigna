@@ -29,6 +29,7 @@ default:
                 - AppBundle\Behat\CoreContext
                 - AppBundle\Behat\FileContext
                 - AppBundle\Behat\UserContext
+                - AppBundle\Behat\TagContext
             filters:
                 tags: "@files"
 

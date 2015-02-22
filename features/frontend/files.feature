@@ -9,17 +9,22 @@ Feature: List files
           | user1       | user1@uco.es      | secret1       | 1        |
           | user2       | user2@uco.es      | secret2       | 1        |
 
+      And existing tags:
+          | tagName |
+          | tag1    |
+          | tag2    |
+
       And existing folders:
-          | folderName  |   uploadDate   | username    | description   | slug    | userWithAccess |
-          | folder1     |   2014/12/27   | user1       | description1  | folder1 | user2          |
-          | folder2     |   2014/12/28   | user2       | description2  | folder2 | null           |
-          | folder3     |   2014/12/29   | null        | description3  | folder3 | null           |
+          | folderName  |   uploadDate   | username    | description   | slug    | userWithAccess | tags |
+          | folder1     |   2014/12/27   | user1       | description1  | folder1 | user2          | tag1 |
+          | folder2     |   2014/12/28   | user2       | description2  | folder2 | null           | tag2 |
+          | folder3     |   2014/12/29   | null        | description3  | folder3 | null           | null |
 
       And existing files:
-          | filename  |   uploadDate   | username    | folder      | userWithAccess |
-          | file1     |   2014/12/27   | user1       | folder1     |      user1     |
-          | file2     |   2014/12/28   | user2       | null        |      null      |
-          | file3     |   2014/12/29   | null        | folder2     |      null      |
+          | filename  |   uploadDate   | username    | folder      | userWithAccess | tags |
+          | file1     |   2014/12/27   | user1       | folder1     |      user1     | tag1 |
+          | file2     |   2014/12/28   | user2       | null        |      null      | tag2 |
+          | file3     |   2014/12/29   | null        | folder2     |      null      | null |
 
     Scenario: List elements
         Given I am on the homepage
@@ -55,3 +60,4 @@ Feature: List files
             | file1     | 1         |
             | f         | 6         |
             | nothing   | 0         |
+            | tag1      | 2         |
