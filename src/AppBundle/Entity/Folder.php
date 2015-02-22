@@ -321,4 +321,21 @@ class Folder
     {
         $this->files->removeElement($files);
     }
+
+    /**
+     * Has access
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return bool
+     */
+    public function hasAccess($user){
+
+        if ($this->getUser()==$user)
+            return true;
+        foreach ($this->usersWithAccess as $uWithAccess){
+            if($user==$uWithAccess)
+                return true;
+        }
+        return false;
+    }
 }
