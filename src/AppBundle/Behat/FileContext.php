@@ -26,13 +26,15 @@ class FileContext extends CoreContext
             $file = new File();
 
             $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
+            $userWithAccess=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
+
             $folder=$this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($hash['folder']);
             $file->setFilename($hash['filename']);
             $file->setUploadDate(new \DateTime($hash['uploadDate']));
             $file->setPassword('secret');
             $file->setUser($user);
             $file->setFolder($folder);
-
+            if($userWithAccess) $file->addUsersWithAccess($userWithAccess);
 
             $em-> persist($file);
         }
@@ -50,10 +52,12 @@ class FileContext extends CoreContext
             $folder = new Folder();
 
             $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
+            $userWithAccess=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
             $folder->setFolderName($hash['folderName']);
             $folder->setDescription($hash['description']);
             $folder->setUploadDate(new \DateTime($hash['uploadDate']));
             $folder->setUser($user);
+            if($userWithAccess) $folder->addUsersWithAccess($userWithAccess);
 
             $em->persist($folder);
         }

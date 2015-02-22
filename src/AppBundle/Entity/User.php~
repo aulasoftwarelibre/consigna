@@ -34,9 +34,14 @@ class User extends BaseUser
     private $folders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Folder", inversedBy="usersWithAccess")
+     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="usersWithAccess")
      */
     private $sharedFolders;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="usersWithAccess")
+     */
+    private $sharedFiles;
 
     /**
      * Construct
@@ -45,6 +50,7 @@ class User extends BaseUser
         parent::__construct();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sharedFolders=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sharedFiles=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

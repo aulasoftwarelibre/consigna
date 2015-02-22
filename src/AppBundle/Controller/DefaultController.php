@@ -74,11 +74,13 @@ class DefaultController extends Controller
         $word = $request->get('word');
         $em=$this->getDoctrine()->getManager();
         $foundFiles= $em->getRepository('AppBundle:File')->findFiles($word);
+        $foundFolders= $em->getRepository('AppBundle:Folder')->findFolders($word);
 
 
         return $this->render(
             'Default/filesList.html.twig', array(
-               'files' => $foundFiles
+               'files' => $foundFiles,
+               'folders' => $foundFolders
         ));
     }
 
@@ -98,6 +100,17 @@ class DefaultController extends Controller
     }
 
     /**
-     * @
+     * @Route("/user/shared_elements", name="shared_elements")
      */
+    public function sharedWithMeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $folders = $em->getRepository('AppBundle:Folder')->findAllOrderedByName();
+        $files = $em->getRepository('AppBundle:File')->findAllOrderedByName();
+        return $this->render(
+            'Default/listShared.html.twig', array(
+            'folders'=> $folders,
+            'files' => $files
+        ));
+    }
 }

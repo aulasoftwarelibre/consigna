@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Nelmio\Alice\ORM\Doctrine;
 
 
 /**
@@ -59,9 +60,10 @@ class File
      */
     private $tags;
 
-    public function __construct(){
-        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFiles")
+     */
+    private $usersWithAccess;
 
     /**
      * @Gedmo\Slug(fields={"filename"})
@@ -259,5 +261,60 @@ class File
     public function removeTag(\AppBundle\Entity\Tag $tags)
     {
         $this->tags->removeElement($tags);
+    }
+
+    public function __construct(){
+        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersWithAccess=new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add usersWithAccess
+     *
+     * @param \AppBundle\Entity\User $usersWithAccess
+     * @return File
+     */
+    public function addUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
+    {
+        $this->usersWithAccess[] = $usersWithAccess;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersWithAccess
+     *
+     * @param \AppBundle\Entity\User $usersWithAccess
+     */
+    public function removeUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
+    {
+        $this->usersWithAccess->removeElement($usersWithAccess);
+    }
+
+    /**
+     * Get usersWithAccess
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsersWithAccess()
+    {
+        return $this->usersWithAccess;
+    }
+
+    /**
+     * Has access
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return bool
+     */
+    public function hasAccess($user){
+
+        if ($this->getUser()==$user)
+            return true;
+        foreach ($this->usersWithAccess as $uWithAccess){
+            if($user==$uWithAccess)
+                return true;
+        }
+        return false;
     }
 }

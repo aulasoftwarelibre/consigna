@@ -39,12 +39,18 @@ class User extends BaseUser
     private $sharedFolders;
 
     /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="usersWithAccess")
+     */
+    private $sharedFiles;
+
+    /**
      * Construct
      */
     public function __construct(){
         parent::__construct();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sharedFolders=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sharedFiles=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -212,5 +218,38 @@ class User extends BaseUser
     public function removeSharedFolder(\AppBundle\Entity\Folder $sharedFolders)
     {
         $this->sharedFolders->removeElement($sharedFolders);
+    }
+
+    /**
+     * Add sharedFiles
+     *
+     * @param \AppBundle\Entity\User $sharedFiles
+     * @return User
+     */
+    public function addSharedFile(\AppBundle\Entity\User $sharedFiles)
+    {
+        $this->sharedFiles[] = $sharedFiles;
+
+        return $this;
+    }
+
+    /**
+     * Remove sharedFiles
+     *
+     * @param \AppBundle\Entity\User $sharedFiles
+     */
+    public function removeSharedFile(\AppBundle\Entity\User $sharedFiles)
+    {
+        $this->sharedFiles->removeElement($sharedFiles);
+    }
+
+    /**
+     * Get sharedFiles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSharedFiles()
+    {
+        return $this->sharedFiles;
     }
 }

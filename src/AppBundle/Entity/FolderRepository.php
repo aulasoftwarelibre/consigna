@@ -36,11 +36,16 @@ class FolderRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function listFilesFromFolders()
+    public function findFolders($word)
     {
         $em = $this->getEntityManager();
         $query=$em->createQuery('
-        ');
+            SELECT c
+            FROM AppBundle:Folder c
+            WHERE c.folderName LIKE :word
+            ORDER BY c.folderName ASC'
+        );
+        $query->setParameter('word', '%'.$word.'%');
         return $query->getResult();
     }
 }
