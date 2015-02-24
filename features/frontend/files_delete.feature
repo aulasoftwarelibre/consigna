@@ -10,10 +10,10 @@ Feature: Delete files
             | user2       | user2@uco.es      | secret2       | 1        |
         And I am authenticated as "user1" with "secret1"
         And existing files:
-            | filename  | uploadDate   | username    | slug     |
-            | file1     | 2014/12/27   | user1       | file1    |
-            | file2     | 2014/12/28   | user2       | file2    |
-            | file3     | 2014/12/29   | null        | file3    |
+            | filename  | uploadDate   | username    | slug     |userWithAccess| folder | tags|
+            | file1     | 2014/12/27   | user1       | file1    | null         | null   |null |
+            | file2     | 2014/12/28   | user2       | file2    | null         | null   |null |
+            | file3     | 2014/12/29   | null        | file3    | null         | null   |null |
 
     @sprint1
     Scenario: Remove my own file
