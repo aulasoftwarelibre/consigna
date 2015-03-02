@@ -74,4 +74,33 @@ class FileContext extends CoreContext
     {
         $this->assertSession()->elementsCount('css', '.info', $numElements);
     }
+
+    /**
+     * @Given :username has access to :folderName
+     */
+    public function hasAccess($username,$folderName){
+
+        $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
+        $folder=$this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($folderName);
+
+        if ($folder->getUser()==$user)
+            return true;
+        foreach ($folder->usersWithAccess as $uWithAccess){
+            if($user==$uWithAccess)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @Then access is granted to :username in :folderName
+     */
+
+    public function grantAccessToFolder($username,$folderName){
+
+        $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
+        $folder=$this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($folderName);
+
+        $folder->addUsersWithAccess($user);
+    }
 }

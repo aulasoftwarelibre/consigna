@@ -8,6 +8,7 @@ Feature: List files
           | username    | email             | plainPassword | enabled  |
           | user1       | user1@uco.es      | secret1       | 1        |
           | user2       | user2@uco.es      | secret2       | 1        |
+          | user3       | user3@uco.es      | secret3       | 1        |
 
       And existing tags:
           | tagName |
@@ -33,6 +34,7 @@ Feature: List files
     Scenario: List elements in a folder
         Given I am on the homepage
         And I am authenticated as "user1" with "secret1"
+        And "user1" has access to "folder1"
         When I follow "folder1"
         Then I should be on "/folder/folder1"
         And I should see 1 elements
@@ -61,3 +63,18 @@ Feature: List files
             | f         | 6         |
             | nothing   | 0         |
             | tag1      | 2         |
+
+    Scenario: Access to a protected folder
+        Given I am on the homepage
+        When I follow "folder1"
+        Then I should see "please enter password"
+        When I fill in "password" with "secret"
+        And I press "submit"
+        Then access is granted to "user3" in "folder1"
+        Then I should be on "folder/folder1"
+
+
+
+
+
+
