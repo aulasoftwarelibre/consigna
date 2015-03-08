@@ -65,7 +65,7 @@ class Folder
 
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="File", mappedBy="folder")
+     * @ORM\OneToMany(targetEntity="File", mappedBy="folder", cascade="all")
      */
     private $files;
 

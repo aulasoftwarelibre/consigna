@@ -147,6 +147,25 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/folder/{slug}/delete", name="folder_delete")
+     */
+    public function deleteFolderAction(Folder $folder)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (!$user || !$folder->getUser() || $user != $folder->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($folder);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->set('success', 'Folder deleted successfully');
+
+        return $this->redirectToRoute('files');
+    }
+    /**
      * @Route("/find", name="find")
      *
      */

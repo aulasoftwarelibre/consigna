@@ -24,7 +24,7 @@
                     </p>
                     <ul>
                         {% if folder.getUser() == app.user %}
-                            <a href="#" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
+                            <a href="{{ path('folder_delete',{'slug':folder.slug}) }}" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
                         {% endif %}
                     </ul>
                 </div>
