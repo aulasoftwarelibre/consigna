@@ -14,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Folder
 {
+
       /**
      * @var integer
      *
@@ -74,9 +75,18 @@ class Folder
      */
     private $slug;
 
+
+    /**
+     * Encrypted password. Must be persisted.
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    protected $password;
+
     /**
      * Construct
      */
+
     public function __construct(){
         $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersWithAccess= new \Doctrine\Common\Collections\ArrayCollection();
@@ -337,5 +347,21 @@ class Folder
                 return true;
         }
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 }

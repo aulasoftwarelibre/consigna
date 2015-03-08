@@ -7,7 +7,12 @@ use AppBundle\Entity\File;
 use AppBundle\Entity\Folder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+
 
 class DefaultController extends Controller
 {
@@ -32,15 +37,32 @@ class DefaultController extends Controller
     /**
      *@Route("/folder/{slug}" , name="folder_files")
      */
-    public function listFolderAction(Folder $folder)
+    public function listFolderAction(Folder $folder, Request $request)
     {
-//        $em = $this->getDoctrine()->getManager();
-//        $folder=$em->getRepository('AppBundle:Folder')->findByFolderName($sendfolder);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+            ->add('password', 'password')
+            ->add('submit','submit')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        $data = $form->getData();
+        if ($form->isValid()) {
+            $folder->addUsersWithAccess($user);
+            $em->persist($folder);
+        }
+        $em->flush();
+
 
         return $this->render(
             'Default/listFolder.html.twig',
             array(
-                'folder' => $folder
+                'folder' => $folder,
+                'form'=>$form->createView()
             )
         );
     }

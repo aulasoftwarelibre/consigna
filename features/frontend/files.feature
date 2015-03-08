@@ -16,10 +16,10 @@ Feature: List files
           | tag2    |
 
       And existing folders:
-          | folderName  |   uploadDate   | username    | description   | slug    | userWithAccess | tags |
-          | folder1     |   2014/12/27   | user1       | description1  | folder1 | user2          | tag1 |
-          | folder2     |   2014/12/28   | user2       | description2  | folder2 | null           | tag2 |
-          | folder3     |   2014/12/29   | null        | description3  | folder3 | null           | null |
+          | folderName  |   uploadDate   | username    | description   | slug    | password |userWithAccess | tags |
+          | folder1     |   2014/12/27   | user1       | description1  | folder1 | secret   |user2          | tag1 |
+          | folder2     |   2014/12/28   | user2       | description2  | folder2 | secret   |null           | tag2 |
+          | folder3     |   2014/12/29   | null        | description3  | folder3 | secret   |null           | null |
 
       And existing files:
           | filename  |   uploadDate   | username    | folder      | userWithAccess | tags |
@@ -67,14 +67,8 @@ Feature: List files
     Scenario: Access to a protected folder
         Given I am on the homepage
         When I follow "folder1"
-        Then I should see "please enter password"
+        Then I should see "Password"
         When I fill in "password" with "secret"
         And I press "submit"
         Then access is granted to "user3" in "folder1"
         Then I should be on "folder/folder1"
-
-
-
-
-
-

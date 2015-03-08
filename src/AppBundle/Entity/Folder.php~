@@ -14,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Folder
 {
+
       /**
      * @var integer
      *
@@ -58,7 +59,7 @@ class Folder
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="sharedFolders")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFolders")
      */
     private $usersWithAccess;
 
@@ -74,9 +75,18 @@ class Folder
      */
     private $slug;
 
+
+    /**
+     * Encrypted password. Must be persisted.
+     *
+     * @var string
+     */
+    protected $password;
+
     /**
      * Construct
      */
+
     public function __construct(){
         $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersWithAccess= new \Doctrine\Common\Collections\ArrayCollection();
@@ -320,5 +330,38 @@ class Folder
     public function removeFile(\AppBundle\Entity\File $files)
     {
         $this->files->removeElement($files);
+    }
+
+    /**
+     * Has access
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return bool
+     */
+    public function hasAccess($user){
+
+        if ($this->getUser()==$user)
+            return true;
+        foreach ($this->usersWithAccess as $uWithAccess){
+            if($user==$uWithAccess)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 }

@@ -7,5 +7,5 @@
     users{1..10}:
         username: <username()>
         email: <email()>
-        plainPassword: paquete
+        plainPassword: secret
         enabled: 1

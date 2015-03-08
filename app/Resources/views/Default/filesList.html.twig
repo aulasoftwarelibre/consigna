@@ -11,16 +11,19 @@
             <li>
                 <div class="info">
                     <h4 class="title"><i class="fa fa-folder-o"></i>
-                        {% if folder.hasAccess(app.user) %}
+                        {#{% if folder.hasAccess(app.user) %}#}
                             <a href='{{ path('folder_files',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a>
-                        {% else %}
-                            {{ folder.folderName }}
-                        {% endif %}
+                        {#{% else %}#}
+                            {#{{ folder.folderName }}#}
+                        {#{% endif %}#}
                     </h4>
                     <p class ="desc">
                         Size: 15Mb - Upload by {{ folder.user }}
                         {% for tag in folder.tags  %}
                             <span class="label label-default">{{ tag }}</span>
+                        {% endfor %}
+                        {% for user in folder.usersWithAccess  %}
+                            <span class="label label-warning">{{ user }}</span>
                         {% endfor %}
                     </p>
                     <ul>

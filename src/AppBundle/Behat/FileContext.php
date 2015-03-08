@@ -57,6 +57,7 @@ class FileContext extends CoreContext
             $tag=$this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByTagName($hash['tags']);
             $folder->setFolderName($hash['folderName']);
             $folder->setDescription($hash['description']);
+            $folder->setPassword($hash['password']);
             $folder->setUploadDate(new \DateTime($hash['uploadDate']));
             $folder->setUser($user);
             if($userWithAccess) $folder->addUsersWithAccess($userWithAccess);
@@ -95,7 +96,6 @@ class FileContext extends CoreContext
     /**
      * @Then access is granted to :username in :folderName
      */
-
     public function grantAccessToFolder($username,$folderName){
 
         $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
