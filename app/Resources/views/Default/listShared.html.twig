@@ -5,7 +5,6 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="event-list">
-
                 {% for folder in folders %} <!-- list of folders -->
                 {% if folder.hasAccess(app.user) %}
                     <li>

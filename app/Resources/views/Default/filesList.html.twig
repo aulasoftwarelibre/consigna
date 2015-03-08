@@ -11,11 +11,7 @@
             <li>
                 <div class="info">
                     <h4 class="title"><i class="fa fa-folder-o"></i>
-                        {#{% if folder.hasAccess(app.user) %}#}
                             <a href='{{ path('folder_files',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a>
-                        {#{% else %}#}
-                            {#{{ folder.folderName }}#}
-                        {#{% endif %}#}
                     </h4>
                     <p class ="desc">
                         Size: 15Mb - Upload by {{ folder.user }}
@@ -27,7 +23,6 @@
                         {% endfor %}
                     </p>
                     <ul>
-                        <li><i class="fa fa-download push"></i>Download </li>
                         {% if folder.getUser() == app.user %}
                             <a href="#" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
                         {% endif %}

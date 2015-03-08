@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block mainContent %}
-
-    {% if folder.hasAccess(app.user) %}
-        {{ app.user }} tiene acceso concedido
     <div class="row">
         <div class="col-md-12">
             <ul class="event-list">
@@ -37,11 +34,7 @@
             </ul>
         </div>
     </div> <!-- row -->
-    {% else %}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-    {% endif %}
+
 
 {% endblock %}
 

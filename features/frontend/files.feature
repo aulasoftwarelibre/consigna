@@ -68,7 +68,7 @@ Feature: List files
         Given I am on the homepage
         When I follow "folder1"
         Then I should see "Password"
-        When I fill in "password" with "secret"
-        And I press "submit"
+        When I fill in "Password" with "secret"
+        And I press "form_submit"
         Then access is granted to "user3" in "folder1"
         Then I should be on "folder/folder1"

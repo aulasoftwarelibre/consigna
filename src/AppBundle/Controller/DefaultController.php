@@ -7,10 +7,11 @@ use AppBundle\Entity\File;
 use AppBundle\Entity\Folder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+
 
 
 
@@ -39,32 +40,90 @@ class DefaultController extends Controller
      */
     public function listFolderAction(Folder $folder, Request $request)
     {
+        //if user is authenticated
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        $defaultData = array('message' => 'Type your message here');
-        $form = $this->createFormBuilder($defaultData)
-            ->add('password', 'password')
-            ->add('submit','submit')
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        $data = $form->getData();
-        if ($form->isValid()) {
-            $folder->addUsersWithAccess($user);
-            $em->persist($folder);
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if($folder->hasAccess($user)){
+            return $this->render(
+                'Default/listFolder.html.twig',
+                array(
+                    'folder' => $folder,
+                )
+            );
         }
-        $em->flush();
+        else{
+            $form = $this->createFormBuilder()
+                ->add('password', 'password',array(
+                    'constraints' => new Assert\EqualTo(array(
+                        'value' => $folder->getPassword(),
+                        'message' => 'The password is not correct'
+                    ))))
+                ->add('submit','submit')
+                ->getForm();
 
+            $form->handleRequest($request);
 
-        return $this->render(
-            'Default/listFolder.html.twig',
-            array(
-                'folder' => $folder,
-                'form'=>$form->createView()
-            )
-        );
+            if ($form->isValid()) {
+                $folder->addUsersWithAccess($user);
+                $em->persist($folder);
+                return $this->render(
+                    'Default/listFolder.html.twig',
+                    array(
+                        'folder' => $folder,
+                    )
+                );
+            }
+            $em->flush();
+
+            return $this->render(
+                'Default/form.html.twig',
+                array(
+                    'form'=>$form->createView()
+                )
+            );
+        }
+        }
+        else {
+            $session=$this->get('session');
+            if ($session->has($folder->getSlug())){
+                return $this->render(
+                    'Default/listFolder.html.twig',
+                    array(
+                        'folder' => $folder,
+                    )
+                );
+            } else {
+                $form = $this->createFormBuilder()
+                    ->add('password', 'password', array(
+                        'constraints' => new Assert\EqualTo(array(
+                            'value' => $folder->getPassword(),
+                            'message' => 'The password is not correct'
+                        ))))
+                    ->add('submit', 'submit')
+                    ->getForm();
+
+                $form->handleRequest($request);
+
+                if ($form->isValid()) {
+                    $session->set($folder->getSlug(),true);
+                    return $this->render(
+                        'Default/listFolder.html.twig',
+                        array(
+                            'folder' => $folder,
+                        )
+                    );
+                }
+
+                return $this->render(
+                    'Default/form.html.twig',
+                    array(
+                        'form' => $form->createView()
+                    )
+                );
+            }
+        }
     }
 
     /**

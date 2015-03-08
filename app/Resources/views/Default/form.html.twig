@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block mainContent %}
+    You must enter the password to access
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
