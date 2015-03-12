@@ -103,4 +103,21 @@ class FileContext extends CoreContext
 
         $folder->addUsersWithAccess($user);
     }
+
+    /**
+     * @Given :username can access to :filename
+     */
+    public function hasAccessToFile($username,$filename){
+
+        $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
+        $file=$this->getEntityManager()->getRepository('AppBundle:File')->findOneByFilename($filename);
+
+        if ($file->getUser()==$user)
+            return true;
+        foreach ($file->usersWithAccess as $uWithAccess){
+            if($user==$uWithAccess)
+                return true;
+        }
+        return false;
+    }
 }

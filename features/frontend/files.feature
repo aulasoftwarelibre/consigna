@@ -72,3 +72,10 @@ Feature: List files
         And I press "form_submit"
         Then access is granted to "user3" in "folder1"
         Then I should be on "folder/folder1"
+
+    Scenario: Download a file
+        Given I am authenticated as "user1" with "secret1"
+        And "user1" can access to "file1"
+        When I follow "Download file1"
+        Then I should see "File downloaded successfully"
+

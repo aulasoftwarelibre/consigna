@@ -8,8 +8,12 @@ use AppBundle\Entity\Folder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
+
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 
 
 
@@ -212,4 +216,32 @@ class DefaultController extends Controller
             'files' => $files
         ));
     }
+
+    /**
+     * @Route("/file/{slug}/download", name="file_download")
+     */
+    public function downloadFileAction(File $file)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (!$user || !$file->getUser() || $user != $file->getUser() || !$file->hasAccess($user)) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $fileToDownload = '/tmp/+~JF3656395549127195493.tmp';
+        $response = new BinaryFileResponse($fileToDownload);
+        $response->trustXSendfileTypeHeader();
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_INLINE,
+            '+~JF3656395549127195493.tmp',
+            iconv('UTF-8','ASCII//TRANSLIT','+~JF3656395549127195493.tmp')
+        );
+
+        $this->get('session')->getFlashBag()->set('success', 'File downloaded successfully');
+
+        return $response;
+
+    }
+
+
 }
