@@ -4,10 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="event-list">
-                {% for user in folder.usersWithAccess() %}
-                <span class="label label-warning">{{ user }}</span>
-                {% endfor %}
-                {% for file in folder.files %} <!-- list of files -->
+                {% for file in folder.files %} <!-- list of folders -->
                     <li>
                         <div class="info">
                             <h4 class="title"><i class="fa fa-file-o"></i> {{file.filename}}</h4>

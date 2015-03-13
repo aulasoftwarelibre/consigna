@@ -18,9 +18,6 @@
                         {% for tag in folder.tags  %}
                             <span class="label label-default">{{ tag }}</span>
                         {% endfor %}
-                        {% for user in folder.usersWithAccess  %}
-                            <span class="label label-warning">{{ user }}</span>
-                        {% endfor %}
                     </p>
                     <ul>
                         {% if folder.getUser() == app.user %}
@@ -54,9 +51,7 @@
             </li>
         {% endfor %}
         {% if files==null and folders==null %}
-        <li class="alert alert-danger">
-                No data
-        </li>
+            <li class="alert alert-danger">No data</li>
         {% endif %}
          </ul>
     </div>

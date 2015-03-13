@@ -52,6 +52,20 @@ class FileRepository extends EntityRepository
         ');
         return $query->getResult();
     }
+
+//    public function findAllSharedWithMe($user)
+//    {
+//        $em=$this->getEntityManager();
+//        $query=$em->createQuery('
+//            SELECT c
+//            FROM AppBundle:File c
+//            WHERE c.usersWithAccess LIKE :user
+//            ORDER BY c.filename ASC
+//        ');
+//
+//        $query->setParameter('user', $user);
+//        return $query->getResult();
+//    }
 }
 
 

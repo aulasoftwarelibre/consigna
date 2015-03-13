@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class DefaultController extends Controller
 {
     /**
-     *@Route("/" , name="files")
+     *@Route("/" , name="homepage")
      */
     public function filesListAction()
     {
@@ -207,9 +207,12 @@ class DefaultController extends Controller
      */
     public function sharedWithMeAction()
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $em = $this->getDoctrine()->getManager();
         $folders = $em->getRepository('AppBundle:Folder')->findAllOrderedByName();
         $files = $em->getRepository('AppBundle:File')->findAllOrderedByName();
+//        $files = $em->getRepository('AppBundle:File')->findAllSharedWithMe($user);
         return $this->render(
             'Default/listShared.html.twig', array(
             'folders'=> $folders,
@@ -238,9 +241,7 @@ class DefaultController extends Controller
         );
 
         $this->get('session')->getFlashBag()->set('success', 'File downloaded successfully');
-
         return $response;
-
     }
 
 

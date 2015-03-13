@@ -41,7 +41,9 @@
                                 {% endfor %}
                             </p>
                             <ul>
-                                <li><i class="fa fa-download push"></i>Download </li>
+                                {% if file.hasAccess(app.user) %}
+                                    <a href="{{ path('file_download',{'slug':file.slug}) }}" title="Download {{ file.filename }}"><li><i class="fa fa-download push"></i>Download </li></a>
+                                {% endif %}
                                 {% if file.getUser() == app.user %}
                                     <a href="{{ path('file_delete',{'slug':file.slug}) }}" title="Delete {{ file.filename }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
                                 {% endif %}
