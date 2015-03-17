@@ -37,13 +37,26 @@ class QueryController extends Controller{
 
     public function myFilesAction()
     {
-        $user=$this->getUser();
+//        $user=$this->getUser();
+//
+//        return $this->render(
+//            'Default/filesList.html.twig', array(
+//            'files' => $user->getFiles(),
+//            'folders'=> $user->getFolders()
+//        ));
+//        it's been changed because it doesn't understand $user->getFiles or $user->getFolders as null
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $folders = $em->getRepository('AppBundle:Folder')->myFolders($user);
+        $files = $em->getRepository('AppBundle:File')->myFiles($user);
 
         return $this->render(
-            'Default/filesList.html.twig', array(
-            'files' => $user->getFiles(),
-            'folders'=> $user->getFolders()
+            'Default/listShared.html.twig', array(
+            'folders'=> $folders,
+            'files' => $files
         ));
+
     }
 
     /**
@@ -52,15 +65,14 @@ class QueryController extends Controller{
     public function sharedWithMeAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('AppBundle:User')->findOneByUsername('username' => $this->getUser());
-//        $folders = $em->getRepository('AppBundle:Folder')->findBy(array(),array('folderName'=>'ASC'));
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $folders = $em->getRepository('AppBundle:Folder')->findSharedFolders($user);
-        $files = $em->getRepository('AppBundle:File')->findBy(array(), array('filename'=>'asc'));
+        $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
+
         return $this->render(
             'Default/listShared.html.twig', array(
             'folders'=> $folders,
             'files' => $files
         ));
     }
-
 }

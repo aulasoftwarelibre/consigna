@@ -35,23 +35,25 @@ class FileRepository extends EntityRepository
         $query=$em->createQuery('
             SELECT c
             FROM AppBundle:File c
-            WHERE c.user LIKE :owner
+            WHERE c.user = :owner
             ORDER BY c.filename ASC'
         );
         $query->setParameter('owner', $owner);
         return $query->getResult();
     }
 
-//     public function findAllOrderedByName()
-//    {
-//        $em=$this->getEntityManager();
-//        $query=$em->createQuery('
-//            SELECT c
-//            FROM AppBundle:File c
-//            ORDER BY c.filename ASC
-//        ');
-//        return $query->getResult();
-//    }
+    public function findSharedFiles($user){
+        $em = $this->getEntityManager();
+        $query=$em->createQuery('
+            SELECT c,d
+            FROM AppBundle:File c
+            JOIN c.usersWithAccess d
+            WHERE d.username = :user
+            ORDER BY c.filename ASC'
+        );
+        $query->setParameter('user', $user->getUsername());
+        return $query->getResult();
+    }
 
 }
 

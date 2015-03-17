@@ -6,7 +6,6 @@
         <div class="col-md-12">
             <ul class="event-list">
                 {% for folder in folders %} <!-- list of folders -->
-                {% if folder.hasAccess(app.user) %}
                     <li>
                         <div class="info">
                             <h4 class="title"><i class="fa fa-folder-o"></i>
@@ -26,11 +25,9 @@
                             </ul>
                         </div>
                     </li>
-                {% endif %}
                 {% endfor %}
 
                 {% for file in files %} <!-- list of files -->
-                {% if file.hasAccess(app.user) %}
                     <li>
                         <div class="info">
                             <h4 class="title"><i class="fa fa-file-o"></i> {{file.filename}}</h4>
@@ -50,9 +47,8 @@
                             </ul>
                         </div>
                     </li>
-                {% endif %}
                 {% endfor %}
-                {% if files==null and folders==null %}
+                {% if not files and not folders %}
                     <li class="alert alert-danger">
                         No data
                     </li>

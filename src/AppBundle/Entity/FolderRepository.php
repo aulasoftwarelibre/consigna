@@ -12,25 +12,14 @@ use Doctrine\ORM\EntityRepository;
 
 class FolderRepository extends EntityRepository
 {
-//    public function findAllOrderedByName()
-//    {
-//        $em=$this->getEntityManager();
-//        $query=$em->createQuery('
-//            SELECT c
-//            FROM AppBundle:Folder c
-//            ORDER BY c.folderName ASC
-//        ');
-//        return $query->getResult();
-//    }
-
     public function myFolders($owner)
     {
         $em = $this->getEntityManager();
         $query=$em->createQuery('
             SELECT c
             FROM AppBundle:Folder c
-            WHERE c.user LIKE :owner
-            ORDER BY c.foldername ASC'
+            WHERE c.user = :owner
+            ORDER BY c.folderName ASC'
         );
         $query->setParameter('owner', $owner);
         return $query->getResult();
@@ -54,12 +43,13 @@ class FolderRepository extends EntityRepository
     public function findSharedFolders($user){
         $em = $this->getEntityManager();
         $query=$em->createQuery('
-            SELECT c
+            SELECT c,d
             FROM AppBundle:Folder c
-            WHERE c.usersWithAccess LIKE :user
+            JOIN c.usersWithAccess d
+            WHERE d.username = :user
             ORDER BY c.folderName ASC'
         );
-        $query->setParameter('user', $user);
+        $query->setParameter('user', $user->getUsername());
         return $query->getResult();
     }
 }

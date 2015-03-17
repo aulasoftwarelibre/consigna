@@ -18,6 +18,10 @@
                         {% for tag in folder.tags  %}
                             <span class="label label-default">{{ tag }}</span>
                         {% endfor %}
+
+                        {% for user in folder.usersWithAccess %}
+                            <span class="label label-danger">{{ user }}</span>
+                        {% endfor %}
                     </p>
                     <ul>
                         {% if folder.getUser() == app.user %}
@@ -38,6 +42,10 @@
                         {% for tag in file.tags  %}
                             <span class="label label-default">{{ tag }}</span>
                         {% endfor %}
+
+                        {% for user in file.usersWithAccess %}
+                            <span class="label label-danger">{{ user }}</span>
+                        {% endfor %}
                     </p>
                     <ul>
                         {% if file.hasAccess(app.user) %}
@@ -50,8 +58,11 @@
                 </div>
             </li>
         {% endfor %}
-        {% if files==null and folders==null %}
-            <li class="alert alert-danger">No data</li>
+
+        {% if not files and not folders %}
+            <li class="alert alert-danger">
+                No data
+            </li>
         {% endif %}
          </ul>
     </div>
