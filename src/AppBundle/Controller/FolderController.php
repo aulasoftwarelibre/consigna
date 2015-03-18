@@ -80,6 +80,11 @@ class FolderController extends Controller{
                 );
             } else {
                 $form = $this->createFormBuilder()
+                    ->add('captcha', 'captcha', array(
+                        'width' => 200,
+                        'height' => 50,
+                        'length' => 6,
+                    ))
                     ->add('password', 'password', array(
                         'constraints' => new Assert\EqualTo(array(
                             'value' => $folder->getPassword(),
