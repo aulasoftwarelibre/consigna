@@ -31,7 +31,8 @@ default:
                 - AppBundle\Behat\UserContext
                 - AppBundle\Behat\TagContext
             filters:
-                tags: "@files"
+                tags: "@list, @delete"
+
 
 javascript:
     gherkin:

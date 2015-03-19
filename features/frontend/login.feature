@@ -10,7 +10,6 @@ Feature: User identification
             | user1       | user1@uco.es      | secret1       | 1        |
             | user2       | user2@uco.es      | secret2       | 1        |
 
-    @sprint1
     Scenario: Login with an existing user
         Given I am on "/login"
         When I fill in "username" with "user1"
@@ -19,7 +18,6 @@ Feature: User identification
         Then I should be on the homepage
         And I should see "Sign out"
 
-    @sprint1
     Scenario: Login with a non existing user
         Given I am on "/login"
         When I fill in "username" with "user3"

@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
 
 
 class FolderController extends Controller{
@@ -92,6 +93,10 @@ class FolderController extends Controller{
                                     'theme' => 'light',
                                     'type'  => 'image'
                                 )
+                            ),
+                            'mapped'      => false,
+                            'constraints' => array(
+                                new True()
                             )
                         ))
                     ->add('submit', 'submit')

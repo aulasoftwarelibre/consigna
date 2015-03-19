@@ -52,8 +52,6 @@ class FileController extends Controller{
             '+~JF3656395549127195493.tmp',
             iconv('UTF-8','ASCII//TRANSLIT','+~JF3656395549127195493.tmp')
         );
-
-        $this->get('session')->getFlashBag()->set('success', 'File downloaded successfully');
         return $response;
     }
 

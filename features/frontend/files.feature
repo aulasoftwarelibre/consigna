@@ -1,4 +1,4 @@
-@files
+@list
 Feature: List files
     In order to know what files are in consigna
     As a consigna user
@@ -49,7 +49,7 @@ Feature: List files
         Given I am authenticated as "user1" with "secret1"
         When I follow "Shared with me"
         Then I should be on "/user/shared_elements"
-        And I should see 2 elements
+        And I should see 1 elements
 
     Scenario Outline: Search files by name
         Given I am on the homepage
@@ -66,11 +66,21 @@ Feature: List files
 
     Scenario: Access to a protected folder
         Given I am on the homepage
+        And I am authenticated as "user3" with "secret3"
         When I follow "folder1"
         Then I should see "Password"
         When I fill in "Password" with "secret"
         And I press "form_submit"
         Then access is granted to "user3" in "folder1"
+        Then I should be on "folder/folder1"
+
+    Scenario: Access to a protected folder being an anonymous user
+        Given I am on the homepage
+        When I follow "folder1"
+        Then I should see "Password"
+        And I should see "Captcha"
+        When I fill in "Password" with "secret"
+        And I press "form_submit"
         Then I should be on "folder/folder1"
 
     Scenario: Download a file
