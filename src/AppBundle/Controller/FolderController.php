@@ -7,7 +7,8 @@
  */
 
 namespace AppBundle\Controller;
-use AppBundle\Form\Type\FolderType;
+
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
 
+use AppBundle\Form\Type\FolderType;
 
 class FolderController extends Controller{
 
@@ -42,17 +44,17 @@ class FolderController extends Controller{
                 );
             }
             else{
-                $form = $this->createFormBuilder()
-                    ->add('password', 'password',array(
-                        'constraints' => new Assert\EqualTo(array(
-                            'value' => $folder->getPassword(),
-                            'message' => 'The password is not correct'
-                        ))))
-                    ->add('submit','submit')
-                    ->getForm();
-
+//                $form = $this->createFormBuilder()
+//                    ->add('password', 'password',array(
+//                        'constraints' => new Assert\EqualTo(array(
+//                            'value' => $folder->getPassword(),
+//                            'message' => 'The password is not correct'
+//                        ))))
+//                    ->add('submit','submit')
+//                    ->getForm();
+//
+                $form = $this->createForm(new FolderType(),$folder,array('action'=>$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')));
                 $form->handleRequest($request);
-//                $form = $this->createForm($folder,$request);
 
                 if ($form->isValid()) {
                     $folder->addUsersWithAccess($user);
@@ -84,31 +86,32 @@ class FolderController extends Controller{
                     )
                 );
             } else {
-                $form = $this->createFormBuilder()
-
-                    ->add('password', 'password', array(
-                        'constraints' => new Assert\EqualTo(array(
-                            'value' => $folder->getPassword(),
-                            'message' => 'The password is not correct'
-                        ))))
-                    ->add('captcha', 'ewz_recaptcha', array(
-                            'attr' => array(
-                                'options' => array(
-                                    'theme' => 'light',
-                                    'type'  => 'image'
-                                )
-                            ),
-                            'mapped'      => false,
-                            'constraints' => array(
-                                new True()
-                            )
-                        ))
-                    ->add('submit', 'submit')
-                    ->getForm();
-//                $form = $this->createForm($folder,$request);
-
-
+//                $form = $this->createFormBuilder()
+//
+//                    ->add('password', 'password', array(
+//                        'constraints' => new Assert\EqualTo(array(
+//                            'value' => $folder->getPassword(),
+//                            'message' => 'The password is not correct'
+//                        ))))
+//                    ->add('captcha', 'ewz_recaptcha', array(
+//                            'attr' => array(
+//                                'options' => array(
+//                                    'theme' => 'light',
+//                                    'type'  => 'image'
+//                                )
+//                            ),
+//                            'mapped'      => false,
+//                            'constraints' => array(
+//                                new True()
+//                            )
+//                        ))
+//                    ->add('submit', 'submit')
+//                    ->getForm();
+                $form = $this->createForm(new FolderType(),$folder,array('action'=>$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')));
                 $form->handleRequest($request);
+
+
+//                $form->handleRequest($request);
 
                 if ($form->isValid()) {
                     $session->set($folder->getSlug(),true);
