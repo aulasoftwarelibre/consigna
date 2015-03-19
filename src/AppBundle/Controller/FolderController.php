@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Controller;
+use AppBundle\Form\Type\FolderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
@@ -25,6 +26,8 @@ class FolderController extends Controller{
      */
     public function listFolderAction(Folder $folder, Request $request)
     {
+//        $form = new FolderType;
+
         //if user is authenticated
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -49,6 +52,7 @@ class FolderController extends Controller{
                     ->getForm();
 
                 $form->handleRequest($request);
+//                $form = $this->createForm($folder,$request);
 
                 if ($form->isValid()) {
                     $folder->addUsersWithAccess($user);
@@ -101,6 +105,8 @@ class FolderController extends Controller{
                         ))
                     ->add('submit', 'submit')
                     ->getForm();
+//                $form = $this->createForm($folder,$request);
+
 
                 $form->handleRequest($request);
 
