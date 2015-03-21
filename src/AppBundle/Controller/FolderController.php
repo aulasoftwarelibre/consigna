@@ -23,115 +23,38 @@ use AppBundle\Form\Type\FolderType;
 
 class FolderController extends Controller{
 
+
     /**
-     *@Route("/folder/{slug}" , name="folder_files")
+     *@Route("/folder/{slug}" , name="control_access")
      */
-    public function listFolderAction(Folder $folder, Request $request)
+    public function controlAccessAction(Folder $folder)
     {
-//        $form = new FolderType;
-
-        //if user is authenticated
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            if($folder->hasAccess($user)){
-                return $this->render(
-                    'Default/listFolder.html.twig',
-                    array(
-                        'folder' => $folder,
-                    )
-                );
-            }
-            else{
-//                $form = $this->createFormBuilder()
-//                    ->add('password', 'password',array(
-//                        'constraints' => new Assert\EqualTo(array(
-//                            'value' => $folder->getPassword(),
-//                            'message' => 'The password is not correct'
-//                        ))))
-//                    ->add('submit','submit')
-//                    ->getForm();
-//
-                $form = $this->createForm(new FolderType(),$folder,array('action'=>$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')));
-                $form->handleRequest($request);
-
-                if ($form->isValid()) {
-                    $folder->addUsersWithAccess($user);
-                    $em->persist($folder);
-                    return $this->render(
-                        'Default/listFolder.html.twig',
-                        array(
-                            'folder' => $folder,
-                        )
-                    );
-                }
-                $em->flush();
-
-                return $this->render(
-                    'Default/form.html.twig',
-                    array(
-                        'form'=>$form->createView()
-                    )
-                );
-            }
+        if($folder->hasAccess($this->getUser()) ||  $this->get('session')->has($folder->getSlug()))
+        {
+            return $this->render(
+                'Default/listFolder.html.twig',
+                array(
+                    'folder' => $folder,
+                )
+            );
         }
-        else {
-            $session=$this->get('session');
-            if ($session->has($folder->getSlug())){
-                return $this->render(
-                    'Default/listFolder.html.twig',
-                    array(
-                        'folder' => $folder,
-                    )
-                );
-            } else {
-//                $form = $this->createFormBuilder()
-//
-//                    ->add('password', 'password', array(
-//                        'constraints' => new Assert\EqualTo(array(
-//                            'value' => $folder->getPassword(),
-//                            'message' => 'The password is not correct'
-//                        ))))
-//                    ->add('captcha', 'ewz_recaptcha', array(
-//                            'attr' => array(
-//                                'options' => array(
-//                                    'theme' => 'light',
-//                                    'type'  => 'image'
-//                                )
-//                            ),
-//                            'mapped'      => false,
-//                            'constraints' => array(
-//                                new True()
-//                            )
-//                        ))
-//                    ->add('submit', 'submit')
-//                    ->getForm();
-                $form = $this->createForm(new FolderType(),$folder,array('action'=>$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')));
-                $form->handleRequest($request);
-
-
-//                $form->handleRequest($request);
-
-                if ($form->isValid()) {
-                    $session->set($folder->getSlug(),true);
-                    return $this->render(
-                        'Default/listFolder.html.twig',
-                        array(
-                            'folder' => $folder,
-                        )
-                    );
-                }
-
-                return $this->render(
-                    'Default/form.html.twig',
-                    array(
-                        'form' => $form->createView()
-                    )
-                );
-            }
-        }
+        else
+            return $this->redirectToRoute('folder_validation_form',array('slug'=>$folder->getSlug()));
     }
+
+//     /**
+//     *@Route("/folder/{slug}" , name="folder_files")
+//     */
+//    public function listFolderAction(Folder $folder)
+//    {
+////        $folder=$this->get('folder');
+//        return $this->render(
+//            'Default/listFolder.html.twig',
+//            array(
+//                'folder' => $folder,
+//            )
+//        );
+//    }
 
     /**
      * @Route("/folder/{slug}/delete", name="folder_delete")

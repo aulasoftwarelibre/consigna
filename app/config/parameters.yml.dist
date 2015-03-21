@@ -18,6 +18,8 @@ parameters:
 
     google_app_id:  ~
     google_app_secret: ~
+    public_key: ~
+    private_key: ~
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

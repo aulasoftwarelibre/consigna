@@ -11,6 +11,7 @@ namespace AppBundle\Form\Type;
 use AppBundle\Entity\Folder;
 
 
+use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -23,11 +24,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class FolderType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options){
-        $folderPassword=$builder->getData()->getPassword();
-        $user=$builder->getAction();
-//        if (!$builder->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-        if($user){
+
+    $folderPassword=$options['folder'];
+    $user=$options['user'];
+
+        if($user!=''){
         $builder
                 ->add('password', 'password', array(
                     'constraints' => new Assert\EqualTo(array(
@@ -38,8 +41,6 @@ class FolderType extends AbstractType
                 ->getForm();
         }
         else{
-
-
             $builder
                 ->add('password', 'password', array(
                     'constraints' => new Assert\EqualTo(array(
@@ -60,19 +61,22 @@ class FolderType extends AbstractType
                 ))
                 ->add('submit', 'submit')
                 ->getForm();
-//        }
-//        $builder->handleRequest($request);
-    }
+        }
     }
 
-//    public function setDefaultOptions(OptionsResolverInterface $resolver){
-//        $resolver->setDefaults(array(
-//            'data_class' => 'AppBundle\Entity\Folder',
-//        ));
-//    }
+    public function setDefaultOptions(OptionsResolverInterface $resolver){
+        $resolver->setDefaults(array(
+            'folder' => $this->folder->getPassword(),
+            'user' => $this->user->getUsername()
+        ));
+    }
 
     public function getName(){
         return 'folder';
     }
 
+    public function __construct(Folder $folder,User $user){
+        $this->folder= $folder;
+        $this-> user = $user;
+    }
 }

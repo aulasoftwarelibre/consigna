@@ -27,8 +27,8 @@ framework:
     http_method_override: true
 
 ewz_recaptcha:
-    public_key: 6LeGsAMTAAAAAJx64vXe8Qvhq_vn--rAKiJMBF2u
-    private_key: 6LeGsAMTAAAAAEGBzMc8GnqR9yi2Lc8T-SwDWIwT
+    public_key: %public_key%
+    private_key: %private_key%
     locale_key:  %kernel.default_locale%
 
 
