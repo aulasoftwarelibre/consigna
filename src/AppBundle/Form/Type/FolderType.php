@@ -12,7 +12,6 @@ use AppBundle\Entity\Folder;
 
 
 use AppBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;

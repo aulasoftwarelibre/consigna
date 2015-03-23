@@ -82,13 +82,15 @@
                         <div class="container-fluid">
                             <p class="navbar-text">Start / Folder</p>
                             <a class="btn btn-default navbar-btn" href="#"><i class="fa fa-cloud-upload "></i> Upload file</a>
-                            <a class="btn btn-default navbar-btn" href="#"><i class="fa fa-folder"></i> Create folder</a>
+                            {% if app.user %}
+                            <a class="btn btn-default navbar-btn" href="{{ path('folder_create') }}"><i class="fa fa-folder"></i> Create folder</a>
+                            {% endif %}
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <form class="navbar-form navbar-right" role="search" action="{{ path('find') }}" method="get">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search" name="word" id="search-button">
                                 </div>
-                                <button type="submit" class="btn btn-default">Submit</button>
+                                <button type="submit" class="btn btn-default">Search</button>
                             </form>
                         </div><!-- /.container-fluid -->
                         </nav>

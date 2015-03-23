@@ -8,21 +8,42 @@
 
 namespace AppBundle\Controller;
 
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-
 use AppBundle\Entity\Folder;
+use AppBundle\Form\Type\CreateFolderType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
-use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
+use Symfony\Component\HttpFoundation\Request;
 
-use AppBundle\Form\Type\FolderType;
+
 
 class FolderController extends Controller{
 
+    /**
+     *@Route("/folder/create" , name="folder_create")
+     */
+    public function createFolderAction(Request $request)
+    {
+        $folder = new Folder();
+        $user = $this->getUser();
+        $form = $this->createForm(new CreateFolderType(), $folder);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $folder->setUser($user);
+            $em->persist($folder);
+            $em->flush();
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render(
+            'Default/form.html.twig',
+            array(
+                'form' => $form->createView()
+            ));
+    }
 
     /**
      *@Route("/folder/{slug}" , name="control_access")
@@ -42,19 +63,18 @@ class FolderController extends Controller{
             return $this->redirectToRoute('folder_validation_form',array('slug'=>$folder->getSlug()));
     }
 
-//     /**
-//     *@Route("/folder/{slug}" , name="folder_files")
-//     */
-//    public function listFolderAction(Folder $folder)
-//    {
-////        $folder=$this->get('folder');
-//        return $this->render(
-//            'Default/listFolder.html.twig',
-//            array(
-//                'folder' => $folder,
-//            )
-//        );
-//    }
+     /**
+     *@Route("/folder/{slug}" , name="folder_files")
+     */
+    public function listFolderAction(Folder $folder)
+    {
+        return $this->render(
+            'Default/listFolder.html.twig',
+            array(
+                'folder' => $folder,
+            )
+        );
+    }
 
     /**
      * @Route("/folder/{slug}/delete", name="folder_delete")
@@ -75,6 +95,4 @@ class FolderController extends Controller{
 
         return $this->redirectToRoute('homepage');
     }
-
-
 }
