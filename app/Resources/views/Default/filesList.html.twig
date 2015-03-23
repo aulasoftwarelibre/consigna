@@ -14,7 +14,8 @@
                             <a href='{{ path('control_access',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a>
                     </h4>
                     <p class ="desc">
-                        Size: 15Mb - Upload by {{ folder.user }}
+                        Size: 15Mb - Upload by {{ folder.user }} -
+                        <b>{% if  folder.files.count == 0 %}empty folder{% endif %}</b>
                         {% for tag in folder.tags  %}
                             <span class="label label-default">{{ tag }}</span>
                         {% endfor %}
