@@ -54,7 +54,7 @@ Feature: List files
     Scenario Outline: Search files by name
         Given I am on the homepage
         When I fill in "search-button" with "<word>"
-        And I press "Submit"
+        And I press "Search"
         Then I should see <number> elements
 
         Examples:
@@ -70,18 +70,18 @@ Feature: List files
         When I follow "folder1"
         Then I should see "Password"
         When I fill in "Password" with "secret"
-        And I press "form_submit"
+        And I press "Submit"
         Then access is granted to "user3" in "folder1"
         Then I should be on "folder/folder1"
 
-    Scenario: Access to a protected folder being an anonymous user
-        Given I am on the homepage
-        When I follow "folder1"
-        Then I should see "Password"
-        And I should see "Captcha"
-        When I fill in "Password" with "secret"
-        And I press "form_submit"
-        Then I should be on "folder/folder1"
+#    Scenario: Access to a protected folder being an anonymous user
+#        Given I am on the homepage
+#        When I follow "folder1"
+#        Then I should see "Password"
+#        And I should see "Captcha"
+#        When I fill in "Password" with "secret"
+#        And I press "Submit"
+#        Then I should be on "folder/folder1"
 
     Scenario: Download a file
         Given I am authenticated as "user1" with "secret1"

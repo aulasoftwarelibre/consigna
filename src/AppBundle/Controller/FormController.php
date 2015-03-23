@@ -9,7 +9,6 @@
 namespace AppBundle\Controller;
 
 
-use Nelmio\Alice\fixtures\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Form\Type\FolderType;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,24 +39,13 @@ class FormController extends Controller{
                 $folder->addUsersWithAccess($user);
                 $em->persist($folder);
                 $em->flush();
-
-                return $this->render(
-                    'Default/listFolder.html.twig',
-                    array(
-                        'folder' => $folder,
-                    )
-                );
+                return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
             }
         }
         else {
             if ($form->isValid()) {
                 $session->set($folder->getSlug(),true);
-                return $this->render(
-                    'Default/listFolder.html.twig',
-                    array(
-                        'folder' => $folder,
-                    )
-                );
+                return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
             }
         }
         return $this->render(
