@@ -12,15 +12,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
-
-class CreateFolderType extends AbstractType
+class FileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('folderName')
+            ->add('filename')
             ->add('uploadDate')
-            ->add('description')
             ->add('tags')
             ->add('usersWithAccess')
             ->add('password','password')
@@ -29,6 +27,6 @@ class CreateFolderType extends AbstractType
     }
 
     public function getName(){
-        return 'folder';
+        return 'file';
     }
 }

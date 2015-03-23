@@ -81,7 +81,7 @@
                         <nav class="navbar navbar-default">
                         <div class="container-fluid">
                             <p class="navbar-text">Start / Folder</p>
-                            <a class="btn btn-default navbar-btn" href="#"><i class="fa fa-cloud-upload "></i> Upload file</a>
+                            <a class="btn btn-default navbar-btn" href="{{ path('file_create') }}"><i class="fa fa-cloud-upload "></i> Upload file</a>
                             {% if app.user %}
                             <a class="btn btn-default navbar-btn" href="{{ path('folder_create') }}"><i class="fa fa-folder"></i> Create folder</a>
                             {% endif %}

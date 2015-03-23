@@ -10,10 +10,37 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Type\FileType;
+
 
 class FileController extends Controller{
 
     /**
+     *@Route("/file/create" , name="file_create")
+     */
+    public function createFolderAction(Request $request)
+    {
+        $file = new File();
+        $user = $this->getUser();
+        $form = $this->createForm(new FileType(), $file);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $file->setUser($user);
+            $em->persist($file);
+            $em->flush();
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render(
+            'Default/form.html.twig',
+            array(
+                'form' => $form->createView()
+            ));
+    }
+
+        /**
      * @Route("/file/{slug}/delete", name="file_delete")
      */
     public function deleteFileAction(File $file)
