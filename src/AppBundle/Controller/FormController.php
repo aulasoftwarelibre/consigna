@@ -14,6 +14,7 @@ use AppBundle\Form\Type\FolderType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Folder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\User;
 
 
 
@@ -29,7 +30,7 @@ class FormController extends Controller{
         $session = $this->get('session');
 
         if(!$user)
-            $user=new \AppBundle\Entity\User();
+            $user=new User();
 
         $form = $this->createForm(new FolderType($folder,$user));
         $form->handleRequest($request);

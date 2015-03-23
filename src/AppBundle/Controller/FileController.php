@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\File;
 
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -23,12 +24,15 @@ class FileController extends Controller{
     {
         $file = new File();
         $user = $this->getUser();
-        $form = $this->createForm(new FileType(), $file);
+        if (!$user)
+            $user=new User();
+        $form = $this->createForm(new FileType($user), $file);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $file->setUser($user);
+            if($user->getPassword()!='')
+                $file->setUser($user);
             $em->persist($file);
             $em->flush();
             return $this->redirectToRoute('homepage');
