@@ -63,25 +63,37 @@ class FileController extends Controller{
 
         return $this->redirectToRoute('homepage');
     }
+    /**
+     * @Route("/file/{slug}/download/control", name="control_file_download")
+     */
+    public function controlFileDownloadAction(File $file)
+    {
+        if($file->hasAccess($this->getUser()) || $this->get('session')->has($file->getSlug()))
+        {
+            return $this->redirectToRoute('file_download',array('slug'=>$file->getSlug()));
+        }
+
+        return $this->redirectToRoute('download_file_validation_form',array('slug'=>$file->getSlug()));
+    }
 
     /**
      * @Route("/file/{slug}/download", name="file_download")
      */
     public function downloadFileAction(File $file)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//
+//        if (!$user || !$file->getUser() || $user != $file->getUser() || !$file->hasAccess($user)) {
+//            throw $this->createAccessDeniedException();
+//        }
 
-        if (!$user || !$file->getUser() || $user != $file->getUser() || !$file->hasAccess($user)) {
-            throw $this->createAccessDeniedException();
-        }
-
-        $fileToDownload = '/tmp/+~JF3656395549127195493.tmp';
+        $fileToDownload = '/tmp/+~JF3326272500329802144.tmp';
         $response = new BinaryFileResponse($fileToDownload);
         $response->trustXSendfileTypeHeader();
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
-            '+~JF3656395549127195493.tmp',
-            iconv('UTF-8','ASCII//TRANSLIT','+~JF3656395549127195493.tmp')
+            '+~JF3326272500329802144.tmp',
+            iconv('UTF-8','ASCII//TRANSLIT','+~JF3326272500329802144.tmp')
         );
         return $response;
     }
