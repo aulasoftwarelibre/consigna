@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block uploadFile %}
+    {% if folder.user == app.user %}
     <a class="btn btn-default navbar-btn" href="{{ path('file_create_folder',{'slug':folder.slug}) }}"><i class="fa fa-cloud-upload "></i> Upload file</a>
+    {% endif %}
 {% endblock %}
 
 {% block mainContent %}
