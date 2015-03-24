@@ -46,18 +46,13 @@ class FolderController extends Controller{
     }
 
     /**
-     *@Route("/folder/{slug}" , name="control_access")
+     *@Route("/folder/{slug}/control" , name="control_access")
      */
     public function controlAccessAction(Folder $folder)
     {
         if($folder->hasAccess($this->getUser()) ||  $this->get('session')->has($folder->getSlug()))
         {
-            return $this->render(
-                'Default/listFolder.html.twig',
-                array(
-                    'folder' => $folder,
-                )
-            );
+            return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
         }
         else
             return $this->redirectToRoute('folder_validation_form',array('slug'=>$folder->getSlug()));

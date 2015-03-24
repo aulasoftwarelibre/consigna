@@ -20,7 +20,7 @@ class FileController extends Controller{
     /**
      *@Route("/file/create" , name="file_create")
      */
-    public function createFolderAction(Request $request)
+    public function createFileAction(Request $request)
     {
         $file = new File();
         $user = $this->getUser();
@@ -81,12 +81,6 @@ class FileController extends Controller{
      */
     public function downloadFileAction(File $file)
     {
-//        $user = $this->get('security.token_storage')->getToken()->getUser();
-//
-//        if (!$user || !$file->getUser() || $user != $file->getUser() || !$file->hasAccess($user)) {
-//            throw $this->createAccessDeniedException();
-//        }
-
         $fileToDownload = '/tmp/+~JF3326272500329802144.tmp';
         $response = new BinaryFileResponse($fileToDownload);
         $response->trustXSendfileTypeHeader();
