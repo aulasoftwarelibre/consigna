@@ -36,6 +36,8 @@ class FileController extends Controller{
                 $file->setUser($user);
             $em->persist($file);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
             return $this->redirectToRoute('homepage');
         }
         return $this->render(
@@ -60,7 +62,7 @@ class FileController extends Controller{
         $em->remove($file);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->set('success', 'File deleted successfully');
+        $this->get('session')->getFlashBag()->set('success', 'File '.$file.' deleted successfully');
 
         return $this->redirectToRoute('homepage');
     }
@@ -83,13 +85,13 @@ class FileController extends Controller{
      */
     public function downloadFileAction(File $file)
     {
-        $fileToDownload = '/tmp/+~JF3326272500329802144.tmp';
+        $fileToDownload = '/tmp/+~JF5499037999651695449.tmp';
         $response = new BinaryFileResponse($fileToDownload);
         $response->trustXSendfileTypeHeader();
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
-            '+~JF3326272500329802144.tmp',
-            iconv('UTF-8','ASCII//TRANSLIT','+~JF3326272500329802144.tmp')
+            '+~JF5499037999651695449.tmp',
+            iconv('UTF-8','ASCII//TRANSLIT','+~JF5499037999651695449.tmp')
         );
         return $response;
     }

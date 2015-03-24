@@ -46,6 +46,8 @@ class FolderController extends Controller{
                 $file->setFolder($folder);
             $em->persist($file);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
             return $this->redirectToRoute('homepage');
         }
         return $this->render(
@@ -71,6 +73,8 @@ class FolderController extends Controller{
             $folder->setUser($user);
             $em->persist($folder);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->set('success', 'Folder '.$folder.' has been created successfully');
             return $this->redirectToRoute('homepage');
         }
 
