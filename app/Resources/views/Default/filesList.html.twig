@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block File_Folder %}
+    <p class="navbar-text">Start / Folder</p>
+    {% block uploadFile %}
+    <a class="btn btn-default navbar-btn" href="{{ path('file_create') }}"><i class="fa fa-cloud-upload "></i> Upload file</a>
+    {% endblock %}
+
+    {% if app.user %}
+        <a class="btn btn-default navbar-btn" href="{{ path('folder_create') }}"><i class="fa fa-folder"></i> Create folder</a>
+    {% endif %}
+{% endblock %}
+
 {% block mainContent %}
 
     <div class="row">

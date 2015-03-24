@@ -9,7 +9,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Folder;
+use AppBundle\Entity\File;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\CreateFolderType;
+use AppBundle\Form\Type\FileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,6 +22,36 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 class FolderController extends Controller{
+
+    /**
+     *@Route("/folder/{slug}/create/" , name="file_create_folder")
+     */
+    public function createFileAction(Request $request,Folder $folder)
+    {
+        $file = new File();
+        $user = $this->getUser();
+
+        if (!$user)
+            $user=new User();
+        $form = $this->createForm(new FileType($user), $file);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            if($user->getPassword()!='')
+                $file->setUser($user);
+                $file->setFolder($folder);
+            $em->persist($file);
+            $em->flush();
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render(
+            'Default/form.html.twig',
+            array(
+                'form' => $form->createView()
+            ));
+    }
+
 
     /**
      *@Route("/folder/create" , name="folder_create")
