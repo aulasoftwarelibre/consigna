@@ -18,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 
 
@@ -25,6 +27,7 @@ class FolderController extends Controller{
 
     /**
      *@Route("/folder/{slug}/create/" , name="file_create_folder")
+     *@Security("folder.getUser() == user")
      */
     public function createFileAction(Request $request,Folder $folder)
     {
@@ -93,6 +96,7 @@ class FolderController extends Controller{
 
      /**
      *@Route("/folder/{slug}" , name="folder_files")
+     *@Security("folder.hasAccess(user)")
      */
     public function listFolderAction(Folder $folder)
     {

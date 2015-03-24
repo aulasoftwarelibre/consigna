@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\File;
 
 use AppBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -78,6 +79,7 @@ class FileController extends Controller{
 
     /**
      * @Route("/file/{slug}/download", name="file_download")
+     * @Security("file.hasAccess(user)")
      */
     public function downloadFileAction(File $file)
     {
