@@ -26,7 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class FolderController extends Controller{
 
     /**
-     *@Route("/folder/{slug}/create/" , name="file_create_folder")
+     *@Route("/folder/{slug}/uploadFile" , name="uploadFile_folder")
      *@Security("folder.getUser() == user")
      */
     public function createFileAction(Request $request,Folder $folder)

@@ -11,6 +11,7 @@ namespace AppBundle\Behat;
 
 use AppBundle\Entity\File;
 use AppBundle\Entity\Folder;
+use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
 
 class FileContext extends CoreContext
@@ -119,5 +120,38 @@ class FileContext extends CoreContext
                 return true;
         }
         return false;
+    }
+
+    /**
+     * @Then access is granted to :username in file :fileName
+     */
+    public function grantAccessToFile($username,$fileName){
+
+        $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
+        $file=$this->getEntityManager()->getRepository('AppBundle:File')->findOneByFilename($fileName);
+
+        $file->addUsersWithAccess($user);
+    }
+
+    /**
+     * @Then folder :folderName has file :fileName
+     */
+    public function folderHasFile($folderName,$fileName){
+
+        $folder=$this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($folderName);
+        $file=$this->getEntityManager()->getRepository('AppBundle:File')->findOneByFilename($fileName);
+
+        $file->getFolder()==$folder;
+    }
+
+    /**
+     * @Then :username is the :folderName owner
+     */
+    public function isOwner($username,$folderName){
+
+        $folder=$this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($folderName);
+        $user=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
+
+        $folder->getUser()==$user;
     }
 }

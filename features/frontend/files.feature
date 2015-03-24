@@ -22,10 +22,10 @@ Feature: List files
           | folder3     |   2014/12/29   | null        | description3  | folder3 | secret   |null           | null |
 
       And existing files:
-          | filename  |   uploadDate   | username    | folder      | userWithAccess | tags |
-          | file1     |   2014/12/27   | user1       | folder1     |      user1     | tag1 |
-          | file2     |   2014/12/28   | user2       | null        |      null      | tag2 |
-          | file3     |   2014/12/29   | null        | folder2     |      null      | null |
+          | filename  |   uploadDate   | username    | folder      | userWithAccess | tags | password |
+          | file1     |   2014/12/27   | user1       | folder1     |      user1     | tag1 | secret   |
+          | file2     |   2014/12/28   | user2       | null        |      null      | tag2 | secret   |
+          | file3     |   2014/12/29   | null        | folder2     |      null      | null | secret   |
 
     Scenario: List elements
         Given I am on the homepage
@@ -74,18 +74,54 @@ Feature: List files
         Then access is granted to "user3" in "folder1"
         Then I should be on "folder/folder1"
 
-#    Scenario: Access to a protected folder being an anonymous user
-#        Given I am on the homepage
-#        When I follow "folder1"
-#        Then I should see "Password"
-#        And I should see "Captcha"
-#        When I fill in "Password" with "secret"
-#        And I press "Submit"
-#        Then I should be on "folder/folder1"
-
-    Scenario: Download a file
+  @download
+      Scenario: Download a file
         Given I am authenticated as "user1" with "secret1"
         And "user1" can access to "file1"
         When I follow "Download file1"
-        Then I should see "File downloaded successfully"
+        Then I should be on "file/file1/download"
+
+  @download
+      Scenario: Download a file with a password
+        Given I am authenticated as "user1" with "secret1"
+        When I follow "Download file2"
+        Then I should be on "/file/file2/download/validation"
+        When I fill in "Password" with "secret"
+        And I press "Submit"
+        Then access is granted to "user1" in file "file2"
+        And I should be on "file/file2/download"
+
+  @folder
+      Scenario: Create a folder with an authenticated user
+        Given I am authenticated as "user1" with "secret1"
+        When I follow "Create folder"
+        Then I should be on "/folder/create"
+        When I fill in "Folder name" with "folder4"
+        And I fill in "Description" with "description4"
+        And I fill in "Password" with "secret4"
+        And I press "Save"
+        Then I should see "Folder folder4 has been created successfully"
+
+  @upload
+  Scenario: Upload a file with an authenticated user
+    Given I am authenticated as "user1" with "secret1"
+    When I follow "Upload file"
+    Then I should be on "file/create"
+    When I fill in "Filename" with "file4"
+    And I fill in "Password" with "secret4"
+    And I press "Save"
+    Then I should see "File file4 has been created successfully"
+
+  @upload
+  Scenario: Upload a file with an authenticated user in a folder
+    Given I am authenticated as "user1" with "secret1"
+    And I am on "folder/folder1"
+    And "user1" is the "folder1" owner
+    When I follow "Upload file"
+    Then I should be on "folder/folder1/uploadFile"
+    When I fill in "Filename" with "file4"
+    And I fill in "Password" with "secret4"
+    And I press "Save"
+    Then I should see "File file4 has been created successfully"
+    And folder "folder1" has file "file4"
 

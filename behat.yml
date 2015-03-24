@@ -31,7 +31,7 @@ default:
                 - AppBundle\Behat\UserContext
                 - AppBundle\Behat\TagContext
             filters:
-                tags: "@list, @delete"
+                tags: "@list, @delete, @download, @folder, @upload"
 
 
 javascript:
