@@ -11,6 +11,7 @@ use Nelmio\Alice\ORM\Doctrine;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FileRepository")
+ * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback")
  *
  */
 
@@ -28,15 +29,43 @@ class File
     /**
      * @var string
      *
+     * @ORM\Column(name="file", type="string", length=255)
+     * @Gedmo\UploadableFileName
+     */
+    private $file;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="filename", type="string", length=255)
      */
     private $filename;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255)
+     * @Gedmo\UploadableFilePath
+     */
+    private $path;
+
+    /**
+     * @ORM\Column(name="mime_type", type="string")
+     * @Gedmo\UploadableFileMimeType
+     */
+    private $mimeType;
+
+    /**
+     * @ORM\Column(name="size", type="decimal")
+     * @Gedmo\UploadableFileSize
+     */
+    private $size;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="uploadDate", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $uploadDate;
 
@@ -66,7 +95,6 @@ class File
     private $usersWithAccess;
 
     /**
-     * @Gedmo\Slug(fields={"filename"})
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -318,4 +346,73 @@ class File
         return false;
     }
 
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * @param mixed $mimeType
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param mixed $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param string $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    public function configureFileCallback($info)
+    {
+        $this->setFilename($info['origFileName']);
+        $this->setSlug(sha1(mt_rand()));
+    }
 }
