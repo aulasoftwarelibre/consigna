@@ -23,8 +23,7 @@ class FileType extends AbstractType
 
         if($user!='') {
             $builder
-                ->add('filename')
-                ->add('uploadDate')
+                ->add('filename', 'file')
                 ->add('tags')
                 ->add('usersWithAccess')
                 ->add('password', 'password')
@@ -33,8 +32,7 @@ class FileType extends AbstractType
         }
         else{
             $builder
-                ->add('filename')
-                ->add('uploadDate')
+                ->add('filename', 'file')
                 ->add('tags')
                 ->add('usersWithAccess')
                 ->add('password', 'password')
