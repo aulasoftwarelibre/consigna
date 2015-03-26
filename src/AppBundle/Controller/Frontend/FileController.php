@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Frontend;
+namespace AppBundle\Controller;
 
 use AppBundle\Entity\File;
 
@@ -25,22 +25,16 @@ class FileController extends Controller{
     {
         $file = new File();
         $user = $this->getUser();
-        if (!$user) {
-            $user = new User();
-        }
+        if (!$user)
+            $user=new User();
         $form = $this->createForm(new FileType($user), $file);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if($user->getPassword()!='') {
+            if($user->getPassword()!='')
                 $file->setUser($user);
-            }
             $em->persist($file);
-
-            $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
-            $uploadableManager->markEntityToUpload($file, $file->getFilename());
-
             $em->flush();
 
             $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
@@ -91,13 +85,13 @@ class FileController extends Controller{
      */
     public function downloadFileAction(File $file)
     {
-        $fileToDownload = '/home/juanan/consigna/private/'.$file->getFile();
+        $fileToDownload = '/tmp/+~JF5499037999651695449.tmp';
         $response = new BinaryFileResponse($fileToDownload);
         $response->trustXSendfileTypeHeader();
         $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $file->getFilename(),
-            iconv('UTF-8','ASCII//TRANSLIT',$file->getFilename())
+            ResponseHeaderBag::DISPOSITION_INLINE,
+            '+~JF5499037999651695449.tmp',
+            iconv('UTF-8','ASCII//TRANSLIT','+~JF5499037999651695449.tmp')
         );
         return $response;
     }
