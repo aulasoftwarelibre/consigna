@@ -33,18 +33,23 @@ class FolderController extends Controller{
     {
         $file = new File();
         $user = $this->getUser();
-
-        if (!$user)
-            $user=new User();
+        if (!$user) {
+            $user = new User();
+        }
         $form = $this->createForm(new FileType($user), $file);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if($user->getPassword()!='')
+            if($user->getPassword()!='') {
                 $file->setUser($user);
-                $file->setFolder($folder);
+            }
+            $file->setFolder($folder);
             $em->persist($file);
+
+            $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
+            $uploadableManager->markEntityToUpload($file, $file->getFilename());
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
@@ -54,7 +59,8 @@ class FolderController extends Controller{
             'Default/form.html.twig',
             array(
                 'form' => $form->createView()
-            ));
+            )
+        );
     }
 
 
