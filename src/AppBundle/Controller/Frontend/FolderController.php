@@ -27,10 +27,13 @@ class FolderController extends Controller{
 
     /**
      *@Route("/folder/{slug}/uploadFile" , name="uploadFile_folder")
-     *@Security("folder.getUser() == user")
+     *
      */
     public function createFileAction(Request $request,Folder $folder)
     {
+        if($folder->getUser()!=$this->getUser()){
+            $this->redirectToRoute('folder_files');
+        }
         $file = new File();
         $user = $this->getUser();
         if (!$user) {
@@ -106,16 +109,18 @@ class FolderController extends Controller{
 
      /**
      *@Route("/folder/{slug}" , name="folder_files")
-     *@Security("folder.hasAccess(user)")
      */
     public function listFolderAction(Folder $folder)
     {
-        return $this->render(
-            'Default/listFolder.html.twig',
-            array(
-                'folder' => $folder,
-            )
-        );
+        if($folder->hasAccess($this->getUser()) || $this->get('session')->has($folder->getSlug())){
+            return $this->render(
+                'Default/listFolder.html.twig',
+                array(
+                    'folder' => $folder,
+                )
+            );
+        }
+        return $this->redirectToRoute('control_access',array('slug'=>$folder->getSlug()));
     }
 
     /**
