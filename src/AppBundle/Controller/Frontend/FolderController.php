@@ -6,7 +6,7 @@
  * Time: 17:46
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Entity\Folder;
 use AppBundle\Entity\File;

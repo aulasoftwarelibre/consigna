@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Entity\File;
 

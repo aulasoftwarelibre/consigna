@@ -6,7 +6,7 @@
  * Time: 17:46
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Frontend;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
