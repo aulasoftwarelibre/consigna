@@ -56,7 +56,7 @@ class FolderController extends Controller{
             $em->flush();
 
             $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
         }
         return $this->render(
             'Default/form.html.twig',
