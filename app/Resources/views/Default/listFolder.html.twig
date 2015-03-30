@@ -29,8 +29,10 @@
                         </div>
                     </li>
                 {% endfor %}
-                {% if folder.files==null %}
-                    <li class="alert alert-danger">No data </li>
+                {% if folder.files.count == 0 %}
+                    <li class="alert alert-danger">
+                        No data
+                    </li>
                 {% endif %}
             </ul>
         </div>
