@@ -103,7 +103,7 @@ class FileController extends Controller{
             );
             return $response;
         }
-        else return $this->createAccessDeniedException('This file is not available for you');
+        return $this->redirectToRoute('download_file_validation_form',array('slug'=>$file->getSlug()));
 
     }
 }
