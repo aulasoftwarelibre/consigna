@@ -17,7 +17,7 @@ class DefaultController extends Controller
     public function filesListAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('AppBundle:File')->findBy(array(), array('filename'=>'asc'));
+        $files = $em->getRepository('AppBundle:File')->listFiles();
         $folders = $em->getRepository('AppBundle:Folder')->findBy(array(),array('folderName'=>'ASC'));
 
         return $this->render(

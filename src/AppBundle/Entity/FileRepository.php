@@ -13,6 +13,17 @@ use Doctrine\ORM\EntityRepository;
 
 class FileRepository extends EntityRepository
 {
+    public function listFiles()
+    {
+        $em = $this->getEntityManager();
+        $query=$em->createQuery('
+            SELECT c
+            FROM AppBundle:File c
+            WHERE c.folder IS NULL 
+            ORDER BY c.filename ASC'
+        );
+        return $query->getResult();
+    }
 
     public function findFiles($word)
     {
