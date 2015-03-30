@@ -112,6 +112,9 @@ class FolderController extends Controller{
      */
     public function listFolderAction(Folder $folder)
     {
+        if($this->getUser()) {
+            $this->get('session')->clear();
+        }
         if($folder->hasAccess($this->getUser()) or $this->get('session')->has($folder->getSlug())){
             return $this->render(
                 'Default/listFolder.html.twig',
