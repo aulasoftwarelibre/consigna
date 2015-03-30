@@ -112,7 +112,7 @@ class FolderController extends Controller{
      */
     public function listFolderAction(Folder $folder)
     {
-        if($folder->hasAccess($this->getUser()) || $this->get('session')->has($folder->getSlug())){
+        if($folder->hasAccess($this->getUser()) or $this->get('session')->has($folder->getSlug())){
             return $this->render(
                 'Default/listFolder.html.twig',
                 array(
@@ -121,6 +121,7 @@ class FolderController extends Controller{
             );
         }
         return $this->redirectToRoute('control_access',array('slug'=>$folder->getSlug()));
+
     }
 
     /**
