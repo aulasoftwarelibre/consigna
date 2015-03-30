@@ -43,7 +43,7 @@ class DownloadFileType extends AbstractType
                 ->add('password', 'password', array(
                     'constraints' => new Assert\EqualTo(array(
                         'value' => $filePassword,
-//                        'message' => 'The password is not correct'
+                        'message' => 'The password is not correct'
                     ))))
                 ->add('captcha', 'ewz_recaptcha', array(
                     'attr' => array(

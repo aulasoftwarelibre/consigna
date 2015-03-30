@@ -88,18 +88,22 @@ class FileController extends Controller{
 
     /**
      * @Route("/file/{slug}/download", name="file_download")
-     * @Security("file.hasAccess(user)")
+     *
      */
     public function downloadFileAction(File $file)
     {
-        $fileToDownload = '/tmp/+~JF5499037999651695449.tmp';
-        $response = new BinaryFileResponse($fileToDownload);
-        $response->trustXSendfileTypeHeader();
-        $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_INLINE,
-            '+~JF5499037999651695449.tmp',
-            iconv('UTF-8','ASCII//TRANSLIT','+~JF5499037999651695449.tmp')
-        );
-        return $response;
+        if($file->hasAccess($this->getUser()) or $this->get('session')->has($file->getSlug())){
+            $fileToDownload = $file->getPath();
+            $response = new BinaryFileResponse($fileToDownload);
+            $response->trustXSendfileTypeHeader();
+            $response->setContentDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                $file->getFilename(),
+                iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
+            );
+            return $response;
+        }
+        else return $this->createAccessDeniedException('This file is not available for you');
+
     }
 }
