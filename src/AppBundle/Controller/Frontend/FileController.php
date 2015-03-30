@@ -95,7 +95,7 @@ class FileController extends Controller{
         if($this->getUser()) {
             $this->get('session')->clear();
         }
-        
+
         if($file->hasAccess($this->getUser()) or $this->get('session')->has($file->getSlug())){
             $fileToDownload = $file->getPath();
             $response = new BinaryFileResponse($fileToDownload);
