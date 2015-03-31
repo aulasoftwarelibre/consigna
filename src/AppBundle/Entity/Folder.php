@@ -35,6 +35,7 @@ class Folder
      * @var \DateTime
      *
      * @ORM\Column(name="uploadDate", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $uploadDate;
 

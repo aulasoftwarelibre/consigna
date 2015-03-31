@@ -19,7 +19,6 @@ class CreateFolderType extends AbstractType
 
         $builder
             ->add('folderName')
-            ->add('uploadDate')
             ->add('description')
             ->add('tags')
             ->add('usersWithAccess')
