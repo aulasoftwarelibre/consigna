@@ -84,9 +84,7 @@
                             <p class="navbar-text">Start / Folder</p>
                             {% block uploadFile %}
                             {% endblock %}
-                            {% if app.user %}
-                            <a class="btn btn-default navbar-btn" href="{{ path('folder_create') }}"><i class="fa fa-folder"></i> Create folder</a>
-                            {% endif %}
+
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <form class="navbar-form navbar-right" role="search" action="{{ path('find') }}" method="get">
                                 <div class="form-group">
