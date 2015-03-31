@@ -19,7 +19,7 @@ class FileRepository extends EntityRepository
         $query=$em->createQuery('
             SELECT c
             FROM AppBundle:File c
-            WHERE c.folder IS NULL 
+            WHERE c.folder IS NULL
             ORDER BY c.filename ASC'
         );
         return $query->getResult();

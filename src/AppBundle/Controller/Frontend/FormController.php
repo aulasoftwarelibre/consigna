@@ -75,7 +75,8 @@ class FormController extends Controller{
         if(!$user)
             $user=new User();
 
-        $form = $this->createForm(new DownloadFileType($file,$user));
+        $form = $this->createForm(new DownloadFileType($file, $user));
+
         $form->handleRequest($request);
 
         if($user->getUsername()!=''){

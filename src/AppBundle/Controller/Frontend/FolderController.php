@@ -18,7 +18,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 
 
 
@@ -145,5 +147,28 @@ class FolderController extends Controller{
         $this->get('session')->getFlashBag()->set('success', 'Folder deleted successfully');
 
         return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * @Route("/folder/file/{slug}/download", name="file_download_in_folder")
+     *
+     */
+    public function downloadFileAction(File $file)
+    {
+        if($this->getUser()) {
+            $this->get('session')->clear();
+        }
+
+        $fileToDownload = $file->getPath();
+        $response = new BinaryFileResponse($fileToDownload);
+        $response->trustXSendfileTypeHeader();
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $file->getFilename(),
+            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
+        );
+        return $response;
+
+
     }
 }
