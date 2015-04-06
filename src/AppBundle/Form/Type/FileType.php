@@ -46,7 +46,7 @@ class FileType extends AbstractType
                         new True()
                     )
                 ))
-                ->add('save', 'submit')
+                ->add('upload', 'submit')
                 ->getForm();
         }
     }

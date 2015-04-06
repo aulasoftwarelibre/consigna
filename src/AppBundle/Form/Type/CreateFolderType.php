@@ -22,7 +22,7 @@ class CreateFolderType extends AbstractType
             ->add('description')
             ->add('tags')
             ->add('password','password')
-            ->add('save', 'submit')
+            ->add('upload', 'submit')
             ->getForm();
     }
 
