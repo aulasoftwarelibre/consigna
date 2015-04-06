@@ -31,10 +31,15 @@ class FileContext extends CoreContext
             $folder=$this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($hash['folder']);
             $tag=$this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByTagName($hash['tags']);
             $file->setFilename($hash['filename']);
-            $file->setUploadDate(new \DateTime($hash['uploadDate']));
+//            $file->setUploadDate(new \DateTime($hash['uploadDate']));
             $file->setPassword('secret');
             $file->setUser($user);
             $file->setFolder($folder);
+            $file->setSize(40);
+            $file->setMimeType('doc');
+            $file->setPath('~/consigna/private/');
+            $file->setFile('file');
+            $file->setSlug($hash['slug']);
             if($userWithAccess) $file->addUsersWithAccess($userWithAccess);
             if($tag) $file->addTag($tag);
 
@@ -115,7 +120,7 @@ class FileContext extends CoreContext
 
         if ($file->getUser()==$user)
             return true;
-        foreach ($file->usersWithAccess as $uWithAccess){
+        foreach ($file->getUsersWithAccess() as $uWithAccess){
             if($user==$uWithAccess)
                 return true;
         }

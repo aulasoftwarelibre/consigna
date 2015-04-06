@@ -21,7 +21,6 @@ class CreateFolderType extends AbstractType
             ->add('folderName')
             ->add('description')
             ->add('tags')
-            ->add('usersWithAccess')
             ->add('password','password')
             ->add('save', 'submit')
             ->getForm();
