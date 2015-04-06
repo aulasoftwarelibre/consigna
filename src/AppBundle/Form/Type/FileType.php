@@ -25,7 +25,6 @@ class FileType extends AbstractType
             $builder
                 ->add('filename', 'file')
                 ->add('tags')
-                ->add('usersWithAccess')
                 ->add('password', 'password')
                 ->add('save', 'submit')
                 ->getForm();
@@ -34,7 +33,6 @@ class FileType extends AbstractType
             $builder
                 ->add('filename', 'file')
                 ->add('tags')
-                ->add('usersWithAccess')
                 ->add('password', 'password')
                 ->add('captcha', 'ewz_recaptcha', array(
                     'attr' => array(
