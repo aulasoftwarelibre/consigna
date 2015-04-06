@@ -66,6 +66,18 @@ class FileRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function deleteLapsedFiles($date)
+    {
+        $em = $this->getEntityManager();
+        $files = $em->getRepository('AppBundle:File')->findAll();
+        foreach($files as $file)
+        {
+            if($file->getUploadDate()==$date){
+                $em->remove($file);
+            }
+        }
+    }
+
 }
 
 
