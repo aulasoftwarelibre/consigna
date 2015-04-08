@@ -10,9 +10,9 @@ namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Entity\Folder;
 use AppBundle\Entity\File;
-use AppBundle\Entity\User;
 use AppBundle\Form\Type\CreateFolderType;
 use AppBundle\Form\Type\CreateFileType;
+use AppBundle\Form\Type\CreateFileAnonType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -39,14 +39,16 @@ class FolderController extends Controller{
         $file = new File();
         $user = $this->getUser();
         if (!$user) {
-            $user = new User();
+            $form = $this->createForm(new CreateFileAnonType(), $file);
         }
-        $form = $this->createForm(new CreateFileType($user), $file);
-        $form->handleRequest($request);
+        else{
+            $form = $this->createForm(new CreateFileType(), $file);
+        }
 
+        $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if($user->getPassword()!='') {
+            if($user) {
                 $file->setUser($user);
             }
             $file->setFolder($folder);

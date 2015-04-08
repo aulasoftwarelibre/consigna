@@ -41,21 +41,18 @@ class FormController extends Controller{
 
         $form->handleRequest($request);
 
-        if($user){
-            if ($form->isValid()) {
+        if($form->isValid()){
+            if ($user) {
                 $folder->addUsersWithAccess($user);
                 $em->persist($folder);
                 $em->flush();
                 $this->get('session')->getFlashBag()->set('success', 'Access have been granted to ' .$user);
-                return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
             }
-        }
-        else {
-            if ($form->isValid()) {
+            else{
                 $session->set($folder->getSlug(),true);
                 $this->get('session')->getFlashBag()->set('success', 'Access have been granted');
-                return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
             }
+            return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
         }
         return $this->render(
             'Default/form.html.twig',
@@ -84,19 +81,16 @@ class FormController extends Controller{
         }
 
         $form->handleRequest($request);
-        if($user){
-            if ($form->isValid()) {
+        if($form->isValid()){
+            if ($user) {
                 $file->addUsersWithAccess($user);
                 $em->persist($file);
                 $em->flush();
-                return $this->redirectToRoute('file_download',array('slug'=>$file->getSlug()));
             }
-        }
-        else {
-            if ($form->isValid()) {
+            else{
                 $session->set($file->getSlug(),true);
-                return $this->redirectToRoute('file_download',array('slug'=>$file->getSlug()));
             }
+            return $this->redirectToRoute('file_download',array('slug'=>$file->getSlug()));
         }
         return $this->render(
             'Default/form.html.twig',
