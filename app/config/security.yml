@@ -1,6 +1,8 @@
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
+        AppBundle\Model\FileInterface: sha512
+
  
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER

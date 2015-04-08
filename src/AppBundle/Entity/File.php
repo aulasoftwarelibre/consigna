@@ -1,9 +1,9 @@
 <?php
 
 namespace AppBundle\Entity;
+use AppBundle\Model\FileInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Nelmio\Alice\ORM\Doctrine;
 
 
 /**
@@ -15,7 +15,7 @@ use Nelmio\Alice\ORM\Doctrine;
  *
  */
 
-class File
+class File implements FileInterface
 {
     /**
      * @var integer
@@ -77,6 +77,18 @@ class File
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
@@ -104,6 +116,11 @@ class File
      */
     private $folder;
 
+    public function __construct(){
+        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersWithAccess=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+    }
 
     /**
      * Get id
@@ -291,11 +308,6 @@ class File
         $this->tags->removeElement($tags);
     }
 
-    public function __construct(){
-        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usersWithAccess=new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     /**
      * Add usersWithAccess
      *
@@ -410,9 +422,47 @@ class File
         $this->file = $file;
     }
 
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+
     public function configureFileCallback($info)
     {
         $this->setFilename($info['origFileName']);
         $this->setSlug(sha1(mt_rand()));
+    }
+
+    public function eraseCredentials()
+    {
+        $this->plainPassword=null;
     }
 }

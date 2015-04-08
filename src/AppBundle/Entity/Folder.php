@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\FileInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -12,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FolderRepository")
  */
-class Folder
+class Folder implements FileInterface
 {
 
       /**
@@ -85,15 +86,27 @@ class Folder
     protected $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     */
+    private $plainPassword;
+
+
+    /**
      * Construct
      */
-
     public function __construct(){
         $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersWithAccess= new \Doctrine\Common\Collections\ArrayCollection();
         $this->files= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
-
 
     /**
      * Get id
@@ -365,4 +378,42 @@ class Folder
     {
         $this->password = $password;
     }
+
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    public function eraseCredentials()
+    {
+        $this->plainPassword=null;
+    }
+
 }
