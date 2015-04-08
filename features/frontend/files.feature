@@ -22,14 +22,15 @@ Feature: List files
           | folder3     |   2014/12/29   | null        | description3  | folder3 | secret   |null           | null |
 
       And existing files:
-          | filename  |   uploadDate   | username    | folder      | userWithAccess | tags | password |
-          | file1     |   2014/12/27   | user1       | folder1     |      user1     | tag1 | secret   |
-          | file2     |   2014/12/28   | user2       | null        |      null      | tag2 | secret   |
-          | file3     |   2014/12/29   | null        | folder2     |      null      | null | secret   |
+          | filename  |   uploadDate   | username    | folder      | userWithAccess | tags | password | slug |
+          | file1     |   2014/12/27   | user1       | folder1     |      user1     | tag1 | secret   | file1|
+          | file2     |   2014/12/28   | user2       | null        |      null      | tag2 | secret   | file2|
+          | file3     |   2014/12/29   | null        | folder2     |      null      | null | secret   | file3|
+          | file4     |   2014/12/29   | user2       | null        |      user1     | null | secret   | file4|
 
     Scenario: List elements
         Given I am on the homepage
-        Then  I should see 6 elements
+        Then  I should see 5 elements
 
     Scenario: List elements in a folder
         Given I am on the homepage
@@ -60,7 +61,7 @@ Feature: List files
         Examples:
             | word      | number    |
             | file1     | 1         |
-            | f         | 6         |
+            | f         | 7         |
             | nothing   | 0         |
             | tag1      | 2         |
 
@@ -77,9 +78,9 @@ Feature: List files
   @download
       Scenario: Download a file
         Given I am authenticated as "user1" with "secret1"
-        And "user1" can access to "file1"
-        When I follow "Download file1"
-        Then I should be on "file/file1/download"
+        And "user1" can access to "file4"
+        When I follow "Download file4"
+        Then I should be on "file/file4/download"
 
   @download
       Scenario: Download a file with a password
