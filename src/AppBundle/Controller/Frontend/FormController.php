@@ -33,10 +33,10 @@ class FormController extends Controller{
         $session = $this->get('session');
 
         if(!$user){
-            $form = $this->createForm(new AccessFolderAnonType($folder));
+            $form = $this->createForm(new AccessFolderAnonType($this->get('security.encoder_factory')), $folder);
         }
         else{
-            $form = $this->createForm(new AccessFolderType($folder));
+            $form = $this->createForm(new AccessFolderType($this->get('security.encoder_factory')), $folder);
         }
 
         $form->handleRequest($request);
@@ -74,10 +74,11 @@ class FormController extends Controller{
         $session = $this->get('session');
 
         if(!$user) {
-            $form = $this->createForm(new DownloadFileAnonType($file));
+            $form = $this->createForm(new DownloadFileAnonType($this->get('security.encoder_factory')), $file);
+
         }
         else{
-            $form = $this->createForm(new DownloadFileType($file));
+            $form = $this->createForm(new DownloadFileType($this->get('security.encoder_factory')), $file);
         }
 
         $form->handleRequest($request);

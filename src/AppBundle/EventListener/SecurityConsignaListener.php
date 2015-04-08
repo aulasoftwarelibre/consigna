@@ -60,5 +60,6 @@ class SecurityConsignaListener implements EventSubscriber
                 $entity->setPassword( $encoder->encodePassword( $password, $entity->getSalt()) );
             }
         }
+        $entity->eraseCredentials();
     }
 }

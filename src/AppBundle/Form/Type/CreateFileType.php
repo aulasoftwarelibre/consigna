@@ -11,7 +11,6 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-
 class CreateFileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options){
@@ -19,7 +18,7 @@ class CreateFileType extends AbstractType
         $builder
             ->add('filename', 'file')
             ->add('tags')
-            ->add('password', 'password')
+            ->add('plainPassword', 'password')
             ->add('save', 'submit')
             ->getForm();
     }

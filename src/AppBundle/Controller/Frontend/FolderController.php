@@ -22,9 +22,6 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
-
-
-
 class FolderController extends Controller{
 
     /**
@@ -69,7 +66,6 @@ class FolderController extends Controller{
             )
         );
     }
-
 
     /**
      *@Route("/folder/create" , name="folder_create")
@@ -128,7 +124,6 @@ class FolderController extends Controller{
             );
         }
         return $this->redirectToRoute('control_access',array('slug'=>$folder->getSlug()));
-
     }
 
     /**
@@ -170,7 +165,5 @@ class FolderController extends Controller{
             iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
         );
         return $response;
-
-
     }
 }

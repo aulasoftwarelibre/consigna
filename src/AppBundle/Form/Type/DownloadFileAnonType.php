@@ -14,21 +14,21 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 
 class DownloadFileAnonType extends AbstractType
 {
+    private $encoderFactory;
 
     public function buildForm(FormBuilderInterface $builder, array $options){
 
-        $filePassword=$options['filePassword'];
-
         $builder
             ->add('password', 'password', array(
-                'constraints' => new Assert\EqualTo(array(
-                    'value' => $filePassword,
-                    'message' => 'The password is not correct'
+                'mapped' => false,
+                'constraints' => new Assert\Callback(array(
+                    'callback' => array($this, 'validate'),
                 ))))
             ->add('captcha', 'ewz_recaptcha', array(
                 'attr' => array(
@@ -46,17 +46,23 @@ class DownloadFileAnonType extends AbstractType
             ->getForm();
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver){
-        $resolver->setDefaults(array(
-            'filePassword' => $this->file->getPassword(),
-        ));
-    }
-
     public function getName(){
         return 'file';
     }
 
-    public function __construct(File $file){
-        $this->file= $file;
+    public function validate ($plainPassword, ExecutionContextInterface $context)
+    {
+        /** @var File $file */
+        $file = $context->getRoot()->getData();
+
+        if ( false === $this->encoderFactory->getEncoder($file)->isPasswordValid($file->getPassword(), $plainPassword, $file->getSalt())){
+            $context->buildViolation('Password is not valid.')
+                ->atPath('password')
+                ->addViolation();
+        }
+    }
+
+    public function __construct(EncoderFactoryInterface $encoderFactory){
+        $this->encoderFactory=$encoderFactory;
     }
 }
