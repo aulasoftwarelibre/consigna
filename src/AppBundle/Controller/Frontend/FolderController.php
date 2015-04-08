@@ -12,7 +12,7 @@ use AppBundle\Entity\Folder;
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\CreateFolderType;
-use AppBundle\Form\Type\FileType;
+use AppBundle\Form\Type\CreateFileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -41,7 +41,7 @@ class FolderController extends Controller{
         if (!$user) {
             $user = new User();
         }
-        $form = $this->createForm(new FileType($user), $file);
+        $form = $this->createForm(new CreateFileType($user), $file);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

@@ -10,7 +10,7 @@ namespace AppBundle\Controller\Frontend;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Form\Type\FolderType;
+use AppBundle\Form\Type\AccessFolderType;
 use AppBundle\Form\Type\DownloadFileType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Folder;
@@ -34,7 +34,7 @@ class FormController extends Controller{
         if(!$user)
             $user=new User();
 
-        $form = $this->createForm(new FolderType($folder,$user));
+        $form = $this->createForm(new AccessFolderType($folder,$user));
         $form->handleRequest($request);
 
         if($user->getUsername()!=''){
@@ -72,11 +72,11 @@ class FormController extends Controller{
         $user = $this->getUser();
         $session = $this->get('session');
 
-        if(!$user)
-            $user=new User();
+        if(!$user) {
+            $user = new User();
+        }
 
         $form = $this->createForm(new DownloadFileType($file, $user));
-
         $form->handleRequest($request);
 
         if($user->getUsername()!=''){
