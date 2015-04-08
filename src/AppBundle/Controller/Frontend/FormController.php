@@ -11,12 +11,13 @@ namespace AppBundle\Controller\Frontend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Form\Type\AccessFolderType;
+use AppBundle\Form\Type\AccessFolderAnonType;
 use AppBundle\Form\Type\DownloadFileType;
+use AppBundle\Form\Type\DownloadFileAnonType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Folder;
 use AppBundle\Entity\File;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\User;
 
 
 
@@ -31,13 +32,16 @@ class FormController extends Controller{
         $user = $this->getUser();
         $session = $this->get('session');
 
-        if(!$user)
-            $user=new User();
+        if(!$user){
+            $form = $this->createForm(new AccessFolderAnonType($folder));
+        }
+        else{
+            $form = $this->createForm(new AccessFolderType($folder));
+        }
 
-        $form = $this->createForm(new AccessFolderType($folder,$user));
         $form->handleRequest($request);
 
-        if($user->getUsername()!=''){
+        if($user){
             if ($form->isValid()) {
                 $folder->addUsersWithAccess($user);
                 $em->persist($folder);
@@ -73,13 +77,14 @@ class FormController extends Controller{
         $session = $this->get('session');
 
         if(!$user) {
-            $user = new User();
+            $form = $this->createForm(new DownloadFileAnonType($file));
+        }
+        else{
+            $form = $this->createForm(new DownloadFileType($file));
         }
 
-        $form = $this->createForm(new DownloadFileType($file, $user));
         $form->handleRequest($request);
-
-        if($user->getUsername()!=''){
+        if($user){
             if ($form->isValid()) {
                 $file->addUsersWithAccess($user);
                 $em->persist($file);

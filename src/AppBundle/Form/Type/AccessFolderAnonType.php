@@ -13,12 +13,13 @@ use AppBundle\Entity\Folder;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class AccessFolderType extends AbstractType
+class AccessFolderAnonType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options){
@@ -30,9 +31,22 @@ class AccessFolderType extends AbstractType
                     'value' => $folderPassword,
                     'message' => 'The password is not correct'
                 ))))
+            ->add('captcha', 'ewz_recaptcha', array(
+                'attr' => array(
+                    'options' => array(
+                        'theme' => 'light',
+                        'type'  => 'image'
+                    )
+                ),
+                'mapped'      => false,
+                'constraints' => array(
+                    new True()
+                )
+            ))
             ->add('submit', 'submit')
             ->getForm();
     }
+
 
     public function setDefaultOptions(OptionsResolverInterface $resolver){
         $resolver->setDefaults(array(

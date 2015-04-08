@@ -4,7 +4,6 @@ namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Entity\File;
 
-use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -12,7 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Type\FileType;
+use AppBundle\Form\Type\CreateFileType;
+use AppBundle\Form\Type\CreateFileAnonType;
 
 
 class FileController extends Controller{
@@ -25,16 +25,20 @@ class FileController extends Controller{
         $file = new File();
         $user = $this->getUser();
         if (!$user) {
-            $user = new User();
+            $form = $this->createForm(new CreateFileAnonType(), $file);
         }
-        $form = $this->createForm(new FileType($user), $file);
+        else{
+            $form = $this->createForm(new CreateFileType(), $file);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if($user->getPassword()!='') {
+            if($user) {
                 $file->setUser($user);
             }
+
             $em->persist($file);
 
             $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
