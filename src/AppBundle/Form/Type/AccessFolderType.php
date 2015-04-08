@@ -15,36 +15,41 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class AccessFolderType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options){
 
-        $folderPassword=$options['folderPassword'];
         $builder
             ->add('password', 'password', array(
-                'constraints' => new Assert\EqualTo(array(
-                    'value' => $folderPassword,
-                    'message' => 'The password is not correct'
+                'mapped' => false,
+                'constraints' => new Assert\Callback(array(
+                    'callback' => array($this, 'validate'),
                 ))))
             ->add('submit', 'submit')
             ->getForm();
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver){
-        $resolver->setDefaults(array(
-            'folderPassword' => $this->folder->getPassword(),
-        ));
     }
 
     public function getName(){
         return 'folder';
     }
 
-    public function __construct(Folder $folder){
-        $this->folder= $folder;
+    public function validate ($plainPassword, ExecutionContextInterface $context)
+    {
+        /** @var Folder $folder */
+        $folder = $context->getRoot()->getData();
+
+        if ( false === $this->encoderFactory->getEncoder($folder)->isPasswordValid( $folder->getPassword(), $plainPassword, $folder->getSalt())) {
+            $context->buildViolation('Password is not valid.')
+                ->atPath('password')
+                ->addViolation();
+        }
+    }
+
+    public function __construct(EncoderFactoryInterface $encoderFactory){
+        $this->encoderFactory=$encoderFactory;
     }
 }
