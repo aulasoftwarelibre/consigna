@@ -74,7 +74,8 @@ class FolderController extends Controller{
     {
         $folder = new Folder();
         $user = $this->getUser();
-        $form = $this->createForm(new CreateFolderType(), $folder);
+        $form = $this->createForm(new CreateFolderType(), $folder, array(
+        'em' => $this->getDoctrine()->getManager()));
         $form->handleRequest($request);
 
         if ($form->isValid()) {

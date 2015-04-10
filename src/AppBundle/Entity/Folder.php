@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -55,7 +56,7 @@ class Folder implements FileInterface
     private $user;
 
     /**
-     * @var Tag
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
      */
     private $tags;
@@ -204,7 +205,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * @return Tag
+     * @return ArrayCollection
      */
     public function getTags()
     {
