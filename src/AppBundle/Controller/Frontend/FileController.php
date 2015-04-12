@@ -24,10 +24,12 @@ class FileController extends Controller{
         $file = new File();
         $user = $this->getUser();
         if (!$user) {
-            $form = $this->createForm(new CreateFileAnonType(), $file);
+            $form = $this->createForm(new CreateFileAnonType(), $file, array(
+                'em' => $this->getDoctrine()->getManager()));
         }
         else{
-            $form = $this->createForm(new CreateFileType(), $file);
+            $form = $this->createForm(new CreateFileType(), $file, array(
+                'em' => $this->getDoctrine()->getManager()));
         }
 
         $form->handleRequest($request);
