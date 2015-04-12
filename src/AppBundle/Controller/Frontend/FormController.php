@@ -68,6 +68,10 @@ class FormController extends Controller{
      */
     public function downloadFileValidationAction(File $file,Request $request)
     {
+        if (true === $this->get('security.authorization_checker')->isGranted('access', $file)) {
+            return $this->redirectToRoute('file_download',array('slug'=>$file->getSlug()));
+        }
+
         $em=$this->getDoctrine()->getManager();
 
         $user = $this->getUser();
@@ -75,9 +79,7 @@ class FormController extends Controller{
 
         if(!$user) {
             $form = $this->createForm(new DownloadFileAnonType($this->get('security.encoder_factory')), $file);
-
-        }
-        else{
+        } else{
             $form = $this->createForm(new DownloadFileType($this->get('security.encoder_factory')), $file);
         }
 

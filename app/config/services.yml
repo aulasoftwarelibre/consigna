@@ -25,3 +25,16 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: tags_text }
+
+    post_voter:
+        class:      AppBundle\Security\AccessVoter
+        arguments: [@session]
+        public:     false
+        tags:
+           - { name: security.voter }
+
+    delete_voter:
+        class:      AppBundle\Security\DeleteVoter
+        public:     false
+        tags:
+           - { name: security.voter }

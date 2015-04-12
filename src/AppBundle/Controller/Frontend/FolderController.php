@@ -72,9 +72,13 @@ class FolderController extends Controller{
      */
     public function createFolderAction(Request $request)
     {
+
         $folder = new Folder();
+
         $user = $this->getUser();
+
         $form = $this->createForm(new CreateFolderType(), $folder);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -99,12 +103,11 @@ class FolderController extends Controller{
      */
     public function controlAccessAction(Folder $folder)
     {
-        if($folder->hasAccess($this->getUser()) ||  $this->get('session')->has($folder->getSlug()))
-        {
+        if (true === $this->get('security.authorization_checker')->isGranted('access', $folder)) {
             return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
-        }
-        else
+        } else {
             return $this->redirectToRoute('folder_validation_form',array('slug'=>$folder->getSlug()));
+        }
     }
 
      /**

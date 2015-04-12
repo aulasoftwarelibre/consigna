@@ -61,9 +61,7 @@ class FileController extends Controller{
      */
     public function deleteFileAction(File $file)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        if (!$user || !$file->getUser() || $user != $file->getUser()) {
+        if (false === $this->get('security.authorization_checker')->isGranted('delete', $file)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -71,7 +69,7 @@ class FileController extends Controller{
         $em->remove($file);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->set('success', 'File '.$file.' deleted successfully');
+        $this->addFlash('success', 'File '.$file.' deleted successfully');
 
         return $this->redirectToRoute('homepage');
     }
@@ -80,12 +78,11 @@ class FileController extends Controller{
      */
     public function controlFileDownloadAction(File $file)
     {
-        if($file->hasAccess($this->getUser()) || $this->get('session')->has($file->getSlug()))
-        {
+        if (true === $this->get('security.authorization_checker')->isGranted('access', $file)) {
             return $this->redirectToRoute('file_download',array('slug'=>$file->getSlug()));
+        } else {
+            return $this->redirectToRoute('download_file_validation_form',array('slug'=>$file->getSlug()));
         }
-
-        return $this->redirectToRoute('download_file_validation_form',array('slug'=>$file->getSlug()));
     }
 
     /**
@@ -98,7 +95,7 @@ class FileController extends Controller{
             $this->get('session')->clear();
         }
 
-        if($file->hasAccess($this->getUser()) or $this->get('session')->has($file->getSlug())){
+        if (true === $this->get('security.authorization_checker')->isGranted('access', $file)) {
             $fileToDownload = $file->getPath();
             $response = new BinaryFileResponse($fileToDownload);
             $response->trustXSendfileTypeHeader();
@@ -109,7 +106,8 @@ class FileController extends Controller{
             );
             return $response;
         }
-        return $this->redirectToRoute('download_file_validation_form',array('slug'=>$file->getSlug()));
-
+        else {
+            return $this->redirectToRoute('download_file_validation_form', array('slug' => $file->getSlug()));
+        }
     }
 }
