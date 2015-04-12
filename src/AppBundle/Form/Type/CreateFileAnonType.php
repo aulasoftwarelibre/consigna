@@ -20,7 +20,12 @@ class CreateFileAnonType extends AbstractType
         $builder
             ->add('filename', 'file')
             ->add('tags')
-            ->add('password', 'password')
+            ->add('plainPassword','repeated', array(
+                    'type' => 'password',
+                    'invalid_message' => 'The password fields must match.',
+                    'first_options'  => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat Password'))
+            )
             ->add('captcha', 'ewz_recaptcha', array(
                 'attr' => array(
                     'options' => array(

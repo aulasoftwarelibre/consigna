@@ -18,8 +18,13 @@ class CreateFileType extends AbstractType
         $builder
             ->add('filename', 'file')
             ->add('tags')
-            ->add('plainPassword', 'password')
-            ->add('save', 'submit')
+            ->add('plainPassword','repeated', array(
+                    'type' => 'password',
+                    'invalid_message' => 'The password fields must match.',
+                    'first_options'  => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat Password'))
+            )
+            ->add('upload', 'submit')
             ->getForm();
     }
 
