@@ -22,10 +22,15 @@ class CreateFolderType extends AbstractType
 
         $builder
             ->add('folderName')
-            ->add($builder->create('tags', 'text')
+            ->add($builder->create('tags', 'text', array('label' => 'Tags (add tags separated by commas)'))
                 ->addViewTransformer($transformer))
-            ->add('plainPassword','password')
-            ->add('upload', 'submit')
+            ->add('plainPassword','repeated', array(
+                'type' => 'password',
+                'invalid_message' => 'The password fields must match.',
+                'first_options'  => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'))
+            )
+            ->add('create', 'submit')
             ->getForm();
     }
 
