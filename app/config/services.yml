@@ -19,3 +19,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+
+    appbundle.type.tags_text:
+        class: AppBundle\Form\Type\TagsTextType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: tags_text }

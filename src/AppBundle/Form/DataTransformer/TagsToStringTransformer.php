@@ -11,53 +11,58 @@ use Doctrine\Common\Persistence\ObjectManager;
 class TagsToStringTransformer implements DataTransformerInterface
 {
     /**
-    * @var ObjectManager
-    */
+     * @var ObjectManager
+     */
     private $om;
 
     /**
-    * @param ObjectManager $om
-    */
-    public function __construct(ObjectManager $om)
+     * Constructor
+     *
+     * @param ObjectManager $om
+     */
+    function __construct( ObjectManager $om )
     {
         $this->om = $om;
     }
 
     /**
-    * Transforms an object (issue) to a string (number).
-    *
-    * @param  ArrayCollection $tags
-    * @return string
-    */
-    public function transform($tags)
+     * Transforms an ArrayCollection to a string
+     *
+     * @param $tags ArrayCollection|null
+     *
+     * @return string
+     */
+    public function transform( $tags )
     {
-        return implode(",", $tags->toArray());
+        if ( null === $tags ) return "";
+
+        return implode(", ", $tags->toArray() );
     }
 
     /**
-    * Transforms a string (number) to an object (issue).
-    *
-    * @param  string $string
-    *
-    * @return \Doctrine\Common\Collections\ArrayCollection|null
-    *
-    * @throws TransformationFailedException if object (tagName) is not found.
-    */
-    public function reverseTransform($string)
+     * Transforms a string to an ArrayCollection
+     *
+     * @param string $value
+     *
+     * @return ArrayCollection
+     */
+    public function reverseTransform( $value )
     {
-        $tags = explode(',', $string);
-        $arrayCollection=new ArrayCollection();
-        foreach ($tags as $tag) {
-            $tag = trim($tag);
-            if (!($newTag = $this->om->getRepository('AppBundle:Tag')->findOneBy(array('tagName'=>$tag)))) {
-                $newTag = new Tag();
-                $newTag->setTagName($tag);
-                $this->om->persist($newTag);
+        $tags = new ArrayCollection();
+
+        if ( null === $value ) return $tags;
+
+        $tokens = preg_split( '/(\s*,\s*)+/', $value, -1, PREG_SPLIT_NO_EMPTY );
+        foreach ( $tokens as $token ) {
+            if ( null === ( $tag = $this->om->getRepository('AppBundle:Tag')->findOneBy(array('tagName'=>($token))))) {
+                $tag = new Tag();
+                $tag->setTagName( $token );
+                $this->om->persist( $tag );
             }
-            $arrayCollection->add($newTag);
+            $tags->add( $tag );
         }
         $this->om->flush();
 
-        return $arrayCollection;
+        return $tags;
     }
 }
