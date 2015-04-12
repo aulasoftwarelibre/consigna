@@ -17,7 +17,8 @@ class CreateFolderType extends AbstractType
 
         $builder
             ->add('folderName')
-            ->add($builder->create('tags', 'tags_text', array('label' => 'Tags (add tags separated by commas)'))
+            ->add('tags', 'tags_text', array(
+                'label' => 'Tags (add tags separated by commas)'))
             ->add('plainPassword','repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
@@ -25,7 +26,7 @@ class CreateFolderType extends AbstractType
                 'second_options' => array('label' => 'Repeat Password'))
             )
             ->add('create', 'submit')
-            ->getForm());
+            ->getForm();
     }
 
     public function getName(){

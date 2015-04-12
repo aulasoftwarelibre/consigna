@@ -16,7 +16,8 @@ class CreateFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
             ->add('filename', 'file')
-            ->add($builder->create('tags', 'tags_text', array('label' => 'Tags (add tags separated by commas)')))
+            ->add('tags', 'tags_text', array(
+                'label' => 'Tags (add tags separated by commas)'))
             ->add('plainPassword','repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',

@@ -72,8 +72,11 @@ class FolderController extends Controller{
      */
     public function createFolderAction(Request $request)
     {
-
         $folder = new Folder();
+
+        if (false === $this->get('security.authorization_checker')->isGranted('create', $folder)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $user = $this->getUser();
 
@@ -134,9 +137,7 @@ class FolderController extends Controller{
      */
     public function deleteFolderAction(Folder $folder)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        if (!$user || !$folder->getUser() || $user != $folder->getUser()) {
+        if (false === $this->get('security.authorization_checker')->isGranted('delete', $folder)) {
             throw $this->createAccessDeniedException();
         }
 
