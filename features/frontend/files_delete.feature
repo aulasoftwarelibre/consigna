@@ -19,10 +19,10 @@ Feature: Delete files
             | file2     |   2014/12/28   | user2       | null        |      null      | tag2 |
             | file3     |   2014/12/29   | null        | folder2     |      null      | null |
         And existing folders:
-            | folderName  |   uploadDate   | username    | description   | slug    | password |userWithAccess | tags |
-            | folder1     |   2014/12/27   | user1       | description1  | folder1 | secret   |user2          | tag1 |
-            | folder2     |   2014/12/28   | user2       | description2  | folder2 | secret   |null           | tag2 |
-            | folder3     |   2014/12/29   | null        | description3  | folder3 | secret   |null           | null |
+            | folderName  |   uploadDate   | username    | slug    | password |userWithAccess | tags |
+            | folder1     |   2014/12/27   | user1       | folder1 | secret   |user2          | tag1 |
+            | folder2     |   2014/12/28   | user2       | folder2 | secret   |null           | tag2 |
+            | folder3     |   2014/12/29   | null        | folder3 | secret   |null           | null |
 
 
 

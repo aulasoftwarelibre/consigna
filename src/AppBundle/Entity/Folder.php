@@ -42,13 +42,6 @@ class Folder implements FileInterface
     private $uploadDate;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255)
-     */
-    private $description;
-
-    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="folders")
@@ -163,29 +156,6 @@ class Folder implements FileInterface
     public function getUploadDate()
     {
         return $this->uploadDate;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Folder
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**

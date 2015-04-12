@@ -62,7 +62,6 @@ class FileContext extends CoreContext
             $userWithAccess=$this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
             $tag=$this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByTagName($hash['tags']);
             $folder->setFolderName($hash['folderName']);
-            $folder->setDescription($hash['description']);
             $folder->setPassword($hash['password']);
             $folder->setUploadDate(new \DateTime($hash['uploadDate']));
             $folder->setUser($user);
