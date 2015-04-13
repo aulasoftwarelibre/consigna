@@ -52,7 +52,7 @@ class QueryController extends Controller{
         $files = $em->getRepository('AppBundle:File')->myFiles($user);
 
         return $this->render(
-            'Default/listShared.html.twig', array(
+            'Default/filesList.html.twig', array(
             'folders'=> $folders,
             'files' => $files
         ));
@@ -70,7 +70,7 @@ class QueryController extends Controller{
         $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
 
         return $this->render(
-            'Default/listShared.html.twig', array(
+            'Default/filesList.html.twig', array(
             'folders'=> $folders,
             'files' => $files
         ));
