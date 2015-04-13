@@ -13,13 +13,14 @@ class DeleteCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('command:delete')
+            ->setName('consigna:cron:cleanfiles')
             ->setDescription('Delete lapsed files ');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $date = new \DateTime('-7 days');
+        $days = $this->getContainer()->getParameter('days_before_clean');
+        $date = new \DateTime('-'.$days.'days');
         $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:File')->deleteLapsedFiles($date);
         $output->writeln('file has been removed');
     }
