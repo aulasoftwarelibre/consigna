@@ -18,4 +18,9 @@ $(function () {
         //$('.absolute-wrapper').removeClass('slide-in');
 
     });
+
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    })
+
 });
