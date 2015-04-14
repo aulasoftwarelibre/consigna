@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block mainContent %}
+    <div class="row">
+    <div class="col-md-12">
+        <ul class="event-list">
+        <div class="info">
+            <h4 class="title"><i class="fa fa-file-o"></i> {{file.filename}}</h4>
+            <p class ="desc">
+                Size: {{ file.size }} bytes - Upload by {{ file.user}}
+                {% for tag in file.tags  %}
+                    <span class="label label-default">{{ tag }}</span>
+                {% endfor %}
+
+                {% for user in file.usersWithAccess %}
+                    <span class="label label-danger">{{ user }}</span>
+                {% endfor %}
+            </p>
+            <ul>
+                    <a href="{{ path('control_file_download',{'slug':file.slug}) }}" title="Download {{ file.filename }}"><li><i class="fa fa-download push"></i> Download </li></a>
+            </ul>
+        </div>
+        </ul>
+    </div>
+    </div>
+{% endblock %}

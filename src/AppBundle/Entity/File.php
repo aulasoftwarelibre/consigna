@@ -116,10 +116,19 @@ class File implements FileInterface
      */
     private $folder;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="shareCode", type="string", length=255)
+     */
+    private $shareCode;
+
+
     public function __construct(){
-        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usersWithAccess=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
     }
 
     /**
@@ -452,6 +461,22 @@ class File implements FileInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShareCode()
+    {
+        return $this->shareCode;
+    }
+
+    /**
+     * @param string $shareCode
+     */
+    public function setShareCode($shareCode)
+    {
+        $this->shareCode = $shareCode;
     }
 
 

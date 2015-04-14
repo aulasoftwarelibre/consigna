@@ -17,6 +17,35 @@ use AppBundle\Form\Type\CreateFileAnonType;
 class FileController extends Controller{
 
     /**
+     * @Route("file/s/{shareCode}/{slug}", name="file_share")
+     */
+    public function ShareFileAction(File $file)
+    {
+        $user = $this->getUser();
+        $session = $this->get('session');
+        $em = $this->getDoctrine()->getManager();
+
+
+        if (false === $this->get('security.authorization_checker')->isGranted('access', $file)) {
+            if ($user) {
+                $file->addUsersWithAccess($user);
+                $em->persist($file);
+                $em->flush();
+                die('ok');
+            } else {
+                $session->set($file->getSlug(), true);
+            }
+        }
+        return $this->render(
+            'Default/shareFile.html.twig',
+            array(
+                'file' => $file,
+            )
+        );
+    }
+
+
+    /**
      *@Route("/file/create" , name="file_create")
      */
     public function createFileAction(Request $request)

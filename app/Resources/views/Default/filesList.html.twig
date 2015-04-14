@@ -1,17 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block File_Folder %}
-    <p class="navbar-text">Start / Folder</p>
-    {% block uploadFile %}
-    <a class="btn btn-default navbar-btn" href="{{ path('file_create') }}"><i class="fa fa-cloud-upload "></i> Upload file</a>
-    {% if app.user %}
-        <a class="btn btn-default navbar-btn" href="{{ path('folder_create') }}"><i class="fa fa-folder"></i> Create folder</a>
-    {% endif %}
-    {% endblock %}
-
-
-{% endblock %}
-
 {% block mainContent %}
 
     <div class="row">
@@ -37,7 +25,7 @@
                     </p>
                     <ul>
                         {% if folder.getUser() == app.user %}
-                            <a href="{{ path('folder_delete',{'slug':folder.slug}) }}" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
+                            <a href="{{ path('folder_delete',{'slug':folder.slug}) }}" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i> Delete </li></a>
                         {% endif %}
                     </ul>
                 </div>
@@ -61,14 +49,35 @@
                     </p>
                     <ul>
                         {% if app.user or not app.user and file.user %}
-                        <a href="{{ path('control_file_download',{'slug':file.slug}) }}" title="Download {{ file.filename }}"><li><i class="fa fa-download push"></i>Download </li></a>
+                        <a href="{{ path('control_file_download',{'slug':file.slug}) }}" title="Download {{ file.filename }}"><li><i class="fa fa-download push"></i> Download </li></a>
                         {% endif %}
                         {% if file.getUser() == app.user and app.user %}
-                        <a href="{{ path('file_delete',{'slug':file.slug}) }}" title="Delete {{ file.filename }}"><li><i class="fa fa-trash-o"></i>Delete </li></a>
+                        <a href="{{ path('file_delete',{'slug':file.slug}) }}" title="Delete {{ file.filename }}"><li><i class="fa fa-trash-o"></i> Delete </li></a>
+                        {% endif %}
+                        {% if file.getUser() == app.user and app.user %}
+                            <a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> Share </li></a>
                         {% endif %}
                     </ul>
                 </div>
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Share {{ file.filename }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {{ url('file_share',{'shareCode':file.shareCode,'slug':file.slug}) }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
+
         {% endfor %}
 
         {% if not files and not folders %}
