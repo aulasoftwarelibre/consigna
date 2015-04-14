@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
+
 /**
  * @ORM\Entity()
  * @ORM\Table()
@@ -44,20 +45,20 @@ class User extends BaseUser
     private $sharedFiles;
 
     /**
-     * Construct
+     * Construct.
      */
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sharedFolders=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sharedFiles=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sharedFolders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sharedFiles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -65,14 +66,15 @@ class User extends BaseUser
     }
 
     /**
-     * Set id
+     * Set id.
      *
      * @param int $id
+     *
      * @return User
      */
     public function setId($id)
     {
-        $this->id= $id;
+        $this->id = $id;
 
         return $this->id;
     }
@@ -88,7 +90,7 @@ class User extends BaseUser
     /**
      * @param mixed $google_id
      */
-    public function setGoogleId( $google_id )
+    public function setGoogleId($google_id)
     {
         $this->google_id = $google_id;
     }
@@ -104,15 +106,16 @@ class User extends BaseUser
     /**
      * @param mixed $google_access_token
      */
-    public function setGoogleAccessToken( $google_access_token )
+    public function setGoogleAccessToken($google_access_token)
     {
         $this->google_access_token = $google_access_token;
     }
 
     /**
-     * Add files
+     * Add files.
      *
      * @param \AppBundle\Entity\File $files
+     *
      * @return User
      */
     public function addFile(\AppBundle\Entity\File $files)
@@ -123,7 +126,7 @@ class User extends BaseUser
     }
 
     /**
-     * Remove files
+     * Remove files.
      *
      * @param \AppBundle\Entity\File $files
      */
@@ -133,9 +136,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get files
+     * Get files.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFiles()
     {
@@ -175,9 +178,10 @@ class User extends BaseUser
     }
 
     /**
-     * Add folders
+     * Add folders.
      *
      * @param \AppBundle\Entity\Folder $folders
+     *
      * @return User
      */
     public function addFolder(\AppBundle\Entity\Folder $folders)
@@ -188,7 +192,7 @@ class User extends BaseUser
     }
 
     /**
-     * Remove folders
+     * Remove folders.
      *
      * @param \AppBundle\Entity\Folder $folders
      */
@@ -198,9 +202,10 @@ class User extends BaseUser
     }
 
     /**
-     * Add sharedFolders
+     * Add sharedFolders.
      *
      * @param \AppBundle\Entity\Folder $sharedFolders
+     *
      * @return User
      */
     public function addSharedFolder(\AppBundle\Entity\Folder $sharedFolders)
@@ -211,7 +216,7 @@ class User extends BaseUser
     }
 
     /**
-     * Remove sharedFolders
+     * Remove sharedFolders.
      *
      * @param \AppBundle\Entity\Folder $sharedFolders
      */
@@ -221,9 +226,10 @@ class User extends BaseUser
     }
 
     /**
-     * Add sharedFiles
+     * Add sharedFiles.
      *
      * @param \AppBundle\Entity\User $sharedFiles
+     *
      * @return User
      */
     public function addSharedFile(\AppBundle\Entity\User $sharedFiles)
@@ -234,7 +240,7 @@ class User extends BaseUser
     }
 
     /**
-     * Remove sharedFiles
+     * Remove sharedFiles.
      *
      * @param \AppBundle\Entity\User $sharedFiles
      */
@@ -244,9 +250,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get sharedFiles
+     * Get sharedFiles.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSharedFiles()
     {

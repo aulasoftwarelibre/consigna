@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: juanan
  * Date: 8/04/15
- * Time: 13:20
+ * Time: 13:20.
  */
 
 namespace AppBundle\EventListener;
@@ -22,9 +23,9 @@ class SecurityConsignaListener implements EventSubscriber
      */
     private $encoderFactory;
 
-    function __construct(EncoderFactoryInterface $encoderFactory)
+    public function __construct(EncoderFactoryInterface $encoderFactory)
     {
-        $this->encoderFactory=$encoderFactory;
+        $this->encoderFactory = $encoderFactory;
     }
 
     /**
@@ -55,9 +56,9 @@ class SecurityConsignaListener implements EventSubscriber
         $entity = $args->getObject();
 
         if ($entity instanceof FileInterface) {
-            if ( 0 !== strlen($password = $entity->getPlainPassword()) ){
+            if (0 !== strlen($password = $entity->getPlainPassword())) {
                 $encoder = $this->encoderFactory->getEncoder($entity);
-                $entity->setPassword( $encoder->encodePassword( $password, $entity->getSalt()) );
+                $entity->setPassword($encoder->encodePassword($password, $entity->getSalt()));
                 $entity->eraseCredentials();
             }
         }

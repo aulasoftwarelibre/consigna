@@ -8,11 +8,9 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AccessVoter extends AbstractVoter
 {
-
     private $sessionInterface;
 
     const ACCESS = 'access';
-
 
     protected function getSupportedAttributes()
     {
@@ -27,11 +25,11 @@ class AccessVoter extends AbstractVoter
     protected function isGranted($attribute, $entity, $user = null)
     {
         if (!$user instanceof UserInterface) {
-            if($this->sessionInterface->has($entity->getSlug())){
+            if ($this->sessionInterface->has($entity->getSlug())) {
                 return true;
             }
         } else {
-            if($entity->hasAccess($user)){
+            if ($entity->hasAccess($user)) {
                 return true;
             }
 
@@ -43,8 +41,8 @@ class AccessVoter extends AbstractVoter
         return false;
     }
 
-    function __construct(SessionInterface $sessionInterface)
+    public function __construct(SessionInterface $sessionInterface)
     {
-        $this->sessionInterface=$sessionInterface;
+        $this->sessionInterface = $sessionInterface;
     }
 }

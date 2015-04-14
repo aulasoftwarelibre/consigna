@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: laboratorio
  * Date: 16/03/15
- * Time: 17:46
+ * Time: 17:46.
  */
 
 namespace AppBundle\Controller\Frontend;
@@ -15,37 +16,33 @@ use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-
-class FolderController extends Controller{
-
+class FolderController extends Controller
+{
     /**
      *@Route("/folder/{slug}/uploadFile" , name="uploadFile_folder")
-     *
      */
-    public function createFileAction(Request $request,Folder $folder)
+    public function createFileAction(Request $request, Folder $folder)
     {
-        if($folder->getUser()!=$this->getUser()){
+        if ($folder->getUser() != $this->getUser()) {
             $this->redirectToRoute('folder_files');
         }
         $file = new File();
         $user = $this->getUser();
         if (!$user) {
             $form = $this->createForm(new CreateFileAnonType(), $file);
-        }
-        else{
+        } else {
             $form = $this->createForm(new CreateFileType(), $file);
         }
 
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if($user) {
+            if ($user) {
                 $file->setUser($user);
             }
             $file->setFolder($folder);
@@ -57,12 +54,14 @@ class FolderController extends Controller{
             $em->flush();
 
             $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
-            return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
+
+            return $this->redirectToRoute('folder_files', array('slug' => $folder->getSlug()));
         }
+
         return $this->render(
             'Default/form.html.twig',
             array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
             )
         );
     }
@@ -91,13 +90,14 @@ class FolderController extends Controller{
             $em->flush();
 
             $this->get('session')->getFlashBag()->set('success', 'Folder '.$folder.' has been created successfully');
+
             return $this->redirectToRoute('homepage');
         }
 
         return $this->render(
             'Default/form.html.twig',
             array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ));
     }
 
@@ -107,21 +107,21 @@ class FolderController extends Controller{
     public function controlAccessAction(Folder $folder)
     {
         if (true === $this->get('security.authorization_checker')->isGranted('access', $folder)) {
-            return $this->redirectToRoute('folder_files',array('slug'=>$folder->getSlug()));
+            return $this->redirectToRoute('folder_files', array('slug' => $folder->getSlug()));
         } else {
-            return $this->redirectToRoute('folder_validation_form',array('slug'=>$folder->getSlug()));
+            return $this->redirectToRoute('folder_validation_form', array('slug' => $folder->getSlug()));
         }
     }
 
-     /**
+    /**
      *@Route("/folder/{slug}" , name="folder_files")
      */
     public function listFolderAction(Folder $folder)
     {
-        if($this->getUser()) {
+        if ($this->getUser()) {
             $this->get('session')->clear();
         }
-        if($folder->hasAccess($this->getUser()) or $this->get('session')->has($folder->getSlug())){
+        if ($folder->hasAccess($this->getUser()) or $this->get('session')->has($folder->getSlug())) {
             return $this->render(
                 'Default/listFolder.html.twig',
                 array(
@@ -129,7 +129,8 @@ class FolderController extends Controller{
                 )
             );
         }
-        return $this->redirectToRoute('control_access',array('slug'=>$folder->getSlug()));
+
+        return $this->redirectToRoute('control_access', array('slug' => $folder->getSlug()));
     }
 
     /**
@@ -152,11 +153,10 @@ class FolderController extends Controller{
 
     /**
      * @Route("/folder/file/{slug}/download", name="file_download_in_folder")
-     *
      */
     public function downloadFileAction(File $file)
     {
-        if($this->getUser()) {
+        if ($this->getUser()) {
             $this->get('session')->clear();
         }
 
@@ -168,6 +168,7 @@ class FolderController extends Controller{
             $file->getFilename(),
             iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
         );
+
         return $response;
     }
 }

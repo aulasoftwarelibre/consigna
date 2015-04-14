@@ -1,15 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: juanan
  * Date: 8/04/15
- * Time: 13:13
+ * Time: 13:13.
  */
 
 namespace AppBundle\Model;
 
-interface FileInterface {
-
+interface FileInterface
+{
     public function getPlainPassword();
 
     public function getSalt();
@@ -17,5 +18,4 @@ interface FileInterface {
     public function setPassword($password);
 
     public function eraseCredentials();
-
 }

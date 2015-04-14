@@ -24,6 +24,7 @@ class CreateVoter extends AbstractVoter
         if ($user instanceof UserInterface) {
             return true;
         }
+
         return false;
     }
 }

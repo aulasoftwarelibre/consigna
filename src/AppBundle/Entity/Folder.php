@@ -7,18 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
- * Folder
+ * Folder.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FolderRepository")
  */
 class Folder implements FileInterface
 {
-
-      /**
-     * @var integer
+    /**
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -71,7 +69,6 @@ class Folder implements FileInterface
      */
     private $slug;
 
-
     /**
      * Encrypted password. Must be persisted.
      *
@@ -91,21 +88,21 @@ class Folder implements FileInterface
      */
     private $plainPassword;
 
-
     /**
-     * Construct
+     * Construct.
      */
-    public function __construct(){
-        $this->tags= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usersWithAccess= new \Doctrine\Common\Collections\ArrayCollection();
-        $this->files= new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -113,9 +110,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set folderName
+     * Set folderName.
      *
      * @param string $folderName
+     *
      * @return Folder
      */
     public function setFolderName($folderName)
@@ -126,9 +124,9 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get folderName
+     * Get folderName.
      *
-     * @return string 
+     * @return string
      */
     public function getFolderName()
     {
@@ -136,9 +134,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set uploadDate
+     * Set uploadDate.
      *
      * @param \DateTime $uploadDate
+     *
      * @return Folder
      */
     public function setUploadDate($uploadDate)
@@ -149,9 +148,9 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get uploadDate
+     * Get uploadDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUploadDate()
     {
@@ -191,11 +190,11 @@ class Folder implements FileInterface
     }
 
     /**
-     * To String
+     * To String.
      *
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return $this->getFolderName();
     }
@@ -249,9 +248,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Add tags
+     * Add tags.
      *
      * @param \AppBundle\Entity\Tag $tags
+     *
      * @return Folder
      */
     public function addTag(\AppBundle\Entity\Tag $tags)
@@ -262,7 +262,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove tags
+     * Remove tags.
      *
      * @param \AppBundle\Entity\Tag $tags
      */
@@ -272,9 +272,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Add usersWithAccess
+     * Add usersWithAccess.
      *
      * @param \AppBundle\Entity\User $usersWithAccess
+     *
      * @return Folder
      */
     public function addUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
@@ -285,7 +286,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove usersWithAccess
+     * Remove usersWithAccess.
      *
      * @param \AppBundle\Entity\User $usersWithAccess
      */
@@ -295,9 +296,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Add files
+     * Add files.
      *
      * @param \AppBundle\Entity\File $files
+     *
      * @return Folder
      */
     public function addFile(\AppBundle\Entity\File $files)
@@ -308,7 +310,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove files
+     * Remove files.
      *
      * @param \AppBundle\Entity\File $files
      */
@@ -318,19 +320,23 @@ class Folder implements FileInterface
     }
 
     /**
-     * Has access
+     * Has access.
      *
      * @param \AppBundle\Entity\User $user
+     *
      * @return bool
      */
-    public function hasAccess($user){
-
-        if ($this->getUser()==$user)
+    public function hasAccess($user)
+    {
+        if ($this->getUser() == $user) {
             return true;
-        foreach ($this->usersWithAccess as $uWithAccess){
-            if($user==$uWithAccess)
-                return true;
         }
+        foreach ($this->usersWithAccess as $uWithAccess) {
+            if ($user == $uWithAccess) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -384,7 +390,6 @@ class Folder implements FileInterface
 
     public function eraseCredentials()
     {
-        $this->plainPassword=null;
+        $this->plainPassword = null;
     }
-
 }

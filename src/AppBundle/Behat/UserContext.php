@@ -1,33 +1,33 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: juanan
  * Date: 18/01/15
- * Time: 17:58
+ * Time: 17:58.
  */
+
 namespace AppBundle\Behat;
 
 use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class UserContext extends CoreContext
 {
     /**
      * @Given existing users:
      */
-
-    public function createList (TableNode $tableNode)
+    public function createList(TableNode $tableNode)
     {
         $em = $this->getEntityManager();
-        foreach ($tableNode as $hash){
+        foreach ($tableNode as $hash) {
             $user = new User();
             $user->setUsername($hash['username']);
             $user->setPlainPassword($hash['plainPassword']);
             $user->setEmail($hash['email']);
             $user->setEnabled($hash['enabled']);
 
-            $em-> persist($user);
+            $em->persist($user);
         }
         $em->flush();
     }
@@ -35,7 +35,7 @@ class UserContext extends CoreContext
     /**
      * @Given I am authenticated as :username with :password
      */
-    public function authenticatedAs ($username,$password)
+    public function authenticatedAs($username, $password)
     {
         $this->getSession()->visit($this->generatePageUrl('fos_user_security_login'));
         $this->fillField('username', $username);

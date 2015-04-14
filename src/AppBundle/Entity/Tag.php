@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tag
+ * Tag.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Tag
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -25,7 +25,6 @@ class Tag
      * @var string
      *
      * @ORM\Column(name="tagName", type="string")
-     *
      */
     private $tagName;
 
@@ -35,8 +34,9 @@ class Tag
      */
     private $files;
 
-    public function __files_construct(){
-        $this->files= new \Doctrine\Common\Collections\ArrayCollection();
+    public function __files_construct()
+    {
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -45,8 +45,9 @@ class Tag
      */
     private $folders;
 
-    public function __folders_construct(){
-        $this->folders= new \Doctrine\Common\Collections\ArrayCollection();
+    public function __folders_construct()
+    {
+        $this->folders = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * @return Tag
@@ -65,9 +66,9 @@ class Tag
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -91,16 +92,16 @@ class Tag
     }
 
     /**
-     * To String
+     * To String.
      *
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return $this->getTagName();
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -109,9 +110,10 @@ class Tag
     }
 
     /**
-     * Add files
+     * Add files.
      *
      * @param \AppBundle\Entity\File $files
+     *
      * @return Tag
      */
     public function addFile(\AppBundle\Entity\File $files)
@@ -122,7 +124,7 @@ class Tag
     }
 
     /**
-     * Remove files
+     * Remove files.
      *
      * @param \AppBundle\Entity\File $files
      */
@@ -132,9 +134,10 @@ class Tag
     }
 
     /**
-     * Add folders
+     * Add folders.
      *
      * @param \AppBundle\Entity\Folder $folders
+     *
      * @return Tag
      */
     public function addFolder(\AppBundle\Entity\Folder $folders)
@@ -145,7 +148,7 @@ class Tag
     }
 
     /**
-     * Remove folders
+     * Remove folders.
      *
      * @param \AppBundle\Entity\Folder $folders
      */
@@ -155,9 +158,9 @@ class Tag
     }
 
     /**
-     * Get folders
+     * Get folders.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFolders()
     {

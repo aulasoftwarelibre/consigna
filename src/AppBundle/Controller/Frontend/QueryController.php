@@ -6,38 +6,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\Session\Session;
-
-
-
-class QueryController extends Controller{
-
+class QueryController extends Controller
+{
     /**
      * @Route("/find", name="find")
-     *
      */
     public function findFileAction(Request $request)
     {
         $word = $request->get('word');
-        $em=$this->getDoctrine()->getManager();
-        $foundFiles= $em->getRepository('AppBundle:File')->findFiles($word);
-        $foundFolders= $em->getRepository('AppBundle:Folder')->findFolders($word);
+        $em = $this->getDoctrine()->getManager();
+        $foundFiles = $em->getRepository('AppBundle:File')->findFiles($word);
+        $foundFolders = $em->getRepository('AppBundle:Folder')->findFolders($word);
 
         return $this->render(
             'Default/filesList.html.twig', array(
             'files' => $foundFiles,
-            'folders' => $foundFolders
+            'folders' => $foundFolders,
         ));
     }
 
     /**
      * @Route("/user/files", name="user_files")
      */
-
     public function myFilesAction()
     {
-//        $user=$this->getUser();
+        //        $user=$this->getUser();
 //
 //        return $this->render(
 //            'Default/filesList.html.twig', array(
@@ -53,10 +46,9 @@ class QueryController extends Controller{
 
         return $this->render(
             'Default/filesList.html.twig', array(
-            'folders'=> $folders,
-            'files' => $files
+            'folders' => $folders,
+            'files' => $files,
         ));
-
     }
 
     /**
@@ -71,8 +63,8 @@ class QueryController extends Controller{
 
         return $this->render(
             'Default/filesList.html.twig', array(
-            'folders'=> $folders,
-            'files' => $files
+            'folders' => $folders,
+            'files' => $files,
         ));
     }
 }

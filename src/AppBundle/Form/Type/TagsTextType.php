@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form\Type;
 
-
 use AppBundle\Form\DataTransformer\TagsToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
@@ -16,19 +15,19 @@ class TagsTextType extends AbstractType
     private $om;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param ObjectManager $om
      */
-    function __construct( ObjectManager $om )
+    public function __construct(ObjectManager $om)
     {
         $this->om = $om;
     }
 
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new TagsToStringTransformer( $this->om );
-        $builder->addModelTransformer( $transformer );
+        $transformer = new TagsToStringTransformer($this->om);
+        $builder->addModelTransformer($transformer);
     }
 
     /**
@@ -36,7 +35,7 @@ class TagsTextType extends AbstractType
      */
     public function getParent()
     {
-        return "text";
+        return 'text';
     }
 
     /**

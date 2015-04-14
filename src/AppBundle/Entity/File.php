@@ -1,24 +1,22 @@
 <?php
 
 namespace AppBundle\Entity;
+
 use AppBundle\Model\FileInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
- * File
+ * File.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\FileRepository")
  * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback")
- *
  */
-
 class File implements FileInterface
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -123,8 +121,8 @@ class File implements FileInterface
      */
     private $shareCode;
 
-
-    public function __construct(){
+    public function __construct()
+    {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
@@ -132,9 +130,9 @@ class File implements FileInterface
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -142,9 +140,10 @@ class File implements FileInterface
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $filename
+     *
      * @return File
      */
     public function setFilename($filename)
@@ -155,20 +154,20 @@ class File implements FileInterface
     }
 
     /**
-     * Get filename
+     * Get filename.
      *
-     * @return string 
+     * @return string
      */
     public function getFilename()
     {
         return $this->filename;
     }
 
-
     /**
-     * Set uploadDate
+     * Set uploadDate.
      *
      * @param \DateTime $uploadDate
+     *
      * @return File
      */
     public function setUploadDate($uploadDate)
@@ -179,9 +178,9 @@ class File implements FileInterface
     }
 
     /**
-     * Get uploadDate
+     * Get uploadDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUploadDate()
     {
@@ -189,9 +188,10 @@ class File implements FileInterface
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
+     *
      * @return File
      */
     public function setPassword($password)
@@ -202,20 +202,20 @@ class File implements FileInterface
     }
 
     /**
-     * Get password
+     * Get password.
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
 
-
     /**
-     * Set user
+     * Set user.
      *
      * @param \AppBundle\Entity\User $user
+     *
      * @return File
      */
     public function setUser($user)
@@ -226,9 +226,9 @@ class File implements FileInterface
     }
 
     /**
-     * Get user
+     * Get user.
      *
-     * @return \AppBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
@@ -284,20 +284,20 @@ class File implements FileInterface
     }
 
     /**
-     * To String
+     * To String.
      *
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return $this->getFilename();
     }
 
-
     /**
-     * Add tags
+     * Add tags.
      *
      * @param \AppBundle\Entity\Tag $tags
+     *
      * @return File
      */
     public function addTag(\AppBundle\Entity\Tag $tags)
@@ -308,7 +308,7 @@ class File implements FileInterface
     }
 
     /**
-     * Remove tags
+     * Remove tags.
      *
      * @param \AppBundle\Entity\Tag $tags
      */
@@ -318,9 +318,10 @@ class File implements FileInterface
     }
 
     /**
-     * Add usersWithAccess
+     * Add usersWithAccess.
      *
      * @param \AppBundle\Entity\User $usersWithAccess
+     *
      * @return File
      */
     public function addUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
@@ -331,7 +332,7 @@ class File implements FileInterface
     }
 
     /**
-     * Remove usersWithAccess
+     * Remove usersWithAccess.
      *
      * @param \AppBundle\Entity\User $usersWithAccess
      */
@@ -341,9 +342,9 @@ class File implements FileInterface
     }
 
     /**
-     * Get usersWithAccess
+     * Get usersWithAccess.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsersWithAccess()
     {
@@ -351,19 +352,23 @@ class File implements FileInterface
     }
 
     /**
-     * Has access
+     * Has access.
      *
      * @param \AppBundle\Entity\User $user
+     *
      * @return bool
      */
-    public function hasAccess($user){
-
-        if ($this->getUser()==$user)
+    public function hasAccess($user)
+    {
+        if ($this->getUser() == $user) {
             return true;
-        foreach ($this->usersWithAccess as $uWithAccess){
-            if($user==$uWithAccess)
-                return true;
         }
+        foreach ($this->usersWithAccess as $uWithAccess) {
+            if ($user == $uWithAccess) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -479,7 +484,6 @@ class File implements FileInterface
         $this->shareCode = $shareCode;
     }
 
-
     public function configureFileCallback($info)
     {
         $this->setFilename($info['origFileName']);
@@ -488,6 +492,6 @@ class File implements FileInterface
 
     public function eraseCredentials()
     {
-        $this->plainPassword=null;
+        $this->plainPassword = null;
     }
 }
