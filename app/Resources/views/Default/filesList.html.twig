@@ -42,6 +42,9 @@
                         {% if folder.getUser() == app.user and app.user %}
                             <a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> Share </li></a>
                         {% endif %}
+                        {% if folder.getUser() == app.user and app.user %}
+                            <a href="{{ path('folder_edit',{'slug':folder.slug}) }}" title="Edit {{ folder.folderName }}"><li><i class="fa fa-pencil-square-o"></i> Edit </li></a>
+                        {% endif %}
                     </ul>
                 </div>
             </li>

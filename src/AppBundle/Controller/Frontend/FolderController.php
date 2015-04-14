@@ -14,6 +14,7 @@ use AppBundle\Entity\File;
 use AppBundle\Form\Type\CreateFolderType;
 use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
+use AppBundle\Form\Type\EditFolderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -23,6 +24,35 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class FolderController extends Controller
 {
+    /**
+     *@Route("/folder/{slug}/edit" , name="folder_edit")
+     */
+    public function editAction(Request $request,Folder $folder)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('create', $folder)) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $form = $this->createForm(new EditFolderType(), $folder);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($folder);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->set('success', 'Folder '.$folder.' has been created successfully');
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render(
+            'Default/form.html.twig',
+            array(
+                'form' => $form->createView(),
+            ));
+    }
+
     /**
      * @Route("folder/s/{shareCode}/{slug}", name="folder_share")
      */
