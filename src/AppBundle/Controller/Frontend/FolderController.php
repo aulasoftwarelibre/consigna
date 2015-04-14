@@ -71,13 +71,7 @@ class FolderController extends Controller
                 $session->set($folder->getSlug(), true);
             }
         }
-
-        return $this->render(
-            'Default/Folder/share.html.twig',
-            array(
-                'folder' => $folder,
-            )
-        );
+        return $this->redirectToRoute('folder_files', array('slug' => $folder->getSlug()));
     }
 
     /**

@@ -6,4 +6,3 @@
         tags: <numberBetween(1, 10)>x @tags*
         usersWithAccess: <numberBetween(1, 10)>x @users*
         plainPassword: secret
-        shareCode: secret
