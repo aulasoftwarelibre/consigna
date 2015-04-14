@@ -89,6 +89,13 @@ class Folder implements FileInterface
     private $plainPassword;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="shareCode", type="string", length=255)
+     */
+    private $shareCode;
+
+    /**
      * Construct.
      */
     public function __construct()
@@ -97,6 +104,7 @@ class Folder implements FileInterface
         $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
     }
 
     /**
@@ -386,6 +394,22 @@ class Folder implements FileInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShareCode()
+    {
+        return $this->shareCode;
+    }
+
+    /**
+     * @param mixed $shareCode
+     */
+    public function setShareCode($shareCode)
+    {
+        $this->shareCode = $shareCode;
     }
 
     public function eraseCredentials()

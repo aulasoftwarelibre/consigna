@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block mainContent %}
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="event-list">
+                <li>
+
+                    <div class="info">
+                        <h4 class="title"><i class="fa fa-folder-o"></i>
+                            <a href='{{ path('control_access',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a>
+                        </h4>                        <p class ="desc">
+                            Upload by {{ folder.user}}
+                            {% for tag in folder.tags  %}
+                                <span class="label label-default">{{ tag }}</span>
+                            {% endfor %}
+
+                            {% for user in folder.usersWithAccess %}
+                                <span class="label label-danger">{{ user }}</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

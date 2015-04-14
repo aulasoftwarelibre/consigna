@@ -28,7 +28,6 @@ class FileController extends Controller
                 $file->addUsersWithAccess($user);
                 $em->persist($file);
                 $em->flush();
-                die('ok');
             } else {
                 $session->set($file->getSlug(), true);
             }

@@ -24,6 +24,33 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class FolderController extends Controller
 {
     /**
+     * @Route("folder/s/{shareCode}/{slug}", name="folder_share")
+     */
+    public function ShareFileAction(Folder $folder)
+    {
+        $user = $this->getUser();
+        $session = $this->get('session');
+        $em = $this->getDoctrine()->getManager();
+
+        if (false === $this->get('security.authorization_checker')->isGranted('access', $folder)) {
+            if ($user) {
+                $folder->addUsersWithAccess($user);
+                $em->persist($folder);
+                $em->flush();
+            } else {
+                $session->set($folder->getSlug(), true);
+            }
+        }
+
+        return $this->render(
+            'Default/Folder/share.html.twig',
+            array(
+                'folder' => $folder,
+            )
+        );
+    }
+
+    /**
      *@Route("/folder/{slug}/uploadFile" , name="uploadFile_folder")
      */
     public function createFileAction(Request $request, Folder $folder)

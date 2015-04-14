@@ -36,13 +36,31 @@
                         {% endfor %}
                     </p>
                     <ul>
-                        {% if folder.getUser() == app.user %}
+                        {% if folder.getUser() == app.user and app.user %}
                             <a href="{{ path('folder_delete',{'slug':folder.slug}) }}" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i> Delete </li></a>
+                        {% endif %}
+                        {% if folder.getUser() == app.user and app.user %}
+                            <a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> Share </li></a>
                         {% endif %}
                     </ul>
                 </div>
             </li>
-
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Share {{ folder.folderName }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            {{ url('folder_share',{'shareCode':folder.shareCode,'slug':folder.slug}) }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
 
         {% for file in files %} <!-- list of files -->
@@ -71,25 +89,23 @@
                         {% endif %}
                     </ul>
                 </div>
-
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Share {{ file.filename }}</h4>
-                            </div>
-                            <div class="modal-body">
-                                {{ url('file_share',{'shareCode':file.shareCode,'slug':file.slug}) }}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
+            </li>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Share {{ file.filename }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            {{ url('file_share',{'shareCode':file.shareCode,'slug':file.slug}) }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </li>
-
+            </div>
         {% endfor %}
 
         {% if not files and not folders %}
