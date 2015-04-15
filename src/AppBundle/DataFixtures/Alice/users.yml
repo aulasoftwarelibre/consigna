@@ -1,11 +1,20 @@
+\AppBundle\Entity\Group:
+    group_admin:
+        __construct: ['Administradores', ['ROLE_ADMIN']]
+    group_user:
+        __construct: ['Gestores', ['ROLE_STAFF']]
+
+
 \AppBundle\Entity\User:
     admin:
         username: admin
         email: admin@localhost.local
         plainPassword: admin
         enabled: 1
-    users{1..10}:
-        username: <username()>
+        groups: [ @group_admin ]
+    users_{john,paul,alice,mary}:
+        username: <current()>
         email: <email()>
         plainPassword: secret
         enabled: 1
+        groups: [ @group_user ]

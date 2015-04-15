@@ -1,9 +1,22 @@
 \AppBundle\Entity\File:
     files{1..6}:
-        filename: <word()>
+        filename (unique): <filename()>
+        file: test.pdf
+        size: 20597
+        path: private/test.pdf
+        mimeType: application/pdf
         uploadDate: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
-        password: <password(8,10)>
-        user: @users*
-        tags: <numberBetween(1, 10)>x @tags*
-        usersWithAccess: <numberBetween(1, 10)>x @users*
-        folder: @folders*
+        plainPassword: secret
+        user: @users_*
+        tags: <numberBetween(1, 4)>x @tags*
+        usersWithAccess: 1x @users_*
+
+    filesfolder{1..4}:
+        filename (unique): <filename()>
+        file: test.pdf
+        size: 20597
+        path: private/test.pdf
+        mimeType: application/pdf
+        uploadDate: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
+        plainPassword: secret
+        folder: @folders1

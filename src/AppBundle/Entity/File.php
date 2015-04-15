@@ -106,6 +106,7 @@ class File implements FileInterface
 
     /**
      * @ORM\Column(length=128, unique=true)
+     * @Gedmo\Slug(fields={"filename"})
      */
     private $slug;
 
