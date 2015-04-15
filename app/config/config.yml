@@ -137,3 +137,19 @@ stof_doctrine_extensions:
 #                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
 #                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\FileRepository
 
+monolog:
+    handlers:
+        applog:
+            type: stream
+            path: /var/log/symfony.log
+            level: error
+        main:
+            type: fingers_crossed
+            action_level: warning
+            handler: file
+        file:
+            type: stream
+            level: debug
+        syslog:
+            type: syslog
+            level: error

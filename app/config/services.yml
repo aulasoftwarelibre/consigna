@@ -20,6 +20,12 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
 
+    consigna.virus.listener:
+        class: AppBundle\EventListener\VirusConsignaListener
+        arguments: [ @monolog.logger.event ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+
     appbundle.type.tags_text:
         class: AppBundle\Form\Type\TagsTextType
         arguments: ["@doctrine.orm.entity_manager"]
