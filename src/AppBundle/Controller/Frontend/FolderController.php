@@ -41,13 +41,13 @@ class FolderController extends Controller
             $em->persist($folder);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success', 'Folder '.$folder.' has been created successfully');
+            $this->get('session')->getFlashBag()->set('success', 'Folder '.$folder.' has been updated successfully');
 
             return $this->redirectToRoute('homepage');
         }
 
         return $this->render(
-            'Default/form.html.twig',
+            'Default/Folder/edit.html.twig',
             array(
                 'form' => $form->createView(),
             ));

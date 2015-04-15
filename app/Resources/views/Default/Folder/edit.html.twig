@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
+    {{ parent() }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $('select').select2();
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block uploadFile %}
+    <a class="btn btn-default navbar-btn" href="{{ path('file_create') }}"><i class="fa fa-cloud-upload "></i> Upload file</a>
+{% endblock %}
+{% block mainContent %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
