@@ -10,27 +10,14 @@ namespace AppBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\File;
-use Monolog\Logger;
+use AppBundle\Event\FileEvent;
 
 
 class VirusConsignaListener
 {
-    /**
-     * @var Logger
-     */
-    private $logger;
-
-    public function __construct(Logger $logger)
+    public function onFileSubmitted(FileEvent $event)
     {
-        $this->logger = $logger;
-    }
+        $file = $event->getFile();
 
-    public function prePersist(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-
-        if ($entity instanceof File) {
-            $this->logger->addInfo('File '.$entity->getFilename().' has been scanned');
-        }
     }
 }

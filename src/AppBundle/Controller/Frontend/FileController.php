@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
+use AppBundle\Event\FileEvent;
+use AppBundle\FileEvents;
 
 class FileController extends Controller
 {
@@ -60,6 +62,16 @@ class FileController extends Controller
             $em = $this->getDoctrine()->getManager();
             if ($user) {
                 $file->setUser($user);
+
+                // Dispatch Event
+                $fileEvent = new FileEvent($file);
+                $fileEvent = $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, $fileEvent);
+
+                if ($fileEvent->isPropagationStopped()) {
+                    $this->get('logger')->addError('The file has not been scanned');
+                } else {
+                    $this->get('logger')->addInfo('The file has been scanned');
+                }
             }
 
             $em->persist($file);

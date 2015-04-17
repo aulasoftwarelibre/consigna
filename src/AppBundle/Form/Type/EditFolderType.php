@@ -19,7 +19,6 @@ class EditFolderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $folder=$builder->getData();
-dump($folder);
         $builder
             ->add('usersWithAccess','entity', array(
                 'class' => 'AppBundle\Entity\User',
