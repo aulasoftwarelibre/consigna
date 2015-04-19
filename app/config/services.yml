@@ -22,8 +22,9 @@ services:
 
     consigna.virus.listener:
         class: AppBundle\EventListener\VirusConsignaListener
+        arguments: [@logger]
         tags:
-            - { name: consigna.file.submitted , event: prePersist }
+            - { name: kernel.event_subscriber }
 
     appbundle.type.tags_text:
         class: AppBundle\Form\Type\TagsTextType
