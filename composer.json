@@ -1,8 +1,8 @@
 {
-    "name": "sgomez/sf2-behat-skel",
-    "license": "MIT",
+    "name": "consigna",
+    "license": "GPL-3.0",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution with Behat",
+    "description": "Consigna project",
     "autoload": {
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },
@@ -28,7 +28,9 @@
         "fzaninotto/faker":                     "1.5.*@dev",
         "stof/doctrine-extensions-bundle":      "~1.1@dev",
         "excelwebzone/recaptcha-bundle":        "1.2.*",
-        "ivaynberg/select2":                    "3.5.*"
+        "ivaynberg/select2":                    "3.5.*",
+        "cleentfaar/tissue":                    "dev-master",
+        "cleentfaar/tissue-clamav-adapter":     "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle":              "~2.4",
