@@ -20,9 +20,11 @@ class FileRepository extends EntityRepository
             SELECT c
             FROM AppBundle:File c
             WHERE c.folder IS NULL
+            AND c.scanStatus = :status
             ORDER BY c.filename ASC'
         );
 
+        $query->setParameter('status',File::SCAN_STATUS_OK);
         return $query->getResult();
     }
 
@@ -35,9 +37,11 @@ class FileRepository extends EntityRepository
             LEFT JOIN c.tags d
             WHERE c.filename LIKE :word
             OR d.tagName LIKE :word
+            AND c.scanStatus = :status
             ORDER BY c.filename ASC'
         );
         $query->setParameter('word', '%'.$word.'%');
+        $query->setParameter('status',File::SCAN_STATUS_OK);
 
         return $query->getResult();
     }
@@ -49,9 +53,11 @@ class FileRepository extends EntityRepository
             SELECT c
             FROM AppBundle:File c
             WHERE c.user = :owner
+            AND c.scanStatus = :status
             ORDER BY c.filename ASC'
         );
         $query->setParameter('owner', $owner);
+        $query->setParameter('status',File::SCAN_STATUS_OK);
 
         return $query->getResult();
     }
@@ -64,9 +70,11 @@ class FileRepository extends EntityRepository
             FROM AppBundle:File c
             JOIN c.usersWithAccess d
             WHERE d.username = :user
+            AND c.scanStatus = :status
             ORDER BY c.filename ASC'
         );
         $query->setParameter('user', $user->getUsername());
+        $query->setParameter('status',File::SCAN_STATUS_OK);
 
         return $query->getResult();
     }

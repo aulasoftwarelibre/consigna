@@ -33,6 +33,10 @@ class AccessVoter extends AbstractVoter
                 return true;
             }
 
+            if($entity->getScanStatus()==1) {
+                return true;
+            }
+
             if ($attribute === self::ACCESS && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
                 return true;
             }

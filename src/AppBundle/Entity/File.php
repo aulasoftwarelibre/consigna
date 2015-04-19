@@ -15,6 +15,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class File implements FileInterface
 {
+    const SCAN_STATUS_OK = 1;
+    const SCAN_STATUS_PENDING = 2;
+    const SCAN_STATUS_FAILED = 3;
+
     /**
      * @var int
      *
@@ -122,12 +126,36 @@ class File implements FileInterface
      */
     private $shareCode;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="scanStatus", type="string", length=255)
+     */
+    private $scanStatus;
+
+    /**
+     * @return string
+     */
+    public function getScanStatus()
+    {
+        return $this->scanStatus;
+    }
+
+    /**
+     * @param string $scanStatus
+     */
+    public function setScanStatus($scanStatus)
+    {
+        $this->scanStatus = $scanStatus;
+    }
+
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
+        $this->scanStatus = self::SCAN_STATUS_PENDING;
     }
 
     /**
