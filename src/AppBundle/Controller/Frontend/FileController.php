@@ -64,14 +64,14 @@ class FileController extends Controller
                 $file->setUser($user);
 
                 // Dispatch Event
-                $fileEvent = new FileEvent($file);
+                $fileEvent = new FileEvent($file,$this->get('logger'));
                 $fileEvent = $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, $fileEvent);
 
-                if ($fileEvent->isPropagationStopped()) {
-                    $this->get('logger')->addError('The file has not been scanned');
-                } else {
-                    $this->get('logger')->addInfo('The file has been scanned');
-                }
+//                if ($fileEvent->isPropagationStopped()) {
+//                    $this->get('logger')->addError('The file has not been scanned');
+//                } else {
+//                    $this->get('logger')->addInfo('The file has been scanned');
+//                }
             }
 
             $em->persist($file);
