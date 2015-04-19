@@ -62,16 +62,6 @@ class FileController extends Controller
             $em = $this->getDoctrine()->getManager();
             if ($user) {
                 $file->setUser($user);
-
-                // Dispatch Event
-                $fileEvent = new FileEvent($file,$this->get('logger'));
-                $fileEvent = $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, $fileEvent);
-
-//                if ($fileEvent->isPropagationStopped()) {
-//                    $this->get('logger')->addError('The file has not been scanned');
-//                } else {
-//                    $this->get('logger')->addInfo('The file has been scanned');
-//                }
             }
 
             $em->persist($file);
@@ -80,6 +70,11 @@ class FileController extends Controller
             $uploadableManager->markEntityToUpload($file, $file->getFilename());
 
             $em->flush();
+
+            // Dispatch Event
+            $fileEvent = new FileEvent($file);
+
+            $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, $fileEvent);
 
             $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
 
