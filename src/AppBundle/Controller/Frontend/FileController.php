@@ -76,7 +76,11 @@ class FileController extends Controller
 
             $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, $fileEvent);
 
-            $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
+            if($file->getScanStatus()==1) {
+                $this->get('session')->getFlashBag()->set('success', 'File ' . $file . ' has been created successfully');
+            } else {
+                $this->get('session')->getFlashBag()->set('success', 'File ' . $file . ' contains virus and was removed');
+            }
 
             return $this->redirectToRoute('homepage');
         }

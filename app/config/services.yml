@@ -22,7 +22,7 @@ services:
 
     consigna.virus.listener:
         class: AppBundle\EventListener\VirusConsignaListener
-        arguments: [@logger]
+        arguments: [@logger,@doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_subscriber }
 

@@ -8,12 +8,13 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\File;
 use AppBundle\FileEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AppBundle\Event\FileEvent;
 use Psr\Log\LoggerInterface;
-
-
+use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
+use Doctrine\ORM\EntityManager;
 
 class VirusConsignaListener implements EventSubscriberInterface
 {
@@ -22,9 +23,12 @@ class VirusConsignaListener implements EventSubscriberInterface
      */
     private $loggerInterface;
 
-    function __construct(LoggerInterface $loggerInterface)
+    private $entityManager;
+
+    function __construct(LoggerInterface $loggerInterface, EntityManager $entityManager)
     {
         $this->loggerInterface = $loggerInterface;
+        $this->entityManager= $entityManager;
     }
 
     /**
@@ -62,7 +66,18 @@ class VirusConsignaListener implements EventSubscriberInterface
     public function onFileSubmitted(FileEvent $event)
     {
         $file = $event->getFile();
-        $this->loggerInterface->info('File '.$file.' has been scanned');
-
+        $path = $event-> getPath();
+        $adapter = new ClamAVAdapter('/usr/bin/clamdscan');
+        $result=$adapter->scan([$path]);
+        
+        if($result->hasVirus()) {
+            $this->entityManager->remove($file);
+            $this->loggerInterface->info('File '.$file.' has been removed');
+        } else {
+            $this->loggerInterface->info('File '.$file.' has been scanned');
+            $event->setStatus(File::SCAN_STATUS_OK);
+        }
+        $this->entityManager->persist($file);
+        $this->entityManager->flush();
     }
 }
