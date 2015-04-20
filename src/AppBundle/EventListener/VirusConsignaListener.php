@@ -18,17 +18,30 @@ use Doctrine\ORM\EntityManager;
 
 class VirusConsignaListener implements EventSubscriberInterface
 {
+
+    /**
+     * @Doctrine\ORM\Mapping\Column(type="string")
+     */
+    private $antivirus_path ;
+
     /**
      * @var LoggerInterface
+     * @Doctrine\ORM\Mapping\Column(type="string")
      */
     private $loggerInterface;
 
+    /**
+     * @Doctrine\ORM\Mapping\Column(type="string")
+     */
     private $entityManager;
 
-    function __construct(LoggerInterface $loggerInterface, EntityManager $entityManager)
+
+
+    function __construct(LoggerInterface $loggerInterface, EntityManager $entityManager, $parameter)
     {
         $this->loggerInterface = $loggerInterface;
         $this->entityManager= $entityManager;
+        $this->antivirus_path = $parameter;
     }
 
     /**
@@ -67,7 +80,7 @@ class VirusConsignaListener implements EventSubscriberInterface
     {
         $file = $event->getFile();
         $path = $file-> getPath();
-        $adapter = new ClamAVAdapter('/usr/bin/clamdscan');
+        $adapter = new ClamAVAdapter($this->antivirus_path);
         $result=$adapter->scan([$path]);
 
         if($result->hasVirus()) {

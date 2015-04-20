@@ -22,6 +22,7 @@ parameters:
     private_key: ~
 
     days_before_clean: 7
+    antivirus_path: /usr/bin/clamdscan
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
