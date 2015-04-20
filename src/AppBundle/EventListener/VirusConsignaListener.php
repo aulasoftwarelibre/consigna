@@ -66,16 +66,16 @@ class VirusConsignaListener implements EventSubscriberInterface
     public function onFileSubmitted(FileEvent $event)
     {
         $file = $event->getFile();
-        $path = $event-> getPath();
+        $path = $file-> getPath();
         $adapter = new ClamAVAdapter('/usr/bin/clamdscan');
         $result=$adapter->scan([$path]);
-        
+
         if($result->hasVirus()) {
             $this->entityManager->remove($file);
             $this->loggerInterface->info('File '.$file.' has been removed');
         } else {
             $this->loggerInterface->info('File '.$file.' has been scanned');
-            $event->setStatus(File::SCAN_STATUS_OK);
+            $file->setScanStatus(File::SCAN_STATUS_OK);
         }
         $this->entityManager->persist($file);
         $this->entityManager->flush();

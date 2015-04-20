@@ -17,18 +17,11 @@ class FileEvent extends Event
         $this->file = $file;
     }
 
+
     public function getFile()
     {
         return $this->file;
     }
 
-    public function getPath()
-    {
-        return $this->file->getPath();
-    }
 
-    public function setStatus($status)
-    {
-        return $this->file->setScanStatus($status);
-    }
 }
