@@ -86,7 +86,9 @@ class FileRepository extends EntityRepository
         foreach ($files as $file) {
             if ($file->getUploadDate() == $date) {
                 $em->remove($file);
+                $em->persist($file);
             }
         }
+        $em->flush();
     }
 }
