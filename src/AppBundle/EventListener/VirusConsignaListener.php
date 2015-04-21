@@ -10,64 +10,60 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\File;
 use AppBundle\FileEvents;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AppBundle\Event\FileEvent;
 use Psr\Log\LoggerInterface;
 use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
 use Doctrine\ORM\EntityManager;
+use Swift_Mailer;
 
+
+/**
+ * Class VirusConsignaListener
+ * @package AppBundle\EventListener
+ */
 class VirusConsignaListener implements EventSubscriberInterface
 {
-
     /**
-     * @Doctrine\ORM\Mapping\Column(type="string")
+     * @var
      */
     private $antivirus_path ;
 
     /**
      * @var LoggerInterface
-     * @Doctrine\ORM\Mapping\Column(type="string")
      */
     private $loggerInterface;
 
+
     /**
-     * @Doctrine\ORM\Mapping\Column(type="string")
+     * @var EntityManager
      */
     private $entityManager;
 
 
+    /**
+     * @var Swift_Mailer
+     */
+    private $swiftMailer;
 
-    function __construct(LoggerInterface $loggerInterface, EntityManager $entityManager, $parameter)
+
+    /**
+     * @param LoggerInterface $loggerInterface
+     * @param EntityManager $entityManager
+     * @param $antivirus_path
+     * @param Swift_Mailer $mailer
+     */
+    function __construct(LoggerInterface $loggerInterface, EntityManager $entityManager, $antivirus_path, Swift_Mailer $mailer)
     {
         $this->loggerInterface = $loggerInterface;
         $this->entityManager= $entityManager;
-        $this->antivirus_path = $parameter;
+        $this->antivirus_path = $antivirus_path;
+        $this->swiftMailer = $mailer;
     }
 
     /**
-     * Returns an array of events this subscriber wants to listen to.
-     *
      * @return array
-     */
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * The array keys are event names and the value can be:
-     *
-     *  * The method name to call (priority defaults to 0)
-     *  * An array composed of the method name to call and the priority
-     *  * An array of arrays composed of the method names to call and respective
-     *    priorities, or 0 if unset
-     *
-     * For instance:
-     *
-     *  * array('eventName' => 'methodName')
-     *  * array('eventName' => array('methodName', $priority))
-     *  * array('eventName' => array(array('methodName1', $priority), array('methodName2'))
-     *
-     * @return array The event names to listen to
-     *
-     * @api
      */
     public static function getSubscribedEvents()
     {
@@ -76,20 +72,39 @@ class VirusConsignaListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param FileEvent $event
+     */
     public function onFileSubmitted(FileEvent $event)
     {
         $file = $event->getFile();
         $path = $file-> getPath();
-        $adapter = new ClamAVAdapter($this->antivirus_path);
-        $result=$adapter->scan([$path]);
 
-        if($result->hasVirus()) {
-            $this->entityManager->remove($file);
-            $this->loggerInterface->info('File '.$file.' has been removed');
-        } else {
-            $this->loggerInterface->info('File '.$file.' has been scanned');
-            $file->setScanStatus(File::SCAN_STATUS_OK);
-        }
+        try {
+            $adapter = new ClamAVAdapter($this->antivirus_path);
+            $result = $adapter->scan([$path]);
+
+            if ($result->hasVirus()) {
+                $this->entityManager->remove($file);
+                $this->loggerInterface->info('File ' . $file . ' has been removed');
+            } else {
+                $this->loggerInterface->info('File ' . $file . ' has been scanned');
+                $file->setScanStatus(File::SCAN_STATUS_OK);
+            }
+        } catch (EntityNotFoundException $e) {
+            $this->loggerInterface->info($e);
+            $file->setScanStatus(File::SCAN_STATUS_FAILED);
+            $this->entityManager->persist($file);
+            $this->entityManager->flush();
+            $mailer = $this->swiftMailer;
+            $message = $mailer->createMessage()
+                ->setSubject('Error scanning file')
+                ->setFrom('pruevasymfony@gmail.com')
+                ->setTo('sergio@uco.es')
+                ->setBody($e)
+            ;
+            $mailer->send($message);
+        };
         $this->entityManager->persist($file);
         $this->entityManager->flush();
     }
