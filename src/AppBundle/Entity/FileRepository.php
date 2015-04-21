@@ -10,6 +10,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
+
 
 class FileRepository extends EntityRepository
 {
@@ -87,6 +89,26 @@ class FileRepository extends EntityRepository
             if ($file->getUploadDate() == $date) {
                 $em->remove($file);
                 $em->persist($file);
+            }
+        }
+        $em->flush();
+    }
+
+    public function scanAllFiles($antivirusPath)
+    {
+        $em = $this->getEntityManager();
+        $files = $em->getRepository('AppBundle:File')->findAll();
+        foreach ($files as $file) {
+            $adapter = new ClamAVAdapter($antivirusPath);
+            $result = $adapter->scan([$file->getPath()]);
+
+            if ($result->hasVirus()) {
+                $em->remove($file);
+                $em->persist($file);
+//                $this->loggerInterface->info('File ' . $file . ' has been removed');
+            } else {
+//                $this->loggerInterface->info('File ' . $file . ' has been scanned');
+                $file->setScanStatus(File::SCAN_STATUS_OK);
             }
         }
         $em->flush();
