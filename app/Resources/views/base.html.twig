@@ -9,12 +9,17 @@
             {% block title %}University of Cordoba. Consigna 2.0{% endblock %}
         </title>
         {% block stylesheets %}
-            <!-- CSS de Bootstrap -->
-            <link href={{ asset('css/bootstrap.css') }} rel="stylesheet" media="screen">
-            <link href={{ asset('css/bootsnipp.css') }} rel="stylesheet" media="screen">
-            <link href={{ asset('css/bootstrapEventList.css') }} rel="stylesheet" media="screen">
-            <link href={{ asset('css/consigna.css') }} rel="stylesheet" media="screen">
-
+            {% stylesheets
+                "@bootstrap_css"
+                "@select2_css"
+                "@select2_bootstrap_css_css"
+                "@font_awesome_css"
+                "@ionicons_css"
+                "@admin_lte_css"
+                "bundles/app/css/consigna.css"
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
 
             <!-- HTML5 for IE8 -->
             <!--[if lt IE 9]>
@@ -101,10 +106,19 @@
             </div>
         </div>
     {% endblock %}
-    </body>
+
     {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/consigna.js') }}"></script>
+        {% javascripts
+            "@jquery_js"
+            "@select2_js"
+            "@bootstrap_js"
+            "@bootstrap_filestyle_js"
+            "@admin_lte_js"
+            "bundles/app/js/consigna.js"
+            %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
     {% endblock %}
+    </body>
+
 </html>

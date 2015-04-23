@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Sp\BowerBundle\SpBowerBundle(),
+
 //            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
 
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),

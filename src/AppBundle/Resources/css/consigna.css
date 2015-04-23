@@ -1,0 +1,231 @@
+@import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
+
+
+/* D&D */
+
+#drag-drop-area {
+  border:4px dashed #bbb;
+  height:200px;
+  margin: 10px;
+}
+.drag-drop .drag-drop-inside {
+   margin:70px auto 0;
+   width:250px
+ }
+.drag-drop-inside p {
+   color:#aaa;
+   font-size:14px;
+   margin:5px 0;
+   display:none
+ }
+.drag-drop .drag-drop-inside p {
+   text-align:center
+ }
+.drag-drop-inside p.drag-drop-info {
+   font-size:20px
+ }
+.drag-drop .drag-drop-inside p,
+.drag-drop-inside p.drag-drop-buttons {
+   display:block
+ }
+.drag-drop.drag-over #drag-drop-area {
+   border-color:#83b4d8}
+
+#drag-drop-area > div > p.drag-drop-buttons > div {
+   margin: 0 auto;
+ }
+
+/* FILE */
+
+.file-list {
+   list-style: none;
+   font-family: 'Lato', sans-serif;
+   margin: 0px;
+   padding: 0px;
+ }
+
+
+.file-list > li {
+   background-color: rgb(255, 255, 255);
+   box-shadow: 0px 0px 5px rgb(51, 51, 51);
+   box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+   padding: 0px;
+   margin: 0px 0px 20px;
+ }
+.file-list > li > .square  {
+   display: none;
+   width: 100%;
+   color: #dadada;
+   background-color: #ffffff !important;
+   padding: 5px;
+   text-align: center;
+   text-transform: uppercase;
+ }
+.file-list > li > .square  > span {
+   display: none;
+ }
+.file-list > li > .square  > .icon {
+   display: block;
+   font-size: 50pt;
+   font-weight: 100;
+ }
+.file-list > li > img {
+   display: none;
+ }
+.file-list > li > .info {
+   padding-top: 5px;
+   text-align: center;
+ }
+.file-list > li > .info > .title {
+   font-size: 17pt;
+   font-weight: 700;
+   margin: 0px;
+   display: block;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+ }
+.file-list > li > .info > .desc {
+   font-size: 10pt;
+   font-weight: 300;
+   margin: 0px;
+ }
+.file-list > li > .info > ul,
+.file-list > li > .actions > ul {
+   display: table;
+   list-style: none;
+   margin: 10px 0px 0px;
+   padding: 0px;
+ }
+.file-list > li > .actions > ul {
+   margin: 0px;
+   text-align: center;
+   width: 100%;
+   border-left: 1px solid rgb(230, 230, 230);
+   height: 100px;
+ }
+
+.file-list > li > .info > ul > li,
+.file-list > li > .actions > ul > li {
+   display: table-cell;
+   cursor: pointer;
+   color: rgb(30, 30, 30);
+   font-size: 11pt;
+   font-weight: 300;
+     padding: 3px 0px;
+ }
+.file-list > li > .info > ul > li {
+   padding-left: 10px;
+ }
+.file-list > li > .info > ul > li > a {
+   display: block;
+   width: 100%;
+   color: rgb(30, 30, 30);
+   text-decoration: none;
+ }
+.file-list > li > .actions > ul > li {
+     padding: 0px;
+ }
+.file-list > li > .actions > ul > li > a {
+     padding: 3px 0px;
+ }
+.file-list > li > .info > ul > li:hover,
+.file-list > li > .actions > ul > li:hover {
+   color: rgb(30, 30, 30);
+   background-color: rgb(200, 200, 200);
+ }
+.action a,
+.share a,
+.trash a {
+   display: block;
+   width: 100%;
+   color: rgb(75, 110, 168) !important;
+ }
+.share a {
+   color: rgb(100, 153, 79) !important;
+ }
+.trash a {
+   color: rgb(221, 75, 57) !important;
+ }
+.action:hover a {
+   color: rgb(255, 255, 255) !important;
+   background-color: rgb(75, 110, 168) !important;
+ }
+.share:hover a {
+   color: rgb(255, 255, 255) !important;
+   background-color: rgb(100, 153, 79) !important;
+ }
+.trash:hover a {
+   color: rgb(255, 255, 255) !important;
+   background-color: rgb(221, 75, 57) !important;
+ }
+
+.file-list > li > .actions {
+   position: absolute;
+   top: 0px;
+   right: 0px;
+   display: block;
+   width: 33px;
+ }
+
+.file-list > li > .actions > ul > li {
+   display: block;
+       padding: 0px;
+ }
+.file-list > li > .actions > ul > li > a {
+   display: block;
+   width: 33px;
+   padding: 6px 0px;
+ }
+
+  .file-list > li {
+       position: relative;
+       display: block;
+       width: 100%;
+       height: 100px;
+       padding: 0px;
+     }
+
+.file-list > li > .info {
+     background-color: rgb(245, 245, 245);
+     overflow: hidden;
+   }
+  .file-list > li > .square ,
+  .file-list > li > img {
+       width: 100px;
+       height: 100px;
+       padding: 0px;
+       margin: 0px;
+     }
+
+
+  .file-list > li > .info {
+       position: relative;
+       height: 100px;
+       text-align: left;
+       padding-right: 40px;
+     }
+  .file-list > li > .info > .title,
+  .file-list > li > .info > .desc {
+       padding: 0px 10px;
+     }
+  .file-list > li > .info > ul {
+       position: absolute;
+       left: 0px;
+       bottom: 0px;
+       padding: 0px;
+     }
+
+@media (min-width: 768px) {
+
+  .file-list > li > .square ,
+  .file-list > li > img  {
+       display: inline-block;
+     }
+  .file-list > li > .square ,
+  .file-list > li > img {
+       width: 100px;
+       float: left;
+     }
+
+}

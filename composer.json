@@ -30,7 +30,8 @@
         "excelwebzone/recaptcha-bundle":        "1.2.*",
         "ivaynberg/select2":                    "3.5.*",
         "cleentfaar/tissue":                    "dev-master",
-        "cleentfaar/tissue-clamav-adapter":     "dev-master"
+        "cleentfaar/tissue-clamav-adapter":     "dev-master",
+        "sp/bower-bundle": "0.11.*"
     },
     "require-dev": {
         "sensio/generator-bundle":              "~2.4",
@@ -55,7 +56,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Sp\\BowerBundle\\Composer\\ScriptHandler::bowerInstall"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -63,7 +65,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Sp\\BowerBundle\\Composer\\ScriptHandler::bowerInstall"
         ]
     },
     "config": {
