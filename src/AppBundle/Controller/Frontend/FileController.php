@@ -14,8 +14,15 @@ use AppBundle\Form\Type\CreateFileAnonType;
 use AppBundle\Event\FileEvent;
 use AppBundle\FileEvents;
 
+/**
+ * Class FileController
+ * @package AppBundle\Controller\Frontend
+ */
 class FileController extends Controller
 {
+
+
+
     /**
      * @Route("file/s/{shareCode}/{slug}", name="file_share")
      */
