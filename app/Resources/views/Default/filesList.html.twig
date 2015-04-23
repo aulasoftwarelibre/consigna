@@ -89,10 +89,7 @@
                         {% endif %}
                         {% if file.getUser() == app.user and app.user %}
                             <a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> Share </li></a>
-                        {% endif %}
-                    </ul>
-                </div>
-            </li>
+
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -109,6 +106,10 @@
                     </div>
                 </div>
             </div>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
         {% endfor %}
 
         {% if not files and not folders %}
