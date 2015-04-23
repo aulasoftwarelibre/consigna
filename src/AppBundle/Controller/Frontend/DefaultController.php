@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Frontend;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class DefaultController
@@ -13,7 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     *@Route("/" , name="homepage")
+     * @Route("/" , name="homepage")
+     * @Template("Default/filesList.html.twig")
      */
     public function filesListAction()
     {
@@ -21,17 +23,16 @@ class DefaultController extends Controller
         $files = $em->getRepository('AppBundle:File')->listFiles();
         $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('folderName' => 'ASC'));
 
-        return $this->render(
-            'Default/filesList.html.twig',
-            array(
-                'files' => $files,
-                'folders' => $folders,
-            )
+        return array(
+            'files' => $files,
+            'folders' => $folders,
         );
+
     }
 
     /**
      * @Route("/user/files", name="user_files")
+     * @Template("Default/filesList.html.twig")
      */
     public function myFilesAction()
     {
@@ -40,15 +41,15 @@ class DefaultController extends Controller
         $folders = $em->getRepository('AppBundle:Folder')->myFolders($user);
         $files = $em->getRepository('AppBundle:File')->myFiles($user);
 
-        return $this->render(
-            'Default/filesList.html.twig', array(
+        return array(
             'folders' => $folders,
             'files' => $files,
-        ));
+        );
     }
 
     /**
      * @Route("/find", name="find")
+     * @Template("Default/filesList.html.twig")
      */
     public function findFileAction(Request $request)
     {
@@ -57,16 +58,16 @@ class DefaultController extends Controller
         $foundFiles = $em->getRepository('AppBundle:File')->findFiles($word);
         $foundFolders = $em->getRepository('AppBundle:Folder')->findFolders($word);
 
-        return $this->render(
-            'Default/filesList.html.twig', array(
+        return array(
             'files' => $foundFiles,
             'folders' => $foundFolders,
-        ));
+        );
     }
 
 
     /**
      * @Route("/user/shared_elements", name="shared_elements")
+     * @Template("Default/filesList.html.twig")
      */
     public function sharedWithMeAction()
     {
@@ -75,10 +76,9 @@ class DefaultController extends Controller
         $folders = $em->getRepository('AppBundle:Folder')->findSharedFolders($user);
         $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
 
-        return $this->render(
-            'Default/filesList.html.twig', array(
+        return array(
             'folders' => $folders,
             'files' => $files,
-        ));
+        );
     }
 }
