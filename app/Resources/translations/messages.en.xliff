@@ -99,4 +99,53 @@
             </trans-unit>
         </body>
     </file>
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/folderElements.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>file.upload</source>
+                <target>Upload file</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>maincontent.uploadby</source>
+                <target>Upload by</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>maincontent.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>maincontent.share</source>
+                <target>Share</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>modal.share</source>
+                <target>Share</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>modal.close</source>
+                <target>Close</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>maincontent.size</source>
+                <target>Size</target>
+            </trans-unit>
+
+            <trans-unit id="8">
+                <source>maincontent.download</source>
+                <target>Download</target>
+            </trans-unit>
+
+            <trans-unit id="9">
+                <source>maincontent.nodata</source>
+                <target>No data</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

@@ -166,7 +166,7 @@ class FolderController extends Controller
 
     /**
      * @Route("/folder/{slug}" , name="folder_files")
-     * @Template("Default/listFolder.html.twig")
+     * @Template(":Default:folderElements.html.twig")
      */
     public function listFolderAction(Folder $folder)
     {

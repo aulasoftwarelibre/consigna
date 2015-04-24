@@ -96,7 +96,55 @@
                 <source>maincontent.nodata</source>
                 <target>No hay datos</target>
             </trans-unit>
+        </body>
+    </file>
 
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/folderElements.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>file.upload</source>
+                <target>Subir fichero</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>maincontent.uploadby</source>
+                <target>Subido por</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>maincontent.delete</source>
+                <target>Eliminar</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>maincontent.share</source>
+                <target>Compartir</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>modal.share</source>
+                <target>Compartir</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>modal.close</source>
+                <target>Cerrar</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>maincontent.size</source>
+                <target>Tamaño</target>
+            </trans-unit>
+
+            <trans-unit id="8">
+                <source>maincontent.download</source>
+                <target>Descargar</target>
+            </trans-unit>
+
+            <trans-unit id="9">
+                <source>maincontent.nodata</source>
+                <target>No hay datos</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
