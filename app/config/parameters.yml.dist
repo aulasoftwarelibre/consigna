@@ -14,7 +14,7 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    locale:            en
+    locale: en
 
     google_app_id:  ~
     google_app_secret: ~
