@@ -40,4 +40,63 @@
 
         </body>
     </file>
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/homepage.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>file.upload</source>
+                <target>Upload file</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>folder.create</source>
+                <target>Create folder</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>maincontent.uploadby</source>
+                <target>Upload by</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>maincontent.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>maincontent.share</source>
+                <target>Share</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>maincontent.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>modal.share</source>
+                <target>Share</target>
+            </trans-unit>
+
+            <trans-unit id="8">
+                <source>modal.close</source>
+                <target>Close</target>
+            </trans-unit>
+
+            <trans-unit id="9">
+                <source>maincontent.size</source>
+                <target>Size</target>
+            </trans-unit>
+
+            <trans-unit id="10">
+                <source>maincontent.download</source>
+                <target>Download</target>
+            </trans-unit>
+
+            <trans-unit id="11">
+                <source>maincontent.nodata</source>
+                <target>No data</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

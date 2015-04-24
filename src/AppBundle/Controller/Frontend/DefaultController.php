@@ -15,7 +15,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/" , name="homepage")
-     * @Template("Default/filesList.html.twig")
+     * @Template(":Default:homepage.html.twig")
      */
     public function filesListAction()
     {
@@ -32,7 +32,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/user/files", name="user_files")
-     * @Template("Default/filesList.html.twig")
+     * @Template(":Default:homepage.html.twig")
      */
     public function myFilesAction()
     {
@@ -49,7 +49,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/find", name="find")
-     * @Template("Default/filesList.html.twig")
+     * @Template(":Default:homepage.html.twig")
      */
     public function findFileAction(Request $request)
     {
@@ -67,7 +67,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/user/shared_elements", name="shared_elements")
-     * @Template("Default/filesList.html.twig")
+     * @Template(":Default:homepage.html.twig")
      */
     public function sharedWithMeAction()
     {

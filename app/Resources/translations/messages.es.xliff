@@ -33,10 +33,70 @@
                 <target>Compartido conmigo</target>
             </trans-unit>
 
-            <trans-unit id="6">
+            <trans-unit id="7">
                 <source>base.search</source>
                 <target>Buscar</target>
             </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/homepage.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>file.upload</source>
+                <target>Subir fichero</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>folder.create</source>
+                <target>Crear carpeta</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>maincontent.uploadby</source>
+                <target>Subido por</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>maincontent.delete</source>
+                <target>Eliminar</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>maincontent.share</source>
+                <target>Compartir</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>maincontent.edit</source>
+                <target>Editar</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>modal.share</source>
+                <target>Compartir</target>
+            </trans-unit>
+
+            <trans-unit id="8">
+                <source>modal.close</source>
+                <target>Cerrar</target>
+            </trans-unit>
+
+            <trans-unit id="9">
+                <source>maincontent.size</source>
+                <target>Tamaño</target>
+            </trans-unit>
+
+            <trans-unit id="10">
+                <source>maincontent.download</source>
+                <target>Descargar</target>
+            </trans-unit>
+
+            <trans-unit id="11">
+                <source>maincontent.nodata</source>
+                <target>No hay datos</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
