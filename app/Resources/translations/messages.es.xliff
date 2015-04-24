@@ -147,4 +147,24 @@
             </trans-unit>
         </body>
     </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/shareFile.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>maincontent.uploadby</source>
+                <target>Subido por</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>maincontent.size</source>
+                <target>Tamaño</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>maincontent.download</source>
+                <target>Descargar</target>
+            </trans-unit>
+        </body>
+    </file>
+
 </xliff>

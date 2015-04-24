@@ -1,6 +1,7 @@
 <!--&lt;!&ndash; app/Resources/translations/messages.en.xliff &ndash;&gt;-->
 <!--<?xml version="1.0"?>-->
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+
     <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/base.html.twig">
         <body>
             <trans-unit id="1">
@@ -145,6 +146,25 @@
             <trans-unit id="9">
                 <source>maincontent.nodata</source>
                 <target>No data</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/shareFile.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>maincontent.uploadby</source>
+                <target>Upload by</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>maincontent.size</source>
+                <target>Size</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>maincontent.download</source>
+                <target>Download</target>
             </trans-unit>
         </body>
     </file>
