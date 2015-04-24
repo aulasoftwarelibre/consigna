@@ -42,7 +42,7 @@ class FileController extends Controller
         }
 
         return array(
-                'file' => $file,
+            'file' => $file,
         );
     }
 
@@ -80,9 +80,9 @@ class FileController extends Controller
             $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, $fileEvent);
 
             if($file->getScanStatus()==1) {
-                $this->get('session')->getFlashBag()->set('success', 'File ' . $file . ' has been created successfully');
+                $this->get('session')->getFlashBag()->set('success',$this->get('translator')->trans('upload.success', array('file' => $file)));
             } else {
-                $this->get('session')->getFlashBag()->set('success', 'File ' . $file . ' contains virus and was removed');
+                $this->get('session')->getFlashBag()->set('success',$this->get('translator')->trans('upload.virus', array('file' => $file)));
             }
 
             return $this->redirectToRoute('homepage');
@@ -109,7 +109,7 @@ class FileController extends Controller
         $em->remove($file);
         $em->flush();
 
-        $this->addFlash('success', 'File '.$file.' deleted successfully');
+        $this->addFlash('success', $this->get('translator')->trans('delete.success', array('file' => $file)));
 
         return $this->redirectToRoute('homepage');
     }

@@ -167,4 +167,22 @@
         </body>
     </file>
 
+    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/FileController.php">
+        <body>
+            <trans-unit id="1">
+                <source>upload.success</source>
+                <target>El fichero file se ha subido satisfactoriamente</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>upload.virus</source>
+                <target>El fichero file contiene virus y ha sido eliminado</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>delete.success</source>
+                <target>El fichero file ha sido eliminado de manera satisfactoria</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
