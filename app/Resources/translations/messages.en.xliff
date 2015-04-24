@@ -150,7 +150,7 @@
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/shareFile.html.twig">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/shareFile.html.twig">
         <body>
             <trans-unit id="1">
                 <source>maincontent.uploadby</source>
@@ -169,7 +169,7 @@
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/FileController.php">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/src/AppBundle/Controller/FileController.php">
         <body>
             <trans-unit id="1">
                 <source>upload.success</source>
@@ -184,6 +184,30 @@
             <trans-unit id="3">
                 <source>delete.success</source>
                 <target>File file has been removed successfully</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/src/AppBundle/Controller/FolderController.php">
+        <body>
+            <trans-unit id="1">
+                <source>edit.success</source>
+                <target>Folder folder has been updated successfully</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>upload.success</source>
+                <target>File file has been uploaded successfully</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>create.success</source>
+                <target>Folder folder has been created successfully</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>delete.success</source>
+                <target>Folder folder has been deleted successfully</target>
             </trans-unit>
         </body>
     </file>

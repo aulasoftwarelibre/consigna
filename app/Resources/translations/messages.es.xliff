@@ -185,4 +185,28 @@
             </trans-unit>
         </body>
     </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/FolderController.php">
+        <body>
+            <trans-unit id="1">
+                <source>edit.success</source>
+                <target>La carpeta folder ha sido actualizada correctamente</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>upload.success</source>
+                <target>El fichero file se ha subido satisfactoriamente</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>create.success</source>
+                <target>La carpeta folder ha sido creada satisfactoriamente</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>delete.success</source>
+                <target>La carpeta folder ha sido eliminada satisfactoriamente</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

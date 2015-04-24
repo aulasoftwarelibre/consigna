@@ -43,7 +43,7 @@ class FolderController extends Controller
             $em->persist($folder);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success', 'Folder '.$folder.' has been updated successfully');
+            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('edit.success', array('folder' => $folder)));
 
             return $this->redirectToRoute('homepage');
         }
@@ -104,7 +104,8 @@ class FolderController extends Controller
 
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success', 'File '.$file.' has been created successfully');
+            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
+
 
             return $this->redirectToRoute('folder_files', array('slug' => $folder->getSlug()));
         }
@@ -140,7 +141,7 @@ class FolderController extends Controller
             $em->persist($folder);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success', 'Folder '.$folder.' has been created successfully');
+            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('create.success', array('folder' => $folder)));
 
             return $this->redirectToRoute('homepage');
         }
@@ -194,7 +195,7 @@ class FolderController extends Controller
         $em->remove($folder);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->set('success', 'Folder deleted successfully');
+        $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('delete.success', array('folder' => $folder)));
 
         return $this->redirectToRoute('homepage');
     }
