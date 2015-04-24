@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <title>
-            {% block title %}University of Cordoba. Consigna 2.0{% endblock %}
+            {% block title %} {{ 'base.title'|trans }} Consigna 2.0{% endblock %}
         </title>
         {% block stylesheets %}
             {% stylesheets
@@ -46,9 +46,9 @@
                     </a>
                 </div>
                 {% if app.user %}
-                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn navbar-right">Sign out</a>
+                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn navbar-right">{{ 'base.logout'|trans }}</a>
                 {% else %}
-                    <a id="Sign in" href ="{{ path('fos_user_security_login') }}" class="btn btn-default navbar-btn navbar-right">Sign in</a>
+                    <a id="Sign in" href ="{{ path('fos_user_security_login') }}" class="btn btn-default navbar-btn navbar-right">{{ 'base.login'|trans }}</a>
                 {% endif %}
             </div>
         </nav>
@@ -61,10 +61,10 @@
                     <div class="side-menu-container">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="{{ path('homepage') }}"><span class="fa fa-file"></span> All files</a></li>
+                            <li><a href="{{ path('homepage') }}"><span class="fa fa-file"></span> {{ 'base.menu.all'|trans }} </a></li>
                             {% if app.user %}
-                            <li><a href="{{ path('user_files') }}"><span class="glyphicon glyphicon-user"></span>My elements</a></li>
-                            <li><a href="{{ path('shared_elements') }}"><span class="glyphicon glyphicon-share"></span> Shared with me</a></li>
+                            <li><a href="{{ path('user_files') }}"><span class="glyphicon glyphicon-user"></span>{{ 'base.menu.myfiles'|trans }}</a></li>
+                            <li><a href="{{ path('shared_elements') }}"><span class="glyphicon glyphicon-share"></span> {{ 'base.menu.shared'|trans }}</a></li>
                             {% endif %}
 
                         </ul>
@@ -86,6 +86,7 @@
                         <nav class="navbar navbar-default">
                         <div class="container-fluid">
 
+                            <!--Esto imagino que lo vamos a cambiar, de momento no lo traduzco-->
                             <p class="navbar-text">Start / Folder</p>
                             {% block uploadFile %}
                             {% endblock %}
@@ -95,7 +96,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search" name="word" id="search-button">
                                 </div>
-                                <button type="submit" class="btn btn-default">Search</button>
+                                <button type="submit" class="btn btn-default">{{ 'base.search'|trans }}</button>
                             </form>
                         </div><!-- /.container-fluid -->
                         </nav>

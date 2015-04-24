@@ -1,0 +1,43 @@
+<!--&lt;!&ndash; app/Resources/translations/messages.en.xliff &ndash;&gt;-->
+<!--<?xml version="1.0"?>-->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/base.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>base.title</source>
+                <target>University of Cordoba</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>base.logout</source>
+                <target>Sign out</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>base.login</source>
+                <target>Sign in</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>base.menu.all</source>
+                <target>All elements</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>base.menu.all</source>
+                <target>My elements</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>base.menu.shared</source>
+                <target>Shared with me</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>base.search</source>
+                <target>Search</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

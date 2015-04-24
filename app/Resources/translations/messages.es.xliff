@@ -1,0 +1,42 @@
+<!-- app/Resources/translations/messages.es.xliff -->
+<!--<?xml version="1.0"?>-->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/base.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>base.title</source>
+                <target>Universidad de Córdoba</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>base.logout</source>
+                <target>Cerrar sesión</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>base.login</source>
+                <target>Iniciar sesión</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>base.menu.all</source>
+                <target>Todos los elementos</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>base.menu.myfiles</source>
+                <target>Mis elementos</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>base.menu.shared</source>
+                <target>Compartido conmigo</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>base.search</source>
+                <target>Buscar</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
