@@ -13,6 +13,7 @@ use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
 use AppBundle\Event\FileEvent;
 use AppBundle\FileEvents;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class FileController
@@ -20,11 +21,9 @@ use AppBundle\FileEvents;
  */
 class FileController extends Controller
 {
-
-
-
     /**
      * @Route("file/s/{shareCode}/{slug}", name="file_share")
+     * @Template("Default/shareFile.html.twig")
      */
     public function ShareFileAction(File $file)
     {
@@ -42,11 +41,8 @@ class FileController extends Controller
             }
         }
 
-        return $this->render(
-            'Default/shareFile.html.twig',
-            array(
+        return array(
                 'file' => $file,
-            )
         );
     }
 

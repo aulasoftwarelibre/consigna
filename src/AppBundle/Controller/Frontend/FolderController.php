@@ -21,11 +21,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class FolderController extends Controller
 {
     /**
-     *@Route("/folder/{slug}/edit" , name="folder_edit")
+     * @Route("/folder/{slug}/edit" , name="folder_edit")
+     * @Template("Default/Folder/edit.html.twig")
      */
     public function editAction(Request $request,Folder $folder)
     {
@@ -46,11 +48,9 @@ class FolderController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render(
-            'Default/Folder/edit.html.twig',
-            array(
-                'form' => $form->createView(),
-            ));
+        return array(
+            'form' => $form->createView(),
+        );
     }
 
     /**
@@ -165,7 +165,8 @@ class FolderController extends Controller
     }
 
     /**
-     *@Route("/folder/{slug}" , name="folder_files")
+     * @Route("/folder/{slug}" , name="folder_files")
+     * @Template("Default/listFolder.html.twig")
      */
     public function listFolderAction(Folder $folder)
     {
@@ -173,14 +174,10 @@ class FolderController extends Controller
             $this->get('session')->clear();
         }
         if ($folder->hasAccess($this->getUser()) or $this->get('session')->has($folder->getSlug())) {
-            return $this->render(
-                'Default/listFolder.html.twig',
-                array(
-                    'folder' => $folder,
-                )
+            return array(
+                'folder' => $folder,
             );
         }
-
         return $this->redirectToRoute('control_access', array('slug' => $folder->getSlug()));
     }
 
