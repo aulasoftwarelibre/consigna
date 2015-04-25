@@ -216,17 +216,32 @@
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/ValidationFormController.php">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/src/AppBundle/Controller/FormController.php">
         <body>
             <trans-unit id="1">
                 <source>auth.access.success</source>
-                <target>Se ha concedido el accesso al usuario user</target>
+                <target>Access has been granted to user</target>
             </trans-unit>
 
             <trans-unit id="2">
                 <source>anon.access.success</source>
-                <target>Se ha concedido el acceso</target>
+                <target>Access has been granted</target>
             </trans-unit>
         </body>
     </file>
+
+    <!--<file source-language="en" target-language="es" datatype="plaintext" original="/home/juanan/consigna/src/AppBundle/Form/Type/AccessFolderAnonType.php">-->
+        <!--<body>-->
+            <!--<trans-unit id="1">-->
+                <!--<source>password</source>-->
+                <!--<target>puta</target>-->
+            <!--</trans-unit>-->
+
+            <!--<trans-unit id="2">-->
+                <!--<source>repeat</source>-->
+                <!--<target>repita</target>-->
+            <!--</trans-unit>-->
+        <!--</body>-->
+    <!--</file>-->
+
 </xliff>

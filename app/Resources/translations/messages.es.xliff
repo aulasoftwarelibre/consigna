@@ -210,7 +210,7 @@
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/ValidationFormController.php">
+    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/FormController.php">
         <body>
             <trans-unit id="1">
                 <source>auth.access.success</source>
@@ -223,4 +223,7 @@
             </trans-unit>
         </body>
     </file>
+
+
+
 </xliff>
