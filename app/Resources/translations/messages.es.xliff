@@ -209,4 +209,18 @@
             </trans-unit>
         </body>
     </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/ValidationFormController.php">
+        <body>
+            <trans-unit id="1">
+                <source>auth.access.success</source>
+                <target>Access has been granted to user</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>anon.access.success</source>
+                <target>Access has been granted</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

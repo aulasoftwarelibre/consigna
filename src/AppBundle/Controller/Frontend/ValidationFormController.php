@@ -43,10 +43,10 @@ class FormController extends Controller
                 $folder->addUsersWithAccess($user);
                 $em->persist($folder);
                 $em->flush();
-                $this->get('session')->getFlashBag()->set('success', 'Access have been granted to '.$user);
+                $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('auth.access.success', array('user' => $user)));
             } else {
                 $session->set($folder->getSlug(), true);
-                $this->get('session')->getFlashBag()->set('success', 'Access have been granted');
+                $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('anon.access.success'));
             }
 
             return $this->redirectToRoute('folder_files', array('slug' => $folder->getSlug()));

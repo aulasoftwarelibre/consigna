@@ -2,6 +2,8 @@
 <!--<?xml version="1.0"?>-->
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!--TEMPLATES-->
+
     <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/base.html.twig">
         <body>
             <trans-unit id="1">
@@ -169,6 +171,8 @@
         </body>
     </file>
 
+
+    <!--CONTROLLERS-->
     <file source-language="en" target-language="en" datatype="plaintext" original="/src/AppBundle/Controller/FileController.php">
         <body>
             <trans-unit id="1">
@@ -208,6 +212,20 @@
             <trans-unit id="4">
                 <source>delete.success</source>
                 <target>Folder folder has been deleted successfully</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Controller/ValidationFormController.php">
+        <body>
+            <trans-unit id="1">
+                <source>auth.access.success</source>
+                <target>Se ha concedido el accesso al usuario user</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>anon.access.success</source>
+                <target>Se ha concedido el acceso</target>
             </trans-unit>
         </body>
     </file>
