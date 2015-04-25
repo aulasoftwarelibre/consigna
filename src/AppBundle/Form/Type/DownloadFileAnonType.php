@@ -28,7 +28,7 @@ class DownloadFileAnonType extends AbstractType
                 'mapped' => false,
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
-                )), ))
+                )),'label' => 'password.download.file' ))
             ->add('captcha', 'ewz_recaptcha', array(
                 'attr' => array(
                     'options' => array(
@@ -41,7 +41,8 @@ class DownloadFileAnonType extends AbstractType
                     new True(),
                 ),
             ))
-            ->add('submit', 'submit')
+            ->add('submit', 'submit', array(
+                'label' => 'submit.download.file'))
             ->getForm();
     }
 

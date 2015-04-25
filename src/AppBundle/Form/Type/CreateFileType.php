@@ -17,16 +17,18 @@ class CreateFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('filename', 'file')
+            ->add('filename', 'file', array('label' => 'file.create.file'))
             ->add('tags', 'tags_text', array(
-                'label' => 'Tags (add tags separated by commas)', ))
+                'label' => 'tag.create.file', ))
             ->add('plainPassword', 'repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'), )
+                'first_options'  => array('label' => 'password.create.file'),
+                'second_options' => array('label' => 'repeat.create.file'), )
             )
-            ->add('upload', 'submit')
+            ->add('submit', 'submit',array(
+                'label' => 'submit.create.file'
+            ))
             ->getForm();
     }
 

@@ -23,6 +23,7 @@ class EditFolderType extends AbstractType
             ->add('usersWithAccess','entity', array(
                 'class' => 'AppBundle\Entity\User',
                 'multiple' => true,
+                'label' => 'edit.users.folder',
                 'query_builder' => function (EntityRepository $entityRepository) use ($folder){
                     return $entityRepository->createQueryBuilder('u')
                         ->leftJoin('u.sharedFolders', 'sf')
@@ -30,7 +31,8 @@ class EditFolderType extends AbstractType
                         ->setParameter('id',$folder->getId());
                 }
             ))
-            ->add('update', 'submit')
+            ->add('submit', 'submit', array(
+                'label' => 'submit.update.folder'))
             ->getForm();
     }
 

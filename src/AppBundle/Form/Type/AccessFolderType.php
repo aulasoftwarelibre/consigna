@@ -25,8 +25,10 @@ class AccessFolderType extends AbstractType
                 'mapped' => false,
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
-                )), ))
-            ->add('submit', 'submit')
+                )),
+                'label'=> 'password.access.folder'))
+            ->add('submit', 'submit',array(
+                'label' => 'submit.access.folder'))
             ->getForm();
     }
 

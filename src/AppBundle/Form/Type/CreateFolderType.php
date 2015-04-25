@@ -17,16 +17,18 @@ class CreateFolderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('folderName')
+            ->add('folderName', array('label' => 'foldername.create.folder'))
             ->add('tags', 'tags_text', array(
-                'label' => 'Tags (add tags separated by commas)', ))
+                'label' => 'tag.create.folder', ))
             ->add('plainPassword', 'repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'), )
+                'first_options'  => array('label' => 'password.create.folder'),
+                'second_options' => array('label' => 'repeat.create.folder'), )
             )
-            ->add('create', 'submit')
+            ->add('create', 'submit',array(
+                'label' => 'submit.create.folder'
+            ))
             ->getForm();
     }
 

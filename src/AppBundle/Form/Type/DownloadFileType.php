@@ -27,8 +27,9 @@ class DownloadFileType extends AbstractType
                 'mapped' => false,
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
-                )), ))
-            ->add('submit', 'submit')
+                )),'label' => 'password.download.file' ))
+            ->add('submit', 'submit', array(
+                'label' => 'submit.download.file'))
             ->getForm();
     }
 

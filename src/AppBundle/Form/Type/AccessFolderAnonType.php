@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
+
 class AccessFolderAnonType extends AbstractType
 {
     private $encoderFactory;
@@ -28,7 +29,8 @@ class AccessFolderAnonType extends AbstractType
                 'mapped' => false,
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
-                )), ))
+                )),
+                'label'=> 'password.access.folder'))
             ->add('captcha', 'ewz_recaptcha', array(
                 'attr' => array(
                     'options' => array(
@@ -41,7 +43,9 @@ class AccessFolderAnonType extends AbstractType
                     new True(),
                 ),
             ))
-            ->add('submit', 'submit')
+            ->add('submit', 'submit',array(
+                'label' => 'submit.access.folder'
+            ))
             ->getForm();
     }
 
