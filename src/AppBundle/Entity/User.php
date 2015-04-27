@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 
@@ -23,6 +24,15 @@ class User extends BaseUser
 
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Group")
+     * @ORM\JoinTable(name="fos_user_user_group",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
 
     /**
      * @ORM\OneToMany(targetEntity="File", mappedBy="user")
@@ -50,9 +60,10 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sharedFolders = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sharedFiles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files = new ArrayCollection();
+        $this->sharedFolders = new ArrayCollection();
+        $this->sharedFiles = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     /**
@@ -257,5 +268,29 @@ class User extends BaseUser
     public function getSharedFiles()
     {
         return $this->sharedFiles;
+    }
+
+    /**
+     * Get either a Gravatar URL or complete image tag for a specified email address.
+     *
+     * @param integer $s Size in pixels, defaults to 80px [ 1 - 2048 ]
+     * @param string $d Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
+     * @param string $r Maximum rating (inclusive) [ g | pg | r | x ]
+     * @param boolean $img True to return a complete IMG tag False for just the URL
+     * @param array $atts Optional, additional key/value attributes to include in the IMG tag
+     * @return String containing either just a URL or a complete image tag
+     * @source http://gravatar.com/site/implement/images/php/
+     */
+    public function getGravatar($s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+        $url = 'http://www.gravatar.com/avatar/';
+        $url .= md5( strtolower( trim( $this->getEmail() ) ) );
+        $url .= "?s=$s&d=$d&r=$r";
+        if ( $img ) {
+            $url = '<img src="' . $url . '"';
+            foreach ( $atts as $key => $val )
+                $url .= ' ' . $key . '="' . $val . '"';
+            $url .= ' />';
+        }
+        return $url;
     }
 }

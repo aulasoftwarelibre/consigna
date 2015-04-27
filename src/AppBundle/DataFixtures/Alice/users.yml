@@ -1,8 +1,8 @@
 \AppBundle\Entity\Group:
     group_admin:
-        __construct: ['Administradores', ['ROLE_ADMIN']]
+        __construct: ['Administradores', ['ROLE_SUPER_ADMIN']]
     group_user:
-        __construct: ['Gestores', ['ROLE_STAFF']]
+        __construct: ['Usuarios', ['ROLE_USER']]
 
 
 \AppBundle\Entity\User:
