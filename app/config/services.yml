@@ -32,21 +32,15 @@ services:
         tags:
             - { name: form.type, alias: tags_text }
 
-    post_voter:
-        class:      AppBundle\Security\AccessVoter
+    consigna.file_voter:
+        class:      AppBundle\Security\Voter\FileVoter
         arguments: [@session]
         public:     false
         tags:
            - { name: security.voter }
 
-    delete_voter:
-        class:      AppBundle\Security\DeleteVoter
-        public:     false
-        tags:
-           - { name: security.voter }
-
-    create_voter:
-        class:      AppBundle\Security\CreateVoter
+    consigna.folder_voter:
+        class:      AppBundle\Security\Voter\FolderVoter
         public:     false
         tags:
            - { name: security.voter }
