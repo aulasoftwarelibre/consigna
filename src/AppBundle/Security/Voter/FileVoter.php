@@ -1,19 +1,18 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: juanan
  * Date: 27/04/15
- * Time: 18:04
+ * Time: 18:04.
  */
 
 namespace AppBundle\Security\Voter;
-
 
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
-
 
 class FileVoter extends AbstractVoter
 {
@@ -22,14 +21,13 @@ class FileVoter extends AbstractVoter
      */
     private $session;
 
-    function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session)
     {
         $this->session = $session;
     }
 
-
     /**
-     * Return an array of supported classes. This will be called by supportsClass
+     * Return an array of supported classes. This will be called by supportsClass.
      *
      * @return array an array of supported classes, i.e. array('Acme\DemoBundle\Model\Product')
      */
@@ -39,7 +37,7 @@ class FileVoter extends AbstractVoter
     }
 
     /**
-     * Return an array of supported attributes. This will be called by supportsAttribute
+     * Return an array of supported attributes. This will be called by supportsAttribute.
      *
      * @return array an array of supported attributes, i.e. array('CREATE', 'READ')
      */
@@ -53,11 +51,11 @@ class FileVoter extends AbstractVoter
      * It is safe to assume that $attribute and $object's class pass supportsAttribute/supportsClass
      * $user can be one of the following:
      *   a UserInterface object (fully authenticated user)
-     *   a string               (anonymously authenticated user)
+     *   a string               (anonymously authenticated user).
      *
      * @param string $attribute
-     * @param File $object
-     * @param User $user
+     * @param File   $object
+     * @param User   $user
      *
      * @return bool
      */
@@ -66,21 +64,22 @@ class FileVoter extends AbstractVoter
         if ($object->getScanStatus() != File::SCAN_STATUS_OK) {
             return false;
         }
-        if ($user && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+
+        if ($user instanceof User && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return true;
         }
 
-        switch ($attribute){
+        switch ($attribute) {
             case 'ACCESS':
-                if($user || $object->getUser() ){
+                if ($user instanceof User || $object->getUser()) {
                     return true;
                 }
 
             break;
 
             case 'DOWNLOAD':
-                if($user){
-                    if($object->hasAccess($user)){
+                if ($user instanceof User) {
+                    if ($object->hasAccess($user)) {
                         return true;
                     }
                 } else {
@@ -92,11 +91,12 @@ class FileVoter extends AbstractVoter
 
             case 'DELETE':
             case 'SHARE':
-                if($object->getUser()==$user){
+                if ($user instanceof User && $object->getUser() == $user) {
                     return true;
                 }
             break;
         }
+
         return false;
     }
 }

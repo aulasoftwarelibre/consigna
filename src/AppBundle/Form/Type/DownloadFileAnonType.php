@@ -41,9 +41,7 @@ class DownloadFileAnonType extends AbstractType
                     new True(),
                 ),
             ))
-            ->add('submit', 'submit', array(
-                'label' => 'submit.download.file'))
-            ->getForm();
+        ;
     }
 
     public function getName()

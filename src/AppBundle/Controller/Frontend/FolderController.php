@@ -15,6 +15,7 @@ use AppBundle\Form\Type\CreateFolderType;
 use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
 use AppBundle\Form\Type\EditFolderType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -37,7 +38,7 @@ class FolderController extends Controller
     public function newAction(Request $request)
     {
         $folder = new Folder();
-        $this->denyAccessUnlessGranted('create', $folder);
+        $this->denyAccessUnlessGranted('CREATE', $folder);
 
         $user = $this->getUser();
 
@@ -66,7 +67,7 @@ class FolderController extends Controller
      */
     public function deleteAction(Folder $folder)
     {
-        $this->denyAccessUnlessGranted('delete', $folder);
+        $this->denyAccessUnlessGranted('DELETE', $folder);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($folder);
@@ -81,6 +82,7 @@ class FolderController extends Controller
      * TODO
      *
      * @Route("/{slug}" , name="folder_show")
+     * @Method(methods={"GET"})
      * @Template("frontend/Folder/show.html.twig")
      */
     public function showAction(Folder $folder)
@@ -96,13 +98,17 @@ class FolderController extends Controller
         ];
     }
 
+
+
+
+
     /**
-     * @Route("/{slug}/edit" , name="folder_edit")
-     * @Template("frontend/Folder/edit.html.twig")
+     * @Route("/{slug}/share" , name="folder_share")
+     * @Template("frontend/Folder/share.html.twig")
      */
-    public function editAction(Folder $folder, Request $request)
+    public function shareAction(Folder $folder, Request $request)
     {
-        $this->denyAccessUnlessGranted('create', $folder);
+        $this->denyAccessUnlessGranted('SHARE', $folder);
 
         $form = $this->createForm(new EditFolderType(), $folder);
         $form->handleRequest($request);

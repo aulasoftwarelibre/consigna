@@ -43,10 +43,7 @@ class AccessFolderAnonType extends AbstractType
                     new True(),
                 ),
             ))
-            ->add('submit', 'submit',array(
-                'label' => 'submit.access.folder'
-            ))
-            ->getForm();
+        ;
     }
 
     public function getName()

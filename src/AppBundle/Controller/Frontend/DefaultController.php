@@ -15,7 +15,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/" , name="homepage")
-     * @Template(":Default:homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function filesListAction()
     {
@@ -23,16 +23,15 @@ class DefaultController extends Controller
         $files = $em->getRepository('AppBundle:File')->listFiles();
         $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('folderName' => 'ASC'));
 
-        return array(
+        return [
             'files' => $files,
             'folders' => $folders,
-        );
-
+        ];
     }
 
     /**
      * @Route("/user/files", name="user_files")
-     * @Template(":Default:homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function myFilesAction()
     {
@@ -41,33 +40,32 @@ class DefaultController extends Controller
         $folders = $em->getRepository('AppBundle:Folder')->myFolders($user);
         $files = $em->getRepository('AppBundle:File')->myFiles($user);
 
-        return array(
-            'folders' => $folders,
+        return [
             'files' => $files,
-        );
+            'folders' => $folders,
+        ];
     }
 
     /**
      * @Route("/find", name="find")
-     * @Template(":Default:homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function findFileAction(Request $request)
     {
         $word = $request->get('word');
         $em = $this->getDoctrine()->getManager();
-        $foundFiles = $em->getRepository('AppBundle:File')->findFiles($word);
-        $foundFolders = $em->getRepository('AppBundle:Folder')->findFolders($word);
+        $files = $em->getRepository('AppBundle:File')->findFiles($word);
+        $folders = $em->getRepository('AppBundle:Folder')->findFolders($word);
 
-        return array(
-            'files' => $foundFiles,
-            'folders' => $foundFolders,
-        );
+        return [
+            'files' => $files,
+            'folders' => $folders,
+        ];
     }
-
 
     /**
      * @Route("/user/shared_elements", name="shared_elements")
-     * @Template(":Default:homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function sharedWithMeAction()
     {
@@ -76,9 +74,9 @@ class DefaultController extends Controller
         $folders = $em->getRepository('AppBundle:Folder')->findSharedFolders($user);
         $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
 
-        return array(
-            'folders' => $folders,
+        return [
             'files' => $files,
-        );
+            'folders' => $folders,
+        ];
     }
 }

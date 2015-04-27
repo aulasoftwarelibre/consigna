@@ -3,6 +3,10 @@
 namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Entity\File;
+use AppBundle\Entity\User;
+use AppBundle\Form\Type\DownloadFileAnonType;
+use AppBundle\Form\Type\DownloadFileType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -23,24 +27,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class FileController extends Controller
 {
     /**
-     * @Route("/upload" , name="file_upload")
+     * @Route("/upload", name="file_upload")
      * @Template("frontend/File/upload.html.twig")
      */
     public function uploadAction(Request $request)
     {
         $file = new File();
         $user = $this->getUser();
-        if (!$user) {
-            $form = $this->createForm(new CreateFileAnonType(), $file);
-        } else {
+        if ($user instanceof User) {
             $form = $this->createForm(new CreateFileType(), $file);
+        } else {
+            $form = $this->createForm(new CreateFileAnonType(), $file);
         }
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($user) {
+            if ($user instanceof User) {
                 $file->setUser($user);
             }
             $em->persist($file);
@@ -72,7 +76,7 @@ class FileController extends Controller
      */
     public function deleteAction(File $file)
     {
-        $this->denyAccessUnlessGranted('delete', $file);
+        $this->denyAccessUnlessGranted('DELETE', $file);
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($file);
@@ -84,16 +88,26 @@ class FileController extends Controller
     }
 
     /**
-     * TODO
-     *
      * @Route("/{slug}", name="file_show")
+     * @Method(methods={"GET"})
      * @Template("frontend/File/show.html.twig")
      */
     public function showAction(File $file)
     {
-        if (true || false === $this->isGranted('access', $file)) {
+        if (false === $this->isGranted('ACCESS', $file)) {
+            $this->addFlash('warning', $this->get('translator')->trans('Este archivo ha sido subido por un usuario anónimo, necesita loguearse para descargarlo.'));
+
+            return $this->render("frontend/File/show_with_login.html.twig", [
+                'file' => $file,
+            ]);
+        }
+
+        if (false === $this->isGranted('DOWNLOAD', $file)) {
+            $form = $this->createDownloadFileForm($file);
+
             return $this->render("frontend/File/show_with_password.html.twig", [
                 'file' => $file,
+                'form' => $form->createView(),
             ]);
         }
 
@@ -103,11 +117,64 @@ class FileController extends Controller
     }
 
     /**
+     * @Route("/{slug}", name="file_check")
+     * @Method(methods={"POST"})
+     * @Template("frontend/File/show.html.twig")
+     */
+    public function checkPasswordAction(File $file, Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $session = $this->get('session');
+
+        if (false === $this->isGranted( 'DOWNLOAD', $file )) {
+            $form = $this->createDownloadFileForm($file);
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+
+                if ($user instanceof User) {
+                    $file->addUsersWithAccess($user);
+                    $em->persist($file);
+                    $em->flush();
+                } else {
+                    $session->set($file->getSlug(), true);
+                }
+
+                $this->addFlash('success', $this->get('translator')->trans('message.password.valid'));
+            } else {
+                $this->addFlash('danger', $this->get('translator')->trans('message.password.invalid'));
+                return $this->render("frontend/File/show_with_password.html.twig", [
+                    'file' => $file,
+                    'form' => $form->createView(),
+                ]);
+            }
+        }
+
+        return [
+            'file' => $file,
+        ];
+
+    }
+
+    private function createDownloadFileForm($file)
+    {
+        $factory = $this->get('security.encoder_factory');
+        if ($this->getUser() instanceof User) {
+            $type = new DownloadFileType($factory);
+        } else {
+            $type = new DownloadFileAnonType($factory);
+        }
+
+        return $this->createForm($type, $file);
+    }
+
+    /**
      * @Route("/{slug}/download", name="file_download")
      */
     public function downloadAction(File $file)
     {
-        if (false === $this->isGranted('access', $file)) {
+        if (false === $this->isGranted('DOWNLOAD', $file)) {
             return $this->redirectToRoute("file_show", ['slug' => $file->getSlug()]);
         }
 
@@ -136,7 +203,7 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if (false === $this->get('security.authorization_checker')->isGranted('access', $file)) {
-            if ($user) {
+            if ($user instanceof User) {
                 $file->addUsersWithAccess($user);
                 $em->persist($file);
                 $em->flush();
