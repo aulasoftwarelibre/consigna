@@ -1,0 +1,79 @@
+{% macro folder(folder) %}
+<li>
+    <div class="square">
+        <span class="icon"><i class="fa fa-folder-o"></i></span>
+    </div>
+    <div class="info">
+        <h2 class="title"><a href="{{ path("folder_show", {'slug': folder.slug}) }}">{{ folder.folderName }}</a></h2>
+        <p class="desc"><small>Created at {{ folder.uploadDate | date }} by {{ folder.user}} (<b>pending</b> days left)</small>
+        </p>
+        <ul>
+            {% for tag in folder.tags %}
+                <li><span class="label label-default"><i class="fa fa-tag"></i> {{ tag }}</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="actions">
+        <ul>
+            <li class="action" style="width:33%;"><a href="{{ path("folder_show", {'slug': folder.slug}) }}"><span class="fa fa-folder-open-o"></span></a></li>
+            {% if is_granted('share', folder) %}
+            <li class="action share" style="width:34%;"><a href="#twitter"><span class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"></span></a></li>
+            {% endif %}
+            {% if is_granted('delete', folder) %}
+            <li class="action trash" style="width:33%;"><a href="{{ path("folder_delete", {'slug': folder.slug}) }}"><span class="fa fa-trash"></span></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</li>
+{% endmacro %}
+
+
+{% macro file(file) %}
+    <li>
+        <div class="square">
+            <span class="icon"><i class="fa fa-file-o"></i></span>
+        </div>
+        <div class="info">
+            <h2 class="title"><a href="{{ path("file_show", {'slug': file.slug}) }}">{{ file.filename }}</a></h2>
+            <p class="desc"><small>Created at {{ file.uploadDate | date }} by {{ file.user}} (<b>pending</b> days left)</small>
+            </p>
+            <ul>
+                {% for tag in file.tags %}
+                    <li><span class="label label-default"><i class="fa fa-tag"></i> {{ tag }}</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="actions">
+            <ul>
+                <li class="action" style="width:33%;"><a href="{{ path("file_show", {'slug': file.slug}) }}"><span class="fa fa-download"></span></a></li>
+                {% if is_granted('share', file) %}
+                    <li class="action share" style="width:34%;"><a href="#twitter"><span class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"></span></a></li>
+                {% endif %}
+                {% if is_granted('delete', file) %}
+                    <li class="action trash" style="width:33%;"><a href="{{ path("file_delete", {'slug': file.slug}) }}"><span class="fa fa-trash"></span></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </li>
+{% endmacro %}
+
+{% macro bytesToSize(bytes) %}
+    {% spaceless %}
+        {% set kilobyte = 1024 %}
+        {% set megabyte = kilobyte * 1024 %}
+        {% set gigabyte = megabyte * 1024 %}
+        {% set terabyte = gigabyte * 1024 %}
+
+        {% if bytes < kilobyte %}
+            {{ bytes ~ ' B' }}
+        {% elseif bytes < megabyte %}
+            {{ (bytes / kilobyte)|number_format(2, '.') ~ ' KB' }}
+        {% elseif bytes < gigabyte %}
+            {{ (bytes / megabyte)|number_format(2, '.') ~ ' MB' }}
+        {% elseif bytes < terabyte %}
+            {{ (bytes / gigabyte)|number_format(2, '.') ~ ' GB' }}
+        {% else %}
+            {{ (bytes / terabyte)|number_format(2, '.') ~ ' TB' }}
+        {% endif %}
+    {% endspaceless %}
+{% endmacro %}
