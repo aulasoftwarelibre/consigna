@@ -2,6 +2,7 @@
 
 namespace AppBundle\Security;
 
+use AppBundle\Entity\File;
 use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -33,7 +34,7 @@ class AccessVoter extends AbstractVoter
                 return true;
             }
 
-            if($entity->getScanStatus()==1) {
+            if($entity->getScanStatus()==File::SCAN_STATUS_OK) {
                 return true;
             }
 

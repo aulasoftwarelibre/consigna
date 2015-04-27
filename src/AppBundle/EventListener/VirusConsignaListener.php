@@ -10,6 +10,7 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\File;
 use AppBundle\FileEvents;
+use CL\Tissue\Exception\AdapterException;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AppBundle\Event\FileEvent;
@@ -91,7 +92,7 @@ class VirusConsignaListener implements EventSubscriberInterface
                 $this->loggerInterface->info('File ' . $file . ' has been scanned');
                 $file->setScanStatus(File::SCAN_STATUS_OK);
             }
-        } catch (EntityNotFoundException $e) {
+        } catch (\Exception $e) {
             $this->loggerInterface->info($e);
             $file->setScanStatus(File::SCAN_STATUS_FAILED);
             $this->entityManager->persist($file);
