@@ -72,6 +72,12 @@ class FolderVoter extends AbstractVoter
                     return true;
                 }
             break;
+
+            case 'CREATE':
+                if($user){
+                    return true;
+                }
+            break;
         }
         return false;
     }

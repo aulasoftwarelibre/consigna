@@ -45,7 +45,7 @@ class FileVoter extends AbstractVoter
      */
     protected function getSupportedAttributes()
     {
-        return ['ACCESS, DOWNLOAD, DELETE', 'SHARE'];
+        return ['ACCESS', 'DOWNLOAD', 'DELETE', 'SHARE'];
     }
 
     /**
