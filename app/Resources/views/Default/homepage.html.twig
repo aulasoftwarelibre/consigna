@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/elements.html.twig' as elements %}
 
 {% block File_Folder %}
     <p class="navbar-text">Start / Folder</p> <!--No traduzco por el momento-->
@@ -8,118 +9,135 @@
         <a class="btn btn-default navbar-btn" href="{{ path('folder_create') }}"><i class="fa fa-folder"></i>{{ 'folder.create'|trans }}</a>
     {% endif %}
     {% endblock %}
-
-
 {% endblock %}
 
-{% block mainContent %}
+{% block header_title %}
+    {% trans with {'%folders%': folders|length, '%files%': files|length} %}
+        <h1>Main folder <small>%folders% folder - %files% files</small></h1>
+    {% endtrans %}
+{% endblock %}
 
+{% block content %}
     <div class="row">
-    <div class="col-md-12">
-        <ul class="event-list">
-
-        {% for folder in folders %} <!-- list of folders -->
-            <li>
-                <div class="info">
-                    <h4 class="title"><i class="fa fa-folder-o"></i>
-                            <a href='{{ path('control_access',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a>
-                    </h4>
-                    <p class ="desc">
-                        {{ 'maincontent.uploadby'|trans }} {{ folder.user }} -
-                        <b>{% if  folder.files.count == 0 %}empty folder{% endif %}</b> <!--mo traduzco de momento-->
-                        {% for tag in folder.tags  %}
-                            <span class="label label-default">{{ tag }}</span>
-                        {% endfor %}
-
-                        {% for user in folder.usersWithAccess %}
-                            <span class="label label-danger">{{ user }}</span>
-                        {% endfor %}
-                    </p>
-                    <ul>
-                        {% if folder.getUser() == app.user and app.user %}
-                            <a href="{{ path('folder_delete',{'slug':folder.slug}) }}" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i> {{ 'maincontent.delete'|trans }} </li></a>
-                        {% endif %}
-                        {% if folder.getUser() == app.user and app.user %}
-                            <a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> {{ 'maincontent.share'|trans }} </li></a>
-                        {% endif %}
-                        {% if folder.getUser() == app.user and app.user %}
-                            <a href="{{ path('folder_edit',{'slug':folder.slug}) }}" title="Edit {{ folder.folderName }}"><li><i class="fa fa-pencil-square-o"></i> {{ 'maincontent.edit'|trans }} </li></a>
-
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">{{ 'modal.share'|trans }} {{ folder.folderName }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            {{ url('folder_share',{'shareCode':folder.shareCode,'slug':folder.slug}) }}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                        {% endif %}
-                    </ul>
-                </div>
-            </li>
-        {% endfor %}
-
-        {% for file in files %} <!-- list of files -->
-            <li>
-                <div class="info">
-                    <h4 class="title"><i class="fa fa-file-o"></i> {{file.filename}}</h4>
-                    <p class ="desc">
-                        {{ 'maincontent.size'|trans }} {{ file.size }} bytes - {{ 'maincontent.uploadby'|trans }} {{ file.user}}
-                        {% for tag in file.tags  %}
-                            <span class="label label-default">{{ tag }}</span>
-                        {% endfor %}
-
-                        {% for user in file.usersWithAccess %}
-                            <span class="label label-danger">{{ user }}</span>
-                        {% endfor %}
-                    </p>
-                    <ul>
-                        {% if app.user or not app.user and file.user %}
-                        <a href="{{ path('control_file_download',{'slug':file.slug}) }}" title="Download {{ file.filename }}"><li><i class="fa fa-download push"></i> {{ 'maincontent.download'|trans }} </li></a>
-                        {% endif %}
-                        {% if file.getUser() == app.user and app.user %}
-                        <a href="{{ path('file_delete',{'slug':file.slug}) }}" title="Delete {{ file.filename }}"><li><i class="fa fa-trash-o"></i> {{ 'maincontent.delete'|trans }} </li></a>
-                        {% endif %}
-                        {% if file.getUser() == app.user and app.user %}
-                            <a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> {{ 'maincontent.share'|trans }} </li></a>
-
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">{{ 'modal.share'|trans }} {{ file.filename }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            {{ url('file_share',{'shareCode':file.shareCode,'slug':file.slug}) }}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                        {% endif %}
-                    </ul>
-                </div>
-            </li>
-        {% endfor %}
-
-        {% if not files and not folders %}
-            <li class="alert alert-danger">
-                {{ 'maincontent.nodata'|trans }}
-            </li>
-        {% endif %}
-         </ul>
+        <div class="col-md-12">
+            <ul class="file-list">
+                {% for folder in folders %}
+                    {{ elements.folder(folder) }}
+                {% endfor %}
+                {% for file in files %}
+                    {{ elements.file(file) }}
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-    </div> <!-- row -->
-
 {% endblock %}
+
+
+    {#<div class="row">#}
+    {#<div class="col-md-12">#}
+        {#<ul class="event-list">#}
+
+        {#{% for folder in folders %} <!-- list of folders -->#}
+            {#<li>#}
+                {#<div class="info">#}
+                    {#<h4 class="title"><i class="fa fa-folder-o"></i>#}
+                            {#<a href='{{ path('control_access',{'slug':folder.slug}) }}'>{{ folder.folderName }}</a>#}
+                    {#</h4>#}
+                    {#<p class ="desc">#}
+                        {#{{ 'maincontent.uploadby'|trans }} {{ folder.user }} -#}
+                        {#<b>{% if  folder.files.count == 0 %}empty folder{% endif %}</b> <!--mo traduzco de momento-->#}
+                        {#{% for tag in folder.tags  %}#}
+                            {#<span class="label label-default">{{ tag }}</span>#}
+                        {#{% endfor %}#}
+
+                        {#{% for user in folder.usersWithAccess %}#}
+                            {#<span class="label label-danger">{{ user }}</span>#}
+                        {#{% endfor %}#}
+                    {#</p>#}
+                    {#<ul>#}
+                        {#{% if folder.getUser() == app.user and app.user %}#}
+                            {#<a href="{{ path('folder_delete',{'slug':folder.slug}) }}" title="Delete {{ folder.folderName }}"><li><i class="fa fa-trash-o"></i> {{ 'maincontent.delete'|trans }} </li></a>#}
+                        {#{% endif %}#}
+                        {#{% if folder.getUser() == app.user and app.user %}#}
+                            {#<a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> {{ 'maincontent.share'|trans }} </li></a>#}
+                        {#{% endif %}#}
+                        {#{% if folder.getUser() == app.user and app.user %}#}
+                            {#<a href="{{ path('folder_edit',{'slug':folder.slug}) }}" title="Edit {{ folder.folderName }}"><li><i class="fa fa-pencil-square-o"></i> {{ 'maincontent.edit'|trans }} </li></a>#}
+
+            {#<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+                {#<div class="modal-dialog">#}
+                    {#<div class="modal-content">#}
+                        {#<div class="modal-header">#}
+                            {#<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
+                            {#<h4 class="modal-title" id="myModalLabel">{{ 'modal.share'|trans }} {{ folder.folderName }}</h4>#}
+                        {#</div>#}
+                        {#<div class="modal-body">#}
+                            {#{{ url('folder_share',{'shareCode':folder.shareCode,'slug':folder.slug}) }}#}
+                        {#</div>#}
+                        {#<div class="modal-footer">#}
+                            {#<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+                        {#{% endif %}#}
+                    {#</ul>#}
+                {#</div>#}
+            {#</li>#}
+        {#{% endfor %}#}
+
+        {#{% for file in files %} <!-- list of files -->#}
+            {#<li>#}
+                {#<div class="info">#}
+                    {#<h4 class="title"><i class="fa fa-file-o"></i> {{file.filename}}</h4>#}
+                    {#<p class ="desc">#}
+                        {#{{ 'maincontent.size'|trans }} {{ file.size }} bytes - {{ 'maincontent.uploadby'|trans }} {{ file.user}}#}
+                        {#{% for tag in file.tags  %}#}
+                            {#<span class="label label-default">{{ tag }}</span>#}
+                        {#{% endfor %}#}
+
+                        {#{% for user in file.usersWithAccess %}#}
+                            {#<span class="label label-danger">{{ user }}</span>#}
+                        {#{% endfor %}#}
+                    {#</p>#}
+                    {#<ul>#}
+                        {#{% if app.user or not app.user and file.user %}#}
+                        {#<a href="{{ path('control_file_download',{'slug':file.slug}) }}" title="Download {{ file.filename }}"><li><i class="fa fa-download push"></i> {{ 'maincontent.download'|trans }} </li></a>#}
+                        {#{% endif %}#}
+                        {#{% if file.getUser() == app.user and app.user %}#}
+                        {#<a href="{{ path('file_delete',{'slug':file.slug}) }}" title="Delete {{ file.filename }}"><li><i class="fa fa-trash-o"></i> {{ 'maincontent.delete'|trans }} </li></a>#}
+                        {#{% endif %}#}
+                        {#{% if file.getUser() == app.user and app.user %}#}
+                            {#<a><li class="fa fa-share-alt" data-toggle="modal" data-target="#myModal"> {{ 'maincontent.share'|trans }} </li></a>#}
+
+            {#<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+                {#<div class="modal-dialog">#}
+                    {#<div class="modal-content">#}
+                        {#<div class="modal-header">#}
+                            {#<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
+                            {#<h4 class="modal-title" id="myModalLabel">{{ 'modal.share'|trans }} {{ file.filename }}</h4>#}
+                        {#</div>#}
+                        {#<div class="modal-body">#}
+                            {#{{ url('file_share',{'shareCode':file.shareCode,'slug':file.slug}) }}#}
+                        {#</div>#}
+                        {#<div class="modal-footer">#}
+                            {#<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+                        {#{% endif %}#}
+                    {#</ul>#}
+                {#</div>#}
+            {#</li>#}
+        {#{% endfor %}#}
+
+        {#{% if not files and not folders %}#}
+            {#<li class="alert alert-danger">#}
+                {#{{ 'maincontent.nodata'|trans }}#}
+            {#</li>#}
+        {#{% endif %}#}
+         {#</ul>#}
+    {#</div>#}
+    {#</div> <!-- row -->#}
+

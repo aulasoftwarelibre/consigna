@@ -31,9 +31,7 @@ class EditFolderType extends AbstractType
                         ->setParameter('id',$folder->getId());
                 }
             ))
-            ->add('submit', 'submit', array(
-                'label' => 'submit.update.folder'))
-            ->getForm();
+        ;
     }
 
     public function getName()

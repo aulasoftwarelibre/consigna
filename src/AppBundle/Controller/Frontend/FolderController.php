@@ -23,17 +23,86 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * Class FolderController
+ * @package AppBundle\Controller\Frontend
+ * @Route("/folder")
+ */
 class FolderController extends Controller
 {
     /**
-     * @Route("/folder/{slug}/edit" , name="folder_edit")
-     * @Template("Default/Folder/edit.html.twig")
+     * @Route("/new" , name="folder_new")
+     * @Template("frontend/Folder/new.html.twig")
      */
-    public function editAction(Request $request,Folder $folder)
+    public function newAction(Request $request)
     {
-        if (false === $this->get('security.authorization_checker')->isGranted('create', $folder)) {
-            throw $this->createAccessDeniedException();
+        $folder = new Folder();
+        $this->denyAccessUnlessGranted('create', $folder);
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(new CreateFolderType(), $folder);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $folder->setUser($user);
+            $em->persist($folder);
+            $em->flush();
+
+            $this->addFlash('success', $this->get('translator')->trans('create.success', ['folder' => $folder ]));
+
+            return $this->redirectToRoute('homepage');
         }
+
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @Route("/{slug}/delete", name="folder_delete")
+     */
+    public function deleteAction(Folder $folder)
+    {
+        $this->denyAccessUnlessGranted('delete', $folder);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($folder);
+        $em->flush();
+
+        $this->addFlash('success', $this->get('translator')->trans('delete.success', ['folder' => $folder ]));
+
+        return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * TODO
+     *
+     * @Route("/{slug}" , name="folder_show")
+     * @Template("frontend/Folder/show.html.twig")
+     */
+    public function showAction(Folder $folder)
+    {
+        if (false === $this->isGranted('access', $folder)) {
+            return $this->render("frontend/Folder/show_with_password.html.twig", [
+                'folder' => $folder,
+            ]);
+        }
+
+        return [
+            'folder' => $folder,
+        ];
+    }
+
+    /**
+     * @Route("/{slug}/edit" , name="folder_edit")
+     * @Template("frontend/Folder/edit.html.twig")
+     */
+    public function editAction(Folder $folder, Request $request)
+    {
+        $this->denyAccessUnlessGranted('create', $folder);
 
         $form = $this->createForm(new EditFolderType(), $folder);
         $form->handleRequest($request);
@@ -43,15 +112,22 @@ class FolderController extends Controller
             $em->persist($folder);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('edit.success', array('folder' => $folder)));
+            $this->addFlash('success', $this->get('translator')->trans('edit.success', array('folder' => $folder)));
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute("folder_show", ['slug' => $folder->getSlug()]);
         }
 
-        return array(
+        return [
+            'folder' => $folder,
             'form' => $form->createView(),
-        );
+        ];
     }
+
+
+
+
+
+
 
     /**
      * @Route("folder/s/{shareCode}/{slug}", name="folder_share")
@@ -118,40 +194,7 @@ class FolderController extends Controller
         );
     }
 
-    /**
-     *@Route("/folder/create" , name="folder_create")
-     */
-    public function createFolderAction(Request $request)
-    {
-        $folder = new Folder();
 
-        if (false === $this->get('security.authorization_checker')->isGranted('create', $folder)) {
-            throw $this->createAccessDeniedException();
-        }
-
-        $user = $this->getUser();
-
-        $form = $this->createForm(new CreateFolderType(), $folder);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $folder->setUser($user);
-            $em->persist($folder);
-            $em->flush();
-
-            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('create.success', array('folder' => $folder)));
-
-            return $this->redirectToRoute('homepage');
-        }
-
-        return $this->render(
-            'Default/form.html.twig',
-            array(
-                'form' => $form->createView(),
-            ));
-    }
 
     /**
      *@Route("/folder/{slug}/control" , name="control_access")
@@ -165,40 +208,9 @@ class FolderController extends Controller
         }
     }
 
-    /**
-     * @Route("/folder/{slug}" , name="folder_files")
-     * @Template(":Default:folderElements.html.twig")
-     */
-    public function listFolderAction(Folder $folder)
-    {
-        if ($this->getUser()) {
-            $this->get('session')->clear();
-        }
-        if ($folder->hasAccess($this->getUser()) or $this->get('session')->has($folder->getSlug())) {
-            return array(
-                'folder' => $folder,
-            );
-        }
-        return $this->redirectToRoute('control_access', array('slug' => $folder->getSlug()));
-    }
 
-    /**
-     * @Route("/folder/{slug}/delete", name="folder_delete")
-     */
-    public function deleteFolderAction(Folder $folder)
-    {
-        if (false === $this->get('security.authorization_checker')->isGranted('delete', $folder)) {
-            throw $this->createAccessDeniedException();
-        }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($folder);
-        $em->flush();
 
-        $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('delete.success', array('folder' => $folder)));
-
-        return $this->redirectToRoute('homepage');
-    }
 
     /**
      * @Route("/folder/file/{slug}/download", name="file_download_in_folder")

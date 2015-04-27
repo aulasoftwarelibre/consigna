@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/elements.html.twig' as elements %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
+    <li class="active">{{ file }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <!-- general form elements -->
+            <div class="box box-default">
+                <div class="box-header">
+                    <h3 class="box-title">{{ 'Download file' | trans }}</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body text-center">
+                    <p>
+                        <i style="font-size: 100px;" class="fa fa-file-o"></i>
+                    </p>
+                    <h3>
+                        {{ file }}
+                    </h3>
+                    <p>
+                        {% trans with {'%days%': 'pending'} %}
+                        This file will be removed in %days% days
+                        {% endtrans %}
+                        - {{ elements.bytesToSize(file.size) }}
+                    </p>
+
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <a href="{{ path("file_download", {'slug': file.slug}) }}" class="btn btn-sm btn-info btn-flat"><i class="fa fa-cloud-download"></i> Download</a>
+                    <a href="{{ path("homepage") }}" class="btn btn-sm btn-default btn-flat"><i class="fa fa-ban"></i> Cancel</a>
+                </div>
+            </div><!-- /.box -->
+        </div>
+    </div>
+{% endblock %}

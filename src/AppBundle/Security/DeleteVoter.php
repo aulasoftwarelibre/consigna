@@ -25,7 +25,7 @@ class DeleteVoter extends AbstractVoter
             if ($entity->getUser() === $user) {
                 return true;
             }
-            if ($attribute === self::DELETE && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            if (in_array('ROLE_SUPER_ADMIN', $user->getRoles(), true)) {
                 return true;
             }
         }

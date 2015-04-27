@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/elements.html.twig' as elements %}
+
+{% block header_title %}
+    {% trans with {'%folder%': folder, '%files%': folder.files|length} %}
+    <h1>%folder% <small>%files% files</small></h1>
+    {% endtrans %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
+    <li class="active">{{ folder }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="file-list">
+                {% for file in folder.files %}
+                    {{ elements.file(file) }}
+                {% else %}
+                    <div class="callout bg-gray color-paletter">
+                        <h4>Empty folder</h4>
+                        <p>This folder is empty.</p>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
