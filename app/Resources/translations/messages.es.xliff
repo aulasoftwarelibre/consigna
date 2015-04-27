@@ -183,6 +183,11 @@
                 <source>delete.success</source>
                 <target>El fichero file ha sido eliminado de manera satisfactoria</target>
             </trans-unit>
+
+            <trans-unit id="4">
+                <source>upload.failed</source>
+                <target>El antivirus no está funcionando en este momento</target>
+            </trans-unit>
         </body>
     </file>
 

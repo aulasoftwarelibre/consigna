@@ -189,6 +189,11 @@
                 <source>delete.success</source>
                 <target>File file has been removed successfully</target>
             </trans-unit>
+
+            <trans-unit id="4">
+                <source>upload.failed</source>
+                <target>Antivirus is not working at this moment</target>
+            </trans-unit>
         </body>
     </file>
 
@@ -313,7 +318,7 @@
                 <source>submit.create.file</source>
                 <target>Upload</target>
             </trans-unit>
-            
+
         </body>
     </file>
 

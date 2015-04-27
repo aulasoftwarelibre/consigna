@@ -79,8 +79,10 @@ class FileController extends Controller
 
             $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, $fileEvent);
 
-            if($file->getScanStatus()==1) {
+            if($file->getScanStatus()==File::SCAN_STATUS_OK) {
                 $this->get('session')->getFlashBag()->set('success',$this->get('translator')->trans('upload.success', array('file' => $file)));
+            } else if($file->getScanStatus()==File::SCAN_STATUS_FAILED) {
+                $this->get('session')->getFlashBag()->set('success',$this->get('translator')->trans('upload.failed', array('file' => $file)));
             } else {
                 $this->get('session')->getFlashBag()->set('success',$this->get('translator')->trans('upload.virus', array('file' => $file)));
             }
