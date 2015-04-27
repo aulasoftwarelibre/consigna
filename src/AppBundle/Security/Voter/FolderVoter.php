@@ -53,7 +53,7 @@ class FolderVoter extends AbstractVoter
      */
     protected function isGranted($attribute, $object, $user = null)
     {
-        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+        if ($user && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return true;
         }
 

@@ -66,7 +66,7 @@ class FileVoter extends AbstractVoter
         if ($object->getScanStatus() != File::SCAN_STATUS_OK) {
             return false;
         }
-        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+        if ($user && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return true;
         }
 
