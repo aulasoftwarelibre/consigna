@@ -86,7 +86,8 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
-
+    group:
+        group_class: AppBundle\Entity\Group
 
 
 hwi_oauth:
@@ -124,21 +125,3 @@ stof_doctrine_extensions:
             sluggable: true
             timestampable: true
             uploadable: true
-# here you will add one (or more) configurations for resource owners
-#sylius_resource:
-#    resources:
-#        AppBundle.entity_key:
-#            driver: doctrine/orm
-#            manager: default
-#            templates: App:File
-#            classes:
-#                model: MyApp\Entity\File
-#                interface: AppBundle\Entity\FileKeyInterface
-#                controller: Sylius\Bundle\ResourceBundle\Controller\ResourceController
-#                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\FileRepository
-
-
-sp_bower:
-    install_on_warmup: true
-    bundles:
-        AppBundle: ~

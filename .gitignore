@@ -1,5 +1,8 @@
 .idea
 /web/bundles/
+/web/vendor/
+/web/css/
+/web/js/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
@@ -14,4 +17,3 @@
 /composer.lock
 *~
 /private/*
-
