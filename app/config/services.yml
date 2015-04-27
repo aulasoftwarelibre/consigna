@@ -26,6 +26,12 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    consigna.user_login.listener:
+        class: AppBundle\EventListener\UserLoginListener
+        arguments: [@session, @security.authorization_checker]
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
     appbundle.type.tags_text:
         class: AppBundle\Form\Type\TagsTextType
         arguments: ["@doctrine.orm.entity_manager"]
@@ -41,6 +47,7 @@ services:
 
     consigna.folder_voter:
         class:      AppBundle\Security\Voter\FolderVoter
+        arguments: [@session]
         public:     false
         tags:
            - { name: security.voter }

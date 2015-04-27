@@ -154,7 +154,6 @@ class FileController extends Controller
         return [
             'file' => $file,
         ];
-
     }
 
     private function createDownloadFileForm($file)

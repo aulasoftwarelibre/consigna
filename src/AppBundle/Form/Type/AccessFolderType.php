@@ -27,9 +27,7 @@ class AccessFolderType extends AbstractType
                     'callback' => array($this, 'validate'),
                 )),
                 'label'=> 'password.access.folder'))
-            ->add('submit', 'submit',array(
-                'label' => 'submit.access.folder'))
-            ->getForm();
+            ;
     }
 
     public function getName()

@@ -12,12 +12,25 @@
     <li class="active">{{ folder }}</li>
 {% endblock %}
 
+{% block navbar %}
+    {% if is_granted('SHARE', folder) %}
+    <li class="tasks-menu">
+        <a href="{{ path("folder_edit", {'slug': folder.slug}) }}"><i class="fa fa-folder-o"></i> Share folder</a>
+    </li>
+    {% endif %}
+    {% if is_granted('UPLOAD', folder) %}
+    <li class="tasks-menu">
+        <a href="{{ path("folder_file_upload", {'slug': folder.slug}) }}"><i class="fa fa-upload"></i> Upload file</a>
+    </li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">
             <ul class="file-list">
                 {% for file in folder.files %}
-                    {{ elements.file(file) }}
+                    {{ elements.folderfile(file) }}
                 {% else %}
                     <div class="callout bg-gray color-paletter">
                         <h4>Empty folder</h4>

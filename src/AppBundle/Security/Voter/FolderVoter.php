@@ -11,11 +11,25 @@ namespace AppBundle\Security\Voter;
 
 use AppBundle\Entity\Folder;
 use AppBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class FolderVoter extends AbstractVoter
 {
+<<<<<<< Updated upstream
+=======
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
+
+>>>>>>> Stashed changes
     /**
      * Return an array of supported classes. This will be called by supportsClass.
      *
@@ -33,7 +47,7 @@ class FolderVoter extends AbstractVoter
      */
     protected function getSupportedAttributes()
     {
-        return ['CREATE', 'ACCESS', 'DOWNLOAD', 'DELETE', 'EDIT'];
+        return ['CREATE', 'ACCESS', 'DOWNLOAD', 'DELETE', 'SHARE', 'UPLOAD'];
     }
 
     /**
@@ -58,8 +72,14 @@ class FolderVoter extends AbstractVoter
         switch ($attribute) {
             case 'ACCESS':
             case 'DOWNLOAD':
-                if ($user instanceof User && $object->hasAccess($user)) {
-                    return true;
+                if ($user instanceof User) {
+                    if ($object->hasAccess($user)) {
+                        return true;
+                    }
+                } else {
+                    if ($this->session->has($object->getSlug())) {
+                        return true;
+                    }
                 }
             break;
 

@@ -51,6 +51,7 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
 
+                        {% block navbar %}
                         {% if app.user %}
                         <li class="tasks-menu">
                             <a href="{{ path("folder_new") }}"><i class="fa fa-folder-o"></i> New folder</a>
@@ -59,6 +60,7 @@
                         <li class="tasks-menu">
                             <a href="{{ path("file_upload") }}"><i class="fa fa-upload"></i> Upload file</a>
                         </li>
+                        {% endblock %}
 
                         {% if app.user %}
                         <!-- User Account Menu -->
