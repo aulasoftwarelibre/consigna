@@ -174,81 +174,53 @@
 
     </div><!-- ./wrapper -->
 
+{% block modal %}
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Do you really want to delete it?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a id="delete" class="btn btn-primary">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ShareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4></div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="box-body">
+                            <div class="form-group"><label for="exampleInputEmail1">Share link</label>
+                                <div class="input-group"><input class="form-control" id="share">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default"><i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 
-
-
-
-
-
-
-        {#<nav class="navbar navbar-default navbar-fixed-top">#}
-            {#<div class="container-fluid">#}
-                {#<div class="navbar-header">#}
-                    {#<button type="button" class="navbar-toggle">#}
-                        {#<span class="sr-only">Toggle navigation</span>#}
-                        {#<span class="icon-bar"></span>#}
-                        {#<span class="icon-bar"></span>#}
-                        {#<span class="icon-bar"></span>#}
-                    {#</button>#}
-                    {#<a id="brand" class="navbar-brand" href="{{ path('homepage') }}">#}
-                        {#Consigna 2.0#}
-                    {#</a>#}
-                {#</div>#}
-                {#{% if app.user %}#}
-                    {#<a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn navbar-right">{{ 'base.logout'|trans }}</a>#}
-                {#{% else %}#}
-                    {#<a id="Sign in" href ="{{ path('fos_user_security_login') }}" class="btn btn-default navbar-btn navbar-right">{{ 'base.login'|trans }}</a>#}
-                {#{% endif %}#}
-            {#</div>#}
-        {#</nav>#}
-
-        {#<div class="row">#}
-            {#<div class="side-menu">#}
-                {#<nav class="navbar navbar-default" role="navigation">#}
-
-                    {#<!-- Main Menu -->#}
-                    {#<div class="side-menu-container">#}
-                        {#<ul class="nav navbar-nav">#}
-
-                            {#<li><a href="{{ path('homepage') }}"><span class="fa fa-file"></span> {{ 'base.menu.all'|trans }} </a></li>#}
-                            {#{% if app.user %}#}
-                            {#<li><a href="{{ path('user_files') }}"><span class="glyphicon glyphicon-user"></span>{{ 'base.menu.myfiles'|trans }}</a></li>#}
-                            {#<li><a href="{{ path('shared_elements') }}"><span class="glyphicon glyphicon-share"></span> {{ 'base.menu.shared'|trans }}</a></li>#}
-                            {#{% endif %}#}
-
-                        {#</ul>#}
-                    {#</div><!-- /.navbar-collapse -->#}
-                {#</nav>#}
-            {#</div>#}
-
-            {#<!-- Main Content -->#}
-            {#<div class="container-fluid">#}
-                {#<div class="side-body">#}
-                    {#{% block breadscrum %}#}
-                        {#<nav class="navbar navbar-default">#}
-                        {#<div class="container-fluid">#}
-
-                            {#<!--Esto imagino que lo vamos a cambiar, de momento no lo traduzco-->#}
-                            {#<p class="navbar-text">Start / Folder</p>#}
-                            {#{% block uploadFile %}#}
-                            {#{% endblock %}#}
-
-                            {#<!-- Collect the nav links, forms, and other content for toggling -->#}
-                            {#<form class="navbar-form navbar-right" role="search" action="{{ path('find') }}" method="get">#}
-                                {#<div class="form-group">#}
-                                    {#<input type="text" class="form-control" placeholder="Search" name="word" id="search-button">#}
-                                {#</div>#}
-                                {#<button type="submit" class="btn btn-default">{{ 'base.search'|trans }}</button>#}
-                            {#</form>#}
-                        {#</div><!-- /.container-fluid -->#}
-                        {#</nav>#}
-                    {#{% endblock %}#}
-
-                    {#{% block mainContent %}{% endblock %}#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
     {% endblock %}
 
     {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
@@ -261,6 +233,26 @@
             "bundles/app/js/consigna.js"
         %}
             <script src="{{ asset_url }}"></script>
+
+    <script type="application/javascript">
+        $('#DeleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var url = button.data('url') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('#delete').attr('href',url)
+        })
+
+        $('#ShareModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var url = button.data('url') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('#share').attr('value', url)
+        })
+    </script>
         {% endjavascripts %}
     {% endblock %}
     </body>
