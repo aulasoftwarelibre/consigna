@@ -17,8 +17,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class FolderVoter extends AbstractVoter
 {
-<<<<<<< Updated upstream
-=======
     /**
      * @var SessionInterface
      */
@@ -29,7 +27,6 @@ class FolderVoter extends AbstractVoter
         $this->session = $session;
     }
 
->>>>>>> Stashed changes
     /**
      * Return an array of supported classes. This will be called by supportsClass.
      *
