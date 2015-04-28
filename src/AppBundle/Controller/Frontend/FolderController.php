@@ -185,7 +185,7 @@ class FolderController extends Controller
     }
 
     /**
-     * @Route("folder/s/{shareCode}/{slug}", name="folder_share")
+     * @Route("/s/{shareCode}/{slug}", name="folder_share")
      */
     public function ShareFileAction(Folder $folder)
     {
