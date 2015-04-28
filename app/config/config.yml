@@ -109,11 +109,16 @@ hwi_oauth:
             google: google_id
 
     resource_owners:
-        google:
-            type:                google
-            client_id:           "%google_app_id%"
-            client_secret:       "%google_app_secret%"
-            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+        sir:
+            type:                oauth2
+            client_id:           "%sir_app_id%"
+            client_secret:       "%sir_app_secret%"
+            access_token_url:    http://localhost:8002/simplesaml/module.php/oauth2/token.php
+            authorization_url:   http://localhost:8002/simplesaml/module.php/oauth2/authorize.php
+            infos_url:           http://localhost:8002/simplesaml/module.php/oauth2/user.php
+            scope:               "user_details"
+            user_response_class: AppBundle\OAuth\Response\SirUserResponse
+
 
 stof_doctrine_extensions:
     uploadable:

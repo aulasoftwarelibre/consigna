@@ -19,11 +19,11 @@ class User extends BaseUser
      */
     protected $id;
 
-    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
-    protected $google_id;
+    /** @ORM\Column(name="sir_id", type="string", length=255, nullable=true) */
+    protected $sir_id;
 
-    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
-    protected $google_access_token;
+    /** @ORM\Column(name="sir_access_token", type="string", length=255, nullable=true) */
+    protected $sir_access_token;
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Group")
@@ -93,33 +93,33 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getGoogleId()
+    public function getSirId()
     {
-        return $this->google_id;
+        return $this->sir_id;
     }
 
     /**
-     * @param mixed $google_id
+     * @param mixed $sir_id
      */
-    public function setGoogleId($google_id)
+    public function setSirId( $sir_id )
     {
-        $this->google_id = $google_id;
+        $this->sir_id = $sir_id;
     }
 
     /**
      * @return mixed
      */
-    public function getGoogleAccessToken()
+    public function getSirAccessToken()
     {
-        return $this->google_access_token;
+        return $this->sir_access_token;
     }
 
     /**
-     * @param mixed $google_access_token
+     * @param mixed $sir_access_token
      */
-    public function setGoogleAccessToken($google_access_token)
+    public function setSirAccessToken( $sir_access_token )
     {
-        $this->google_access_token = $google_access_token;
+        $this->sir_access_token = $sir_access_token;
     }
 
     /**

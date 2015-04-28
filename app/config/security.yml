@@ -30,8 +30,7 @@ security:
 
             oauth:
                 resource_owners:
-                    facebook:           "/login/check-facebook"
-                    google:             "/login/check-google"
+                    sir:                "/login/check-sir"
                 login_path:        /login
                 failure_path:      /login
  

@@ -17,6 +17,7 @@
                 "vendor/ionicons/css/ionicons.css"
                 "vendor/admin-lte/dist/css/AdminLTE.css"
                 "vendor/admin-lte/dist/css/skins/skin-black.css"
+                "vendor/admin-lte/plugins/iCheck/square/blue.css"
                 "bundles/app/css/consigna.css"
             %}
             <link rel="stylesheet" href="{{ asset_url }}" />
@@ -30,196 +31,195 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body class="skin-black">
+    <body class="{% block body_class %}skin-black{% endblock %}">
     {% block body %}
 
-    <div class="wrapper">
+        <div class="wrapper">
 
-        <!-- Main Header -->
-        <header class="main-header">
+            <!-- Main Header -->
+            <header class="main-header">
 
-            <!-- Logo -->
-            <a href="{{ path('homepage') }}" class="logo"><b>Consigna</b>UCO</a>
+                <!-- Logo -->
+                <a href="{{ path('homepage') }}" class="logo"><b>Consigna</b>UCO</a>
 
-            <!-- Header Navbar -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-                <!-- Navbar Right Menu -->
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
 
-                        {% block navbar %}
-                        {% if app.user %}
-                        <li class="tasks-menu">
-                            <a href="{{ path("folder_new") }}"><i class="fa fa-folder-o"></i> New folder</a>
-                        </li>
-                        {% endif %}
-                        <li class="tasks-menu">
-                            <a href="{{ path("file_upload") }}"><i class="fa fa-upload"></i> Upload file</a>
-                        </li>
-                        {% endblock %}
+                            {% block navbar %}
+                            {% if app.user %}
+                            <li class="tasks-menu">
+                                <a href="{{ path("folder_new") }}"><i class="fa fa-folder-o"></i> New folder</a>
+                            </li>
+                            {% endif %}
+                            <li class="tasks-menu">
+                                <a href="{{ path("file_upload") }}"><i class="fa fa-upload"></i> Upload file</a>
+                            </li>
+                            {% endblock %}
 
-                        {% if app.user %}
-                        <!-- User Account Menu -->
-                        <li class="dropdown user user-menu">
-                            <!-- Menu Toggle Button -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <!-- The user image in the navbar-->
-                                <img src="{{ app.user.gravatar(64) }}" class="user-image" alt="User Image"/>
-                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">{{ app.user }}</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- The user image in the menu -->
-                                <li class="user-header">
-                                    <img src="{{ app.user.gravatar(160) }}" class="img-circle" alt="User Image" />
-                                    <p>
-                                        {{ app.user }}
-                                        <small>PENDIENTE</small>
-                                    </p>
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="{{ path("fos_user_profile_edit") }}" class="btn btn-default btn-flat">{{ 'Edit profile' | trans }}</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="{{ path("fos_user_security_logout") }}" class="btn btn-default btn-flat">{{ 'Logout' | trans }}</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        {% else %}
-                        <li class="tasks-menu">
-                            <a href="{{ path("fos_user_security_login") }}"><i class="fa fa-sign-in"></i> {{ 'Login' | trans }}</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </nav>
-        </header>
-
-
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
-
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
+                            {% if app.user %}
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
+                                <!-- Menu Toggle Button -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <!-- The user image in the navbar-->
+                                    <img src="{{ app.user.gravatar(64) }}" class="user-image" alt="User Image"/>
+                                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                    <span class="hidden-xs">{{ app.user }}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- The user image in the menu -->
+                                    <li class="user-header">
+                                        <img src="{{ app.user.gravatar(160) }}" class="img-circle" alt="User Image" />
+                                        <p>
+                                            {{ app.user }}
+                                            <small>PENDIENTE</small>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="{{ path("fos_user_profile_edit") }}" class="btn btn-default btn-flat">{{ 'Edit profile' | trans }}</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="{{ path("fos_user_security_logout") }}" class="btn btn-default btn-flat">{{ 'Logout' | trans }}</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li class="tasks-menu">
+                                <a href="{{ path("fos_user_security_login") }}"><i class="fa fa-sign-in"></i> {{ 'Login' | trans }}</a>
+                            </li>
+                            {% endif %}
+                        </ul>
                     </div>
-                </form>
-                <!-- /.search form -->
+                </nav>
+            </header>
 
-                <!-- Sidebar Menu -->
-                {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active' }) }}
-            </section>
-            <!-- /.sidebar -->
-        </aside>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
 
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                {% block content_header %}
-                    {% block header_title %}
-                        <h1>&nbsp;</h1>
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- search form (Optional) -->
+                    <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                  <span class="input-group-btn">
+                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                  </span>
+                        </div>
+                    </form>
+                    <!-- /.search form -->
+
+                    <!-- Sidebar Menu -->
+                    {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active' }) }}
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    {% block content_header %}
+                        {% block header_title %}
+                            <h1>&nbsp;</h1>
+                        {% endblock %}
+                        <ol class="breadcrumb">
+                        {% block breadcrumb %}
+                            <li><a class="active" href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
+                        {% endblock %}
+                        </ol>
                     {% endblock %}
-                    <ol class="breadcrumb">
-                    {% block breadcrumb %}
-                        <li><a class="active" href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
-                    {% endblock %}
-                    </ol>
-                {% endblock %}
-            </section>
+                </section>
 
-            <!-- Main content -->
-            <section class="content">
+                <!-- Main content -->
+                <section class="content">
 
-                {% block alert %}
-                    {% for type, messages in app.session.flashBag.all %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ type }} alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                {{ message }}
-                            </div>
+                    {% block alert %}
+                        {% for type, messages in app.session.flashBag.all %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ type }} alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
                         {% endfor %}
-                    {% endfor %}
-                {% endblock %}
+                    {% endblock %}
 
-                {% block content %}
-                {% endblock content %}
-            </section><!-- /.content -->
-        </div><!-- /.content-wrapper -->
+                    {% block content %}
+                    {% endblock content %}
+                </section><!-- /.content -->
+            </div><!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="pull-right hidden-xs">
-                200Mb used in 36 files
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyleft &copy; 2015 <a href="#">University of Córdoba</a>.</strong>
-        </footer>
-
-    </div><!-- ./wrapper -->
-
-{% block modal %}
-    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Do you really want to delete it?</h4>
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <!-- To the right -->
+                <div class="pull-right hidden-xs">
+                    200Mb used in 36 files
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <a id="delete" class="btn btn-primary">Delete</a>
+                <!-- Default to the left -->
+                <strong>Copyleft &copy; 2015 <a href="#">University of Córdoba</a>.</strong>
+            </footer>
+
+        </div><!-- ./wrapper -->
+
+        {% block modal %}
+        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Do you really want to delete it?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <a id="delete" class="btn btn-primary">Delete</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="ShareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4></div>
-                <div class="modal-body">
-                    <form role="form">
-                        <div class="box-body">
-                            <div class="form-group"><label for="exampleInputEmail1">Share link</label>
-                                <div class="input-group"><input class="form-control" id="share">
-                                    <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default"><i class="fa fa-copy"></i> Copy
-                                        </button>
+        <div class="modal fade" id="ShareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4></div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="box-body">
+                                <div class="form-group"><label for="exampleInputEmail1">Share link</label>
+                                    <div class="input-group"><input class="form-control" id="share">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default"><i class="fa fa-copy"></i> Copy
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-{% endblock %}
-
+        {% endblock %}
 
     {% endblock %}
 
@@ -229,32 +229,12 @@
             "vendor/select2/select2.js"
             "vendor/bootstrap/dist/js/bootstrap.js"
             "vendor/bootstrap-filestyle/src/bootstrap-filestyle.js"
+            "vendor/admin-lte/plugins/iCheck/icheck.js"
             "vendor/admin-lte/dist/js/app.js"
             "bundles/app/js/consigna.js"
         %}
             <script src="{{ asset_url }}"></script>
-
-    <script type="application/javascript">
-        $('#DeleteModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var url = button.data('url') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('#delete').attr('href',url)
-        })
-
-        $('#ShareModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var url = button.data('url') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('#share').attr('value', url)
-        })
-    </script>
         {% endjavascripts %}
     {% endblock %}
     </body>
-
 </html>
