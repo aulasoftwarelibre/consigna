@@ -202,7 +202,7 @@ class FolderController extends Controller
                 $session->set($folder->getSlug(), true);
             }
         }
-        return $this->redirectToRoute('folder_files', array('slug' => $folder->getSlug()));
+        return $this->redirectToRoute('folder_show', array('slug' => $folder->getSlug()));
     }
 
     /**
