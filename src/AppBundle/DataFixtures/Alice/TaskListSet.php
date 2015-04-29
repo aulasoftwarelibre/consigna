@@ -8,6 +8,7 @@ $set = new FixtureSet(array(
     'do_persist' => true,
 ));
 
+$set->addFile(__DIR__.'/organizations.yml', 'yaml');
 $set->addFile(__DIR__.'/users.yml', 'yaml');
 $set->addFile(__DIR__.'/tags.yml', 'yaml');
 $set->addFile(__DIR__.'/folders.yml', 'yaml');

@@ -55,6 +55,11 @@ class User extends BaseUser
     private $sharedFiles;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="users")
+     */
+    private $organization;
+
+    /**
      * Construct.
      */
     public function __construct()
@@ -268,6 +273,22 @@ class User extends BaseUser
     public function getSharedFiles()
     {
         return $this->sharedFiles;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param mixed $organization
+     */
+    public function setOrganization($organization)
+    {
+        $this->organization = $organization;
     }
 
     /**
