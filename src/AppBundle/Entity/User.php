@@ -276,22 +276,22 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return \AppBundle\Entity\Organization
      */
     public function getOrganization()
     {
-        return $this->organization;
+        return $this->organization();
     }
 
     /**
-     * @param mixed $organization
+     * @param \AppBundle\Entity\Organization $organization
      */
     public function setOrganization($organization)
     {
         $this->organization = $organization;
     }
 
-    /**
+    /*
      * Get either a Gravatar URL or complete image tag for a specified email address.
      *
      * @param integer $s Size in pixels, defaults to 80px [ 1 - 2048 ]

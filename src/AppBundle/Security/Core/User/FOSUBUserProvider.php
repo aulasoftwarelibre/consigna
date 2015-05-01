@@ -2,6 +2,8 @@
 
 namespace AppBundle\Security\Core\User;
 
+use AppBundle\Entity\Organization;
+use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -42,9 +44,18 @@ class FOSUBUserProvider extends BaseClass
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
+        $em = $this->em;
         $username = $response->getUsername();
 
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
+        if(null === $foundOrganization=$em->getRepository('AppBundle:Organization')->findOneByCode($response->getOrganization())){
+            $organization = new Organization();
+            $organization->setCode($response->getOrganization());
+            $em->persist($organization);
+            $em->flush();
+        } else {
+            $organization = $foundOrganization;
+        }
 
         //when the user is registrating
         if (null === $user) {
@@ -61,8 +72,9 @@ class FOSUBUserProvider extends BaseClass
             $user->setUsername($username);
             $user->setEmail($response->getEmail());
             $user->setPassword($username);
+            $user->setOrganization($organization);
             $user->setEnabled(true);
-            $user->setOrganization($response->getOrganization());
+
 
             $this->userManager->updateUser($user);
 
@@ -80,4 +92,6 @@ class FOSUBUserProvider extends BaseClass
 
         return $user;
     }
+
+
 }

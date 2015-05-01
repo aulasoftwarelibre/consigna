@@ -34,9 +34,17 @@ class Organization {
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    private $code;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isEnabled;
+
 
     /**
      * @return mixed
@@ -107,4 +115,19 @@ class Organization {
         $this->id = $id;
     }
 
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 }

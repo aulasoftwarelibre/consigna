@@ -1,4 +1,5 @@
 \AppBundle\Entity\Organization:
     organizations{1..3}:
-        name: uco.es
-        isEnabled: true
+        name: Universidad de Cordoba
+        code: uco.es
+        isEnabled: 1
