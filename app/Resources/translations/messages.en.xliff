@@ -94,7 +94,7 @@
         </body>
     </file>
 
-    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/homepage.html.twig">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/homepage.html.twig">
         <body>
             <trans-unit id="1">
                 <source>file.upload</source>
@@ -107,53 +107,24 @@
             </trans-unit>
 
             <trans-unit id="3">
-                <source>maincontent.uploadby</source>
-                <target>Upload by</target>
+                <source>homepage.translate.MainFolder </source>
+                <target>Main folder</target>
             </trans-unit>
 
             <trans-unit id="4">
-                <source>maincontent.delete</source>
-                <target>Delete</target>
+                <source>homepage.translate.folder </source>
+                <target>Main folder</target>
             </trans-unit>
 
             <trans-unit id="5">
-                <source>maincontent.share</source>
-                <target>Share</target>
+                <source>homepage.translate.file </source>
+                <target>files</target>
             </trans-unit>
 
-            <trans-unit id="6">
-                <source>maincontent.edit</source>
-                <target>Edit</target>
-            </trans-unit>
-
-            <trans-unit id="7">
-                <source>modal.share</source>
-                <target>Share</target>
-            </trans-unit>
-
-            <trans-unit id="8">
-                <source>modal.close</source>
-                <target>Close</target>
-            </trans-unit>
-
-            <trans-unit id="9">
-                <source>maincontent.size</source>
-                <target>Size</target>
-            </trans-unit>
-
-            <trans-unit id="10">
-                <source>maincontent.download</source>
-                <target>Download</target>
-            </trans-unit>
-
-            <trans-unit id="11">
-                <source>maincontent.nodata</source>
-                <target>No data</target>
-            </trans-unit>
         </body>
     </file>
 
-    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/folderElements.html.twig">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/folderElements.html.twig">
         <body>
             <trans-unit id="1">
                 <source>file.upload</source>

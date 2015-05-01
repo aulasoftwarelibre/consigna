@@ -91,7 +91,7 @@
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/homepage.html.twig">
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/homepage.html.twig">
         <body>
             <trans-unit id="1">
                 <source>file.upload</source>
@@ -104,53 +104,23 @@
             </trans-unit>
 
             <trans-unit id="3">
-                <source>maincontent.uploadby</source>
-                <target>Subido por</target>
+                <source>homepage.translate.MainFolder </source>
+                <target>Carpeta principal</target>
             </trans-unit>
 
             <trans-unit id="4">
-                <source>maincontent.delete</source>
-                <target>Eliminar</target>
+                <source>homepage.translate.folder </source>
+                <target>carpeta</target>
             </trans-unit>
 
             <trans-unit id="5">
-                <source>maincontent.share</source>
-                <target>Compartir</target>
-            </trans-unit>
-
-            <trans-unit id="6">
-                <source>maincontent.edit</source>
-                <target>Editar</target>
-            </trans-unit>
-
-            <trans-unit id="7">
-                <source>modal.share</source>
-                <target>Compartir</target>
-            </trans-unit>
-
-            <trans-unit id="8">
-                <source>modal.close</source>
-                <target>Cerrar</target>
-            </trans-unit>
-
-            <trans-unit id="9">
-                <source>maincontent.size</source>
-                <target>Tamaño</target>
-            </trans-unit>
-
-            <trans-unit id="10">
-                <source>maincontent.download</source>
-                <target>Descargar</target>
-            </trans-unit>
-
-            <trans-unit id="11">
-                <source>maincontent.nodata</source>
-                <target>No hay datos</target>
+                <source>homepage.translate.file </source>
+                <target>ficheros</target>
             </trans-unit>
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/folderElements.html.twig">
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/Default/folderElements.html.twig">
         <body>
             <trans-unit id="1">
                 <source>file.upload</source>
