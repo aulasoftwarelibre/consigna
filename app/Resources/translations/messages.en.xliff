@@ -41,6 +41,56 @@
                 <target>Search</target>
             </trans-unit>
 
+            <trans-unit id="8">
+                <source>base.new.folder</source>
+                <target>New folder</target>
+            </trans-unit>
+
+            <trans-unit id="9">
+                <source>base.new.file</source>
+                <target>Upload file</target>
+            </trans-unit>
+
+            <trans-unit id="10">
+                <source>base.edit.profile</source>
+                <target>Edit profile</target>
+            </trans-unit>
+
+            <trans-unit id="11">
+                <source>base.icon.Mainfolder</source>
+                <target>Main folder</target>
+            </trans-unit>
+
+            <trans-unit id="12">
+                <source>base.footer.uco</source>
+                <target>University of Cordoba</target>
+            </trans-unit>
+
+            <trans-unit id="13">
+                <source>modal.delete.title</source>
+                <target>Do you really want to delete it?</target>
+            </trans-unit>
+
+            <trans-unit id="14">
+                <source>modal.delete.footer</source>
+                <target>Delete</target>
+            </trans-unit>
+
+            <trans-unit id="15">
+                <source>modal.share.title</source>
+                <target>Share</target>
+            </trans-unit>
+
+            <trans-unit id="16">
+                <source>modal.share.link</source>
+                <target>Share link</target>
+            </trans-unit>
+
+            <trans-unit id="17">
+                <source>modal.share.copy</source>
+                <target>Copy</target>
+            </trans-unit>
+
         </body>
     </file>
 
