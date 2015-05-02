@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block header_title %}
-    {% trans with {'%folder%': folder, '%files%': folder.files|length} %}
-    <h1>%folder% <small>%files% files</small></h1>
-    {% endtrans %}
+    <h1> {{ folder }}
+        <small>{{ 'homepage.number.files' | trans({'%files%':folder.files|length }) }}</small>
+    </h1>
 {% endblock %}
 
 {% block breadcrumb %}
