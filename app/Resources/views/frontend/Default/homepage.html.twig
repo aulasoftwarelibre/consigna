@@ -3,9 +3,11 @@
 
 
 {% block header_title %}
-    {% trans with {'%folders%': folders|length, '%files%': files|length} %}
-        <h1>Main folder<small>%folders% folders - %files% files</small></h1>
-    {% endtrans %}
+    <h1>{{ 'homepage.title' | trans }}
+        <small>{{ 'homepage.number.folders' | trans({'%folders%':folders|length }) }} -
+                {{ 'homepage.number.files' | trans({'%files%':files|length }) }}
+        </small>
+    </h1>
 {% endblock %}
 
 {% block content %}

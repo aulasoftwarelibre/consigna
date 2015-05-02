@@ -105,6 +105,21 @@
                 <source>folder.create</source>
                 <target>Create folder</target>
             </trans-unit>
+
+            <trans-unit id="3">
+                <source>homepage.title</source>
+                <target>Main Folder</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>homepage.number.folders</source>
+                <target>%folders% folders</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>homepage.number.files</source>
+                <target>%files% files</target>
+            </trans-unit>
         </body>
     </file>
 

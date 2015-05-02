@@ -104,18 +104,18 @@
             </trans-unit>
 
             <trans-unit id="3">
-                <source>Main folder </source>
+                <source>homepage.title</source>
                 <target>Carpeta principal</target>
             </trans-unit>
 
             <trans-unit id="4">
-                <source>folders </source>
-                <target>carpetas</target>
+                <source>homepage.number.folders</source>
+                <target>%folders% carpetas</target>
             </trans-unit>
 
             <trans-unit id="5">
-                <source>files </source>
-                <target>ficheros</target>
+                <source>homepage.number.files</source>
+                <target>%files% carpetas</target>
             </trans-unit>
         </body>
     </file>
