@@ -144,6 +144,11 @@
                 <source>file.show.cancelbutton</source>
                 <target>Cancel</target>
             </trans-unit>
+
+            <trans-unit id="5">
+                <source>show.file.message</source>
+                <target>This file will be removed in %days% days</target>
+            </trans-unit>
         </body>
     </file>
 

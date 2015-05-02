@@ -142,6 +142,10 @@
                 <target>Cancelar</target>
             </trans-unit>
 
+            <trans-unit id="5">
+                <source>show.file.message</source>
+                <target>Este fichero se eliminará en %days% días</target>
+            </trans-unit>
         </body>
     </file>
 

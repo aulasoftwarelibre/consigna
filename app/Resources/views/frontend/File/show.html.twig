@@ -22,9 +22,7 @@
                         {{ file }}
                     </h3>
                     <p>
-                        {% trans with {'%days%': 'pending'} %} <!--Traducir luego-->
-                        This file will be removed in %days% days
-                        {% endtrans %}
+                        {{ 'show.file.message' | trans({'%days%':'pending' }) }}
                         - {{ elements.bytesToSize(file.size) }}
                     </p>
 
