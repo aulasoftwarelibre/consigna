@@ -19,6 +19,6 @@ class ScanFilesCommand extends ContainerAwareCommand
     {
         $antivirus_path = $this->getContainer()->getParameter('antivirus_path');
         $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:File')->scanAllFiles($antivirus_path);
-        $output->writeln('done');
+        $output->writeln('The scan has been completed');
     }
 }
