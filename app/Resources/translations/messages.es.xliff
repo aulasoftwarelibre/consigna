@@ -299,6 +299,22 @@
                 <source>upload.failed</source>
                 <target>El antivirus no está funcionando en este momento</target>
             </trans-unit>
+
+            <trans-unit id="5">
+                <source>login.to.download</source>
+                <target>Este archivo ha sido subido por un usuario anónimo, necesita loguearse para descargarlo.
+                </target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>message.password.valid</source>
+                <target>La contraseña es correcta</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>message.password.invalid</source>
+                <target>La contraseña no es correcta</target>
+            </trans-unit>
         </body>
     </file>
 
@@ -322,6 +338,16 @@
             <trans-unit id="4">
                 <source>delete.success</source>
                 <target>La carpeta folder ha sido eliminada satisfactoriamente</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>message.password.valid</source>
+                <target>La contraseña es correcta</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                <source>message.password.invalid</source>
+                <target>La contraseña no es correcta</target>
             </trans-unit>
         </body>
     </file>

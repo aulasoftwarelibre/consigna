@@ -95,7 +95,7 @@ class FileController extends Controller
     public function showAction(File $file)
     {
         if (false === $this->isGranted('ACCESS', $file)) {
-            $this->addFlash('warning', $this->get('translator')->trans('Este archivo ha sido subido por un usuario anónimo, necesita loguearse para descargarlo.'));
+            $this->addFlash('warning', $this->get('translator')->trans('login.to.download'));
 
             return $this->render("frontend/File/show_with_login.html.twig", [
                 'file' => $file,
