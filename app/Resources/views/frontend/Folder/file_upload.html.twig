@@ -7,9 +7,9 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'breadcrum.MainFolder' | trans }}</a></li>
     <li><a href="{{ path('file_show', {'slug': folder.slug}) }}">{{ folder }}</a></li>
-    <li class="active">{{ 'Upload file' | trans }}</li>
+    <li class="active">{{ 'file.upload.title' | trans }}</li>
 {% endblock %}
 
 {% block content %}
@@ -18,7 +18,7 @@
               <!-- general form elements -->
               <div class="box box-default">
                 <div class="box-header">
-                  <h3 class="box-title">{{ 'Upload file' | trans }}</h3>
+                  <h3 class="box-title">{{ 'file.upload' | trans }}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 {{ form_start(form) }}
@@ -28,7 +28,7 @@
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-default"><i class="fa fa-cloud-upload"></i> {{ 'submit.create.file' | trans }}</button>
-                    <a class="btn btn-default" href="{{ path('file_show', {'slug': folder.slug}) }}"><i class="fa fa-ban"></i> Cancel</a>
+                    <a class="btn btn-default" href="{{ path('file_show', {'slug': folder.slug}) }}"><i class="fa fa-ban"></i> {{ 'file.show.cancelbutton' | trans }}</a>
                   </div>
                 {{ form_end(form) }}
               </div><!-- /.box -->

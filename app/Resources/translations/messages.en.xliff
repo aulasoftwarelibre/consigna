@@ -105,93 +105,149 @@
                 <source>folder.create</source>
                 <target>Create folder</target>
             </trans-unit>
-
-            <trans-unit id="3">
-                <source>homepage.translate.MainFolder </source>
-                <target>Main folder</target>
-            </trans-unit>
-
-            <trans-unit id="4">
-                <source>homepage.translate.folder </source>
-                <target>Main folder</target>
-            </trans-unit>
-
-            <trans-unit id="5">
-                <source>homepage.translate.file </source>
-                <target>files</target>
-            </trans-unit>
-
         </body>
     </file>
 
-    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/folderElements.html.twig">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/show.html.twig">
         <body>
             <trans-unit id="1">
-                <source>file.upload</source>
+                <source>breadcrum.MainFolder</source>
+                <target>Main folder</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>file.show.title</source>
+                <target>Download file</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>file.show.downloadbutton</source>
+                <target>Download</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>file.show.cancelbutton</source>
+                <target>Cancel</target>
+            </trans-unit>
+        </body>
+    </file>
+
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/show_with_login.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>breadcrum.MainFolder</source>
+                <target>Main folder</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>file.show.title</source>
+                <target>Download file</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>file.show.cancelbutton</source>
+                <target>Cancel</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>file.show.login</source>
+                <target>Login</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/show_with_password.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>breadcrum.MainFolder</source>
+                <target>Main folder</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>file.show.title</source>
+                <target>Download file</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>file.show.cancelbutton</source>
+                <target>Cancel</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>label.check_password</source>
+                <target>Check password</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/upload.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>breadcrum.MainFolder</source>
+                <target>Main folder</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>file.upload.title</source>
                 <target>Upload file</target>
             </trans-unit>
 
-            <trans-unit id="2">
-                <source>maincontent.uploadby</source>
-                <target>Upload by</target>
-            </trans-unit>
-
             <trans-unit id="3">
-                <source>maincontent.delete</source>
-                <target>Delete</target>
+                <source>file.show.cancelbutton</source>
+                <target>Cancel</target>
             </trans-unit>
 
             <trans-unit id="4">
-                <source>maincontent.share</source>
-                <target>Share</target>
+                <source>file.upload</source>
+                <target>upload file</target>
             </trans-unit>
 
             <trans-unit id="5">
-                <source>modal.share</source>
-                <target>Share</target>
-            </trans-unit>
-
-            <trans-unit id="6">
-                <source>modal.close</source>
-                <target>Close</target>
-            </trans-unit>
-
-            <trans-unit id="7">
-                <source>maincontent.size</source>
-                <target>Size</target>
-            </trans-unit>
-
-            <trans-unit id="8">
-                <source>maincontent.download</source>
-                <target>Download</target>
-            </trans-unit>
-
-            <trans-unit id="9">
-                <source>maincontent.nodata</source>
-                <target>No data</target>
+                <source>submit.create.file</source>
+                <target>upload</target>
             </trans-unit>
         </body>
     </file>
 
-    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/shareFile.html.twig">
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/share.html.twig">
         <body>
             <trans-unit id="1">
-                <source>maincontent.uploadby</source>
-                <target>Upload by</target>
+                <source>folder.edit.title</source>
+                <target>Edit folder</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/show.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>folder.navbar.share</source>
+                <target>Share folder</target>
             </trans-unit>
 
             <trans-unit id="2">
-                <source>maincontent.size</source>
-                <target>Size</target>
+                <source>folder.navbar.upload</source>
+                <target>Upload file</target>
             </trans-unit>
 
             <trans-unit id="3">
-                <source>maincontent.download</source>
-                <target>Download</target>
+                <source>folder.content.empty</source>
+                <target>Empty folder</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>folder.content.message</source>
+                <target>This folder is empty</target>
             </trans-unit>
         </body>
     </file>
 
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/macros/elements.html.twig">
+        <body>
+
+        </body>
+    </file>
 
     <!--CONTROLLERS-->
     <file source-language="en" target-language="en" datatype="plaintext" original="/src/AppBundle/Controller/FileController.php">
@@ -355,10 +411,22 @@
                 <target>Repeat password</target>
             </trans-unit>
 
+            <trans-unit id="3">
+                <source>tag.create.folder</source>
+                <target>Tags (add each tag separated by a comma ',')</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>foldername.create.folder</source>
+                <target>Name</target>
+            </trans-unit>
+
             <trans-unit id="5">
                 <source>submit.create.folder</source>
                 <target>Create folder</target>
             </trans-unit>
+
+
         </body>
     </file>
 

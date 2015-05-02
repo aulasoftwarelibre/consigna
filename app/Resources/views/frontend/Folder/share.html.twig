@@ -6,9 +6,9 @@
     {% endtrans %}
 {% endblock %}
 {% block breadcrumb %}
-    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'base.icon.Mainfolder' | trans }}</a></li>
     <li><a href="{{ path("folder_show", {'slug': folder.slug}) }}"></a>{{ folder }}</li>
-    <li class="active">{{ 'Edit folder' | trans }}</li>
+    <li class="active">{{ 'folder.edit.title' | trans }}</li>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
               <!-- general form elements -->
               <div class="box box-default">
                 <div class="box-header">
-                  <h3 class="box-title">{{ 'Edit folder' | trans }}</h3>
+                  <h3 class="box-title">{{ 'folder.edit.title' | trans }}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 {{ form_start(form) }}
@@ -27,7 +27,7 @@
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i> {{ 'submit.update.folder' | trans }}</button>
-                    <a class="btn btn-default" href="{{ path("folder_show", {'slug': folder.slug}) }}"><i class="fa fa-ban"></i> {{ 'label.cancel' | trans }}</a>
+                    <a class="btn btn-default" href="{{ path("folder_show", {'slug': folder.slug}) }}"><i class="fa fa-ban"></i> {{ 'file.show.cancelbutton' | trans }}</a>
                   </div>
                 {{ form_end(form) }}
               </div><!-- /.box -->

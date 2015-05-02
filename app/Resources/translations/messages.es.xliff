@@ -91,7 +91,7 @@
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/homepage.html.twig">
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/frontend/Default/homepage.html.twig">
         <body>
             <trans-unit id="1">
                 <source>file.upload</source>
@@ -104,87 +104,165 @@
             </trans-unit>
 
             <trans-unit id="3">
-                <source>homepage.translate.MainFolder </source>
+                <source>Main folder </source>
                 <target>Carpeta principal</target>
             </trans-unit>
 
             <trans-unit id="4">
-                <source>homepage.translate.folder </source>
-                <target>carpeta</target>
+                <source>folders </source>
+                <target>carpetas</target>
             </trans-unit>
 
             <trans-unit id="5">
-                <source>homepage.translate.file </source>
+                <source>files </source>
                 <target>ficheros</target>
             </trans-unit>
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/Default/folderElements.html.twig">
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/show.html.twig">
         <body>
             <trans-unit id="1">
-                <source>file.upload</source>
-                <target>Subir fichero</target>
+                <source>breadcrum.MainFolder</source>
+                <target>Carpeta principal</target>
             </trans-unit>
 
             <trans-unit id="2">
-                <source>maincontent.uploadby</source>
-                <target>Subido por</target>
+                <source>file.show.title</source>
+                <target>Descargar fichero</target>
             </trans-unit>
 
             <trans-unit id="3">
-                <source>maincontent.delete</source>
-                <target>Eliminar</target>
-            </trans-unit>
-
-            <trans-unit id="4">
-                <source>maincontent.share</source>
-                <target>Compartir</target>
-            </trans-unit>
-
-            <trans-unit id="5">
-                <source>modal.share</source>
-                <target>Compartir</target>
-            </trans-unit>
-
-            <trans-unit id="6">
-                <source>modal.close</source>
-                <target>Cerrar</target>
-            </trans-unit>
-
-            <trans-unit id="7">
-                <source>maincontent.size</source>
-                <target>Tamaño</target>
-            </trans-unit>
-
-            <trans-unit id="8">
-                <source>maincontent.download</source>
+                <source>file.show.downloadbutton</source>
                 <target>Descargar</target>
             </trans-unit>
 
-            <trans-unit id="9">
-                <source>maincontent.nodata</source>
-                <target>No hay datos</target>
+            <trans-unit id="4">
+                <source>file.show.cancelbutton</source>
+                <target>Cancelar</target>
+            </trans-unit>
+
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/show_with_login.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>breadcrum.MainFolder</source>
+                <target>Carpeta principal</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>file.show.downloadbutton</source>
+                <target>Descargar</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>file.show.cancelbutton</source>
+                <target>Cancelar</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>file.show.login</source>
+                <target>Iniciar sesión</target>
             </trans-unit>
         </body>
     </file>
 
-    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/shareFile.html.twig">
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/show_with_password.html.twig">
         <body>
             <trans-unit id="1">
-                <source>maincontent.uploadby</source>
-                <target>Subido por</target>
+                <source>breadcrum.MainFolder</source>
+                <target>Carpeta principal</target>
             </trans-unit>
 
             <trans-unit id="2">
-                <source>maincontent.size</source>
-                <target>Tamaño</target>
+                <source>file.show.title</source>
+                <target>Descargar fichero</target>
             </trans-unit>
 
             <trans-unit id="3">
-                <source>maincontent.download</source>
-                <target>Descargar</target>
+                <source>file.show.cancelbutton</source>
+                <target>Cancelar</target>
             </trans-unit>
+
+            <trans-unit id="4">
+                <source>label.check_password</source>
+                <target>Comprobar contraseña</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/upload.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>breadcrum.MainFolder</source>
+                <target>Carpeta principal</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>file.upload.title</source>
+                <target>Subir fichero</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>file.upload</source>
+                <target>Subir fichero</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                <source>submit.create.file</source>
+                <target>Subir</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/upload.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>folder.upload.title</source>
+                <target>Nueva carpeta</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/share.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>folder.edit.title</source>
+                <target>Editar carpeta</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/Default/show.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>folder.navbar.share</source>
+                <target>Compartir carpeta</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>folder.navbar.upload</source>
+                <target>Subir fichero</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>folder.content.empty</source>
+                <target>Carpeta vacía</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>folder.content.message</source>
+                <target>Esta carpeta está vacía</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/macros/elements.html.twig">
+        <body>
+
         </body>
     </file>
 

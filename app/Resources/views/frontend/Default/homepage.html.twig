@@ -1,19 +1,10 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/elements.html.twig' as elements %}
 
-{% block File_Folder %}
-    <p class="navbar-text">Start / Folder</p> <!--No traduzco por el momento-->
-    {% block uploadFile %}
-    <a class="btn btn-default navbar-btn" href="{{ path('file_create') }}"><i class="fa fa-cloud-upload "></i>{{ 'file.upload'|trans }}</a>
-    {% if app.user %}
-        <a class="btn btn-default navbar-btn" href="{{ path('folder_create') }}"><i class="fa fa-folder"></i>{{ 'folder.create'|trans }}</a>
-    {% endif %}
-    {% endblock %}
-{% endblock %}
 
 {% block header_title %}
     {% trans with {'%folders%': folders|length, '%files%': files|length} %}
-        <h1>{{ 'homepage.translate.MainFolder'|trans }} <small>%folders% {{ 'homepage.translate.folder'|trans }} - %files% {{ 'homepage.translate.files'|trans }}</small></h1>
+        <h1>Main folder<small>%folders% folders - %files% files</small></h1>
     {% endtrans %}
 {% endblock %}
 

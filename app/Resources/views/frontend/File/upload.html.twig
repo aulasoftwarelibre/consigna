@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
-    <li class="active">{{ 'Upload file' | trans }}</li>
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'breadcrum.MainFolder' | trans }}</a></li>
+    <li class="active">{{ 'file.upload.title' | trans }}</li>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
               <!-- general form elements -->
               <div class="box box-default">
                 <div class="box-header">
-                  <h3 class="box-title">{{ 'Upload file' | trans }}</h3>
+                  <h3 class="box-title">{{ 'file.upload' | trans }}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 {{ form_start(form) }}

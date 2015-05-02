@@ -2,7 +2,7 @@
 {% import 'macros/elements.html.twig' as elements %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'Main folder' | trans }}</a></li>
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'breadcrum.MainFolder' | trans }}</a></li>
     <li class="active">{{ file }}</li>
 {% endblock %}
 
@@ -12,7 +12,7 @@
             <!-- general form elements -->
             <div class="box box-default">
                 <div class="box-header">
-                    <h3 class="box-title">{{ 'Download file' | trans }}</h3>
+                    <h3 class="box-title">{{ 'file.show.title' | trans }}</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body text-center">
                     <p>
@@ -30,8 +30,8 @@
 
                 </div><!-- /.box-body -->
                 <div class="box-footer">
-                    <a href="{{ path("fos_user_security_login") }}" class="btn btn-sm btn-info btn-flat"><i class="fa fa-sign-in"></i> Login</a>
-                    <a href="{{ path("homepage") }}" class="btn btn-sm btn-default btn-flat"><i class="fa fa-ban"></i> Cancel</a>
+                    <a href="{{ path("fos_user_security_login") }}" class="btn btn-sm btn-info btn-flat"><i class="fa fa-sign-in"></i> {{ 'file.show.login' | trans }}</a>
+                    <a href="{{ path("homepage") }}" class="btn btn-sm btn-default btn-flat"><i class="fa fa-ban"></i> {{ 'file.show.cancelbutton' | trans }}</a>
                 </div>
             </div><!-- /.box -->
         </div>
