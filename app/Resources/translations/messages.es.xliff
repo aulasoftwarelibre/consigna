@@ -266,7 +266,15 @@
 
     <file source-language="en" target-language="es" datatype="plaintext" original="/app/Resources/views/macros/elements.html.twig">
         <body>
+            <trans-unit id="1">
+                <source>element.createdatby</source>
+                <target>Creado el %uploadDate% por %uploadUser%</target>
+            </trans-unit>
 
+            <trans-unit id="2">
+                <source>element.daysleft</source>
+                <target>quedan %days% días</target>
+            </trans-unit>
         </body>
     </file>
 
