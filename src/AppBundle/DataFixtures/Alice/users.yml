@@ -18,4 +18,4 @@
         plainPassword: secret
         enabled: 1
         groups: [ @group_user ]
-        organization: @organizations*
+        organization: @organizations
