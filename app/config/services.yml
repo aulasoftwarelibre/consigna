@@ -32,6 +32,12 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
 
+    consigna.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: [%supported_languages%]
+        tags:
+            - { name: kernel.event_subscriber }
+
     appbundle.type.tags_text:
         class: AppBundle\Form\Type\TagsTextType
         arguments: ["@doctrine.orm.entity_manager"]
