@@ -30,7 +30,8 @@
         "excelwebzone/recaptcha-bundle":        "1.2.*",
         "ivaynberg/select2":                    "3.5.*",
         "cleentfaar/tissue":                    "dev-master",
-        "cleentfaar/tissue-clamav-adapter":     "dev-master"
+        "cleentfaar/tissue-clamav-adapter":     "dev-master",
+        "fabpot/goutte":                        "2.0.*"
     },
     "require-dev": {
         "sensio/generator-bundle":              "~2.4",
