@@ -21,11 +21,13 @@ parameters:
     sir_app_id: ~
     sir_app_secret: ~
 
-    public_key: ~
-    private_key: ~
+    recaptcha_public_key: ~
+    recaptcha_private_key: ~
 
     days_before_clean: 7
     antivirus_path: /usr/bin/clamdscan
+
+    supported_languages: ['es', 'en']
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
