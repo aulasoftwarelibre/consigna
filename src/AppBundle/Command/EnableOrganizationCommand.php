@@ -30,6 +30,8 @@ class EnableOrganizationCommand extends ContainerAwareCommand{
             $output->writeln('This organization does not exist');
         } else {
             $organization->setIsEnabled(true);
+            $this->getContainer()->get('doctrine.orm.default_entity_manager')->persist($organization);
+            $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush();
             $output->writeln('Organization status has been updated to enable');
         }
     }
