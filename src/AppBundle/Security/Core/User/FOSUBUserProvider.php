@@ -20,8 +20,6 @@ class FOSUBUserProvider extends BaseClass
         $this->entityManager=$entityManager;
     }
 
-
-
     /**
      * {@inheritDoc}
      */
@@ -69,6 +67,11 @@ class FOSUBUserProvider extends BaseClass
             $organization = $foundOrganization;
         }
 
+        //if organization is disabled
+        if($organization->getIsEnabled()===false){
+            throwException("You can't login with this organization. Organization disabled");
+        }
+
         //when the user is registrating
         if (null === $user) {
             $service = $response->getResourceOwner()->getName();
@@ -104,6 +107,4 @@ class FOSUBUserProvider extends BaseClass
 
         return $user;
     }
-
-
 }

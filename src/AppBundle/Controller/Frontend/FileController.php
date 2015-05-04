@@ -190,8 +190,6 @@ class FileController extends Controller
     }
 
     /**
-     * TODO
-     *
      * @Route("/{slug}/share/{shareCode}", name="file_share")
      * @Template("frontend/File/show.html.twig")
      */

@@ -25,7 +25,7 @@ class ListOrganizationsCommand extends ContainerAwareCommand{
     {
         $organizations = $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Organization')->findAll();
         foreach ($organizations as $organization){
-            $output->writeln($organization->getCode().' | '.$organization->getName());
+            $output->writeln($organization->getCode().' | '.$organization->getName().' | '.$organization->getIsEnabled());
         }
 
     }
