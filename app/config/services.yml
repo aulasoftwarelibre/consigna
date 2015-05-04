@@ -26,6 +26,12 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    consigna.log.listener:
+        class: AppBundle\EventListener\LogListener
+        arguments: [@logger,@doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_subscriber }
+
     consigna.user_login.listener:
         class: AppBundle\EventListener\UserLoginListener
         arguments: [@session, @security.authorization_checker]

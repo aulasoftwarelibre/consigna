@@ -134,6 +134,27 @@ class File implements FileInterface
     private $scanStatus;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $ipAddress;
+
+    /**
+     * @return mixed
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
+    }
+
+    /**
+     * @param mixed $ipAddress
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
+    }
+
+    /**
      * @return string
      */
     public function getScanStatus()

@@ -10,6 +10,7 @@
         user: @users_*
         tags: <numberBetween(1, 4)>x @tags*
         usersWithAccess: 1x @users_*
+        ipAddress: 127.0.0.1
 
     filesfolder{1..4}:
         filename (unique): <filename()>
@@ -20,3 +21,4 @@
         uploadDate: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
         plainPassword: secret
         folder: @folders1
+        ipAddress: 127.0.0.1

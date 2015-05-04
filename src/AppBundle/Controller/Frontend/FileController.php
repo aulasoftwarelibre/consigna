@@ -47,6 +47,7 @@ class FileController extends Controller
             if ($user instanceof User) {
                 $file->setUser($user);
             }
+            $file->setIpAddress($request->getClientIp());
             $em->persist($file);
 
             $this->get('stof_doctrine_extensions.uploadable.manager')->markEntityToUpload($file, $file->getFilename());
@@ -185,7 +186,7 @@ class FileController extends Controller
             $file->getFilename(),
             iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
         );
-
+        $this->container->get('event_dispatcher')->dispatch(FileEvents::DOWNLOADED, new FileEvent($file));
         return $response;
     }
 
