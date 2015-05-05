@@ -20,6 +20,10 @@ class Builder extends ContainerAware
         $menu->setChildrenAttributes(array('class' => 'sidebar-menu'));
 
         $menu->addChild('All files', array('route' => 'homepage'));
+        if($user = $this->container->get('security.token_storage')->getToken()->getUser()!='anon.'){
+            $menu->addChild('My files', array('route' => 'user_files'));
+            $menu->addChild('Shared with me', array('route' => 'shared_elements'));
+        }
 
         return $menu;
     }
