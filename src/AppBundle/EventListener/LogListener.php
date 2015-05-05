@@ -63,7 +63,7 @@ class LogListener implements EventSubscriberInterface
         $file = $event->getFile();
         $this->entityManager->persist($file);
         $this->entityManager->flush();
-        $this->loggerInterface->info('File ' . $file . ' has been uploaded by '.$file->getIpAddress());
+        $this->loggerInterface->info('File ' . $file . ' has been uploaded by '.$file->getUser().' with ip '.$file->getIpAddress());
     }
 
     /**
@@ -74,6 +74,6 @@ class LogListener implements EventSubscriberInterface
         $file = $event->getFile();
         $this->entityManager->persist($file);
         $this->entityManager->flush();
-        $this->loggerInterface->info('File ' . $file . ' has been downloaded by '.$file->getIpAddress());
+        $this->loggerInterface->info('File ' . $file . ' has been downloaded by '.$file->getUser().' with ip '.$file->getIpAddress());
     }
 }
