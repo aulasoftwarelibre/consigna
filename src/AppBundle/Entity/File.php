@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Model\FileInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * File.
@@ -15,6 +16,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class File implements FileInterface
 {
+    /**
+     *
+     */
     const SCAN_STATUS_OK = 1;
     const SCAN_STATUS_PENDING = 2;
     const SCAN_STATUS_FAILED = 3;
@@ -137,6 +141,27 @@ class File implements FileInterface
      * @ORM\Column(type="string")
      */
     private $ipAddress;
+
+//    /**
+//     * @ORM\Column(type="datetime")
+//     */
+//    private $removeDate;
+//
+//    /**
+//     * @return datetime
+//     */
+//    public function getRemoveDate()
+//    {
+//        return $this->removeDate;
+//    }
+//
+//    /**
+//     * @param datetime $removeDate
+//     */
+//    public function setRemoveDate($removeDate)
+//    {
+//        $this->removeDate = $removeDate;
+//    }
 
     /**
      * @return mixed

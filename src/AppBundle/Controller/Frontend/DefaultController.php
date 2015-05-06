@@ -22,10 +22,14 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->listFiles();
         $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('folderName' => 'ASC'));
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
 
         return [
             'files' => $files,
             'folders' => $folders,
+            'user' => $user,
+            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
@@ -38,11 +42,14 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $folders = $em->getRepository('AppBundle:Folder')->myFolders($user);
+        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
         $files = $em->getRepository('AppBundle:File')->myFiles($user);
 
         return [
             'files' => $files,
             'folders' => $folders,
+            'user' => $user,
+            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
@@ -56,10 +63,12 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->findFiles($word);
         $folders = $em->getRepository('AppBundle:Folder')->findFolders($word);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         return [
             'files' => $files,
             'folders' => $folders,
+            'user' => $user,
         ];
     }
 
@@ -73,10 +82,13 @@ class DefaultController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $folders = $em->getRepository('AppBundle:Folder')->findSharedFolders($user);
         $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
+        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
 
         return [
             'files' => $files,
             'folders' => $folders,
+            'sum' => $sizeAndNumOfFiles,
+            'user' => $user,
         ];
     }
 }

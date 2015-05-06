@@ -15,6 +15,8 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\AccessFolderAnonType;
 use AppBundle\Form\Type\AccessFolderType;
 use AppBundle\Form\Type\CreateFolderType;
+use AppBundle\Event\FileEvent;
+use AppBundle\FileEvents;
 use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
 use AppBundle\Form\Type\EditFolderType;
@@ -89,6 +91,9 @@ class FolderController extends Controller
      */
     public function showAction(Folder $folder)
     {
+        $em = $this->getDoctrine()->getManager();
+        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+
         if (false === $this->isGranted('ACCESS', $folder)) {
             $form = $this->createAccessFolderForm($folder);
             return $this->render("frontend/Folder/show_with_password.html.twig", [
@@ -99,6 +104,7 @@ class FolderController extends Controller
 
         return [
             'folder' => $folder,
+            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
@@ -222,12 +228,21 @@ class FolderController extends Controller
 
             $file->setFolder($folder);
             $file->setUser($this->getUser());
+            $file->setIpAddress($request->getClientIp());
             $em->persist($file);
 
             $this->get('stof_doctrine_extensions.uploadable.manager')->markEntityToUpload($file, $file->getFilename());
             $em->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
+            $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, new FileEvent($file));
+
+            if($file->getScanStatus()==File::SCAN_STATUS_OK) {
+                $this->addFlash('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
+            } else if($file->getScanStatus()==File::SCAN_STATUS_FAILED) {
+                $this->addFlash('success', $this->get('translator')->trans('upload.failed', array('file' => $file)));
+            } else {
+                $this->addFlash('success', $this->get('translator')->trans('upload.virus', ['file' => $file]));
+            }
 
             return $this->redirectToRoute('folder_show', array('slug' => $folder->getSlug()));
         }

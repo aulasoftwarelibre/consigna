@@ -105,12 +105,34 @@ class FileRepository extends EntityRepository
             if ($result->hasVirus()) {
                 $em->remove($file);
                 $em->persist($file);
-//                $this->loggerInterface->info('File ' . $file . ' has been removed');
             } else {
-//                $this->loggerInterface->info('File ' . $file . ' has been scanned');
                 $file->setScanStatus(File::SCAN_STATUS_OK);
             }
         }
         $em->flush();
+    }
+
+    public function sizeAndNumOfFiles()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('
+            SELECT SUM(c.size), COUNT (c)
+            FROM AppBundle:File c
+            WHERE c.scanStatus = :status'
+        );
+        $query->setParameter('status',File::SCAN_STATUS_OK);
+        return $query->getArrayResult();
+    }
+
+    public function num()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('
+            SELECT COUNT (c)
+            FROM AppBundle:File c
+            WHERE c.scanStatus = :status'
+        );
+        $query->setParameter('status',File::SCAN_STATUS_OK);
+        return $query->getSingleScalarResult();
     }
 }

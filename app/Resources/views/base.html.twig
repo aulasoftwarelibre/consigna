@@ -85,9 +85,6 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="{{ path("fos_user_profile_edit") }}" class="btn btn-default btn-flat">{{ 'base.edit.profile' | trans }}</a>
-                                        </div>
-                                        <div class="pull-right">
                                             <a href="{{ path("fos_user_security_logout") }}" class="btn btn-default btn-flat">{{ 'base.logout' | trans }}</a>
                                         </div>
                                     </li>
@@ -166,9 +163,9 @@
             <!-- Main Footer -->
             <footer class="main-footer">
                 <!-- To the right -->
-                <div class="pull-right hidden-xs">
-                    200Mb used in 36 files
-                </div>
+                {% block numOfFiles %}
+
+                {% endblock %}
                 <!-- Default to the left -->
                 <strong>Copyleft &copy; 2015 <a href="#">{{ 'base.footer.uco' | trans }}</a>.</strong>
             </footer>

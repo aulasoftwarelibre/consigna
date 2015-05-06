@@ -6,6 +6,7 @@
         path: private/test.pdf
         mimeType: application/pdf
         uploadDate: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
+        removeDate: <dateTimeBetween($startDate = '+7 days', $endDate = '+14 days')>
         plainPassword: secret
         user: @users_*
         tags: <numberBetween(1, 4)>x @tags*
@@ -19,6 +20,7 @@
         path: private/test.pdf
         mimeType: application/pdf
         uploadDate: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
+        removeDate: <dateTimeBetween($startDate = '+7 days', $endDate = '+14 days')>
         plainPassword: secret
         folder: @folders1
         ipAddress: 127.0.0.1

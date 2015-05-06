@@ -24,3 +24,9 @@
         </div>
     </div>
 {% endblock %}
+
+{% block numOfFiles %}
+    <div class="pull-right hidden-xs">
+        {{ sum[0][1] }} bytes used in {{ sum[0][2] }} files
+    </div>
+{% endblock %}

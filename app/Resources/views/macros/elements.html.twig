@@ -18,7 +18,7 @@
     </div>
     <div class="actions">
         <ul>
-            <li class="action" style="width:33%;"><a href="{{ path("folder_show", {'slug': folder.slug}) }}"><span class="fa fa-folder-open-o"></span></a></li>
+            <li class="action" style="width:33%;"><a href="{{ path('folder_show', {'slug': folder.slug}) }}"><span class="fa fa-folder-open-o"></span></a></li>
             {% if is_granted('SHARE', folder) %}
                 <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url("folder_share",{'slug':folder.slug,'shareCode': folder.shareCode }) }}"><a><span class="fa fa-share-alt"></span></a></li>
             {% endif %}
@@ -40,7 +40,7 @@
             <h2 class="title"><a href="{{ path("file_show", {'slug': file.slug}) }}">{{ file.filename }}</a></h2>
             <p class="desc">
                 <small>{{'element.createdatby' | trans({'%uploadDate%':file.uploadDate | date, '%uploadUser%':file.user }) }}
-                    <b>{{'element.daysleft' | trans({'%days%':'pending'})}}</b>
+                    <b>{{'element.daysleft' | trans({'%days%':file.uploadDate|date("m/d/Y")-"now"|date("m/d/Y")})}}</b>
                 </small>
             </p>
             <ul>
