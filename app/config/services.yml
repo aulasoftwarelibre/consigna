@@ -63,3 +63,8 @@ services:
         public:     false
         tags:
            - { name: security.voter }
+
+    twig.extension.date:
+        class: Twig_Extensions_Extension_Date
+        tags:
+            - { name: twig.extension }
