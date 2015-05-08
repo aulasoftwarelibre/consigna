@@ -1,4 +1,4 @@
-{% macro folder(folder) %}
+{% macro folder(folder, days_before_clean) %}
 <li>
     <div class="square">
         <span class="icon"><i class="fa fa-folder-o"></i></span>
@@ -7,7 +7,7 @@
         <h2 class="title"><a href="{{ path('folder_show', {'slug': folder.slug}) }}">{{ folder.folderName }}</a></h2>
         <p class="desc">
             <small>{{'element.createdatby' | trans({'%uploadDate%':folder.uploadDate | date, '%uploadUser%':folder.user }) }}
-                <b>{{'element.daysleft' | trans({'%days%':'pending'})}}</b>
+                <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - folder.uploadDate|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
             </small>
         </p>
         <ul>
@@ -31,7 +31,7 @@
 {% endmacro %}
 
 
-{% macro file(file) %}
+{% macro file(file,days_before_clean) %}
     <li>
         <div class="square">
             <span class="icon"><i class="fa fa-file-o"></i></span>
@@ -40,7 +40,7 @@
             <h2 class="title"><a href="{{ path("file_show", {'slug': file.slug}) }}">{{ file.filename }}</a></h2>
             <p class="desc">
                 <small>{{'element.createdatby' | trans({'%uploadDate%':file.uploadDate | date, '%uploadUser%':file.user }) }}
-                    <b>{{'element.daysleft' | trans({'%days%':file.uploadDate|date("m/d/Y")-"now"|date("m/d/Y")})}}</b>
+                    <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - file.uploadDate|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
                 </small>
             </p>
             <ul>
@@ -51,7 +51,7 @@
         </div>
         <div class="actions">
             <ul>
-                <li class="action" style="width:33%;"><a href="{{ path("file_show", {'slug': file.slug}) }}"><span class="fa fa-download"></span></a></li>
+                <li class="action" style="width:33%;"><a href="{{ path('file_show', {'slug': file.slug}) }}"><span class="fa fa-download"></span></a></li>
                 {% if is_granted('SHARE', file) %}
                     <li class="action share" style="width:34%;"><a data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}"><span class="fa fa-share-alt"></span></a></li>
                 {% endif %}
@@ -63,7 +63,7 @@
     </li>
 {% endmacro %}
 
-{% macro folderfile(file) %}
+{% macro folderfile(file,days_before_clean) %}
     <li>
         <div class="square">
             <span class="icon"><i class="fa fa-file-o"></i></span>
@@ -72,7 +72,7 @@
             <h2 class="title"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}">{{ file.filename }}</a></h2>
             <p class="desc">
                 <small>{{'element.createdatby' | trans({'%uploadDate%':file.uploadDate | date, '%uploadUser%':file.user }) }}
-                <b>{{'element.daysleft' | trans({'%days%':'pending'})}}</b>
+                    <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - file.uploadDate|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
                 </small>
             </p>
             <ul>

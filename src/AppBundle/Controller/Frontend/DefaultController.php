@@ -22,14 +22,13 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->listFiles();
         $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('folderName' => 'ASC'));
-        $user = $this->get('security.token_storage')->getToken()->getUser();
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
 
         return [
             'files' => $files,
             'folders' => $folders,
-            'user' => $user,
             'sum' => $sizeAndNumOfFiles,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -48,8 +47,8 @@ class DefaultController extends Controller
         return [
             'files' => $files,
             'folders' => $folders,
-            'user' => $user,
             'sum' => $sizeAndNumOfFiles,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -63,12 +62,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->findFiles($word);
         $folders = $em->getRepository('AppBundle:Folder')->findFolders($word);
-        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         return [
             'files' => $files,
             'folders' => $folders,
-            'user' => $user,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -88,7 +86,7 @@ class DefaultController extends Controller
             'files' => $files,
             'folders' => $folders,
             'sum' => $sizeAndNumOfFiles,
-            'user' => $user,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 }

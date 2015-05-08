@@ -10,15 +10,16 @@
     </h1>
 {% endblock %}
 
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">
             <ul class="file-list">
                 {% for folder in folders %}
-                    {{ elements.folder(folder) }}
+                    {{ elements.folder(folder, days_before_clean) }}
                 {% endfor %}
                 {% for file in files %}
-                    {{ elements.file(file) }}
+                    {{ elements.file(file, days_before_clean) }}
                 {% endfor %}
             </ul>
         </div>

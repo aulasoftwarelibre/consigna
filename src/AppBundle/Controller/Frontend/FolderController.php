@@ -105,6 +105,7 @@ class FolderController extends Controller
         return [
             'folder' => $folder,
             'sum' => $sizeAndNumOfFiles,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -122,6 +123,8 @@ class FolderController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
+        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+
 
         if (false === $this->isGranted('ACCESS', $folder)) {
             $form = $this->createAccessFolderForm($folder);
@@ -148,6 +151,9 @@ class FolderController extends Controller
 
         return [
             'folder' => $folder,
+            'sum' => $sizeAndNumOfFiles,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
+
         ];
     }
 
