@@ -98,6 +98,7 @@ class FolderController extends Controller
             $form = $this->createAccessFolderForm($folder);
             return $this->render("frontend/Folder/show_with_password.html.twig", [
                 'folder' => $folder,
+                'days_before_clean' => $this->container->getParameter('days_before_clean'),
                 'form' => $form->createView(),
             ]);
         }
@@ -144,6 +145,7 @@ class FolderController extends Controller
                 $this->addFlash('danger', $this->get('translator')->trans('message.password.invalid'));
                 return $this->render("frontend/Folder/show_with_password.html.twig", [
                     'folder' => $folder,
+                    'days_before_clean' => $this->container->getParameter('days_before_clean'),
                     'form' => $form->createView(),
                 ]);
             }

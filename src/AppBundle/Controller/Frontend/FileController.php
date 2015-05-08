@@ -104,6 +104,7 @@ class FileController extends Controller
 
             return $this->render("frontend/File/show_with_login.html.twig", [
                 'file' => $file,
+                'days_before_clean' => $this->container->getParameter('days_before_clean'),
             ]);
         }
 
@@ -113,6 +114,7 @@ class FileController extends Controller
             return $this->render("frontend/File/show_with_password.html.twig", [
                 'file' => $file,
                 'form' => $form->createView(),
+                'days_before_clean' => $this->container->getParameter('days_before_clean'),
             ]);
         }
 
@@ -152,12 +154,14 @@ class FileController extends Controller
                 return $this->render("frontend/File/show_with_password.html.twig", [
                     'file' => $file,
                     'form' => $form->createView(),
+                    'days_before_clean' => $this->container->getParameter('days_before_clean'),
                 ]);
             }
         }
 
         return [
             'file' => $file,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
