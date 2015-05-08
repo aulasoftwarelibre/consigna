@@ -23,7 +23,7 @@
 
             <trans-unit id="4">
                 <source>base.search</source>
-                <target>Search</target>
+                <target>Search ...</target>
             </trans-unit>
 
             <trans-unit id="5">

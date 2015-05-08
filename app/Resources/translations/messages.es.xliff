@@ -20,7 +20,7 @@
 
             <trans-unit id="4">
                 <source>base.search</source>
-                <target>Buscar</target>
+                <target>Buscar...</target>
             </trans-unit>
 
             <trans-unit id="5">
