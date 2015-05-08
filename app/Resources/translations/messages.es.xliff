@@ -19,71 +19,56 @@
             </trans-unit>
 
             <trans-unit id="4">
-                <source>base.menu.all</source>
-                <target>Todos los elementos</target>
-            </trans-unit>
-
-            <trans-unit id="5">
-                <source>base.menu.myfiles</source>
-                <target>Mis elementos</target>
-            </trans-unit>
-
-            <trans-unit id="6">
-                <source>base.menu.shared</source>
-                <target>Compartido conmigo</target>
-            </trans-unit>
-
-            <trans-unit id="7">
                 <source>base.search</source>
                 <target>Buscar</target>
             </trans-unit>
 
-            <trans-unit id="8">
+            <trans-unit id="5">
                 <source>base.new.folder</source>
                 <target>Nueva carpeta</target>
             </trans-unit>
 
-            <trans-unit id="9">
+            <trans-unit id="6">
                 <source>base.new.file</source>
                 <target>Subir fichero</target>
             </trans-unit>
 
-            <trans-unit id="10">
+            <trans-unit id="7">
                 <source>base.edit.profile</source>
                 <target>Editar perfil</target>
             </trans-unit>
 
-            <trans-unit id="11">
+            <trans-unit id="8">
                 <source>base.icon.Mainfolder</source>
                 <target>Carpeta principal</target>
             </trans-unit>
 
-            <trans-unit id="12">
+            <trans-unit id="9">
                 <source>base.footer.uco</source>
                 <target>Universidad de Córdoba</target>
             </trans-unit>
 
-            <trans-unit id="13">
+            <trans-unit id="10">
                 <source>modal.delete.title</source>
                 <target>¿Realmente quieres eliminar este elemento?</target>
             </trans-unit>
 
-            <trans-unit id="14">
+            <trans-unit id="11">
                 <source>modal.delete.footer</source>
                 <target>Eliminar</target>
             </trans-unit>
 
-            <trans-unit id="15">
+            <trans-unit id="12">
                 <source>modal.share.title</source>
                 <target>Share</target>
             </trans-unit>
 
-            <trans-unit id="16">
+            <trans-unit id="13">
                 <source>modal.share.link</source>
                 <target>Compartir enlace</target>
             </trans-unit>
 
-            <trans-unit id="17">
+            <trans-unit id="14">
                 <source>modal.share.copy</source>
                 <target>Copiar</target>
             </trans-unit>
@@ -520,6 +505,25 @@
             <trans-unit id="2">
                 <source>submit.update.folder</source>
                 <target>Actualizar</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="es" datatype="plaintext" original="/src/AppBundle/Menu/Builder.php">
+        <body>
+            <trans-unit id="1">
+                <source>menu.left.all</source>
+                <target>Todos los elementos</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                <source>menu.left.myfiles</source>
+                <target>Mis elementos</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                <source>menu.left.share</source>
+                <target>Elementos compartidos</target>
             </trans-unit>
         </body>
     </file>
