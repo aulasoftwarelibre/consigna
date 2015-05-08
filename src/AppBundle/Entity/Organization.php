@@ -130,4 +130,9 @@ class Organization {
     {
         $this->code = $code;
     }
+
+    function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -79,7 +79,7 @@
                                         <img src="{{ app.user.gravatar(160) }}" class="img-circle" alt="User Image" />
                                         <p>
                                             {{ app.user }}
-                                            <small>PENDIENTE</small>
+                                            <small>{{ app.user.getOrganization }}</small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->

@@ -280,7 +280,7 @@ class User extends BaseUser
      */
     public function getOrganization()
     {
-        return $this->organization();
+        return $this->organization;
     }
 
     /**
