@@ -27,11 +27,12 @@ default:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - AppBundle\Behat\CoreContext
-                - AppBundle\Behat\FileContext
                 - AppBundle\Behat\UserContext
                 - AppBundle\Behat\TagContext
+                - AppBundle\Behat\FileContext
+
             filters:
-                tags: "@list, @delete, @download, @folder, @upload"
+                tags: "@list, @delete, @download, @folder, @upload, @test"
 
 
 javascript:

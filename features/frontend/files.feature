@@ -16,22 +16,23 @@ Feature: List files
           | tag2    |
 
       And existing folders:
-          | folderName  |   uploadDate   | username    | slug    | password |userWithAccess | tags |
-          | folder1     |   2014/12/27   | user1       | folder1 | secret   |user2          | tag1 |
-          | folder2     |   2014/12/28   | user2       | folder2 | secret   |null           | tag2 |
-          | folder3     |   2014/12/29   | null        | folder3 | secret   |null           | null |
+          | folderName  | username  | userWithAccess | tags |
+          | folder1     | user1     | user2          | tag1 |
+          | folder2     | user2     | null           | tag2 |
+          | folder3     | user3     | null           | tag1, tag2 |
 
       And existing files:
-          | filename  |   uploadDate   | username    | folder      | userWithAccess | tags | password | slug |
-          | file1     |   2014/12/27   | user1       | folder1     |      user1     | tag1 | secret   | file1|
-          | file2     |   2014/12/28   | user2       | null        |      null      | tag2 | secret   | file2|
-          | file3     |   2014/12/29   | null        | folder2     |      null      | null | secret   | file3|
-          | file4     |   2014/12/29   | user2       | null        |      user1     | null | secret   | file4|
+          | filename  | username    | folder      | userWithAccess | tags |
+          | file1     | user1       | folder1     |      user1     | tag1 |
+          | file2     | null        | null        |      null      | tag2 |
+          | file3     | null        | null        |      null      | null |
+
 
     Scenario: List elements
         Given I am on the homepage
         Then  I should see 5 elements
 
+  @download @test
     Scenario: List elements in a folder
         Given I am on the homepage
         And I am authenticated as "user1" with "secret1"

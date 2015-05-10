@@ -30,22 +30,22 @@ class FileContext extends CoreContext
             $folder = $this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($hash['folder']);
             $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByTagName($hash['tags']);
             $file->setFilename($hash['filename']);
-//            $file->setUploadDate(new \DateTime($hash['uploadDate']));
-            $file->setPassword('secret');
+            $file->setPlainPassword('secret');
             $file->setUser($user);
             $file->setFolder($folder);
-            $file->setSize(40);
+            $file->setUploadDate(new \DateTime('now'));
+            $file->setSize(100);
             $file->setMimeType('doc');
-            $file->setPath('~/consigna/private/');
-            $file->setFile('file');
-            $file->setSlug($hash['slug']);
+            $file->setFile('test.pdf');
+            $file->setPath('~/consigna/private/test.pdf');
+            $file->setIpAddress('127.0.0.1');
+            $file->setScanStatus(File::SCAN_STATUS_OK);
             if ($userWithAccess) {
                 $file->addUsersWithAccess($userWithAccess);
             }
             if ($tag) {
                 $file->addTag($tag);
             }
-
             $em->persist($file);
         }
         $em->flush();
@@ -64,8 +64,8 @@ class FileContext extends CoreContext
             $userWithAccess = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
             $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByTagName($hash['tags']);
             $folder->setFolderName($hash['folderName']);
-            $folder->setPassword($hash['password']);
-            $folder->setUploadDate(new \DateTime($hash['uploadDate']));
+            $folder->setPlainPassword('secret');
+            $folder->setUploadDate(new \DateTime('now'));
             $folder->setUser($user);
             if ($userWithAccess) {
                 $folder->addUsersWithAccess($userWithAccess);

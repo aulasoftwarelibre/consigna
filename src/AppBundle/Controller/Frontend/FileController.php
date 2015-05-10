@@ -49,9 +49,6 @@ class FileController extends Controller
             }
             $file->setIpAddress($request->getClientIp());
 
-//            $days_before_clean=$this->container->getParameter('days_before_clean');
-//            $date =  date("m/d/Y",strtotime("+".$days_before_clean." days"));
-//            $file->setRemoveDate($date);
             $em->persist($file);
 
             $this->get('stof_doctrine_extensions.uploadable.manager')->markEntityToUpload($file, $file->getFilename());
@@ -120,6 +117,7 @@ class FileController extends Controller
 
         return [
             'file' => $file,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 

@@ -43,6 +43,7 @@ class Folder implements FileInterface
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="folders")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 

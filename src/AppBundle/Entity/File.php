@@ -142,27 +142,6 @@ class File implements FileInterface
      */
     private $ipAddress;
 
-//    /**
-//     * @ORM\Column(type="datetime")
-//     */
-//    private $removeDate;
-//
-//    /**
-//     * @return datetime
-//     */
-//    public function getRemoveDate()
-//    {
-//        return $this->removeDate;
-//    }
-//
-//    /**
-//     * @param datetime $removeDate
-//     */
-//    public function setRemoveDate($removeDate)
-//    {
-//        $this->removeDate = $removeDate;
-//    }
-
     /**
      * @return mixed
      */

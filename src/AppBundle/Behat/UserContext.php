@@ -40,6 +40,6 @@ class UserContext extends CoreContext
         $this->getSession()->visit($this->generatePageUrl('fos_user_security_login'));
         $this->fillField('username', $username);
         $this->fillField('password', $password);
-        $this->pressButton('submit');
+        $this->pressButton('_submit');
     }
 }

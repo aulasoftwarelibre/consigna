@@ -100,7 +100,7 @@
 
             <trans-unit id="5">
                 <source>homepage.number.files</source>
-                <target>%files% carpetas</target>
+                <target>%files% ficheros</target>
             </trans-unit>
         </body>
     </file>

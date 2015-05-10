@@ -62,11 +62,13 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->findFiles($word);
         $folders = $em->getRepository('AppBundle:Folder')->findFolders($word);
+        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
 
         return [
             'files' => $files,
             'folders' => $folders,
             'days_before_clean' => $this->container->getParameter('days_before_clean'),
+            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
