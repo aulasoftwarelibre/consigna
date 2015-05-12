@@ -105,6 +105,16 @@
                 <source>homepage.number.files</source>
                 <target>%files% files</target>
             </trans-unit>
+
+            <trans-unit id="6">
+                <source>homepage.noFiles</source>
+                <target>No files</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>homepage.sumFiles</source>
+                <target>%size% bytes used in %sum% files</target>
+            </trans-unit>
         </body>
     </file>
 
@@ -210,7 +220,7 @@
 
             <trans-unit id="5">
                 <source>submit.create.file</source>
-                <target>upload</target>
+                <target>Upload</target>
             </trans-unit>
         </body>
     </file>
@@ -220,6 +230,15 @@
             <trans-unit id="1">
                 <source>folder.edit.title</source>
                 <target>Edit folder</target>
+            </trans-unit>
+        </body>
+    </file>
+
+    <file source-language="en" target-language="en" datatype="plaintext" original="/app/Resources/views/Default/upload.html.twig">
+        <body>
+            <trans-unit id="1">
+                <source>folder.upload.title</source>
+                <target>New folder</target>
             </trans-unit>
         </body>
     </file>
@@ -523,7 +542,7 @@
             </trans-unit>
 
             <trans-unit id="3">
-                <source>menu.left.shared</source>
+                <source>menu.left.share</source>
                 <target>Shared items</target>
             </trans-unit>
         </body>

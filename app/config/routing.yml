@@ -38,5 +38,7 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
     prefix:     /{_locale}/
+    defaults:
+        _locale: en
     requirements:
         _locale: |en|es

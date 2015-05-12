@@ -27,15 +27,14 @@ Feature: List files
       | file2     | null        | null        |      null      | tag2 |
       | file3     | null        | null        |      null      | null |
 
-
   Scenario: List items
-    Given I am on the homepage
+    Given I am on the main folder
     Then  I should see 5 elements
     And I should see "3 folders - 2 files"
     And I should see "300 bytes used in 3 files"
 
   Scenario Outline: Search items by name
-    Given I am on the homepage
+    Given I am on the main folder
     When I fill in "word" with "<word>"
     And I press "search"
     Then I should see <number> elements
@@ -47,22 +46,29 @@ Feature: List files
     | nothing   | 0         |
     | tag1      | 2         |
 
-  @test
   Scenario: Follow All items in left menu
-    Given I am on the homepage
+    Given I am on the main folder
     When I follow "All items"
     Then  I should see 5 elements
 
-  @test
   Scenario: Follow My items in left menu
-    Given I am on the homepage
+    Given I am on the main folder
     And I am authenticated as "user1" with "secret1"
-    When I follow "menu.left.myfiles"
+    When I follow "My items"
     Then  I should see 2 elements
 
-  @test
   Scenario: Follow Shared items in left menu
-    Given I am on the homepage
-    And I am authenticated as "user1" with "secret1"
-    When I follow "menu.left.share"
+    Given I am on the main folder
+    And I am authenticated as "user2" with "secret2"
+    When I follow "Shared items"
     Then  I should see 1 elements
+
+  Scenario: Follow main folder in breadcrum
+    Given I am on the main folder
+    When I follow "Main folder"
+    Then I should be on the main folder
+
+  Scenario: Follow ConsignaUco title
+    Given I am on the main folder
+    When I follow "ConsignaUCO"
+    Then I should be on the main folder

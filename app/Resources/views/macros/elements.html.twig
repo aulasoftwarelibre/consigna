@@ -51,7 +51,7 @@
         </div>
         <div class="actions">
             <ul>
-                <li class="action" style="width:33%;"><a href="{{ path('file_show', {'slug': file.slug}) }}"><span class="fa fa-download"></span></a></li>
+                <li class="action" style="width:33%;"><a href="{{ path('file_show', {'slug': file.slug}) }}" title="Download {{ file.filename }}"><span class="fa fa-download"></span></a></li>
                 {% if is_granted('SHARE', file) %}
                     <li class="action share" style="width:34%;"><a data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}"><span class="fa fa-share-alt"></span></a></li>
                 {% endif %}
@@ -84,6 +84,9 @@
         <div class="actions">
             <ul>
                 <li class="action" style="width:33%;"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}"><span class="fa fa-download"></span></a></li>
+                {% if is_granted('SHARE', file) %}
+                    <li class="action share" style="width:34%;"><a data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}"><span class="fa fa-share-alt"></span></a></li>
+                {% endif %}
                 {% if is_granted('DELETE', file.folder) %}
                     <li class="action trash" style="width:33%;"><a href="{{ path("folder_file_delete", {'slug': file.slug}) }}"><span class="fa fa-trash"></span></a></li>
                 {% endif %}

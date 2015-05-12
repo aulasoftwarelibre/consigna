@@ -28,6 +28,12 @@
 
 {% block numOfFiles %}
     <div class="pull-right hidden-xs">
-        {{ sum[0][1] }} bytes used in {{ sum[0][2] }} files
+        {% if not sum[0][1] %}
+            {#no files#}
+            {{ 'homepage.noFiles' | trans }}
+        {% else %}
+            {#{{ sum[0][1] }} bytes used in {{ sum[0][2] }} files#}
+            {{ 'homepage.sumFiles' | trans({'%size%':sum[0][1],'%sum%':sum[0][2] }) }}
+        {% endif %}
     </div>
 {% endblock %}

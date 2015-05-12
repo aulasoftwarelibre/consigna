@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}An Error Occurred: {{ status_text }}{% endblock %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            {{ status_code }} Error Page
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">{{ status_code }} error</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+    <div class="error-page">
+        <h2 class="headline text-yellow"> {{ status_code }}</h2>
+        <div class="error-content">
+            <h3><i class="fa fa-warning text-yellow"></i> Oops! An Error Occurred.</h3>
+            <p>
+                {{ status_text }}
+            </p>
+        </div><!-- /.error-content -->
+    </div>
+{% endblock %}

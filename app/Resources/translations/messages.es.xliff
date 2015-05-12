@@ -102,6 +102,16 @@
                 <source>homepage.number.files</source>
                 <target>%files% ficheros</target>
             </trans-unit>
+
+            <trans-unit id="6">
+                <source>homepage.noFiles</source>
+                <target>No hay ficheros</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>homepage.sumFiles</source>
+                <target>%size% bytes en %sum% ficheros</target>
+            </trans-unit>
         </body>
     </file>
 

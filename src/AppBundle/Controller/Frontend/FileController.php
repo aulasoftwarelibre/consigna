@@ -193,6 +193,7 @@ class FileController extends Controller
             iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
         );
         $this->container->get('event_dispatcher')->dispatch(FileEvents::DOWNLOADED, new FileEvent($file));
+
         return $response;
     }
 
@@ -208,9 +209,11 @@ class FileController extends Controller
 
         if (false === $this->get('security.authorization_checker')->isGranted('access', $file)) {
             if ($user instanceof User) {
-                $file->addUsersWithAccess($user);
-                $em->persist($file);
-                $em->flush();
+                if(false === $file->hasAccess($user)){
+                    $file->addUsersWithAccess($user);
+                    $em->persist($file);
+                    $em->flush();
+                }
             } else {
                 $session->set($file->getSlug(), true);
             }
@@ -218,6 +221,7 @@ class FileController extends Controller
 
         return array(
             'file' => $file,
+            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         );
     }
 }

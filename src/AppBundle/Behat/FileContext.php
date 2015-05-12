@@ -13,8 +13,9 @@ use AppBundle\Entity\File;
 use AppBundle\Entity\Folder;
 use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
+use Sylius\Bundle\ResourceBundle\Behat\DefaultContext;
 
-class FileContext extends CoreContext
+class FileContext extends DefaultContext
 {
     /**
      * @Given existing files:
@@ -35,9 +36,9 @@ class FileContext extends CoreContext
             $file->setFolder($folder);
             $file->setUploadDate(new \DateTime('now'));
             $file->setSize(100);
-            $file->setMimeType('doc');
+            $file->setMimeType('pdf');
             $file->setFile('test.pdf');
-            $file->setPath('~/consigna/private/test.pdf');
+            $file->setPath('/home/juanan/consigna/app/../private/ad01eb6bacd754f847996f738f880a185a02e3b6.pdf');
             $file->setIpAddress('127.0.0.1');
             $file->setScanStatus(File::SCAN_STATUS_OK);
             if ($userWithAccess) {

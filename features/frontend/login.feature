@@ -14,7 +14,7 @@ Feature: User identification
         Given I am on "/login"
         When I fill in "username" with "user1"
         And I fill in "password" with "secret1"
-        And I press "submit"
+        And I press "_submit"
         Then I should be on the homepage
         And I should see "Sign out"
 
@@ -22,5 +22,5 @@ Feature: User identification
         Given I am on "/login"
         When I fill in "username" with "user3"
         And I fill in "password" with "secret"
-        And I press "submit"
+        And I press "_submit"
         Then I should see "Bad credentials"
