@@ -11,8 +11,8 @@ $set = new FixtureSet(array(
 $set->addFile(__DIR__.'/organizations.yml', 'yaml');
 $set->addFile(__DIR__.'/users.yml', 'yaml');
 $set->addFile(__DIR__.'/tags.yml', 'yaml');
-$set->addFile(__DIR__.'/folders.yml', 'yaml');
-$set->addFile(__DIR__.'/files.yml', 'yaml');
+//$set->addFile(__DIR__.'/folders.yml', 'yaml');
+//$set->addFile(__DIR__.'/files.yml', 'yaml');
 
 
 return $set;

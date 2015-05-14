@@ -10,8 +10,6 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\File;
 use AppBundle\FileEvents;
-use CL\Tissue\Exception\AdapterException;
-use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AppBundle\Event\FileEvent;
 use Psr\Log\LoggerInterface;
@@ -83,30 +81,32 @@ class VirusConsignaListener implements EventSubscriberInterface
 
         try {
             $adapter = new ClamAVAdapter($this->antivirus_path);
+
             $result = $adapter->scan([$path]);
 
             if ($result->hasVirus()) {
-                $this->entityManager->remove($file);
                 $this->loggerInterface->info('File ' . $file . ' has been removed');
+                $this->entityManager->remove($file);
             } else {
                 $this->loggerInterface->info('File ' . $file . ' has been scanned');
                 $file->setScanStatus(File::SCAN_STATUS_OK);
+                $this->entityManager->persist($file);
             }
+
         } catch (\Exception $e) {
             $this->loggerInterface->info($e);
             $file->setScanStatus(File::SCAN_STATUS_FAILED);
             $this->entityManager->persist($file);
-            $this->entityManager->flush();
             $mailer = $this->swiftMailer;
             $message = $mailer->createMessage()
                 ->setSubject('Error scanning file')
                 ->setFrom('pruevasymfony@gmail.com')
-                ->setTo('sergio@uco.es')
+                ->setTo('jamartinez@uco.es')
                 ->setBody($e)
             ;
             $mailer->send($message);
         };
-        $this->entityManager->persist($file);
         $this->entityManager->flush();
+
     }
 }
