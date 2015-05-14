@@ -30,7 +30,9 @@
         <div class="col-md-12">
             <ul class="file-list">
                 {% for file in folder.files %}
-                    {{ elements.folderfile(file,days_before_clean) }}
+                    {% if file.scanStatus == 1 %}
+                        {{ elements.folderfile(file,days_before_clean) }}
+                    {% endif %}
                 {% else %}
                     <div class="callout bg-gray color-paletter">
                         <h4>{{ 'folder.content.empty' | trans }}</h4>

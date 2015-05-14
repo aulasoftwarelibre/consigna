@@ -98,16 +98,16 @@ class FileRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $files = $em->getRepository('AppBundle:File')->findAll();
+        $adapter = new ClamAVAdapter($antivirusPath);
         foreach ($files as $file) {
-            $adapter = new ClamAVAdapter($antivirusPath);
             $result = $adapter->scan([$file->getPath()]);
-
             if ($result->hasVirus()) {
                 $em->remove($file);
-                $em->persist($file);
             } else {
                 $file->setScanStatus(File::SCAN_STATUS_OK);
+                $em->persist($file);
             }
+
         }
         $em->flush();
     }

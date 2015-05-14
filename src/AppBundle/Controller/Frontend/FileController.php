@@ -49,10 +49,10 @@ class FileController extends Controller
             }
             $file->setIpAddress($request->getClientIp());
 
-            $em->persist($file);
 
             $this->get('stof_doctrine_extensions.uploadable.manager')->markEntityToUpload($file, $file->getFilename());
 
+            $em->persist($file);
             $em->flush();
 
             $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, new FileEvent($file));
