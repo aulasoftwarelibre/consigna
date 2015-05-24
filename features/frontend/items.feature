@@ -48,28 +48,21 @@ Feature: manage items
         Then access is granted to "user3" in "folder1"
         Then I should be on "folder/folder1"
 
-  @download
-      Scenario: Download a file
-        Given I am authenticated as "user1" with "secret1"
-        And "user1" can access to "file4"
-        When I follow "Download file4"
-        Then I should be on "file/file4/download"
-
-  @javascript @test
+  @javascript
   Scenario: Upload a file
     Given I am on the main folder
     Then I should be on the main folder
     When I follow "Upload file"
     Then I should be now on "file_upload"
-    When I attach the file "~/Descargas/test.pdf" to "File"
+    When I attach the file "~/Descargas/test2.pdf" to "File"
     And I fill in "Tags" with "tag2"
     And I fill in "Password" with "secret4"
     And I fill in "Repeat password" with "secret4"
     And I press "Upload"
     Then I should see 6 elements
-    And I should see "File test.pdf has been uploaded successfully"
+    And I should see "File test2.pdf has been uploaded successfully"
 
-  @javascript @test
+  @test
   Scenario: Download a file
     Given I am on the main folder
     When I follow "Download test.pdf"

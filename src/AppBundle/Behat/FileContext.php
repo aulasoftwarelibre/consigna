@@ -38,7 +38,7 @@ class FileContext extends DefaultContext
             $file->setSize(100);
             $file->setMimeType('pdf');
             $file->setFile('test.pdf');
-            $file->setPath('/home/juanan/consigna/app/../private/ad01eb6bacd754f847996f738f880a185a02e3b6.pdf');
+            $file->setPath('/home/juanan/consigna/app/../features/files/test.pdf');
             $file->setIpAddress('127.0.0.1');
             $file->setScanStatus(File::SCAN_STATUS_OK);
             if ($userWithAccess) {

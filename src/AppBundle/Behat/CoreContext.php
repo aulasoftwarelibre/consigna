@@ -89,9 +89,8 @@ class CoreContext extends DefaultContext
      */
      public function iShouldSeeInTheHeader($header, $value)
      {
-         $request = new \Symfony\Component\HttpFoundation\Request();
-         $headers =$request->headers->get('content_type');
-         if ($headers != $value) {
+         $headers = $this->getSession()->getResponseHeaders();
+         if ( false === in_array($value, $headers[$header]) ) {
              throw new \Exception(sprintf("Did not see %s with value %s.", $header, $value));
          }
      }

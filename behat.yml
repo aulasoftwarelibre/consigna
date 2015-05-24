@@ -13,7 +13,7 @@ default:
                 default:
                     symfony2: ~
             browser_name: chrome
-            files_path: features/images
+            files_path: features/files
         Behat\Symfony2Extension: ~
     suites:
         login:
@@ -50,8 +50,10 @@ javascript:
                 javascript:
                     selenium2: ~
             browser_name: firefox
+            files_path: features/files
             base_url: http://localhost:8008/app_test.php/
             default_session: javascript
+            show_cmd: firefox %s
         Behat\Symfony2Extension: ~
     suites:
         files:
