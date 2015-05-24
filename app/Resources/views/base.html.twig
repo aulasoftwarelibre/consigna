@@ -201,7 +201,7 @@
                                 <div class="form-group"><label for="exampleInputEmail1">{{ 'modal.share.link' | trans }}</label>
                                     <div class="input-group"><input class="form-control" id="share">
                                         <div class="input-group-btn">
-                                            <button type="button" class="btn btn-default"><i class="fa fa-copy"></i> {{ 'modal.share.copy' | trans }}
+                                            <button type="button" id="sharebtn" class="btn btn-default"><i class="fa fa-copy"></i> {{ 'modal.share.copy' | trans }}
                                             </button>
                                         </div>
                                     </div>
@@ -221,6 +221,7 @@
     {% endblock %}
 
     {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
+        <script src="{{ asset('vendor/zeroclipboard/dist/ZeroClipboard.min.js')  }}"></script>
         {% javascripts filter="cssrewrite" output="js/compiled/consigna.js" debug=false
             "vendor/jquery/dist/jquery.js"
             "vendor/select2/select2.js"

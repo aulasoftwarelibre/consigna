@@ -27,6 +27,5 @@ class ListOrganizationsCommand extends ContainerAwareCommand{
         foreach ($organizations as $organization){
             $output->writeln($organization->getCode().' | '.$organization->getName().' | '.$organization->getIsEnabled());
         }
-
     }
 }

@@ -113,7 +113,6 @@ class FolderController extends Controller
 
 
 
-
     /**
      * @Route("/{slug}", name="folder_check")
      * @Method(methods={"POST"})
