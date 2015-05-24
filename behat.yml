@@ -32,7 +32,7 @@ default:
                 - AppBundle\Behat\FileContext
 
             filters:
-                tags: "@list, @delete, @download, @folder, @upload, @test"
+                tags: "@list, @delete, @download, @folder, @upload, @test, @items, @javascript"
 
 
 javascript:
@@ -65,7 +65,7 @@ javascript:
                 - AppBundle\Behat\FileContext
 
             filters:
-                tags: "@list, @delete, @download, @folder, @upload, @test"
+                tags: "@list, @delete, @download, @folder, @upload, @test, @javascript"
 #    suites:
 #        name:
 #            contexts:

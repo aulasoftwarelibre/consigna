@@ -29,24 +29,23 @@ Feature: manage items
 
     And I am authenticated as "user1" with "secret1"
 
-  @download
-    Scenario: List elements in a folder
-        Given I am on the homepage
-        And I am authenticated as "user1" with "secret1"
-        And "user1" has access to "folder1"
-        When I follow "folder1"
-        Then I should be on "/folder/folder1"
-        And I should see 1 elements
+  Scenario: List elements in a folder
+      Given I am on the main folder
+      And I am authenticated as "user1" with "secret1"
+      And "user1" has access to "folder1"
+      When I follow "folder1"
+      Then I should be on "en/folder/folder1"
+      And I should see 1 elements
 
-    Scenario: Access to a protected folder
-        Given I am on the homepage
-        And I am authenticated as "user3" with "secret3"
-        When I follow "folder1"
-        Then I should see "Password"
-        When I fill in "Password" with "secret"
-        And I press "Submit"
-        Then access is granted to "user3" in "folder1"
-        Then I should be on "folder/folder1"
+  Scenario: Access to a protected folder
+      Given I am on the main folder
+      And I am authenticated as "user3" with "secret3"
+      When I follow "folder1"
+      Then I should see "Password"
+      When I fill in "Password" with "secret"
+      And I press "Check password"
+      Then access is granted to "user3" in "folder1"
+      Then I should be on "en/folder/folder1"
 
   @javascript
   Scenario: Upload a file
@@ -62,7 +61,6 @@ Feature: manage items
     Then I should see 6 elements
     And I should see "File test2.pdf has been uploaded successfully"
 
-  @test
   Scenario: Download a file
     Given I am on the main folder
     When I follow "Download test.pdf"
