@@ -100,7 +100,7 @@ class VirusConsignaListener implements EventSubscriberInterface
             $mailer = $this->swiftMailer;
             $message = $mailer->createMessage()
                 ->setSubject('Error scanning file')
-                ->setFrom('pruevasymfony@gmail.com')
+                ->setFrom('consignauco@gmail.com')
                 ->setTo('jamartinez@uco.es')
                 ->setBody($e)
             ;
