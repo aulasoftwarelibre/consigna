@@ -84,7 +84,7 @@ class FileController extends Controller
         $em->remove($file);
         $em->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('delete.success', array('file' => $file)));
+        $this->addFlash('success', $this->get('translator')->trans('deleteFile.success', array('file' => $file)));
 
         return $this->redirectToRoute('homepage');
     }

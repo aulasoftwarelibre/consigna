@@ -2,7 +2,7 @@
 Feature: List files
   In order to know what files are in consigna
   As a consigna user
-  I want to get the list of files
+  I want to get the different list of files
   Background:
     Given existing users:
       | username    | email             | plainPassword | enabled  |

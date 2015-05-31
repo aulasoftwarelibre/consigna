@@ -99,7 +99,7 @@ class FileContext extends DefaultContext
         if ($folder->getUser() == $user) {
             return true;
         }
-        foreach ($folder->usersWithAccess as $uWithAccess) {
+        foreach ($folder->getUsersWithAccess() as $uWithAccess) {
             if ($user == $uWithAccess) {
                 return true;
             }
