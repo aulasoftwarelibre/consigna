@@ -76,6 +76,11 @@
                 <target>Copy</target>
             </trans-unit>
 
+            <trans-unit id="15">
+                <source>modal.close</source>
+                <target>Close</target>
+            </trans-unit>
+
         </body>
     </file>
 
@@ -351,6 +356,11 @@
             <trans-unit id="6">
                 <source>message.password.invalid</source>
                 <target>The password is not valid</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>deleteFile.success</source>
+                <target>File file has been deleted successfully</target>
             </trans-unit>
         </body>
     </file>

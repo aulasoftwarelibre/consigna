@@ -73,6 +73,11 @@
                 <target>Copiar</target>
             </trans-unit>
 
+            <trans-unit id="15">
+                <source>modal.close</source>
+                <target>Cerrar</target>
+            </trans-unit>
+
         </body>
     </file>
 
@@ -343,6 +348,11 @@
             <trans-unit id="6">
                 <source>message.password.invalid</source>
                 <target>La contraseña no es correcta</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                <source>deleteFile.success</source>
+                <target>El fichero file ha sido eliminado satisfactoriamente</target>
             </trans-unit>
         </body>
     </file>
