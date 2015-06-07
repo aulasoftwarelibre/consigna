@@ -16,8 +16,6 @@ parameters:
 
     locale: en
 
-    google_app_id:  ~
-    google_app_secret: ~
     sir_app_id: ~
     sir_app_secret: ~
 
