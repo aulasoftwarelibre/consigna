@@ -86,9 +86,8 @@ class FileRepository extends EntityRepository
         $em = $this->getEntityManager();
         $files = $em->getRepository('AppBundle:File')->findAll();
         foreach ($files as $file) {
-            if ($file->getUploadDate() == $date) {
+            if ($file->getUploadDate() <= $date) {
                 $em->remove($file);
-                $em->persist($file);
             }
         }
         $em->flush();

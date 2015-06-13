@@ -21,6 +21,6 @@ class DeleteCommand extends ContainerAwareCommand
         $date = new \DateTime('-'.$days.'days');
         $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Folder')->deleteLapsedFolders($date);
         $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:File')->deleteLapsedFiles($date);
-        $output->writeln('file has been removed');
+        $output->writeln('Lapsed files and folders has been removed');
     }
 }
