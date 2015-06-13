@@ -70,4 +70,21 @@ class FolderRepository extends EntityRepository
         }
         $em->flush();
     }
+
+    public function listFiles($folder)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('
+            SELECT c
+            FROM AppBundle:File c
+            WHERE c.folder = :folder
+            AND c.scanStatus = :status
+            ORDER BY c.filename ASC'
+        );
+
+        $query->setParameter('status',File::SCAN_STATUS_OK);
+        $query->setParameter('folder',$folder);
+        return $query->getResult();
+    }
+
 }

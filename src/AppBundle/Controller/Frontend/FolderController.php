@@ -93,6 +93,7 @@ class FolderController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
 
         if (false === $this->isGranted('ACCESS', $folder)) {
             $form = $this->createAccessFolderForm($folder);
@@ -104,6 +105,7 @@ class FolderController extends Controller
         }
 
         return [
+            'files' => $files,
             'folder' => $folder,
             'sum' => $sizeAndNumOfFiles,
             'days_before_clean' => $this->container->getParameter('days_before_clean'),
@@ -178,6 +180,9 @@ class FolderController extends Controller
     {
         $this->denyAccessUnlessGranted('SHARE', $folder);
 
+        $em = $this->getDoctrine()->getManager();
+        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
+
         $form = $this->createForm(new EditFolderType(), $folder);
         $form->handleRequest($request);
 
@@ -192,6 +197,7 @@ class FolderController extends Controller
         }
 
         return [
+            'files'=>$files,
             'folder' => $folder,
             'form' => $form->createView(),
         ];
@@ -226,6 +232,9 @@ class FolderController extends Controller
     {
         $this->denyAccessUnlessGranted('UPLOAD', $folder);
 
+        $em = $this->getDoctrine()->getManager();
+        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
+
         $file = new File();
         $form = $this->createForm(new FolderCreateFileType(), $file);
         $form->handleRequest($request);
@@ -256,6 +265,7 @@ class FolderController extends Controller
         }
 
         return [
+            'files' => $files,
             'folder' => $folder,
             'form' => $form->createView(),
         ];
