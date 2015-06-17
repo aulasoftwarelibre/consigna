@@ -60,9 +60,9 @@ class FileController extends Controller
             if($file->getScanStatus()==File::SCAN_STATUS_OK) {
                 $this->addFlash('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
             } else if($file->getScanStatus()==File::SCAN_STATUS_FAILED) {
-                $this->addFlash('success', $this->get('translator')->trans('upload.failed', array('file' => $file)));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.failed', array('file' => $file)));
             } else {
-                $this->addFlash('success', $this->get('translator')->trans('upload.virus', ['file' => $file]));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['file' => $file]));
             }
 
             return $this->redirectToRoute('homepage');
