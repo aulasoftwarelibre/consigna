@@ -126,6 +126,7 @@ class FolderController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
 
 
         if (false === $this->isGranted('ACCESS', $folder)) {
@@ -148,6 +149,8 @@ class FolderController extends Controller
                     'folder' => $folder,
                     'days_before_clean' => $this->container->getParameter('days_before_clean'),
                     'form' => $form->createView(),
+                    'files' => $files,
+
                 ]);
             }
         }
@@ -156,6 +159,7 @@ class FolderController extends Controller
             'folder' => $folder,
             'sum' => $sizeAndNumOfFiles,
             'days_before_clean' => $this->container->getParameter('days_before_clean'),
+            'files' => $files,
 
         ];
     }
@@ -256,9 +260,9 @@ class FolderController extends Controller
             if($file->getScanStatus()==File::SCAN_STATUS_OK) {
                 $this->addFlash('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
             } else if($file->getScanStatus()==File::SCAN_STATUS_FAILED) {
-                $this->addFlash('success', $this->get('translator')->trans('upload.failed', array('file' => $file)));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.failed', array('file' => $file)));
             } else {
-                $this->addFlash('success', $this->get('translator')->trans('upload.virus', ['file' => $file]));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['file' => $file]));
             }
 
             return $this->redirectToRoute('folder_show', array('slug' => $folder->getSlug()));
