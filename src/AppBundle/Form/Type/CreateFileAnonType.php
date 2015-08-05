@@ -9,9 +9,9 @@
 
 namespace AppBundle\Form\Type;
 
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
 
 class CreateFileAnonType extends AbstractType
 {
@@ -40,7 +40,7 @@ class CreateFileAnonType extends AbstractType
                 ),
                 'mapped'      => false,
                 'constraints' => array(
-                    new True(),
+                    new IsTrue(),
                 ),
             ))
         ;
