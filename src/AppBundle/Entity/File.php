@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * File.
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\FileRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FileRepository")
  * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback")
  */
 class File implements FileInterface

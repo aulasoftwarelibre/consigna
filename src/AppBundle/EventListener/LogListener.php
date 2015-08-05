@@ -9,7 +9,7 @@
 namespace AppBundle\EventListener;
 
 
-use AppBundle\FileEvents;
+use AppBundle\Event\FileEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AppBundle\Event\FileEvent;
 use Psr\Log\LoggerInterface;

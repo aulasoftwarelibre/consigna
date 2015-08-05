@@ -7,8 +7,9 @@
  * Time: 20:35.
  */
 
-namespace AppBundle\Entity;
+namespace AppBundle\Doctrine\ORM;
 
+use AppBundle\Entity\File;
 use Doctrine\ORM\EntityRepository;
 use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
 

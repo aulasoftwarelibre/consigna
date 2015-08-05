@@ -6,7 +6,7 @@
  * Time: 06:26
  */
 
-namespace AppBundle\Uploadable;
+namespace AppBundle\Doctrine\Extensions;
 
 
 use Gedmo\Uploadable\FileInfo\FileInfoInterface;

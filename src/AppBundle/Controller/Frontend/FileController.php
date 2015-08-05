@@ -2,11 +2,11 @@
 
 namespace AppBundle\Controller\Frontend;
 
+use AppBundle\Doctrine\Extensions\UploadedFileInfo;
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\DownloadFileAnonType;
 use AppBundle\Form\Type\DownloadFileType;
-use AppBundle\Uploadable\UploadedFileInfo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
 use AppBundle\Event\FileEvent;
-use AppBundle\FileEvents;
+use AppBundle\Event\FileEvents;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**

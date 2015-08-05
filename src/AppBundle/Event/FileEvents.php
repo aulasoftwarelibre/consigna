@@ -6,7 +6,7 @@
  * Time: 18:38
  */
 
-namespace AppBundle;
+namespace AppBundle\Event;
 
 final class FileEvents
 {

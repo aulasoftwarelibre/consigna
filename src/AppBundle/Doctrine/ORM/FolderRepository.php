@@ -7,8 +7,9 @@
  * Time: 20:31.
  */
 
-namespace AppBundle\Entity;
+namespace AppBundle\Doctrine\ORM;
 
+use AppBundle\Entity\File;
 use Doctrine\ORM\EntityRepository;
 
 class FolderRepository extends EntityRepository

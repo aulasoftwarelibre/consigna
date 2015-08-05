@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Folder.
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\FolderRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FolderRepository")
  */
 class Folder implements FileInterface
 {

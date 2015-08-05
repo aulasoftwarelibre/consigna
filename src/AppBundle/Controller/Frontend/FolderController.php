@@ -9,6 +9,7 @@
 
 namespace AppBundle\Controller\Frontend;
 
+use AppBundle\Doctrine\Extensions\UploadedFileInfo;
 use AppBundle\Entity\Folder;
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
@@ -16,12 +17,9 @@ use AppBundle\Form\Type\AccessFolderAnonType;
 use AppBundle\Form\Type\AccessFolderType;
 use AppBundle\Form\Type\CreateFolderType;
 use AppBundle\Event\FileEvent;
-use AppBundle\FileEvents;
-use AppBundle\Form\Type\CreateFileType;
-use AppBundle\Form\Type\CreateFileAnonType;
+use AppBundle\Event\FileEvents;
 use AppBundle\Form\Type\EditFolderType;
 use AppBundle\Form\Type\FolderCreateFileType;
-use AppBundle\Uploadable\UploadedFileInfo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
