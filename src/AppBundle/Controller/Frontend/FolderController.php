@@ -53,7 +53,7 @@ class FolderController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $folder->setUser($user);
+            $folder->setOwner($user);
             $em->persist($folder);
             $em->flush();
 
@@ -134,7 +134,7 @@ class FolderController extends Controller
 
             if ($form->isValid()) {
                 if ($user instanceof User) {
-                    $folder->addUsersWithAccess($user);
+                    $folder->addSharedWith($user);
                     $em->persist($folder);
                     $em->flush();
                 } else {

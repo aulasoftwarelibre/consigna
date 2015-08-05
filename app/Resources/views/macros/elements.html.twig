@@ -4,10 +4,10 @@
         <span class="icon"><i class="fa fa-folder-o"></i></span>
     </div>
     <div class="info">
-        <h2 class="title"><a href="{{ path('folder_show', {'slug': folder.slug}) }}">{{ folder.folderName }}</a></h2>
+        <h2 class="title"><a href="{{ path('folder_show', {'slug': folder.slug}) }}">{{ folder.name }}</a></h2>
         <p class="desc">
-            <small>{{'element.createdatby' | trans({'%uploadDate%':folder.uploadDate | date, '%uploadUser%':folder.user }) }}
-                <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - folder.uploadDate|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
+            <small>{{'element.createdatby' | trans({'%uploadDate%':folder.uploadedAt | date, '%uploadUser%':folder.owner }) }}
+                <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - folder.uploadedAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
             </small>
         </p>
         <ul>
@@ -20,10 +20,10 @@
         <ul>
             <li class="action" style="width:33%;"><a href="{{ path('folder_show', {'slug': folder.slug}) }}"><span class="fa fa-folder-open-o"></span></a></li>
             {% if is_granted('SHARE', folder) %}
-                <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url("folder_share",{'slug':folder.slug,'shareCode': folder.shareCode }) }}"><a href="#" title="Share {{ folder.folderName }}"><span class="fa fa-share-alt"></span></a></li>
+                <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url("folder_share",{'slug':folder.slug,'shareCode': folder.shareCode }) }}"><a href="#" title="Share {{ folder.name }}"><span class="fa fa-share-alt"></span></a></li>
             {% endif %}
             {% if is_granted('DELETE', folder) %}
-                <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path('folder_delete',{'slug':folder.slug}) }}"><a href="#" title="Delete {{ folder.folderName }}"><span class="fa fa-trash"></span></a></li>
+                <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path('folder_delete',{'slug':folder.slug}) }}"><a href="#" title="Delete {{ folder.name }}"><span class="fa fa-trash"></span></a></li>
             {% endif %}
         </ul>
     </div>

@@ -40,17 +40,17 @@ class User extends BaseUser
     private $files;
 
     /**
-     * @ORM\OneToMany(targetEntity="Folder", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Folder", mappedBy="owner")
      */
     private $folders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="usersWithAccess")
+     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="sharedWith")
      */
     private $sharedFolders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="usersWithAccess")
+     * @ORM\ManyToMany(targetEntity="File", mappedBy="usersWithAccess")
      */
     private $sharedFiles;
 

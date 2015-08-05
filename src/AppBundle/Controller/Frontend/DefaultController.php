@@ -21,7 +21,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->listFiles();
-        $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('folderName' => 'ASC'));
+        $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('name' => 'ASC'));
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
 
         return [
@@ -79,7 +79,7 @@ class DefaultController extends Controller
     public function sharedWithMeAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $folders = $em->getRepository('AppBundle:Folder')->findSharedFolders($user);
         $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();

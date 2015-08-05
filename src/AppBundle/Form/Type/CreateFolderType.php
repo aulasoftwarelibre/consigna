@@ -17,7 +17,7 @@ class CreateFolderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('folderName', null, array('label' => 'foldername.create.folder'))
+            ->add('name', null, array('label' => 'foldername.create.folder'))
             ->add('tags', 'tags_text', array(
                 'label' => 'tag.create.folder', ))
             ->add('plainPassword', 'repeated', array(
