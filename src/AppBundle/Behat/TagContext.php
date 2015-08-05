@@ -4,7 +4,6 @@ namespace AppBundle\Behat;
 
 use AppBundle\Entity\Tag;
 use Behat\Gherkin\Node\TableNode;
-use Sylius\Bundle\ResourceBundle\Behat\DefaultContext;
 
 class TagContext extends DefaultContext
 {

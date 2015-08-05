@@ -11,9 +11,7 @@ namespace AppBundle\Behat;
 
 use AppBundle\Entity\File;
 use AppBundle\Entity\Folder;
-use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
-use Sylius\Bundle\ResourceBundle\Behat\DefaultContext;
 
 class FileContext extends DefaultContext
 {
@@ -38,7 +36,7 @@ class FileContext extends DefaultContext
             $file->setSize(100);
             $file->setMimeType('pdf');
             $file->setFile('test.pdf');
-            $file->setPath('/home/juanan/consigna/app/../features/files/test.pdf');
+            $file->setPath($this->kernel->getRootDir() . '/../features/files/test.pdf');
             $file->setIpAddress('127.0.0.1');
             $file->setScanStatus(File::SCAN_STATUS_OK);
             if ($userWithAccess) {

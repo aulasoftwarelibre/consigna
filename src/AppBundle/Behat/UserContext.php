@@ -11,7 +11,6 @@ namespace AppBundle\Behat;
 
 use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
-use Sylius\Bundle\ResourceBundle\Behat\DefaultContext;
 
 class UserContext extends DefaultContext
 {
