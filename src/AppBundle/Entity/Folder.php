@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Folder.
  *
- * @ORM\Table()
+ * @ORM\Table(name="folder")
  * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FolderRepository")
  */
 class Folder implements FileInterface

@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 /**
  * File.
  *
- * @ORM\Table()
+ * @ORM\Table(name="file")
  * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FileRepository")
  * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback")
  */
