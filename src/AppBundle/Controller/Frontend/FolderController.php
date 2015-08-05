@@ -21,6 +21,7 @@ use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
 use AppBundle\Form\Type\EditFolderType;
 use AppBundle\Form\Type\FolderCreateFileType;
+use AppBundle\Uploadable\UploadedFileInfo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -250,8 +251,8 @@ class FolderController extends Controller
             $file->setUser($this->getUser());
             $file->setIpAddress($request->getClientIp());
 
+            $this->get( 'gedmo.listener.uploadable' )->addEntityFileInfo( $file, new UploadedFileInfo($file->getFilename()) );
 
-            $this->get('stof_doctrine_extensions.uploadable.manager')->markEntityToUpload($file, $file->getFilename());
             $em->persist($file);
             $em->flush();
 

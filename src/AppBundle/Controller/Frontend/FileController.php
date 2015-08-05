@@ -6,6 +6,7 @@ use AppBundle\Entity\File;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\DownloadFileAnonType;
 use AppBundle\Form\Type\DownloadFileType;
+use AppBundle\Uploadable\UploadedFileInfo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -49,8 +50,7 @@ class FileController extends Controller
             }
             $file->setIpAddress($request->getClientIp());
 
-
-            $this->get('stof_doctrine_extensions.uploadable.manager')->markEntityToUpload($file, $file->getFilename());
+            $this->get( 'gedmo.listener.uploadable' )->addEntityFileInfo( $file, new UploadedFileInfo($file->getFilename()) );
 
             $em->persist($file);
             $em->flush();
