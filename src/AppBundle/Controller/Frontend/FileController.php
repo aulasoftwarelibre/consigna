@@ -46,11 +46,11 @@ class FileController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             if ($user instanceof User) {
-                $file->setUser($user);
+                $file->setOwner($user);
             }
             $file->setIpAddress($request->getClientIp());
 
-            $this->get( 'gedmo.listener.uploadable' )->addEntityFileInfo( $file, new UploadedFileInfo($file->getFilename()) );
+            $this->get( 'gedmo.listener.uploadable' )->addEntityFileInfo( $file, new UploadedFileInfo($file->getName()) );
 
             $em->persist($file);
             $em->flush();
@@ -139,7 +139,7 @@ class FileController extends Controller
             if ($form->isValid()) {
 
                 if ($user instanceof User) {
-                    $file->addUsersWithAccess($user);
+                    $file->addSharedWith($user);
                     $em->persist($file);
                     $em->flush();
                 } else {
@@ -189,8 +189,8 @@ class FileController extends Controller
         $response->trustXSendfileTypeHeader();
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $file->getFilename(),
-            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
+            $file->getName(),
+            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getName())
         );
         $this->container->get('event_dispatcher')->dispatch(FileEvents::DOWNLOADED, new FileEvent($file));
 
@@ -210,7 +210,7 @@ class FileController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('access', $file)) {
             if ($user instanceof User) {
                 if(false === $file->hasAccess($user)){
-                    $file->addUsersWithAccess($user);
+                    $file->addSharedWith($user);
                     $em->persist($file);
                     $em->flush();
                 }

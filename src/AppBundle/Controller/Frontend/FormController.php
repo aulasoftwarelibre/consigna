@@ -83,7 +83,7 @@ class FormController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($user) {
-                $file->addUsersWithAccess($user);
+                $file->addSharedWith($user);
                 $em->persist($file);
                 $em->flush();
             } else {

@@ -50,7 +50,7 @@ class User extends BaseUser
     private $sharedFolders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="File", mappedBy="usersWithAccess")
+     * @ORM\ManyToMany(targetEntity="File", mappedBy="sharedWith")
      */
     private $sharedFiles;
 

@@ -61,7 +61,7 @@ class LogListener implements EventSubscriberInterface
     public function onFileSubmitted(FileEvent $event)
     {
         $file = $event->getFile();
-        $this->loggerInterface->info('File ' . $file . ' has been uploaded by '.$file->getUser().' with ip '.$file->getIpAddress());
+        $this->loggerInterface->info('File ' . $file . ' has been uploaded by '.$file->getOwner().' with ip '.$file->getIpAddress());
     }
 
     /**
@@ -70,6 +70,6 @@ class LogListener implements EventSubscriberInterface
     public function onFileDownloaded(FileEvent $event)
     {
         $file = $event->getFile();
-        $this->loggerInterface->info('File ' . $file . ' has been downloaded by '.$file->getUser().' with ip '.$file->getIpAddress());
+        $this->loggerInterface->info('File ' . $file . ' has been downloaded by '.$file->getOwner().' with ip '.$file->getIpAddress());
     }
 }

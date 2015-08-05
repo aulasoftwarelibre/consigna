@@ -71,7 +71,7 @@ class FileVoter extends AbstractVoter
 
         switch ($attribute) {
             case 'ACCESS':
-                if ($user instanceof User || $object->getUser()) {
+                if ($user instanceof User || $object->getOwner()) {
                     return true;
                 }
 
@@ -91,7 +91,7 @@ class FileVoter extends AbstractVoter
 
             case 'DELETE':
             case 'SHARE':
-                if ($user instanceof User && $object->getUser() == $user) {
+                if ($user instanceof User && $object->getOwner() == $user) {
                     return true;
                 }
             break;

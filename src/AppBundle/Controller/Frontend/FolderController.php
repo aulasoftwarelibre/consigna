@@ -31,6 +31,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class FolderController
+ *
  * @package AppBundle\Controller\Frontend
  * @Route("/folder")
  */
@@ -57,7 +58,7 @@ class FolderController extends Controller
             $em->persist($folder);
             $em->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans('create.success', ['folder' => $folder ]));
+            $this->addFlash('success', $this->get('translator')->trans('create.success', ['folder' => $folder]));
 
             return $this->redirectToRoute('homepage');
         }
@@ -78,7 +79,7 @@ class FolderController extends Controller
         $em->remove($folder);
         $em->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('delete.success', ['folder' => $folder ]));
+        $this->addFlash('success', $this->get('translator')->trans('delete.success', ['folder' => $folder]));
 
         return $this->redirectToRoute('homepage');
     }
@@ -91,16 +92,20 @@ class FolderController extends Controller
     public function showAction(Folder $folder)
     {
         $em = $this->getDoctrine()->getManager();
-        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+        $sizeAndNumOfFiles = $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
         $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
 
         if (false === $this->isGranted('ACCESS', $folder)) {
             $form = $this->createAccessFolderForm($folder);
-            return $this->render("frontend/Folder/show_with_password.html.twig", [
-                'folder' => $folder,
-                'days_before_clean' => $this->container->getParameter('days_before_clean'),
-                'form' => $form->createView(),
-            ]);
+
+            return $this->render(
+                "frontend/Folder/show_with_password.html.twig",
+                [
+                    'folder' => $folder,
+                    'days_before_clean' => $this->container->getParameter('days_before_clean'),
+                    'form' => $form->createView(),
+                ]
+            );
         }
 
         return [
@@ -111,8 +116,17 @@ class FolderController extends Controller
         ];
     }
 
+    private function createAccessFolderForm($folder)
+    {
+        $factory = $this->get('security.encoder_factory');
+        if ($this->getUser() instanceof User) {
+            $type = new AccessFolderType($factory);
+        } else {
+            $type = new AccessFolderAnonType($factory);
+        }
 
-
+        return $this->createForm($type, $folder);
+    }
 
     /**
      * @Route("/{slug}", name="folder_check")
@@ -124,7 +138,7 @@ class FolderController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
-        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+        $sizeAndNumOfFiles = $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
         $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
 
 
@@ -144,13 +158,16 @@ class FolderController extends Controller
                 $this->addFlash('success', $this->get('translator')->trans('message.password.valid'));
             } else {
                 $this->addFlash('danger', $this->get('translator')->trans('message.password.invalid'));
-                return $this->render("frontend/Folder/show_with_password.html.twig", [
-                    'folder' => $folder,
-                    'days_before_clean' => $this->container->getParameter('days_before_clean'),
-                    'form' => $form->createView(),
-                    'files' => $files,
 
-                ]);
+                return $this->render(
+                    "frontend/Folder/show_with_password.html.twig",
+                    [
+                        'folder' => $folder,
+                        'days_before_clean' => $this->container->getParameter('days_before_clean'),
+                        'form' => $form->createView(),
+                        'files' => $files,
+                    ]
+                );
             }
         }
 
@@ -159,20 +176,7 @@ class FolderController extends Controller
             'sum' => $sizeAndNumOfFiles,
             'days_before_clean' => $this->container->getParameter('days_before_clean'),
             'files' => $files,
-
         ];
-    }
-
-    private function createAccessFolderForm($folder)
-    {
-        $factory = $this->get('security.encoder_factory');
-        if ($this->getUser() instanceof User) {
-            $type = new AccessFolderType($factory);
-        } else {
-            $type = new AccessFolderAnonType($factory);
-        }
-
-        return $this->createForm($type, $folder);
     }
 
     /**
@@ -194,13 +198,13 @@ class FolderController extends Controller
             $em->persist($folder);
             $em->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans('edit.success', array('folder' => $folder)));
+            $this->addFlash('success', $this->get('translator')->trans('edit.success', ['folder' => $folder]));
 
             return $this->redirectToRoute("folder_show", ['slug' => $folder->getSlug()]);
         }
 
         return [
-            'files'=>$files,
+            'files' => $files,
             'folder' => $folder,
             'form' => $form->createView(),
         ];
@@ -224,7 +228,8 @@ class FolderController extends Controller
                 $session->set($folder->getSlug(), true);
             }
         }
-        return $this->redirectToRoute('folder_show', array('slug' => $folder->getSlug()));
+
+        return $this->redirectToRoute('folder_show', ['slug' => $folder->getSlug()]);
     }
 
     /**
@@ -246,25 +251,27 @@ class FolderController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $file->setFolder($folder);
-            $file->setUser($this->getUser());
+            $file->setOwner($this->getUser());
             $file->setIpAddress($request->getClientIp());
 
-            $this->get( 'gedmo.listener.uploadable' )->addEntityFileInfo( $file, new UploadedFileInfo($file->getFilename()) );
+            $this->get('gedmo.listener.uploadable')->addEntityFileInfo($file, new UploadedFileInfo($file->getName()));
 
             $em->persist($file);
             $em->flush();
 
             $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, new FileEvent($file));
 
-            if($file->getScanStatus()==File::SCAN_STATUS_OK) {
-                $this->addFlash('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
-            } else if($file->getScanStatus()==File::SCAN_STATUS_FAILED) {
-                $this->addFlash('danger', $this->get('translator')->trans('upload.failed', array('file' => $file)));
+            if ($file->getScanStatus() == File::SCAN_STATUS_OK) {
+                $this->addFlash('success', $this->get('translator')->trans('upload.success', ['file' => $file]));
             } else {
-                $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['file' => $file]));
+                if ($file->getScanStatus() == File::SCAN_STATUS_FAILED) {
+                    $this->addFlash('danger', $this->get('translator')->trans('upload.failed', ['file' => $file]));
+                } else {
+                    $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['file' => $file]));
+                }
             }
 
-            return $this->redirectToRoute('folder_show', array('slug' => $folder->getSlug()));
+            return $this->redirectToRoute('folder_show', ['slug' => $folder->getSlug()]);
         }
 
         return [
@@ -286,8 +293,8 @@ class FolderController extends Controller
         $response->trustXSendfileTypeHeader();
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $file->getFilename(),
-            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
+            $file->getName(),
+            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getName())
         );
 
         return $response;
@@ -305,7 +312,7 @@ class FolderController extends Controller
         $em->remove($file);
         $em->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('deleteFile.success', array('file' => $file)));
+        $this->addFlash('success', $this->get('translator')->trans('deleteFile.success', ['file' => $file]));
 
         return $this->redirectToRoute("folder_show", ['slug' => $folder->getSlug()]);
     }

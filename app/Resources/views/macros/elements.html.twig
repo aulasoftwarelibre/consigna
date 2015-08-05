@@ -37,10 +37,10 @@
             <span class="icon"><i class="fa fa-file-o"></i></span>
         </div>
         <div class="info">
-            <h2 class="title"><a href="{{ path("file_show", {'slug': file.slug}) }}">{{ file.filename }}</a></h2>
+            <h2 class="title"><a href="{{ path("file_show", {'slug': file.slug}) }}">{{ file.name }}</a></h2>
             <p class="desc">
-                <small>{{'element.createdatby' | trans({'%uploadDate%':file.uploadDate | date, '%uploadUser%':file.user }) }}
-                    <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - file.uploadDate|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
+                <small>{{'element.createdatby' | trans({'%uploadDate%':file.createdAt | date, '%uploadUser%':file.owner }) }}
+                    <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - file.createdAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
                 </small>
             </p>
             <ul>
@@ -51,12 +51,12 @@
         </div>
         <div class="actions">
             <ul>
-                <li class="action" style="width:33%;"><a href="{{ path('file_show', {'slug': file.slug}) }}" title="Download {{ file.filename }}"><span class="fa fa-download"></span></a></li>
+                <li class="action" style="width:33%;"><a href="{{ path('file_show', {'slug': file.slug}) }}" title="Download {{ file.name }}"><span class="fa fa-download"></span></a></li>
                 {% if is_granted('SHARE', file) %}
-                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}" ><a href="#" title="Share {{ file.filename }}"><span class="fa fa-share-alt"></span></a></li>
+                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}" ><a href="#" title="Share {{ file.name }}"><span class="fa fa-share-alt"></span></a></li>
                 {% endif %}
                 {% if is_granted('DELETE', file) %}
-                    <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path('file_delete',{'slug':file.slug}) }}"><a href="#" title="Delete {{ file.filename }}"><span class="fa fa-trash"></span></a></li>
+                    <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path('file_delete',{'slug':file.slug}) }}"><a href="#" title="Delete {{ file.name }}"><span class="fa fa-trash"></span></a></li>
                 {% endif %}
             </ul>
         </div>
@@ -69,10 +69,10 @@
             <span class="icon"><i class="fa fa-file-o"></i></span>
         </div>
         <div class="info">
-            <h2 class="title"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}">{{ file.filename }}</a></h2>
+            <h2 class="title"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}">{{ file.name }}</a></h2>
             <p class="desc">
-                <small>{{'element.createdatby' | trans({'%uploadDate%':file.uploadDate | date, '%uploadUser%':file.user }) }}
-                    <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - file.uploadDate|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
+                <small>{{'element.createdatby' | trans({'%uploadDate%':file.createdAt | date, '%uploadUser%':file.owner }) }}
+                    <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - file.createdAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
                 </small>
             </p>
             <ul>
@@ -83,13 +83,13 @@
         </div>
         <div class="actions">
             <ul>
-                <li class="action" style="width:33%;"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}" title="Download {{ file.filename }}"><span class="fa fa-download"></span></a></li>
+                <li class="action" style="width:33%;"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}" title="Download {{ file.name }}"><span class="fa fa-download"></span></a></li>
                 {% if is_granted('SHARE', file) %}
-                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}" ><a href="#" title="Share {{ file.filename }}"><span class="fa fa-share-alt"></span></a></li>
+                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}" ><a href="#" title="Share {{ file.name }}"><span class="fa fa-share-alt"></span></a></li>
 
                 {% endif %}
                 {% if is_granted('DELETE', file.folder) %}
-                    <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path("folder_file_delete", {'slug': file.slug}) }}"><a href="#" title="Delete {{ file.filename }}"><span class="fa fa-trash"></span></a></li>
+                    <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path("folder_file_delete", {'slug': file.slug}) }}"><a href="#" title="Delete {{ file.name }}"><span class="fa fa-trash"></span></a></li>
                 {% endif %}
             </ul>
         </div>

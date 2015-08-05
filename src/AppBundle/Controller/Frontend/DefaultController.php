@@ -39,7 +39,7 @@ class DefaultController extends Controller
     public function myFilesAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $folders = $em->getRepository('AppBundle:Folder')->myFolders($user);
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
         $files = $em->getRepository('AppBundle:File')->myFiles($user);

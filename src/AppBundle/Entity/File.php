@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class File implements FileInterface
 {
     /**
-     *
+     * Scan file status
      */
     const SCAN_STATUS_OK = 1;
     const SCAN_STATUS_PENDING = 2;
@@ -43,9 +43,9 @@ class File implements FileInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="filename", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $filename;
+    private $name;
 
     /**
      * @var string
@@ -70,10 +70,10 @@ class File implements FileInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="uploadDate", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
-    private $uploadDate;
+    private $createdAt;
 
     /**
      * @var string
@@ -99,7 +99,7 @@ class File implements FileInterface
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
      */
-    private $user;
+    private $owner;
 
     /**
      * @var Tag
@@ -110,11 +110,11 @@ class File implements FileInterface
     /**
      * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFiles")
      */
-    private $usersWithAccess;
+    private $sharedWith;
 
     /**
      * @ORM\Column(length=128, unique=true)
-     * @Gedmo\Slug(fields={"filename"})
+     * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
 
@@ -142,51 +142,29 @@ class File implements FileInterface
      */
     private $ipAddress;
 
-    /**
-     * @return mixed
-     */
-    public function getIpAddress()
-    {
-        return $this->ipAddress;
-    }
-
-    /**
-     * @param mixed $ipAddress
-     */
-    public function setIpAddress($ipAddress)
-    {
-        $this->ipAddress = $ipAddress;
-    }
-
-    /**
-     * @return string
-     */
-    public function getScanStatus()
-    {
-        return $this->scanStatus;
-    }
-
-    /**
-     * @param string $scanStatus
-     */
-    public function setScanStatus($scanStatus)
-    {
-        $this->scanStatus = $scanStatus;
-    }
-
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sharedWith = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
         $this->scanStatus = self::SCAN_STATUS_PENDING;
     }
 
     /**
-     * Get id.
+     * To String.
      *
-     * @return int
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
      */
     public function getId()
     {
@@ -194,58 +172,147 @@ class File implements FileInterface
     }
 
     /**
-     * Set name.
+     * Set file
      *
-     * @param string $filename
-     *
+     * @param string $file
      * @return File
      */
-    public function setFilename($filename)
+    public function setFile($file)
     {
-        $this->filename = $filename;
+        $this->file = $file;
 
         return $this;
     }
 
     /**
-     * Get filename.
+     * Get file
      *
-     * @return string
+     * @return string 
      */
-    public function getFilename()
+    public function getFile()
     {
-        return $this->filename;
+        return $this->file;
     }
 
     /**
-     * Set uploadDate.
+     * Set name
      *
-     * @param \DateTime $uploadDate
-     *
+     * @param string $name
      * @return File
      */
-    public function setUploadDate($uploadDate)
+    public function setName($name)
     {
-        $this->uploadDate = $uploadDate;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get uploadDate.
+     * Get name
      *
-     * @return \DateTime
+     * @return string 
      */
-    public function getUploadDate()
+    public function getName()
     {
-        return $this->uploadDate;
+        return $this->name;
     }
 
     /**
-     * Set password.
+     * Set path
+     *
+     * @param string $path
+     * @return File
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set mimeType
+     *
+     * @param string $mimeType
+     * @return File
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    /**
+     * Get mimeType
+     *
+     * @return string 
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     * @return File
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string 
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return File
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set password
      *
      * @param string $password
-     *
      * @return File
      */
     public function setPassword($password)
@@ -256,9 +323,9 @@ class File implements FileInterface
     }
 
     /**
-     * Get password.
+     * Get password
      *
-     * @return string
+     * @return string 
      */
     public function getPassword()
     {
@@ -266,245 +333,28 @@ class File implements FileInterface
     }
 
     /**
-     * Set user.
+     * Set salt
      *
-     * @param \AppBundle\Entity\User $user
-     *
+     * @param string $salt
      * @return File
      */
-    public function setUser($user)
+    public function setSalt($salt)
     {
-        $this->user = $user;
+        $this->salt = $salt;
 
         return $this;
     }
 
     /**
-     * Get user.
+     * Get salt
      *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @return Tag
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @param Tag $tags
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param mixed $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFolder()
-    {
-        return $this->folder;
-    }
-
-    /**
-     * @param mixed $folder
-     */
-    public function setFolder($folder)
-    {
-        $this->folder = $folder;
-    }
-
-    /**
-     * To String.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getFilename();
-    }
-
-    /**
-     * Add tags.
-     *
-     * @param \AppBundle\Entity\Tag $tags
-     *
-     * @return File
-     */
-    public function addTag(\AppBundle\Entity\Tag $tags)
-    {
-        $this->tags[] = $tags;
-
-        return $this;
-    }
-
-    /**
-     * Remove tags.
-     *
-     * @param \AppBundle\Entity\Tag $tags
-     */
-    public function removeTag(\AppBundle\Entity\Tag $tags)
-    {
-        $this->tags->removeElement($tags);
-    }
-
-    /**
-     * Add usersWithAccess.
-     *
-     * @param \AppBundle\Entity\User $usersWithAccess
-     *
-     * @return File
-     */
-    public function addUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
-    {
-        $this->usersWithAccess[] = $usersWithAccess;
-
-        return $this;
-    }
-
-    /**
-     * Remove usersWithAccess.
-     *
-     * @param \AppBundle\Entity\User $usersWithAccess
-     */
-    public function removeUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
-    {
-        $this->usersWithAccess->removeElement($usersWithAccess);
-    }
-
-    /**
-     * Get usersWithAccess.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsersWithAccess()
-    {
-        return $this->usersWithAccess;
-    }
-
-    /**
-     * Has access.
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return bool
-     */
-    public function hasAccess($user)
-    {
-        if ($this->getUser() == $user) {
-            return true;
-        }
-        foreach ($this->usersWithAccess as $uWithAccess) {
-            if ($user == $uWithAccess) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param string $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMimeType()
-    {
-        return $this->mimeType;
-    }
-
-    /**
-     * @param mixed $mimeType
-     */
-    public function setMimeType($mimeType)
-    {
-        $this->mimeType = $mimeType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param mixed $size
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param string $file
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * @return string
+     * @return string 
      */
     public function getSalt()
     {
         return $this->salt;
     }
 
-    /**
-     * @param string $salt
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-    }
 
     /**
      * @return string
@@ -523,7 +373,53 @@ class File implements FileInterface
     }
 
     /**
-     * @return string
+     * Remove credentials
+     */
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return File
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set shareCode
+     *
+     * @param string $shareCode
+     * @return File
+     */
+    public function setShareCode($shareCode)
+    {
+        $this->shareCode = $shareCode;
+
+        return $this;
+    }
+
+    /**
+     * Get shareCode
+     *
+     * @return string 
      */
     public function getShareCode()
     {
@@ -531,21 +427,192 @@ class File implements FileInterface
     }
 
     /**
-     * @param string $shareCode
+     * Set scanStatus
+     *
+     * @param string $scanStatus
+     * @return File
      */
-    public function setShareCode($shareCode)
+    public function setScanStatus($scanStatus)
     {
-        $this->shareCode = $shareCode;
+        $this->scanStatus = $scanStatus;
+
+        return $this;
     }
 
+    /**
+     * Get scanStatus
+     *
+     * @return string 
+     */
+    public function getScanStatus()
+    {
+        return $this->scanStatus;
+    }
+
+    /**
+     * Set ipAddress
+     *
+     * @param string $ipAddress
+     * @return File
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get ipAddress
+     *
+     * @return string 
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \AppBundle\Entity\User $owner
+     * @return File
+     */
+    public function setOwner(\AppBundle\Entity\User $owner = null)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     * @return File
+     */
+    public function addTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add sharedWith
+     *
+     * @param \AppBundle\Entity\User $sharedWith
+     * @return File
+     */
+    public function addSharedWith(\AppBundle\Entity\User $sharedWith)
+    {
+        $this->sharedWith[] = $sharedWith;
+
+        return $this;
+    }
+
+    /**
+     * Remove sharedWith
+     *
+     * @param \AppBundle\Entity\User $sharedWith
+     */
+    public function removeSharedWith(\AppBundle\Entity\User $sharedWith)
+    {
+        $this->sharedWith->removeElement($sharedWith);
+    }
+
+    /**
+     * Get sharedWith
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSharedWith()
+    {
+        return $this->sharedWith;
+    }
+
+    /**
+     * Set folder
+     *
+     * @param \AppBundle\Entity\Folder $folder
+     * @return File
+     */
+    public function setFolder(\AppBundle\Entity\Folder $folder = null)
+    {
+        $this->folder = $folder;
+
+        return $this;
+    }
+
+    /**
+     * Get folder
+     *
+     * @return \AppBundle\Entity\Folder 
+     */
+    public function getFolder()
+    {
+        return $this->folder;
+    }
+
+    /**
+     * Has access.
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return bool
+     */
+    public function hasAccess($user)
+    {
+        if ($this->getOwner() == $user) {
+            return true;
+        }
+        foreach ($this->sharedWith as $uWithAccess) {
+            if ($user == $uWithAccess) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Configure unique name
+     *
+     * @param $info
+     */
     public function configureFileCallback($info)
     {
-        $this->setFilename($info['origFileName']);
+        $this->setName($info['origFileName']);
         $this->setSlug(sha1(mt_rand()));
-    }
-
-    public function eraseCredentials()
-    {
-        $this->plainPassword = null;
     }
 }

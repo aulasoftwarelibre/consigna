@@ -22,7 +22,7 @@
                         {{ file }}
                     </h3>
                     <p>
-                        {{ 'show.file.message' | trans({'%days%':days_before_clean - file.uploadDate|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}
+                        {{ 'show.file.message' | trans({'%days%':days_before_clean - file.createdAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}
                         - {{ elements.bytesToSize(file.size) }}
                     </p>
 

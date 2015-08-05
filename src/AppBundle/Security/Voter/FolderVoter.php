@@ -83,7 +83,7 @@ class FolderVoter extends AbstractVoter
             case 'DELETE':
             case 'SHARE' :
             case 'UPLOAD':
-                if ($user instanceof User && $object->getUser() == $user) {
+                if ($user instanceof User && $object->getOwner() == $user) {
                     return true;
                 }
             break;

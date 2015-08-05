@@ -76,11 +76,11 @@ class FolderRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-            SELECT c
-            FROM AppBundle:File c
-            WHERE c.folder = :folder
-            AND c.scanStatus = :status
-            ORDER BY c.filename ASC'
+            SELECT file
+            FROM AppBundle:File file
+            WHERE file.folder = :folder
+            AND file.scanStatus = :status
+            ORDER BY file.name ASC'
         );
 
         $query->setParameter('status',File::SCAN_STATUS_OK);

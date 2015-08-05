@@ -20,11 +20,11 @@ class FileRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-            SELECT c
-            FROM AppBundle:File c
-            WHERE c.folder IS NULL
-            AND c.scanStatus = :status
-            ORDER BY c.filename ASC'
+            SELECT file
+            FROM AppBundle:File file
+            WHERE file.folder IS NULL
+            AND file.scanStatus = :status
+            ORDER BY file.name ASC'
         );
 
         $query->setParameter('status',File::SCAN_STATUS_OK);
@@ -35,13 +35,13 @@ class FileRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-            SELECT c,d
-            FROM AppBundle:File c
-            LEFT JOIN c.tags d
-            WHERE c.filename LIKE :word
-            OR d.name LIKE :word
-            AND c.scanStatus = :status
-            ORDER BY c.filename ASC'
+            SELECT file, tag
+            FROM AppBundle:File file
+            LEFT JOIN file.tags tag
+            WHERE file.name LIKE :word
+            OR tag.name LIKE :word
+            AND file.scanStatus = :status
+            ORDER BY file.name ASC'
         );
         $query->setParameter('word', '%'.$word.'%');
         $query->setParameter('status',File::SCAN_STATUS_OK);
@@ -53,11 +53,11 @@ class FileRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-            SELECT c
-            FROM AppBundle:File c
-            WHERE c.user = :owner
-            AND c.scanStatus = :status
-            ORDER BY c.filename ASC'
+            SELECT file
+            FROM AppBundle:File file
+            WHERE file.owner = :owner
+            AND file.scanStatus = :status
+            ORDER BY file.name ASC'
         );
         $query->setParameter('owner', $owner);
         $query->setParameter('status',File::SCAN_STATUS_OK);
@@ -69,12 +69,12 @@ class FileRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-            SELECT c,d
-            FROM AppBundle:File c
-            JOIN c.usersWithAccess d
-            WHERE d.username = :user
-            AND c.scanStatus = :status
-            ORDER BY c.filename ASC'
+            SELECT file, user
+            FROM AppBundle:File file
+            JOIN file.sharedWith user
+            WHERE user.username = :user
+            AND file.scanStatus = :status
+            ORDER BY file.name ASC'
         );
         $query->setParameter('user', $user->getUsername());
         $query->setParameter('status',File::SCAN_STATUS_OK);
@@ -87,7 +87,7 @@ class FileRepository extends EntityRepository
         $em = $this->getEntityManager();
         $files = $em->getRepository('AppBundle:File')->findAll();
         foreach ($files as $file) {
-            if ($file->getUploadDate() <= $date) {
+            if ($file->getCreatedAt() <= $date) {
                 $em->remove($file);
             }
         }

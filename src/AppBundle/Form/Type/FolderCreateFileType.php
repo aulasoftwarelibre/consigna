@@ -17,7 +17,7 @@ class FolderCreateFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('filename', 'file', array(
+            ->add('name', 'file', array(
                 'label' => 'file.create.file',
                 'attr' => ['class' => 'filestyle', 'data-buttonBefore'=> 'true'],
             ))

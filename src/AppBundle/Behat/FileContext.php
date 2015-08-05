@@ -28,11 +28,11 @@ class FileContext extends DefaultContext
             $userWithAccess = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
             $folder = $this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByName($hash['folder']);
             $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByName($hash['tags']);
-            $file->setFilename($hash['filename']);
+            $file->setName($hash['filename']);
             $file->setPlainPassword('secret');
-            $file->setUser($user);
+            $file->setOwner($user);
             $file->setFolder($folder);
-            $file->setUploadDate(new \DateTime('now'));
+            $file->setCreatedAt(new \DateTime('now'));
             $file->setSize(100);
             $file->setMimeType('pdf');
             $file->setFile('test.pdf');
@@ -40,7 +40,7 @@ class FileContext extends DefaultContext
             $file->setIpAddress('127.0.0.1');
             $file->setScanStatus(File::SCAN_STATUS_OK);
             if ($userWithAccess) {
-                $file->addUsersWithAccess($userWithAccess);
+                $file->addSharedWith($userWithAccess);
             }
             if ($tag) {
                 $file->addTag($tag);
@@ -126,13 +126,14 @@ class FileContext extends DefaultContext
     public function hasAccessToFile($username, $filename)
     {
         $user = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
-        $file = $this->getEntityManager()->getRepository('AppBundle:File')->findOneByFilename($filename);
+        /** @var File $file */
+        $file = $this->getEntityManager()->getRepository('AppBundle:File')->findOneByName($filename);
 
-        if ($file->getUser() == $user) {
+        if ($file->getOwner() == $user) {
             return true;
         }
-        foreach ($file->getUsersWithAccess() as $uWithAccess) {
-            if ($user == $uWithAccess) {
+        foreach ($file->getSharedWith() as $member) {
+            if ($user == $member) {
                 return true;
             }
         }
@@ -146,9 +147,10 @@ class FileContext extends DefaultContext
     public function grantAccessToFile($username, $fileName)
     {
         $user = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
-        $file = $this->getEntityManager()->getRepository('AppBundle:File')->findOneByFilename($fileName);
+        /** @var File $file */
+        $file = $this->getEntityManager()->getRepository('AppBundle:File')->findOneByName($fileName);
 
-        $file->addUsersWithAccess($user);
+        $file->addSharedWith($user);
     }
 
     /**
@@ -157,9 +159,10 @@ class FileContext extends DefaultContext
     public function folderHasFile($folderName, $fileName)
     {
         $folder = $this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByName($folderName);
-        $file = $this->getEntityManager()->getRepository('AppBundle:File')->findOneByFilename($fileName);
+        /** @var Folder $file */
+        $file = $this->getEntityManager()->getRepository('AppBundle:File')->findOneByName($fileName);
 
-        $file->getFolder() == $folder;
+        return $file->getFolder() == $folder;
     }
 
     /**
@@ -167,9 +170,10 @@ class FileContext extends DefaultContext
      */
     public function isOwner($username, $folderName)
     {
-        $folder = $this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByName($folderName);
         $user = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($username);
+        /** @var Folder $folder */
+        $folder = $this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByName($folderName);
 
-        $folder->getUser() == $user;
+        return $folder->getOwner() == $user;
     }
 }
