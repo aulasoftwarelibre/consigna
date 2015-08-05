@@ -9,6 +9,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -31,77 +33,54 @@ class Organization {
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Length(min="1", max="255")
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=255, unique=true)
+     * @ORM\Column(name="code", type="string", length=50, unique=true)
+     * @Assert\Length(min="1", max="50")
      */
     private $code;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var bool
+     *
+     * @ORM\Column(name="is_enabled", type="boolean", nullable=true)
+     * @Assert\Type(type="bool")
      */
     private $isEnabled;
 
-
-    /**
-     * @return mixed
-     */
-    public function getIsEnabled()
-    {
-        return $this->isEnabled;
-    }
-
-    /**
-     * @param mixed $isEnabled
-     */
-    public function setIsEnabled($isEnabled)
-    {
-        $this->isEnabled = $isEnabled;
-    }
-
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="organization")
+     * @Assert\Valid()
      */
     private $users;
 
     /**
-     * @return mixed
+     * Constructor
      */
-    public function getName()
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Return name
+     *
+     * @return string
+     */
+    function __toString()
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * @param mixed $users
-     */
-    public function setUsers($users)
-    {
-        $this->users = $users;
-    }
-
-    /**
-     * @return int
+     * Get id
+     *
+     * @return integer 
      */
     public function getId()
     {
@@ -109,15 +88,45 @@ class Organization {
     }
 
     /**
-     * @param int $id
+     * Set name
+     *
+     * @param string $name
+     * @return Organization
      */
-    public function setId($id)
+    public function setName($name)
     {
-        $this->id = $id;
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Organization
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
      */
     public function getCode()
     {
@@ -125,15 +134,58 @@ class Organization {
     }
 
     /**
-     * @param string $code
+     * Set isEnabled
+     *
+     * @param boolean $isEnabled
+     * @return Organization
      */
-    public function setCode($code)
+    public function setIsEnabled($isEnabled)
     {
-        $this->code = $code;
+        $this->isEnabled = $isEnabled;
+
+        return $this;
     }
 
-    function __toString()
+    /**
+     * Get isEnabled
+     *
+     * @return boolean 
+     */
+    public function getIsEnabled()
     {
-        return $this->name;
+        return $this->isEnabled;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \AppBundle\Entity\User $users
+     * @return Organization
+     */
+    public function addUser(\AppBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \AppBundle\Entity\User $users
+     */
+    public function removeUser(\AppBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }
