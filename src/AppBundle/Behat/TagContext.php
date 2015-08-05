@@ -15,7 +15,7 @@ class TagContext extends DefaultContext
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash) {
             $tag = new Tag();
-            $tag->setTagName($hash['tagName']);
+            $tag->setName($hash['tagName']);
 
             $em->persist($tag);
         }

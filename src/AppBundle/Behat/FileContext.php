@@ -27,7 +27,7 @@ class FileContext extends DefaultContext
             $user = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
             $userWithAccess = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
             $folder = $this->getEntityManager()->getRepository('AppBundle:Folder')->findOneByFolderName($hash['folder']);
-            $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByTagName($hash['tags']);
+            $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByName($hash['tags']);
             $file->setFilename($hash['filename']);
             $file->setPlainPassword('secret');
             $file->setUser($user);
@@ -61,7 +61,7 @@ class FileContext extends DefaultContext
 
             $user = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
             $userWithAccess = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
-            $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByTagName($hash['tags']);
+            $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByName($hash['tags']);
             $folder->setFolderName($hash['folderName']);
             $folder->setPlainPassword('secret');
             $folder->setUploadDate(new \DateTime('now'));

@@ -36,7 +36,7 @@ class FolderRepository extends EntityRepository
             FROM AppBundle:Folder c
             LEFT JOIN c.tags d
             WHERE c.folderName LIKE :word
-            OR d.tagName LIKE :word
+            OR d.name LIKE :word
             ORDER BY c.folderName ASC'
         );
         $query->setParameter('word', '%'.$word.'%');

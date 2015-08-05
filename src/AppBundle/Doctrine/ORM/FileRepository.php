@@ -39,7 +39,7 @@ class FileRepository extends EntityRepository
             FROM AppBundle:File c
             LEFT JOIN c.tags d
             WHERE c.filename LIKE :word
-            OR d.tagName LIKE :word
+            OR d.name LIKE :word
             AND c.scanStatus = :status
             ORDER BY c.filename ASC'
         );
