@@ -9,7 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Entity\Group as BaseGroup;
+use FOS\UserBundle\Model\Group as BaseGroup;
 
 /**
  * @ORM\Entity()
