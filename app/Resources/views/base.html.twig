@@ -9,7 +9,7 @@
             {% block title %} {{ 'base.title'|trans }} Consigna 2.0{% endblock %}
         </title>
         {% block stylesheets %}
-            {% stylesheets filter="cssrewrite" output="css/compiled/consigna.css" debug=false
+            {% stylesheets filter="cssrewrite" output="compiled/css/consigna.css" debug=false
                 "vendor/bootstrap/dist/css/bootstrap.css"
                 "vendor/select2/select2.css"
                 "vendor/select2/select2-bootstrap.css"
@@ -222,7 +222,7 @@
 
     {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
         <script src="{{ asset('vendor/zeroclipboard/dist/ZeroClipboard.min.js')  }}"></script>
-        {% javascripts filter="cssrewrite" output="js/compiled/consigna.js" debug=false
+        {% javascripts filter="cssrewrite" output="compiled/js/consigna.js" debug=false
             "vendor/jquery/dist/jquery.js"
             "vendor/select2/select2.js"
             "vendor/bootstrap/dist/js/bootstrap.js"
