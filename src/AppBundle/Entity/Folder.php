@@ -52,7 +52,7 @@ class Folder implements FileInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="folders")
      */
     private $tags;
 
