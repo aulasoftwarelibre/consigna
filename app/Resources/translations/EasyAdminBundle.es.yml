@@ -1,0 +1,57 @@
+User: Usuario
+Organization: Organización
+Folder: Carpeta
+File: Fichero
+
+header.logout: Cerrar sesión
+header.homepage: Página principal
+header.dashboard: Administración
+
+app:
+    user:
+        enabled: Activada
+        email: Correo
+        organization: Organización
+        locked: Bloqueada
+        lastlogin: Último acceso
+        password: Contraseña
+        username: Usuario
+        roles: Roles
+        lastLogin: Último acceso
+        files: Ficheros
+        folders: Carpetas
+        help:
+            password: Al menos ocho caracteres.
+
+    organization:
+        name: Nombre
+        code: Código
+        enabled: Activa
+        users: Usuarios
+
+    folder:
+        name: Nombre
+        slug: URL legible
+        owner: Dueño
+        createdFromIp: Creada desde IP
+        createdAt: Fecha creación
+        updatedAt: Fecha actualización
+        files: Ficheros
+        plainPassword: Contraseña
+        sharedWith: Compartida con
+        tags: Etiquetas
+
+    file:
+        name: Nombre
+        file: Fichero
+        owner: Dueño
+        createdFromIp: Creada desde IP
+        createdAt: Fecha creación
+        updatedAt: Fecha actualización
+        folder: Carpeta
+        plainPassword: Contraseña
+        sharedWith: Compartida con
+        mimeType: Tipo MIME
+        size: Tamaño
+        scanStatus: Estado escaneo
+        tags: Etiquetas

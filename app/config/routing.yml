@@ -18,8 +18,14 @@ hwi_oauth_redirect:
 sir_login:
     pattern: /login/check-sir
 
+# EasyAdmin
+easy_admin_bundle:
+    resource: "@AppBundle/Controller/Backend/AdminController.php"
+    type:     annotation
+    prefix:   /admin
+
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@AppBundle/Controller/Frontend/"
     type:     annotation
     prefix:     /{_locale}/
     defaults:

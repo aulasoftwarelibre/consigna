@@ -30,7 +30,8 @@
         "hwi/oauth-bundle":                     "~0.4@dev",
         "jms/serializer-bundle":                "~1.0",
         "knplabs/knp-menu-bundle":              "2.0.*",
-        "twig/extensions":                      "~1.2"
+        "twig/extensions":                      "~1.2",
+        "javiereguiluz/easyadmin-bundle": "master-dev"
     },
     "require-dev": {
         "sensio/generator-bundle":              "~2.4",

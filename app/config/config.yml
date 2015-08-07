@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
+    - { resource: bundles/easy_admin.yml }
 
 framework:
     #esi:             ~

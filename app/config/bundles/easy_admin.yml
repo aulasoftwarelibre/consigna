@@ -1,0 +1,138 @@
+easy_admin:
+    site_name: 'Consigna'
+    design:
+        form_theme: 'vertical'
+    entities:
+        User:
+            class: AppBundle\Entity\User
+            label: User
+            icon: user
+            list:
+                fields:
+                    - 'id'
+                    - { property: 'username', label: 'app.user.username' }
+                    - { property: 'email', label: 'app.user.email' }
+                    - { property: 'organization', label: 'app.user.organization' }
+                    - { property: 'enabled', type: 'toggle', label: 'app.user.enabled' }
+                    - { property: 'locked', type: 'toggle', label: 'app.user.locked' }
+                    - { property: 'lastLogin', label: 'app.user.lastlogin' }
+                actions:
+                    - { name: 'show', icon: 'search', label: '' }
+                    - { name: 'edit', icon: 'pencil', label: '' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'username', label: 'app.user.username' }
+                    - { property: 'email', label: 'app.user.email' }
+                    - { property: 'organization', label: 'app.user.organization' }
+                    - { property: 'enabled', label: 'app.user.enabled' }
+                    - { property: 'locked', label: 'app.user.locked' }
+                    - { property: 'roles', label: 'app.user.roles' }
+                    - { property: 'lastLogin', label: 'app.user.lastLogin' }
+                    - { property: 'files', label: 'app.user.files' }
+                    - { property: 'folders', label: 'app.user.folders' }
+            form:
+                fields:
+                    - { property: 'username', label: 'app.user.username' }
+                    - { property: 'email', type: 'email', label: 'app.user.email' }
+                    - { property: 'organization', label: 'app.user.organization' }
+                    - { property: 'plainPassword', type: 'password', label: 'app.user.password', help: 'app.user.help.password' }
+                    - { property: 'enabled', type: 'checkbox', label: 'app.user.enabled' }
+                    - { property: 'locked', type: 'checkbox', label: 'app.user.locked' }
+                    - { property: 'roles', label: 'app.user.roles' }
+
+        Organization:
+            class: AppBundle\Entity\Organization
+            icon: sitemap
+            disabled_actions: ['new']
+            list:
+                actions:
+                    - { name: 'show', icon: 'search', label: '' }
+                    - { name: 'edit', icon: 'pencil', label: '' }
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'app.organization.name' }
+                    - { property: 'code', label: 'app.organization.code' }
+                    - { property: 'isEnabled', type: 'toggle', label: 'app.organization.enabled' }
+                    - { property: 'users', label: 'app.organization.users' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'app.organization.name' }
+                    - { property: 'code', label: 'app.organization.code' }
+                    - { property: 'isEnabled', label: 'app.organization.enabled' }
+                    - { property: 'users', label: 'app.organization.users' }
+            form:
+                fields:
+                    - { property: 'name', label: 'app.organization.name' }
+                    - { property: 'code', label: 'app.organization.code' }
+                    - { property: 'isEnabled', type: 'checkbox', label: 'app.organization.enabled' }
+                    - { property: 'users', label: 'app.organization.users' }
+
+        Folder:
+            class: AppBundle\Entity\Folder
+            icon: folder
+            list:
+                actions:
+                    - { name: 'show', icon: 'search', label: '' }
+                    - { name: 'edit', icon: 'pencil', label: '' }
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'app.folder.name' }
+                    - { property: 'owner', label: 'app.folder.owner' }
+                    - { property: 'createdFromIp', label: 'app.folder.createdFromIp' }
+                    - { property: 'createdAt', label: 'app.folder.createdAt' }
+                    - { property: 'files', label: 'app.folder.files' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'app.folder.name' }
+                    - { property: 'slug', label: 'app.folder.slug' }
+                    - { property: 'owner', label: 'app.folder.owner' }
+                    - { property: 'createdFromIp', label: 'app.folder.createdFromIp' }
+                    - { property: 'createdAt', label: 'app.folder.createdAt' }
+                    - { property: 'updatedAt', label: 'app.folder.updatedAt' }
+                    - { property: 'files', label: 'app.folder.files' }
+            form:
+                fields:
+                    - { property: 'name', label: 'app.folder.name' }
+                    - { property: 'plainPassword', type: 'password', label: 'app.folder.plainPassword' }
+                    - { property: 'owner', label: 'app.folder.owner' }
+                    - { property: 'sharedWith', label: 'app.folder.sharedWith' }
+                    - { property: 'tags', label: 'app.folder.tags' }
+
+        File:
+            class: AppBundle\Entity\File
+            disabled_actions: ['new']
+            icon: file
+            list:
+                actions:
+                    - { name: 'show', icon: 'search', label: '' }
+                    - { name: 'edit', icon: 'pencil', label: '' }
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'app.file.name' }
+                    - { property: 'folder', label: 'app.file.folder' }
+                    - { property: 'owner', label: 'app.file.owner' }
+                    - { property: 'createdFromIp', label: 'app.file.createdFromIp' }
+                    - { property: 'createdAt', label: 'app.file.createdAt' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'app.file.name' }
+                    - { property: 'folder', label: 'app.file.folder' }
+                    - { property: 'owner', label: 'app.file.owner' }
+                    - { property: 'file', label: 'app.file.file' }
+                    - { property: 'mimeType', label: 'app.file.mimeType' }
+                    - { property: 'size', label: 'app.file.size' }
+                    - { property: 'createdFromIp', label: 'app.file.createdFromIp' }
+                    - { property: 'createdAt', label: 'app.file.createdAt' }
+                    - { property: 'updatedAt', label: 'app.file.updatedAt' }
+                    - { property: 'scanStatus', label: 'app.file.scanStatus' }
+            form:
+                fields:
+                    - { property: 'name', label: 'app.file.name' }
+                    - { property: 'plainPassword', type: 'password', label: 'app.file.plainPassword' }
+                    - { property: 'owner', label: 'app.file.owner' }
+                    - { property: 'sharedWith', label: 'app.file.sharedWith' }
+                    - { property: 'tags', label: 'app.file.tags' }
