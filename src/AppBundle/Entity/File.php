@@ -4,8 +4,9 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * File.
@@ -17,11 +18,42 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class File implements FileInterface
 {
     /**
-     * Scan file status
+     * Scanning failed
+     */
+    const SCAN_STATUS_FAILED = 3;
+    /**
+     * No virus detected
      */
     const SCAN_STATUS_OK = 1;
+    /**
+     * Pending to scan
+     */
     const SCAN_STATUS_PENDING = 2;
-    const SCAN_STATUS_FAILED = 3;
+
+    /**
+     * Hook ip-traceable behavior
+     * updates createdFromIp, updatedFromIp fields
+     */
+    use IpTraceableEntity;
+
+    /**
+     * Hook timestampable behavior
+     * updates createdAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="file", type="string", length=255)
+     * @Gedmo\UploadableFileName
+     */
+    private $file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Folder", inversedBy="files")
+     */
+    private $folder;
 
     /**
      * @var int
@@ -33,12 +65,10 @@ class File implements FileInterface
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="file", type="string", length=255)
-     * @Gedmo\UploadableFileName
+     * @ORM\Column(name="mime_type", type="string")
+     * @Gedmo\UploadableFileMimeType
      */
-    private $file;
+    private $mimeType;
 
     /**
      * @var string
@@ -48,32 +78,12 @@ class File implements FileInterface
     private $name;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="path", type="string", length=255)
-     * @Gedmo\UploadableFilePath
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
      */
-    private $path;
-
-    /**
-     * @ORM\Column(name="mime_type", type="string")
-     * @Gedmo\UploadableFileMimeType
-     */
-    private $mimeType;
-
-    /**
-     * @ORM\Column(name="size", type="decimal")
-     * @Gedmo\UploadableFileSize
-     */
-    private $size;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $createdAt;
+    private $owner;
 
     /**
      * @var string
@@ -85,9 +95,10 @@ class File implements FileInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(name="path", type="string", length=255)
+     * @Gedmo\UploadableFilePath
      */
-    private $salt;
+    private $path;
 
     /**
      * @var string
@@ -95,40 +106,11 @@ class File implements FileInterface
     private $plainPassword;
 
     /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
-     */
-    private $owner;
-
-    /**
-     * @var Tag
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
-     */
-    private $tags;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFiles")
-     */
-    private $sharedWith;
-
-    /**
-     * @ORM\Column(length=128, unique=true)
-     * @Gedmo\Slug(fields={"name"})
-     */
-    private $slug;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Folder", inversedBy="files")
-     */
-    private $folder;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="shareCode", type="string", length=255)
+     * @ORM\Column(name="salt", type="string", length=255)
      */
-    private $shareCode;
+    private $salt;
 
     /**
      * @var string
@@ -138,10 +120,38 @@ class File implements FileInterface
     private $scanStatus;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="shareCode", type="string", length=255)
      */
-    private $ipAddress;
+    private $shareCode;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFiles")
+     */
+    private $sharedWith;
+
+    /**
+     * @ORM\Column(name="size", type="decimal")
+     * @Gedmo\UploadableFileSize
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+
+    /**
+     * @var Tag
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
+     */
+    private $tags;
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
@@ -162,199 +172,51 @@ class File implements FileInterface
     }
 
     /**
-     * Get id
+     * Add sharedWith
      *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set file
+     * @param \AppBundle\Entity\User $sharedWith
      *
-     * @param string $file
      * @return File
      */
-    public function setFile($file)
+    public function addSharedWith(\AppBundle\Entity\User $sharedWith)
     {
-        $this->file = $file;
+        $this->sharedWith[] = $sharedWith;
 
         return $this;
     }
 
     /**
-     * Get file
+     * Add tags
      *
-     * @return string 
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Set name
+     * @param \AppBundle\Entity\Tag $tags
      *
-     * @param string $name
      * @return File
      */
-    public function setName($name)
+    public function addTag(\AppBundle\Entity\Tag $tags)
     {
-        $this->name = $name;
+        $this->tags[] = $tags;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Configure unique name
      *
-     * @return string 
+     * @param $info
      */
-    public function getName()
+    public function configureFileCallback($info)
     {
-        return $this->name;
+        $this->setName($info['origFileName']);
+        $this->setSlug(sha1(mt_rand()));
     }
 
     /**
-     * Set path
-     *
-     * @param string $path
-     * @return File
+     * Remove credentials
      */
-    public function setPath($path)
+    public function eraseCredentials()
     {
-        $this->path = $path;
-
-        return $this;
+        $this->plainPassword = null;
     }
-
-    /**
-     * Get path
-     *
-     * @return string 
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Set mimeType
-     *
-     * @param string $mimeType
-     * @return File
-     */
-    public function setMimeType($mimeType)
-    {
-        $this->mimeType = $mimeType;
-
-        return $this;
-    }
-
-    /**
-     * Get mimeType
-     *
-     * @return string 
-     */
-    public function getMimeType()
-    {
-        return $this->mimeType;
-    }
-
-    /**
-     * Set size
-     *
-     * @param string $size
-     * @return File
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    /**
-     * Get size
-     *
-     * @return string 
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return File
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return File
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return File
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string 
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
 
     /**
      * @return string
@@ -373,198 +235,68 @@ class File implements FileInterface
     }
 
     /**
-     * Remove credentials
+     * Get salt
+     *
+     * @return string
      */
-    public function eraseCredentials()
+    public function getSalt()
     {
-        $this->plainPassword = null;
+        return $this->salt;
     }
 
     /**
-     * Set slug
+     * Set salt
      *
-     * @param string $slug
+     * @param string $salt
+     *
      * @return File
      */
-    public function setSlug($slug)
+    public function setSalt($salt)
     {
-        $this->slug = $slug;
+        $this->salt = $salt;
 
         return $this;
     }
 
     /**
-     * Get slug
+     * Get file
      *
-     * @return string 
+     * @return string
      */
-    public function getSlug()
+    public function getFile()
     {
-        return $this->slug;
+        return $this->file;
     }
 
     /**
-     * Set shareCode
+     * Set file
      *
-     * @param string $shareCode
+     * @param string $file
+     *
      * @return File
      */
-    public function setShareCode($shareCode)
+    public function setFile($file)
     {
-        $this->shareCode = $shareCode;
+        $this->file = $file;
 
         return $this;
     }
 
     /**
-     * Get shareCode
+     * Get folder
      *
-     * @return string 
+     * @return \AppBundle\Entity\Folder
      */
-    public function getShareCode()
+    public function getFolder()
     {
-        return $this->shareCode;
-    }
-
-    /**
-     * Set scanStatus
-     *
-     * @param string $scanStatus
-     * @return File
-     */
-    public function setScanStatus($scanStatus)
-    {
-        $this->scanStatus = $scanStatus;
-
-        return $this;
-    }
-
-    /**
-     * Get scanStatus
-     *
-     * @return string 
-     */
-    public function getScanStatus()
-    {
-        return $this->scanStatus;
-    }
-
-    /**
-     * Set ipAddress
-     *
-     * @param string $ipAddress
-     * @return File
-     */
-    public function setIpAddress($ipAddress)
-    {
-        $this->ipAddress = $ipAddress;
-
-        return $this;
-    }
-
-    /**
-     * Get ipAddress
-     *
-     * @return string 
-     */
-    public function getIpAddress()
-    {
-        return $this->ipAddress;
-    }
-
-    /**
-     * Set owner
-     *
-     * @param \AppBundle\Entity\User $owner
-     * @return File
-     */
-    public function setOwner(\AppBundle\Entity\User $owner = null)
-    {
-        $this->owner = $owner;
-
-        return $this;
-    }
-
-    /**
-     * Get owner
-     *
-     * @return \AppBundle\Entity\User 
-     */
-    public function getOwner()
-    {
-        return $this->owner;
-    }
-
-    /**
-     * Add tags
-     *
-     * @param \AppBundle\Entity\Tag $tags
-     * @return File
-     */
-    public function addTag(\AppBundle\Entity\Tag $tags)
-    {
-        $this->tags[] = $tags;
-
-        return $this;
-    }
-
-    /**
-     * Remove tags
-     *
-     * @param \AppBundle\Entity\Tag $tags
-     */
-    public function removeTag(\AppBundle\Entity\Tag $tags)
-    {
-        $this->tags->removeElement($tags);
-    }
-
-    /**
-     * Get tags
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Add sharedWith
-     *
-     * @param \AppBundle\Entity\User $sharedWith
-     * @return File
-     */
-    public function addSharedWith(\AppBundle\Entity\User $sharedWith)
-    {
-        $this->sharedWith[] = $sharedWith;
-
-        return $this;
-    }
-
-    /**
-     * Remove sharedWith
-     *
-     * @param \AppBundle\Entity\User $sharedWith
-     */
-    public function removeSharedWith(\AppBundle\Entity\User $sharedWith)
-    {
-        $this->sharedWith->removeElement($sharedWith);
-    }
-
-    /**
-     * Get sharedWith
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSharedWith()
-    {
-        return $this->sharedWith;
+        return $this->folder;
     }
 
     /**
      * Set folder
      *
      * @param \AppBundle\Entity\Folder $folder
+     *
      * @return File
      */
     public function setFolder(\AppBundle\Entity\Folder $folder = null)
@@ -575,13 +307,250 @@ class File implements FileInterface
     }
 
     /**
-     * Get folder
+
+    /**
+     * Get id
      *
-     * @return \AppBundle\Entity\Folder 
+     * @return integer
      */
-    public function getFolder()
+    public function getId()
     {
-        return $this->folder;
+        return $this->id;
+    }
+
+    /**
+     * Get mimeType
+     *
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * Set mimeType
+     *
+     * @param string $mimeType
+     *
+     * @return File
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return File
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \AppBundle\Entity\User $owner
+     *
+     * @return File
+     */
+    public function setOwner(\AppBundle\Entity\User $owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return File
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return File
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get scanStatus
+     *
+     * @return string
+     */
+    public function getScanStatus()
+    {
+        return $this->scanStatus;
+    }
+
+    /**
+     * Set scanStatus
+     *
+     * @param string $scanStatus
+     *
+     * @return File
+     */
+    public function setScanStatus($scanStatus)
+    {
+        $this->scanStatus = $scanStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get shareCode
+     *
+     * @return string
+     */
+    public function getShareCode()
+    {
+        return $this->shareCode;
+    }
+
+    /**
+     * Set shareCode
+     *
+     * @param string $shareCode
+     *
+     * @return File
+     */
+    public function setShareCode($shareCode)
+    {
+        $this->shareCode = $shareCode;
+
+        return $this;
+    }
+
+    /**
+     * Get sharedWith
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSharedWith()
+    {
+        return $this->sharedWith;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     *
+     * @return File
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return File
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 
     /**
@@ -606,13 +575,22 @@ class File implements FileInterface
     }
 
     /**
-     * Configure unique name
+     * Remove sharedWith
      *
-     * @param $info
+     * @param \AppBundle\Entity\User $sharedWith
      */
-    public function configureFileCallback($info)
+    public function removeSharedWith(\AppBundle\Entity\User $sharedWith)
     {
-        $this->setName($info['origFileName']);
-        $this->setSlug(sha1(mt_rand()));
+        $this->sharedWith->removeElement($sharedWith);
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
     }
 }

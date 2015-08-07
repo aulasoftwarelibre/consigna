@@ -30,14 +30,15 @@ class FileContext extends DefaultContext
             $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByName($hash['tags']);
             $file->setName($hash['filename']);
             $file->setPlainPassword('secret');
-            $file->setOwner($user);
+            if ($user) {
+                $file->setOwner($user);
+            }
             $file->setFolder($folder);
             $file->setCreatedAt(new \DateTime('now'));
             $file->setSize(100);
             $file->setMimeType('pdf');
             $file->setFile('test.pdf');
             $file->setPath($this->kernel->getRootDir() . '/../features/files/test.pdf');
-            $file->setIpAddress('127.0.0.1');
             $file->setScanStatus(File::SCAN_STATUS_OK);
             if ($userWithAccess) {
                 $file->addSharedWith($userWithAccess);
@@ -64,8 +65,9 @@ class FileContext extends DefaultContext
             $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByName($hash['tags']);
             $folder->setName($hash['folderName']);
             $folder->setPlainPassword('secret');
-            $folder->setUploadedAt(new \DateTime('now'));
-            $folder->setOwner($user);
+            if ($user) {
+                $folder->setOwner($user);
+            }
             if ($userWithAccess) {
                 $folder->addSharedWith($userWithAccess);
             }

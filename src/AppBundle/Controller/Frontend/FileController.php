@@ -45,11 +45,6 @@ class FileController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($user instanceof User) {
-                $file->setOwner($user);
-            }
-            $file->setIpAddress($request->getClientIp());
-
             $this->get( 'gedmo.listener.uploadable' )->addEntityFileInfo( $file, new UploadedFileInfo($file->getName()) );
 
             $em->persist($file);

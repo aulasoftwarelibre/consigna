@@ -54,7 +54,6 @@ class FolderController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $folder->setOwner($user);
             $em->persist($folder);
             $em->flush();
 
@@ -251,8 +250,6 @@ class FolderController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $file->setFolder($folder);
-            $file->setOwner($this->getUser());
-            $file->setIpAddress($request->getClientIp());
 
             $this->get('gedmo.listener.uploadable')->addEntityFileInfo($file, new UploadedFileInfo($file->getName()));
 

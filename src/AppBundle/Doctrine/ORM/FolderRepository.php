@@ -64,7 +64,7 @@ class FolderRepository extends EntityRepository
         $em = $this->getEntityManager();
         $folders = $em->getRepository('AppBundle:Folder')->findAll();
         foreach ($folders as $folder) {
-            if ($folder->getUploadedAt() == $date) {
+            if ($folder->getCreatedAt() == $date) {
                 $em->remove($folder);
                 $em->persist($folder);
             }

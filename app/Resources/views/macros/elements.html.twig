@@ -6,8 +6,8 @@
     <div class="info">
         <h2 class="title"><a href="{{ path('folder_show', {'slug': folder.slug}) }}">{{ folder.name }}</a></h2>
         <p class="desc">
-            <small>{{'element.createdatby' | trans({'%uploadDate%':folder.uploadedAt | date, '%uploadUser%':folder.owner }) }}
-                <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - folder.uploadedAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
+            <small>{{'element.createdatby' | trans({'%uploadDate%':folder.createdAt | date, '%uploadUser%':folder.owner }) }}
+                <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - folder.createdAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
             </small>
         </p>
         <ul>

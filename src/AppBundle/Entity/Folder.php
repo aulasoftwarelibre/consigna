@@ -5,7 +5,10 @@ namespace AppBundle\Entity;
 use AppBundle\Model\FileInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,6 +19,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Folder implements FileInterface
 {
+    /**
+     * Hook ip-traceable behavior
+     * updates createdFromIp, updatedFromIp fields
+     */
+    use IpTraceableEntity;
+
+    /**
+     * Hook timestampable behavior
+     * updates createdAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
     /**
      * @var int
      *
@@ -35,16 +50,9 @@ class Folder implements FileInterface
     private $name;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="uploaded_at", type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $uploadedAt;
-
-    /**
      * @var User
      *
+     * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="folders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
@@ -152,29 +160,6 @@ class Folder implements FileInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get uploadedAt
-     *
-     * @return \DateTime
-     */
-    public function getUploadedAt()
-    {
-        return $this->uploadedAt;
-    }
-
-    /**
-     * Set uploadedAt
-     *
-     * @param \DateTime $uploadedAt
-     * @return Folder
-     */
-    public function setUploadedAt($uploadedAt)
-    {
-        $this->uploadedAt = $uploadedAt;
-
-        return $this;
     }
 
     /**
