@@ -40,6 +40,7 @@ app:
         plainPassword: Contraseña
         sharedWith: Compartida con
         tags: Etiquetas
+        isPermanent: Permanente
 
     file:
         name: Nombre

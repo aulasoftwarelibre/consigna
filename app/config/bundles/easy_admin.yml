@@ -82,6 +82,7 @@ easy_admin:
                     - { property: 'owner', label: 'app.folder.owner' }
                     - { property: 'createdFromIp', label: 'app.folder.createdFromIp' }
                     - { property: 'createdAt', label: 'app.folder.createdAt' }
+                    - { property: 'isPermanent', type: 'toggle', label: 'app.folder.isPermanent' }
                     - { property: 'files', label: 'app.folder.files' }
             show:
                 fields:
@@ -92,10 +93,12 @@ easy_admin:
                     - { property: 'createdFromIp', label: 'app.folder.createdFromIp' }
                     - { property: 'createdAt', label: 'app.folder.createdAt' }
                     - { property: 'updatedAt', label: 'app.folder.updatedAt' }
+                    - { property: 'isPermanent', label: 'app.folder.isPermanent' }
                     - { property: 'files', label: 'app.folder.files' }
             form:
                 fields:
                     - { property: 'name', label: 'app.folder.name' }
+                    - { property: 'isPermanent', label: 'app.folder.isPermanent' }
                     - { property: 'plainPassword', type: 'password', label: 'app.folder.plainPassword' }
                     - { property: 'owner', label: 'app.folder.owner' }
                     - { property: 'sharedWith', label: 'app.folder.sharedWith' }

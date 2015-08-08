@@ -62,7 +62,7 @@ class FolderRepository extends EntityRepository
     public function deleteLapsedFolders($date)
     {
         $em = $this->getEntityManager();
-        $folders = $em->getRepository('AppBundle:Folder')->findAll();
+        $folders = $em->getRepository('AppBundle:Folder')->findBy(['isPermanent' => false]);
         foreach ($folders as $folder) {
             if ($folder->getCreatedAt() == $date) {
                 $em->remove($folder);

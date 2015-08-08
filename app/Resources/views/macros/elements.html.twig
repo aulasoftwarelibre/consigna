@@ -7,7 +7,9 @@
         <h2 class="title"><a href="{{ path('folder_show', {'slug': folder.slug}) }}">{{ folder.name }}</a></h2>
         <p class="desc">
             <small>{{'element.createdatby' | trans({'%uploadDate%':folder.createdAt | date, '%uploadUser%':folder.owner }) }}
+                {% if not folder.isPermanent %}
                 <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - folder.createdAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
+                {% endif %}
             </small>
         </p>
         <ul>
@@ -72,7 +74,9 @@
             <h2 class="title"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}">{{ file.name }}</a></h2>
             <p class="desc">
                 <small>{{'element.createdatby' | trans({'%uploadDate%':file.createdAt | date, '%uploadUser%':file.owner }) }}
+                    {% if not file.folder.isPermanent %}
                     <b>{{ 'element.daysleft' | trans({ '%days%': days_before_clean - file.createdAt|date('y-m-d')|time_diff('now'|date('y-m-d'))|abs }) }}</b>
+                    {% endif %}
                 </small>
             </p>
             <ul>

@@ -60,22 +60,28 @@ class Folder implements FileInterface
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="folders")
      */
     private $tags;
 
     /**
+     * @var ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFolders")
      */
     private $sharedWith;
 
     /**
-     * @var
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="File", mappedBy="folder", cascade="all")
      */
     private $files;
 
     /**
+     * @var string
+     *
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=128, unique=true)
      */
@@ -83,6 +89,8 @@ class Folder implements FileInterface
 
     /**
      * Encrypted password. Must be persisted.
+     *
+     * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
@@ -106,6 +114,13 @@ class Folder implements FileInterface
      * @ORM\Column(name="shareCode", type="string", length=255)
      */
     private $shareCode;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_permanent", type="boolean")
+     */
+    private $isPermanent;
 
     /**
      * Construct.
@@ -416,6 +431,26 @@ class Folder implements FileInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * Get isPermanent
+     *
+     * @return boolean
+     */
+    public function isIsPermanent()
+    {
+        return $this->isPermanent;
+    }
+
+    /**
+     * Set isPermanent
+     *
+     * @param boolean $isPermanent
+     */
+    public function setIsPermanent($isPermanent)
+    {
+        $this->isPermanent = $isPermanent;
     }
 
     /**
