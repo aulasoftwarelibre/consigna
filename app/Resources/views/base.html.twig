@@ -85,6 +85,9 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="text-center">
+                                            {% if is_granted("ROLE_ADMIN") %}
+                                            <a href="{{ path("admin_dashboard") }}" class="btn btn-default btn-flat">{{ 'base.admin' | trans }}</a>
+                                            {% endif %}
                                             <a href="{{ path("fos_user_security_logout") }}" class="btn btn-default btn-flat">{{ 'base.logout' | trans }}</a>
                                         </div>
                                     </li>
