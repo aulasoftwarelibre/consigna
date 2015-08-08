@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="3334b5be355eceef803f1401704cbf0b" resname="base.title">
+        <source>base.title</source>
+        <target>Universidad de Córdoba</target>
+      </trans-unit>
+      <trans-unit id="bcac8ceda14c5e7e8c237297e988a92b" resname="base.logout">
+        <source>base.logout</source>
+        <target>Cerrar sesión</target>
+      </trans-unit>
+      <trans-unit id="c0fe5d060d94e4c792a7326b2e1c3872" resname="base.login">
+        <source>base.login</source>
+        <target>Iniciar sesión</target>
+      </trans-unit>
+      <trans-unit id="148e30dd19fd6df4ed608e1313b3978d" resname="base.search">
+        <source>base.search</source>
+        <target>Buscar...</target>
+      </trans-unit>
+      <trans-unit id="3432eb3865ec359e572ec78554215ca8" resname="base.new.folder">
+        <source>base.new.folder</source>
+        <target>Nueva carpeta</target>
+      </trans-unit>
+      <trans-unit id="5aa07e0b45b2cff0e17b6485a066b3e3" resname="base.new.file">
+        <source>base.new.file</source>
+        <target>Subir fichero</target>
+      </trans-unit>
+      <trans-unit id="0876fa21689e3924728ae3f655164202" resname="base.edit.profile">
+        <source>base.edit.profile</source>
+        <target>Editar perfil</target>
+      </trans-unit>
+      <trans-unit id="490aed71650ae29c7f72564b102c36aa" resname="base.icon.Mainfolder">
+        <source>base.icon.Mainfolder</source>
+        <target>Carpeta principal</target>
+      </trans-unit>
+      <trans-unit id="5a25ba890a4a3b6a64aed3dd1bbd9d7f" resname="base.footer.uco">
+        <source>base.footer.uco</source>
+        <target>Universidad de Córdoba</target>
+      </trans-unit>
+      <trans-unit id="c2912070dcc94e324696fbbfba41ce77" resname="modal.delete.title">
+        <source>modal.delete.title</source>
+        <target>¿Realmente quieres eliminar este elemento?</target>
+      </trans-unit>
+      <trans-unit id="fec80ee63a1dabfcc00cc6a02b403093" resname="modal.delete.footer">
+        <source>modal.delete.footer</source>
+        <target>Eliminar</target>
+      </trans-unit>
+      <trans-unit id="8e2389633a49b1b2e62c9bcc9e7cb8c6" resname="modal.share.title">
+        <source>modal.share.title</source>
+        <target>Share</target>
+      </trans-unit>
+      <trans-unit id="60bc4193044b61da7687c6c05a74aebd" resname="modal.share.link">
+        <source>modal.share.link</source>
+        <target>Compartir enlace</target>
+      </trans-unit>
+      <trans-unit id="4b648cc8dfeea3fe702d0814af1de842" resname="modal.share.copy">
+        <source>modal.share.copy</source>
+        <target>Copiar</target>
+      </trans-unit>
+      <trans-unit id="e9e486eabf5346a3584c66e636eefe2b" resname="modal.close">
+        <source>modal.close</source>
+        <target>Cerrar</target>
+      </trans-unit>
+      <trans-unit id="b92a8a34a7326049673033a3000cb121" resname="file.upload">
+        <source>file.upload</source>
+        <target>Subir fichero</target>
+      </trans-unit>
+      <trans-unit id="b587701d6645aa53ca66b1c923b20672" resname="folder.create">
+        <source>folder.create</source>
+        <target>Crear carpeta</target>
+      </trans-unit>
+      <trans-unit id="3a5079208b07945d945ab5362af1240d" resname="homepage.title">
+        <source>homepage.title</source>
+        <target>Carpeta principal</target>
+      </trans-unit>
+      <trans-unit id="1e1af88923841b939f437a4c23e3826b" resname="homepage.number.folders">
+        <source>homepage.number.folders</source>
+        <target>%folders% carpetas</target>
+      </trans-unit>
+      <trans-unit id="80ea9328d39f6425af95fdf6ca2bb786" resname="homepage.number.files">
+        <source>homepage.number.files</source>
+        <target>%files% ficheros</target>
+      </trans-unit>
+      <trans-unit id="cdf881f5e4b608e73db154859682c675" resname="homepage.noFiles">
+        <source>homepage.noFiles</source>
+        <target>No hay ficheros</target>
+      </trans-unit>
+      <trans-unit id="3566d53ecd4cf7e88fbd126f153b7ce9" resname="homepage.sumFiles">
+        <source>homepage.sumFiles</source>
+        <target>%size% en %sum% ficheros</target>
+      </trans-unit>
+      <trans-unit id="7268a456e45e147c2f157a46d5cf99c3" resname="breadcrum.MainFolder">
+        <source>breadcrum.MainFolder</source>
+        <target>Carpeta principal</target>
+      </trans-unit>
+      <trans-unit id="332da703bb2611b79bee44adbdb3ea7b" resname="file.show.title">
+        <source>file.show.title</source>
+        <target>Descargar fichero</target>
+      </trans-unit>
+      <trans-unit id="f0e2a84674cfb1d0a007605e92f0bb19" resname="file.show.downloadbutton">
+        <source>file.show.downloadbutton</source>
+        <target>Descargar</target>
+      </trans-unit>
+      <trans-unit id="1de68640ddb72d3837c0795cd6417ab3" resname="file.show.cancelbutton">
+        <source>file.show.cancelbutton</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="c6281132c3a6123111272ede7c6c4250" resname="show.file.message">
+        <source>show.file.message</source>
+        <target>Este elemento se eliminará en %days% días</target>
+      </trans-unit>
+      <trans-unit id="0442e2bd8b6118eead02d4ed63c85d11" resname="file.show.login">
+        <source>file.show.login</source>
+        <target>Iniciar sesión</target>
+      </trans-unit>
+      <trans-unit id="5a6f07ed9293807f5e344ddbcc5153dd" resname="label.check_password">
+        <source>label.check_password</source>
+        <target>Comprobar contraseña</target>
+      </trans-unit>
+      <trans-unit id="68c2ac3266ce34e8d012944427dfa1f2" resname="file.upload.title">
+        <source>file.upload.title</source>
+        <target>Subir fichero</target>
+      </trans-unit>
+      <trans-unit id="0f3809b837d57916af35b17d6fc3f7db" resname="submit.create.file">
+        <source>submit.create.file</source>
+        <target>Subir</target>
+      </trans-unit>
+      <trans-unit id="a1aba769b4fc603050b715b1b76077f4" resname="folder.upload.title">
+        <source>folder.upload.title</source>
+        <target>Nueva carpeta</target>
+      </trans-unit>
+      <trans-unit id="4c079e9496d3a7a65dd97dc98bc12282" resname="folder.edit.title">
+        <source>folder.edit.title</source>
+        <target>Editar carpeta</target>
+      </trans-unit>
+      <trans-unit id="fe2a6d2d3ae28adc97262e7f9baa76bc" resname="folder.navbar.share">
+        <source>folder.navbar.share</source>
+        <target>Compartir carpeta</target>
+      </trans-unit>
+      <trans-unit id="051939efc3a980aa8df3186dace9ae33" resname="folder.navbar.upload">
+        <source>folder.navbar.upload</source>
+        <target>Subir fichero</target>
+      </trans-unit>
+      <trans-unit id="199723ca6ab4d8e2e8311b93f9a0e012" resname="folder.content.empty">
+        <source>folder.content.empty</source>
+        <target>Carpeta vacía</target>
+      </trans-unit>
+      <trans-unit id="18f41e733d5281b49ccdf7011d04ef3a" resname="folder.content.message">
+        <source>folder.content.message</source>
+        <target>Esta carpeta está vacía</target>
+      </trans-unit>
+      <trans-unit id="1c1806eccfb386a7686f78191d28e3b8" resname="element.createdatby">
+        <source>element.createdatby</source>
+        <target>Creado el %uploadDate% por %uploadUser%</target>
+      </trans-unit>
+      <trans-unit id="259f99878eea8af9ec42bc8a339d22cd" resname="element.daysleft">
+        <source>element.daysleft</source>
+        <target>quedan %days% días</target>
+      </trans-unit>
+      <trans-unit id="7051f2ab8fcc0c3ee9db943a37cb2af7" resname="upload.success">
+        <source>upload.success</source>
+        <target>El fichero file se ha subido satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="1a6587e2128661d6e8ba80bdcff53dc7" resname="upload.virus">
+        <source>upload.virus</source>
+        <target>El fichero file contiene virus y ha sido eliminado</target>
+      </trans-unit>
+      <trans-unit id="2246a5b10f0e03522db66e7c3007b523" resname="delete.success">
+        <source>delete.success</source>
+        <target>La carpeta folder ha sido eliminada satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="8317ebe7f709e7422189d10aea081c87" resname="upload.failed">
+        <source>upload.failed</source>
+        <target>El antivirus no está funcionando en este momento</target>
+      </trans-unit>
+      <trans-unit id="40182e1264b99356c7c653081bdb45d5" resname="login.to.download">
+        <source>login.to.download</source>
+        <target>Este archivo ha sido subido por un usuario anónimo, necesita loguearse para descargarlo.
+                </target>
+      </trans-unit>
+      <trans-unit id="27758a44195b3b1ab216ee2cdb272314" resname="message.password.valid">
+        <source>message.password.valid</source>
+        <target>La contraseña es correcta</target>
+      </trans-unit>
+      <trans-unit id="74689174f02ae0c73b18ec4fd7bc78f3" resname="message.password.invalid">
+        <source>message.password.invalid</source>
+        <target>La contraseña no es correcta</target>
+      </trans-unit>
+      <trans-unit id="405c9ca56f024483f102d93388104335" resname="edit.success">
+        <source>edit.success</source>
+        <target>La carpeta folder ha sido actualizada correctamente</target>
+      </trans-unit>
+      <trans-unit id="b43d24bf121ea49e07f288d515b61f3d" resname="create.success">
+        <source>create.success</source>
+        <target>La carpeta folder ha sido creada satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="bb2cef8842cc69dd8c784e921b8dbbbf" resname="deleteFile.success">
+        <source>deleteFile.success</source>
+        <target>El fichero file ha sido eliminado satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="c7d822eb9c72640bf8d2d4e314d318f0" resname="auth.access.success">
+        <source>auth.access.success</source>
+        <target>Access has been granted to user</target>
+      </trans-unit>
+      <trans-unit id="467fae0ba167fdf15f63b27c8369acb4" resname="anon.access.success">
+        <source>anon.access.success</source>
+        <target>Access has been granted</target>
+      </trans-unit>
+      <trans-unit id="e25e144f30f0432387b45f5651467d09" resname="password.access.folder">
+        <source>password.access.folder</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="5822854d2bcfd0a75b584e065fed8bf9" resname="submit.access.folder">
+        <source>submit.access.folder</source>
+        <target>Acceder</target>
+      </trans-unit>
+      <trans-unit id="f9695b4a5fe1bf7d7ba8d2c1ef9c93be" resname="password.create.file">
+        <source>password.create.file</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="af9b7296064b99f8b670ce69f5c4fdfd" resname="repeat.create.file">
+        <source>repeat.create.file</source>
+        <target>Repita la contraseña</target>
+      </trans-unit>
+      <trans-unit id="86b53cf94993c569fa2dd1cb6a4d42f5" resname="file.create.file">
+        <source>file.create.file</source>
+        <target>Fichero</target>
+      </trans-unit>
+      <trans-unit id="ccc80dcc99ff5d4d21e793b2d262b03a" resname="tag.create.file">
+        <source>tag.create.file</source>
+        <target>Etiqueta (añada cada etiqueta separada por una coma ',')</target>
+      </trans-unit>
+      <trans-unit id="c4d5e126b3aa6b3c0cfaadef6df201ec" resname="password.create.folder">
+        <source>password.create.folder</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="9ffe7c685541b13f7e503c329a36e03b" resname="repeat.create.folder">
+        <source>repeat.create.folder</source>
+        <target>Repita la contraseña</target>
+      </trans-unit>
+      <trans-unit id="02b4b5b7bda304021b40a0417ccd97c5" resname="foldername.create.folder">
+        <source>foldername.create.folder</source>
+        <target>Nombre de la carpeta</target>
+      </trans-unit>
+      <trans-unit id="bb2b6733e4347843e113de7c6b9d0ebc" resname="tag.create.folder">
+        <source>tag.create.folder</source>
+        <target>Etiqueta (añada cada etiqueta separada por una coma ',')</target>
+      </trans-unit>
+      <trans-unit id="7cd75ff2a39cf1d95a78e0896cb5265e" resname="submit.create.folder">
+        <source>submit.create.folder</source>
+        <target>Crear carpeta</target>
+      </trans-unit>
+      <trans-unit id="981edc978d3f7f0926b3866198112ee5" resname="password.download.file">
+        <source>password.download.file</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="a2c72dfd5b909e73faae0e4c30773258" resname="submit.download.file">
+        <source>submit.download.file</source>
+        <target>Descargar</target>
+      </trans-unit>
+      <trans-unit id="4c6cc5a02e93703d3a2cb9dd99bb57ff" resname="edit.users.folder">
+        <source>edit.users.folder</source>
+        <target>Restringir acceso a</target>
+      </trans-unit>
+      <trans-unit id="ed3e4954bcb95d8e44f6308e5dc93cd6" resname="submit.update.folder">
+        <source>submit.update.folder</source>
+        <target>Actualizar</target>
+      </trans-unit>
+      <trans-unit id="d607bbd23123bff0e8d136916c3fd797" resname="menu.left.all">
+        <source>menu.left.all</source>
+        <target>Todos los elementos</target>
+      </trans-unit>
+      <trans-unit id="7b99da5299a11b06554126120ada03b5" resname="menu.left.myfiles">
+        <source>menu.left.myfiles</source>
+        <target>Mis elementos</target>
+      </trans-unit>
+      <trans-unit id="5a693244d4f45e12f8045323e0bf608b" resname="menu.left.share">
+        <source>menu.left.share</source>
+        <target>Elementos compartidos</target>
+      </trans-unit>
+      <trans-unit id="65329c51a16967ac6b34c4c95c69453d" resname="base.admin">
+        <source>base.admin</source>
+        <target>Administrar</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
