@@ -33,7 +33,7 @@
             {{ 'homepage.noFiles' | trans }}
         {% else %}
             {#{{ sum[0][1] }} bytes used in {{ sum[0][2] }} files#}
-            {{ 'homepage.sumFiles' | trans({'%size%':sum[0][1],'%sum%':sum[0][2] }) }}
+            {{ 'homepage.sumFiles' | trans({'%size%':elements.bytesToSize(sum[0][1]),'%sum%':sum[0][2] }) }}
         {% endif %}
     </div>
 {% endblock %}

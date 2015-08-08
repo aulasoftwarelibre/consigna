@@ -115,7 +115,7 @@
 
             <trans-unit id="7">
                 <source>homepage.sumFiles</source>
-                <target>%size% bytes en %sum% ficheros</target>
+                <target>%size% en %sum% ficheros</target>
             </trans-unit>
         </body>
     </file>
