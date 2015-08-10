@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Oneup\UploaderBundle\OneupUploaderBundle(),
 
             new AppBundle\AppBundle(),
         );

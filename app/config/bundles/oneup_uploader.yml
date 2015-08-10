@@ -1,0 +1,13 @@
+oneup_uploader:
+    orphanage:
+        maxage: 604800
+        directory: "%kernel.root_dir%/../private/orphanage"
+    mappings:
+        consigna:
+            frontend: dropzone
+            storage:
+                type: filesystem
+                directory: "%kernel.root_dir%/../private/uploads"
+            use_orphanage: true
+            enable_progress: true
+            namer: consigna.namer.real

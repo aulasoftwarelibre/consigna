@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * File.
@@ -18,10 +19,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class File implements FileInterface
 {
     /**
-     * Scanning failed
-     */
-    const SCAN_STATUS_FAILED = 3;
-    /**
      * No virus detected
      */
     const SCAN_STATUS_OK = 1;
@@ -29,6 +26,14 @@ class File implements FileInterface
      * Pending to scan
      */
     const SCAN_STATUS_PENDING = 2;
+    /**
+     * Scanning failed
+     */
+    const SCAN_STATUS_FAILED = 3;
+    /**
+     * Virus detected
+     */
+    const SCAN_STATUS_INFECTED = 4;
 
     /**
      * Hook ip-traceable behavior

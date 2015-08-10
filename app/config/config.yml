@@ -4,6 +4,7 @@ imports:
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
     - { resource: bundles/easy_admin.yml }
+    - { resource: bundles/oneup_uploader.yml }
 
 framework:
     #esi:             ~

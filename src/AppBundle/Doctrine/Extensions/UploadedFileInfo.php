@@ -10,14 +10,15 @@ namespace AppBundle\Doctrine\Extensions;
 
 
 use Gedmo\Uploadable\FileInfo\FileInfoInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadedFileInfo implements FileInfoInterface
 {
-    /** @var UploadedFile  */
+    /** @var File  */
     private $uploadedFile;
 
-    public function __construct(UploadedFile $uploadedFile)
+    public function __construct($uploadedFile)
     {
         $this->uploadedFile = $uploadedFile;
     }
@@ -29,12 +30,16 @@ class UploadedFileInfo implements FileInfoInterface
 
     public function getName()
     {
-        return $this->uploadedFile->getClientOriginalName();
+        if ($this->uploadedFile instanceof UploadedFile) {
+            return $this->uploadedFile->getClientOriginalName();
+        } else {
+            return $this->uploadedFile->getBasename();
+        }
     }
 
     public function getSize()
     {
-        return $this->uploadedFile->getClientSize();
+        return $this->uploadedFile->getSize();
     }
 
     public function getType()
@@ -44,7 +49,11 @@ class UploadedFileInfo implements FileInfoInterface
 
     public function getError()
     {
-        return $this->uploadedFile->getError();
+        if ($this->uploadedFile instanceof UploadedFile) {
+            return $this->uploadedFile->getError();
+        } else {
+            return null;
+        }
     }
 
     /**

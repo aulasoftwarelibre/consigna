@@ -10,6 +10,7 @@
     "jquery": "~2.1",
     "select2": "~3.5",
     "select2-bootstrap-css": "~1.4",
-    "zeroclipboard": "^2.2"
+    "zeroclipboard": "^2.2",
+    "dropzone": "~4.0.1"
   }
 }

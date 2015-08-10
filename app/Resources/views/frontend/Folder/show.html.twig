@@ -3,40 +3,64 @@
 
 {% block header_title %}
     <h1> {{ folder }}
-        <small>{{ 'homepage.number.files' | trans({'%files%':files|length }) }}</small>
+        <small>{{ __('title.file_number', files|length) }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'base.icon.Mainfolder' | trans }}</a></li>
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ _('title.main_folder') }}</a></li>
     <li class="active">{{ folder }}</li>
 {% endblock %}
 
 {% block navbar %}
     {% if is_granted('SHARE', folder) %}
     <li class="tasks-menu">
-        <a href="{{ path("folder_edit", {'slug': folder.slug}) }}"><i class="fa fa-folder-o"></i> {{ 'folder.navbar.share' | trans }}</a>
+        <a href="{{ path("folder_edit", {'slug': folder.slug}) }}"><i class="fa fa-folder-o"></i> {{ _('action.share_folder') }}</a>
     </li>
     {% endif %}
     {% if is_granted('UPLOAD', folder) %}
     <li class="tasks-menu">
-        <a href="{{ path("folder_file_upload", {'slug': folder.slug}) }}"><i class="fa fa-upload"></i> {{ 'folder.navbar.upload' | trans }}</a>
+        <a id="upload"><i class="fa fa-upload"></i> {{ _('action.upload_file') }}</a>
     </li>
     {% endif %}
 {% endblock %}
 
 {% block content %}
     <div class="row">
+        <div class="col-md-12" id="tasks" style="display: none;">
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ _('title.file_list') }}</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+
+                    <div class="method" id="previews">
+                        <div class="row margin-0 list-header hidden-sm hidden-xs">
+                            <div class="col-lg-6 col-md-6 col-xs-12"><div class="header">{{ _('label.file') }}</div></div>
+                            <div class="col-lg-5 col-md-4 col-xs-12"><div class="header">{{ _('label.progress') }}</div></div>
+                            <div class="col-lg-1 col-md-2 col-xs-12"><div class="header">{{ _('label.actions') }}</div></div>
+                        </div>
+                    </div>
+
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div class="btn-group" id="actions">
+                        <button class="btn btn-sm btn-success start"><i class="fa fa-cloud-upload"></i> {{ _('action.upload_all') }}</button>
+                        <button class="btn btn-sm btn-danger cancel"><i class="fa fa-ban"></i> {{ _('action.cancel_all') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12">
             <ul class="file-list">
-                {% for file in folder.files %}
+                {% for file in files %}
                     {% if file.scanStatus == 1 %}
                         {{ elements.folderfile(file,days_before_clean) }}
                     {% endif %}
                 {% else %}
                     <div class="callout bg-gray color-paletter">
-                        <h4>{{ 'folder.content.empty' | trans }}</h4>
-                        <p>{{ 'folder.content.message' | trans }}</p>
+                        {{ _('description.no_files') | raw }}
                     </div>
                 {% endfor %}
             </ul>
@@ -44,8 +68,94 @@
     </div>
 {% endblock %}
 
-{% block numOfFiles %}
-    <div class="pull-right hidden-xs">
-        {{ sum[0][1] }} used in {{ sum[0][2] }} files
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% if is_granted('UPLOAD', folder) %}
+    <div id="preview-template" style="display: none;">
+        <div class="row margin-0">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="cell">
+                    <span data-dz-name></span> <span data-dz-size></span> <strong class="error text-danger" data-dz-errormessage></strong>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-4 col-xs-12">
+                <div class="cell">
+                    <div class="progress center-block progress-xs progress-striped active" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-warning" style="width: 0%" data-dz-uploadprogress></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-2 col-xs-12">
+                <div class="cell">
+                    <div class="btn-group">
+                        <a class="btn btn-xs btn-success start"><i class="fa fa-cloud-upload"></i></a>
+                        <a class="btn btn-xs btn-danger stop" data-dz-remove><i class="fa fa-ban"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+            url: "{{ oneup_uploader_endpoint('consigna') }}", // Set the url
+            clickable: "#upload", // Define the element that should be used as click trigger to select files.
+            thumbnailWidth: 100,
+            thumbnailHeight: 100,
+            previewsContainer: "#previews",
+            previewTemplate: $('#preview-template').html(),
+            autoQueue: false,
+            headers: { 'X-Consigna-Folder': {{ folder.id }}, 'X-Consigna-Bearer': '{{ csrf_token('upload') }}' }
+        });
+
+        myDropzone.on("addedfile", function(file) {
+            $('#tasks').show();
+            // Hookup the start button
+            file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+            $('#actions .start').prop('disabled', false);
+            $('#actions .cancel').prop('disabled', false);
+        });
+
+        myDropzone.on("sending", function(file) {
+            // And disable the start button
+            $(file.previewElement).find('.start').addClass('disabled');
+        });
+
+        myDropzone.on("success", function(file) {
+            $(file.previewElement).find('.progress').removeClass('active progress-striped');
+            $(file.previewElement).find('.progress-bar').attr('class', 'progress-bar progress-bar-green');
+            $(file.previewElement).find('.stop').addClass('disabled');
+
+        });
+
+        myDropzone.on("error", function(file, response) {
+            $(file.previewElement).find('.progress').removeClass('active progress-striped');
+            $(file.previewElement).find('.progress-bar').attr('class', 'progress-bar progress-bar-red');
+        });
+
+        //        // Update the total progress bar
+        //        myDropzone.on("totaluploadprogress", function(progress) {
+        //            document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+        //        });
+
+        // Hide the total progress bar when nothing's uploading anymore
+        //        myDropzone.on("queuecomplete", function(progress) {
+        //            $('#actions .start').prop('disabled', true);
+        //            $('#actions .cancel').prop('disabled', true);
+        //        });
+
+        document.querySelector("#actions .start").onclick = function() {
+            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+            $('#actions .start').prop('disabled', true);
+            $('#actions .cancel').prop('disabled', false);
+        };
+
+        document.querySelector("#actions .cancel").onclick = function() {
+            myDropzone.removeAllFiles(true);
+            $('#actions .start').prop('disabled', true);
+            $('#actions .cancel').prop('disabled', true);
+        };
+    </script>
+    {% endif %}
 {% endblock %}
