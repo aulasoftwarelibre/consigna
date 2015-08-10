@@ -81,32 +81,31 @@ class VirusConsignaListener implements EventSubscriberInterface
 
         try {
             $adapter = new ClamAVAdapter($this->antivirus_path);
-
             $result = $adapter->scan([$path]);
 
             if ($result->hasVirus()) {
                 $this->loggerInterface->info('File ' . $file . ' has been removed');
-                $this->entityManager->remove($file);
+                $file->setScanStatus(File::SCAN_STATUS_INFECTED);
             } else {
                 $this->loggerInterface->info('File ' . $file . ' has been scanned');
                 $file->setScanStatus(File::SCAN_STATUS_OK);
-                $this->entityManager->persist($file);
             }
 
         } catch (\Exception $e) {
             $this->loggerInterface->info($e);
             $file->setScanStatus(File::SCAN_STATUS_FAILED);
-            $this->entityManager->persist($file);
+
             $mailer = $this->swiftMailer;
             $message = $mailer->createMessage()
                 ->setSubject('Error scanning file')
                 ->setFrom('consignauco@gmail.com')
-                ->setTo('jamartinez@uco.es')
+                ->setTo('sergio@uco.es')
                 ->setBody($e)
             ;
             $mailer->send($message);
         };
-        $this->entityManager->flush();
 
+        $this->entityManager->persist($file);
+        $this->entityManager->flush();
     }
 }

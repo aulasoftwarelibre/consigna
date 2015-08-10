@@ -53,11 +53,11 @@ class FileController extends Controller
             $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, new FileEvent($file));
 
             if($file->getScanStatus()==File::SCAN_STATUS_OK) {
-                $this->addFlash('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
+                $this->addFlash('success', $this->get('translator')->trans('upload.success', array('%file%' => $file)));
             } else if($file->getScanStatus()==File::SCAN_STATUS_FAILED) {
-                $this->addFlash('danger', $this->get('translator')->trans('upload.failed', array('file' => $file)));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.failed', array('%file%' => $file)));
             } else {
-                $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['file' => $file]));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['%file%' => $file]));
             }
 
             return $this->redirectToRoute('homepage');
@@ -79,7 +79,7 @@ class FileController extends Controller
         $em->remove($file);
         $em->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('deleteFile.success', array('file' => $file)));
+        $this->addFlash('success', $this->get('translator')->trans('alert.file_delete_ok', array('%file%' => $file)));
 
         return $this->redirectToRoute('homepage');
     }
@@ -92,11 +92,10 @@ class FileController extends Controller
     public function showAction(File $file)
     {
         if (false === $this->isGranted('ACCESS', $file)) {
-            $this->addFlash('warning', $this->get('translator')->trans('login.to.download'));
+            $this->addFlash('warning', $this->get('translator')->trans('alert.login_required'));
 
             return $this->render("frontend/File/show_with_login.html.twig", [
                 'file' => $file,
-                'days_before_clean' => $this->container->getParameter('days_before_clean'),
             ]);
         }
 
@@ -106,13 +105,11 @@ class FileController extends Controller
             return $this->render("frontend/File/show_with_password.html.twig", [
                 'file' => $file,
                 'form' => $form->createView(),
-                'days_before_clean' => $this->container->getParameter('days_before_clean'),
             ]);
         }
 
         return [
             'file' => $file,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -141,20 +138,19 @@ class FileController extends Controller
                     $session->set($file->getSlug(), true);
                 }
 
-                $this->addFlash('success', $this->get('translator')->trans('message.password.valid'));
+                $this->addFlash('success', $this->get('translator')->trans('alert.valid_password'));
             } else {
-                $this->addFlash('danger', $this->get('translator')->trans('message.password.invalid'));
+                $this->addFlash('danger', $this->get('translator')->trans('alert.invalid_password'));
+
                 return $this->render("frontend/File/show_with_password.html.twig", [
                     'file' => $file,
                     'form' => $form->createView(),
-                    'days_before_clean' => $this->container->getParameter('days_before_clean'),
                 ]);
             }
         }
 
         return [
             'file' => $file,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -216,7 +212,6 @@ class FileController extends Controller
 
         return array(
             'file' => $file,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         );
     }
 }

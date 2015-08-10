@@ -40,13 +40,13 @@ class FormController extends Controller
 
         if ($form->isValid()) {
             if ($user) {
-                $folder->addUsersWithAccess($user);
+                $folder->addSharedWith($user);
                 $em->persist($folder);
                 $em->flush();
-                $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('auth.access.success', array('user' => $user)));
+                $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('alert.access_user_success', array('%user%' => $user)));
             } else {
                 $session->set($folder->getSlug(), true);
-                $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('anon.access.success'));
+                $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans('alert.access_anon_success'));
             }
 
             return $this->redirectToRoute('folder_files', array('slug' => $folder->getSlug()));

@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'breadcrum.MainFolder' | trans }}</a></li>
-    <li class="active">{{ 'file.upload.title' | trans }}</li>
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ _('title.main_folder') }}</a></li>
+    <li class="active">{{ _('title.upload_file') }}</li>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
               <!-- general form elements -->
               <div class="box box-default">
                 <div class="box-header">
-                  <h3 class="box-title">{{ 'file.upload' | trans }}</h3>
+                  <h3 class="box-title">{{ _('title.upload_file') }}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 {{ form_start(form) }}
@@ -22,8 +22,11 @@
                     {{ form_widget(form) }}
                   </div><!-- /.box-body -->
 
-                  <div class="box-footer">
-                    <button type="submit" class="btn btn-default"> {{ 'submit.create.file' | trans }}</button>
+                  <div class="box-footer clearfix">
+                    <div class="pull-right btn-group">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-cloud-upload"></i> {{ _('action.upload_file') }}</button>
+                        <a href="{{ path('homepage') }}" class="btn btn-default"><i class="fa fa-ban"></i> {{ _('action.cancel') }}</a>
+                    </div>
                   </div>
                 {{ form_end(form) }}
               </div><!-- /.box -->

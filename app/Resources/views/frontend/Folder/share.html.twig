@@ -2,13 +2,14 @@
 
 {% block header_title %}
     <h1> {{ folder }}
-        <small>{{ 'homepage.number.files' | trans({'%files%':files|length }) }}</small>
+        <small>{{ __('title.file_number', files|length) }}</small>
     </h1>
 {% endblock %}
+
 {% block breadcrumb %}
-    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'base.icon.Mainfolder' | trans }}</a></li>
+    <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ _('title.main_folder') }}</a></li>
     <li><a href="{{ path("folder_show", {'slug': folder.slug}) }}"></a>{{ folder }}</li>
-    <li class="active">{{ 'folder.edit.title' | trans }}</li>
+    <li class="active">{{ _('title.edit_folder') }}</li>
 {% endblock %}
 
 {% block content %}
@@ -17,18 +18,20 @@
               <!-- general form elements -->
               <div class="box box-default">
                 <div class="box-header">
-                  <h3 class="box-title">{{ 'folder.edit.title' | trans }}</h3>
+                  <h3 class="box-title">{{ _('title.edit_folder') }}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 {{ form_start(form) }}
-                  <div class="box-body">
+                    <div class="box-body">
                     {{ form_widget(form) }}
-                  </div><!-- /.box-body -->
+                    </div><!-- /.box-body -->
 
-                  <div class="box-footer">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i> {{ 'submit.update.folder' | trans }}</button>
-                    <a class="btn btn-default" href="{{ path("folder_show", {'slug': folder.slug}) }}"><i class="fa fa-ban"></i> {{ 'file.show.cancelbutton' | trans }}</a>
-                  </div>
+                    <div class="box-footer">
+                        <div class="pull-right btn-group">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i> {{ _('action.update_folder') }}</button>
+                            <a class="btn btn-default" href="{{ path("folder_show", {'slug': folder.slug}) }}"><i class="fa fa-ban"></i> {{ _('action.cancel') }}</a>
+                        </div>
+                    </div>
                 {{ form_end(form) }}
               </div><!-- /.box -->
 

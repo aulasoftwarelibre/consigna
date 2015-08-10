@@ -20,10 +20,10 @@ class EditFolderType extends AbstractType
     {
         $folder=$builder->getData();
         $builder
-            ->add('usersWithAccess','entity', array(
+            ->add('sharedWith','entity', array(
                 'class' => 'AppBundle\Entity\User',
                 'multiple' => true,
-                'label' => 'edit.users.folder',
+                'label' => 'label.users',
                 'query_builder' => function (EntityRepository $entityRepository) use ($folder){
                     return $entityRepository->createQueryBuilder('u')
                         ->leftJoin('u.sharedFolders', 'sf')

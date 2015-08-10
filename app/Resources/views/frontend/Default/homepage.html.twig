@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/elements.html.twig' as elements %}
 
-
 {% block header_title %}
-    <h1>{{ 'homepage.title' | trans }}
-        <small>{{ 'homepage.number.folders' | trans({'%folders%':folders|length }) }} -
-                {{ 'homepage.number.files' | trans({'%files%':files|length }) }}
+    <h1>{{ _('title.main_folder') }}
+        <small>
+            {{ __('title.folder_number', folders | length) }} -
+            {{ __('title.file_number', files | length) }}
         </small>
     </h1>
 {% endblock %}
-
 
 {% block content %}
     <div class="row">
@@ -23,17 +22,5 @@
                 {% endfor %}
             </ul>
         </div>
-    </div>
-{% endblock %}
-
-{% block numOfFiles %}
-    <div class="pull-right hidden-xs">
-        {% if not sum[0][1] %}
-            {#no files#}
-            {{ 'homepage.noFiles' | trans }}
-        {% else %}
-            {#{{ sum[0][1] }} bytes used in {{ sum[0][2] }} files#}
-            {{ 'homepage.sumFiles' | trans({'%size%':elements.bytesToSize(sum[0][1]),'%sum%':sum[0][2] }) }}
-        {% endif %}
     </div>
 {% endblock %}

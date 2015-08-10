@@ -52,11 +52,45 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'oneup_uploader.pre_upload', method: 'onPreUpload' }
             - { name: 'kernel.event_listener', event: 'oneup_uploader.post_upload', method: 'onUpload' }
+
+# FORM TYPES
+
     appbundle.type.tags_text:
         class: AppBundle\Form\Type\TagsTextType
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: tags_text }
+
+# REPOSITORIES
+
+    consigna.doctrine_orm.folder_repository:
+        class: AppBundle\Doctrine\ORM\FolderRepository
+        arguments: [ AppBundle:Folder ]
+        factory: [ @doctrine, getRepository ]
+
+    consigna.doctrine_orm.file_repository:
+        class: AppBundle\Doctrine\ORM\FileRepository
+        arguments: [ AppBundle:File ]
+        factory: [ @doctrine, getRepository ]
+
+# TWIG
+
+    consigna.extension.trans:
+        class: AppBundle\Twig\TranslatorExtension
+        arguments: [ @translator ]
+        tags:
+            - { name: twig.extension }
+
+    twig.data_extension:
+        class: Twig_Extensions_Extension_Date
+        arguments: [ @translator ]
+        tags:
+            - { name: twig.extension }
+
+    twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
 
 # UPLOADER NAMER
 
@@ -79,7 +113,3 @@ services:
         tags:
            - { name: security.voter }
 
-    twig.extension.date:
-        class: Twig_Extensions_Extension_Date
-        tags:
-            - { name: twig.extension }

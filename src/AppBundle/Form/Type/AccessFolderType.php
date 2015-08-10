@@ -26,7 +26,8 @@ class AccessFolderType extends AbstractType
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
                 )),
-                'label'=> 'password.access.folder'))
+                'label'=> 'label.password',
+            ))
             ;
     }
 

@@ -18,7 +18,7 @@ class FolderCreateFileType extends AbstractType
     {
         $builder
             ->add('name', 'file', array(
-                'label' => 'file.create.file',
+                'label' => 'label.file',
                 'attr' => ['class' => 'filestyle', 'data-buttonBefore'=> 'true'],
             ))
         ;

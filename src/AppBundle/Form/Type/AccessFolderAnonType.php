@@ -30,8 +30,10 @@ class AccessFolderAnonType extends AbstractType
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
                 )),
-                'label'=> 'password.access.folder'))
+                'label'=> 'label.password',
+            ))
             ->add('captcha', 'ewz_recaptcha', array(
+                'label'=> 'label.captcha',
                 'attr' => array(
                     'options' => array(
                         'theme' => 'light',

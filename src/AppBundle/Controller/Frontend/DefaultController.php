@@ -28,7 +28,6 @@ class DefaultController extends Controller
             'files' => $files,
             'folders' => $folders,
             'sum' => $sizeAndNumOfFiles,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -48,7 +47,6 @@ class DefaultController extends Controller
             'files' => $files,
             'folders' => $folders,
             'sum' => $sizeAndNumOfFiles,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -67,7 +65,6 @@ class DefaultController extends Controller
         return [
             'files' => $files,
             'folders' => $folders,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
             'sum' => $sizeAndNumOfFiles,
         ];
     }
@@ -88,7 +85,15 @@ class DefaultController extends Controller
             'files' => $files,
             'folders' => $folders,
             'sum' => $sizeAndNumOfFiles,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
+    }
+
+    public function consignaStatisticsAction()
+    {
+        $statistics = $this->get('consigna.doctrine_orm.file_repository')->sizeAndNumOfFiles();
+
+        return $this->render('frontend/Default/statistics.html.twig',
+            ['statistics' => $statistics]
+        );
     }
 }

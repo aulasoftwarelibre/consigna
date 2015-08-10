@@ -4,5 +4,5 @@
         createdAt: <dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>
         user: @users*
         tags: <numberBetween(1, 4)>x @tags*
-        usersWithAccess: <numberBetween(1, 2)>x @users*
+        sharedWith: <numberBetween(1, 2)>x @users*
         plainPassword: secret

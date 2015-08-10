@@ -10,6 +10,7 @@
 namespace AppBundle\Doctrine\ORM;
 
 use AppBundle\Entity\File;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
 
@@ -116,12 +117,12 @@ class FileRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-            SELECT SUM(c.size), COUNT (c)
+            SELECT SUM(c.size) total, COUNT (c) files
             FROM AppBundle:File c
             WHERE c.scanStatus = :status'
         );
         $query->setParameter('status',File::SCAN_STATUS_OK);
-        return $query->getArrayResult();
+        return $query->getOneOrNullResult(AbstractQuery::HYDRATE_ARRAY);
     }
 
     public function num()
