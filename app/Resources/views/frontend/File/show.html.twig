@@ -3,6 +3,7 @@
 
 {% set created = file.createdAt | time_diff %}
 {% set deleted = file.createdAt | date_modify( days_before_clean ~ " days" ) | time_diff %}
+{% set organization = file.owner is empty ? _('label.anon_user') : file.owner.organization.code %}
 
 {% block breadcrumb %}
     <li><a href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ _('title.main_folder') }}</a></li>

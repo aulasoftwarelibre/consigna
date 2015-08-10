@@ -13,27 +13,27 @@
       </trans-unit>
       <trans-unit id="alert.file_created_ok">
         <source>alert.file_created_ok</source>
-        <target>File %file% has been created succesfully</target>
+        <target>File %file% has been created successfully</target>
       </trans-unit>
       <trans-unit id="alert.file_delete_ok">
         <source>alert.file_delete_ok</source>
-        <target>File %file% has been deleted succesfully</target>
+        <target>File %file% has been deleted successfully</target>
       </trans-unit>
       <trans-unit id="alert.file_updated_ok">
         <source>alert.file_updated_ok</source>
-        <target>File %file% has been updated succesfully</target>
+        <target>File %file% has been updated successfully</target>
       </trans-unit>
       <trans-unit id="alert.folder_created_ok">
         <source>alert.folder_created_ok</source>
-        <target>Folder %folder% has been created succesfully</target>
+        <target>Folder %folder% has been created successfully</target>
       </trans-unit>
       <trans-unit id="alert.folder_delete_ok">
         <source>alert.folder_delete_ok</source>
-        <target>Folder %folder% has been deleted succesfully</target>
+        <target>Folder %folder% has been deleted successfully</target>
       </trans-unit>
       <trans-unit id="alert.folder_updated_ok">
         <source>alert.folder_updated_ok</source>
-        <target>Folder %folder% has been updated succesfully</target>
+        <target>Folder %folder% has been updated successfully</target>
       </trans-unit>
       <trans-unit id="alert.login_required">
         <source>alert.login_required</source>
@@ -59,7 +59,7 @@
       <!-- file and folder labels -->
       <trans-unit id="file.upload_from">
         <source>file.upload_from</source>
-        <target><![CDATA[Upload from <strong>%organization%</strong>]]> %created%.</target>
+        <target><![CDATA[Uploaded from <strong>%organization%</strong>]]> %created%.</target>
       </trans-unit>
       <trans-unit id="file.available_until">
         <source>file.available_until</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="action.create_folder">
         <source>action.create_folder</source>
-        <target>New folder</target>
+        <target>Create folder</target>
       </trans-unit>
       <trans-unit id="action.delete">
         <source>action.delete</source>
@@ -112,7 +112,7 @@
         <source>action.login</source>
         <target>Login</target>
       </trans-unit>
-      <trans-unit id="action.logout">
+      <trans-unit id="action.logoutlogout">
         <source>action.logout</source>
         <target>Logout</target>
       </trans-unit>
@@ -185,7 +185,7 @@
       </trans-unit>
       <trans-unit id="label.statistics">
         <source>label.statistics</source>
-        <target><![CDATA[{0} No files|{1} %total% in 1 file|]1,Inf] %total% in %count% files]]></target>
+        <target><![CDATA[{0} No files|{1} %total% used in 1 file|]1,Inf] %total% used in %count% files]]></target>
       </trans-unit>
       <trans-unit id="label.tags">
         <source>label.tags</source>
@@ -200,7 +200,7 @@
       <!-- titles -->
       <trans-unit id="title.create_folder">
         <source>title.create_folder</source>
-        <target>New folder</target>
+        <target>Create folder</target>
       </trans-unit>
       <trans-unit id="title.delete_element">
         <source>title.delete_element</source>

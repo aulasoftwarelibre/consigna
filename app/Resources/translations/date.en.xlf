@@ -28,27 +28,27 @@
             </trans-unit>
             <trans-unit id="diff.in.second">
                 <source>diff.in.second</source>
-                <target><![CDATA[[0,30] in few seconds|]30,Inf] in ([^\s|]+) seconds]]></target>
+                <target><![CDATA[[0,30] in few seconds|]30,Inf] in %count% seconds]]></target>
             </trans-unit>
             <trans-unit id="diff.in.minute">
                 <source>diff.in.minute</source>
-                <target><![CDATA[[0,1] in one minute|]1,Inf] in ([^\s|]+) minutes]]></target>
+                <target><![CDATA[[0,1] in one minute|]1,Inf] in %count% minutes]]></target>
             </trans-unit>
             <trans-unit id="diff.in.hour">
                 <source>diff.in.hour</source>
-                <target><![CDATA[[0,1] in one hour|]1,Inf] in ([^\s|]+) hours]]></target>
+                <target><![CDATA[[0,1] in one hour|]1,Inf] in %count% hours]]></target>
             </trans-unit>
             <trans-unit id="diff.in.day">
                 <source>diff.in.day</source>
-                <target><![CDATA[[0,1] in one day|]1,Inf] in ([^\s|]+) days]]></target>
+                <target><![CDATA[[0,1] in one day|]1,Inf] in %count% days]]></target>
             </trans-unit>
             <trans-unit id="diff.in.month">
                 <source>diff.in.month</source>
-                <target><![CDATA[[0,1] in one month|]1,Inf] in ([^\s|]+) months]]></target>
+                <target><![CDATA[[0,1] in one month|]1,Inf] in %count% months]]></target>
             </trans-unit>
             <trans-unit id="diff.in.year">
                 <source>diff.in.year</source>
-                <target><![CDATA[[0,1] in one year|]1,Inf] in ([^\s|]+) years]]></target>
+                <target><![CDATA[[0,1] in one year|]1,Inf] in %count% years]]></target>
             </trans-unit>
         </body>
     </file>

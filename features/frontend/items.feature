@@ -4,11 +4,16 @@ Feature: manage items
   As a consigna user
   I want to manage items
   Background:
+    Given existing organizations:
+      | name                  | code      | enabled       |
+      | Organization A        | a.org     | true          |
+      | Organization B        | b.org     | false         |
+
     Given existing users:
-      | username    | email             | plainPassword | enabled  |
-      | user1       | user1@uco.es      | secret1       | 1        |
-      | user2       | user2@uco.es      | secret2       | 1        |
-      | user3       | user3@uco.es      | secret3       | 1        |
+      | username    | email            | plainPassword | enabled  | organization |
+      | user1       | user1@a.org      | secret1       | 1        | a.org        |
+      | user2       | user2@b.org      | secret2       | 1        | b.org        |
+      | user3       | user3@a.org      | secret3       | 1        | a.org        |
 
     And existing tags:
       | tagName |
@@ -69,9 +74,9 @@ Feature: manage items
   Scenario: Create a folder
     Given I am on the main folder
     And I am authenticated as "user1" with "secret1"
-    When I follow "New folder"
+    When I follow "Create folder"
     Then I should be now on "folder_new"
-    When I fill in "Name" with "folder4"
+    When I fill in "Folder name" with "folder4"
     And I fill in "Tags" with "tag2"
     And I fill in "Password" with "secret4"
     And I fill in "Repeat password" with "secret4"

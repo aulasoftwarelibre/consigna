@@ -132,6 +132,7 @@ class Folder implements FileInterface
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
+        $this->isPermanent = false;
     }
 
     /**
