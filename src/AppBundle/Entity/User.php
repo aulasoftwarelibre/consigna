@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity()
@@ -19,10 +19,14 @@ class User extends BaseUser
      */
     protected $id;
 
-    /** @ORM\Column(name="sir_id", type="string", length=255, nullable=true) */
+    /**
+     * @ORM\Column(name="sir_id", type="string", length=255, nullable=true)
+     */
     protected $sir_id;
 
-    /** @ORM\Column(name="sir_access_token", type="string", length=255, nullable=true) */
+    /**
+     * @ORM\Column(name="sir_access_token", type="string", length=255, nullable=true)
+     */
     protected $sir_access_token;
 
     /**
@@ -35,22 +39,22 @@ class User extends BaseUser
     protected $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="File", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="File", mappedBy="owner")
      */
     private $files;
 
     /**
-     * @ORM\OneToMany(targetEntity="Folder", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Folder", mappedBy="owner")
      */
     private $folders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="usersWithAccess")
+     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="sharedWith")
      */
     private $sharedFolders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="usersWithAccess")
+     * @ORM\ManyToMany(targetEntity="File", mappedBy="sharedWith")
      */
     private $sharedFiles;
 
@@ -106,7 +110,7 @@ class User extends BaseUser
     /**
      * @param mixed $sir_id
      */
-    public function setSirId( $sir_id )
+    public function setSirId($sir_id)
     {
         $this->sir_id = $sir_id;
     }
@@ -122,7 +126,7 @@ class User extends BaseUser
     /**
      * @param mixed $sir_access_token
      */
-    public function setSirAccessToken( $sir_access_token )
+    public function setSirAccessToken($sir_access_token)
     {
         $this->sir_access_token = $sir_access_token;
     }
@@ -291,7 +295,7 @@ class User extends BaseUser
         $this->organization = $organization;
     }
 
-    /*
+    /**
      * Get either a Gravatar URL or complete image tag for a specified email address.
      *
      * @param integer $s Size in pixels, defaults to 80px [ 1 - 2048 ]
@@ -302,16 +306,19 @@ class User extends BaseUser
      * @return String containing either just a URL or a complete image tag
      * @source http://gravatar.com/site/implement/images/php/
      */
-    public function getGravatar($s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+    public function getGravatar($s = 80, $d = 'mm', $r = 'g', $img = false, $atts = [])
+    {
         $url = 'http://www.gravatar.com/avatar/';
-        $url .= md5( strtolower( trim( $this->getEmail() ) ) );
+        $url .= md5(strtolower(trim($this->getEmail())));
         $url .= "?s=$s&d=$d&r=$r";
-        if ( $img ) {
+        if ($img) {
             $url = '<img src="' . $url . '"';
-            foreach ( $atts as $key => $val )
+            foreach ($atts as $key => $val) {
                 $url .= ' ' . $key . '="' . $val . '"';
+            }
             $url .= ' />';
         }
+
         return $url;
     }
 }

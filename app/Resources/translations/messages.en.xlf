@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" target-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <!-- alerts -->
+      <trans-unit id="alert.access_anon_success">
+        <source>alert.access_anon_success</source>
+        <target>Access granted as anon user. Please, close your navigator when finish.</target>
+      </trans-unit>
+      <trans-unit id="alert.access_user_success">
+        <source>alert.access_user_success</source>
+        <target>Access granted to user %user%</target>
+      </trans-unit>
+      <trans-unit id="alert.file_created_ok">
+        <source>alert.file_created_ok</source>
+        <target>File %file% has been created successfully</target>
+      </trans-unit>
+      <trans-unit id="alert.file_delete_ok">
+        <source>alert.file_delete_ok</source>
+        <target>File %file% has been deleted successfully</target>
+      </trans-unit>
+      <trans-unit id="alert.file_updated_ok">
+        <source>alert.file_updated_ok</source>
+        <target>File %file% has been updated successfully</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_created_ok">
+        <source>alert.folder_created_ok</source>
+        <target>Folder %folder% has been created successfully</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_delete_ok">
+        <source>alert.folder_delete_ok</source>
+        <target>Folder %folder% has been deleted successfully</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_updated_ok">
+        <source>alert.folder_updated_ok</source>
+        <target>Folder %folder% has been updated successfully</target>
+      </trans-unit>
+      <trans-unit id="alert.login_required">
+        <source>alert.login_required</source>
+        <target>You need to login first.</target>
+      </trans-unit>
+      <trans-unit id="alert.invalid_password">
+        <source>alert.invalid_password</source>
+        <target>Invalid password</target>
+      </trans-unit>
+      <trans-unit id="alert.valid_password">
+        <source>alert.valid_password</source>
+        <target>Valid password</target>
+      </trans-unit>
+
+
+      <!-- description -->
+      <trans-unit id="description.no_files">
+        <source>description.no_files</source>
+        <target><![CDATA[<h4>No files</h4>This folder is empty. You can drag files to this windows or use <em>Upload file</em> action on the navbar.]]></target>
+      </trans-unit>
+
+
+      <!-- file and folder labels -->
+      <trans-unit id="file.upload_from">
+        <source>file.upload_from</source>
+        <target><![CDATA[Uploaded from <strong>%organization%</strong>]]> %created%.</target>
+      </trans-unit>
+      <trans-unit id="file.available_until">
+        <source>file.available_until</source>
+        <target><![CDATA[Will be deleted <strong>%deleted%</strong>]]>.</target>
+      </trans-unit>
+
+
+      <!-- generic actions displayed on buttons and links -->
+      <trans-unit id="action.admin">
+        <source>action.admin</source>
+        <target>Admin</target>
+      </trans-unit>
+      <trans-unit id="action.cancel">
+        <source>action.cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="action.cancel_all">
+        <source>action.cancel_all</source>
+        <target>Cancel all</target>
+      </trans-unit>
+      <trans-unit id="action.close">
+        <source>action.close</source>
+        <target>Close</target>
+      </trans-unit>
+      <trans-unit id="action.copy">
+        <source>action.copy</source>
+        <target>Copy</target>
+      </trans-unit>
+      <trans-unit id="action.check_password">
+        <source>action.check_password</source>
+        <target>Check password</target>
+      </trans-unit>
+      <trans-unit id="action.create_folder">
+        <source>action.create_folder</source>
+        <target>Create folder</target>
+      </trans-unit>
+      <trans-unit id="action.delete">
+        <source>action.delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="action.download">
+        <source>action.download</source>
+        <target>Download</target>
+      </trans-unit>
+      <trans-unit id="label.link">
+        <source>label.link</source>
+        <target>Share link</target>
+      </trans-unit>
+      <trans-unit id="action.login">
+        <source>action.login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="action.logoutlogout">
+        <source>action.logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="action.show_all_files">
+        <source>action.show_all_files</source>
+        <target>All files</target>
+      </trans-unit>
+      <trans-unit id="action.show_my_files">
+        <source>action.show_my_files</source>
+        <target>My files</target>
+      </trans-unit>
+      <trans-unit id="action.show_shared_files">
+        <source>action.show_shared_files</source>
+        <target>Shared files</target>
+      </trans-unit>
+      <trans-unit id="action.share_folder">
+        <source>action.share_folder</source>
+        <target>Shared folder</target>
+      </trans-unit>
+      <trans-unit id="action.upload_all">
+        <source>action.upload_all</source>
+        <target>Upload all</target>
+      </trans-unit>
+      <trans-unit id="action.upload_file">
+        <source>action.upload_file</source>
+        <target>Upload file</target>
+      </trans-unit>
+      <trans-unit id="action.update_folder">
+        <source>action.update_folder</source>
+        <target>Update folder</target>
+      </trans-unit>
+
+
+      <!-- labels -->
+      <trans-unit id="label.actions">
+        <source>label.actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="label.anon_user">
+        <source>label.anon_user</source>
+        <target>anon user</target>
+      </trans-unit>
+      <trans-unit id="label.captcha">
+        <source>label.captcha</source>
+        <target>Captcha</target>
+      </trans-unit>
+      <trans-unit id="label.file">
+        <source>label.file</source>
+        <target>File</target>
+      </trans-unit>
+      <trans-unit id="label.folder_name">
+        <source>label.folder_name</source>
+        <target>Folder name</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="label.progress">
+        <source>label.progress</source>
+        <target>Progress</target>
+      </trans-unit>
+      <trans-unit id="label.repeat_password">
+        <source>label.repeat_password</source>
+        <target>Repeat password</target>
+      </trans-unit>
+      <trans-unit id="label.search">
+        <source>label.search</source>
+        <target>Search...</target>
+      </trans-unit>
+      <trans-unit id="label.statistics">
+        <source>label.statistics</source>
+        <target><![CDATA[{0} No files|{1} %total% used in 1 file|]1,Inf] %total% used in %count% files]]></target>
+      </trans-unit>
+      <trans-unit id="label.tags">
+        <source>label.tags</source>
+        <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="label.users">
+        <source>label.users</source>
+        <target>Users</target>
+      </trans-unit>
+
+
+      <!-- titles -->
+      <trans-unit id="title.create_folder">
+        <source>title.create_folder</source>
+        <target>Create folder</target>
+      </trans-unit>
+      <trans-unit id="title.delete_element">
+        <source>title.delete_element</source>
+        <target>Are you sure do you want to remove this element?</target>
+      </trans-unit>
+      <trans-unit id="title.download_file">
+        <source>title.download_file</source>
+        <target>Download file</target>
+      </trans-unit>
+      <trans-unit id="title.edit_folder">
+        <source>title.edit_folder</source>
+        <target>Edit folder</target>
+      </trans-unit>
+      <trans-unit id="title.file_list">
+        <source>title.file_list</source>
+        <target>File list</target>
+      </trans-unit>
+      <trans-unit id="title.file_number">
+        <source>title.file_number</source>
+        <target><![CDATA[{0} No files|{1} 1 file|]1,Inf] %count% files]]></target>
+      </trans-unit>
+      <trans-unit id="title.folder_number">
+        <source>title.folder_number</source>
+        <target><![CDATA[{0} No folders|{1} 1 folder|]1,Inf] %count% folders]]></target>
+      </trans-unit>
+      <trans-unit id="title.main_folder">
+        <source>title.main_folder</source>
+        <target>Main folder</target>
+      </trans-unit>
+      <trans-unit id="title.share_element">
+        <source>title.share_element</source>
+        <target>Share</target>
+      </trans-unit>
+      <trans-unit id="title.upload_file">
+        <source>title.upload_file</source>
+        <target>Upload file</target>
+      </trans-unit>
+
+      <!-- upload status -->
+      <trans-unit id="upload.failed">
+        <source>upload.failed</source>
+        <target>Error: Upload failed</target>
+      </trans-unit>
+      <trans-unit id="upload.success">
+        <source>upload.success</source>
+        <target>File has been saved successfully</target>
+      </trans-unit>
+      <trans-unit id="upload.virus">
+        <source>upload.virus</source>
+        <target>Error: Virus detected</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

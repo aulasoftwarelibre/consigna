@@ -1,0 +1,47 @@
+# services to handle doctrine extensions
+# import it in config.yml
+services:
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    gedmo.listener.uploadable:
+        class: Gedmo\Uploadable\UploadableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setDefaultPath, [ "%kernel.root_dir%/../private" ] ]
+
+    gedmo.listener.iptraceable:
+        class: Gedmo\IpTraceable\IpTraceableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    consigna.listener.iptrace:
+        class: AppBundle\EventListener\IpTraceSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+        arguments:
+            - @gedmo.listener.iptraceable
+            - @?request_stack
+
+    gedmo.listener.blameable:
+        class: Gedmo\Blameable\BlameableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    consigna.listener.usertrace:
+        class: AppBundle\EventListener\UserTraceSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+        arguments:
+            - @gedmo.listener.blameable
+            - @security.token_storage
+            - @security.authorization_checker

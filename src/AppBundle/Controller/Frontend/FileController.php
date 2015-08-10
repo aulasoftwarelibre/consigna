@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Frontend;
 
+use AppBundle\Doctrine\Extensions\UploadedFileInfo;
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\DownloadFileAnonType;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\CreateFileType;
 use AppBundle\Form\Type\CreateFileAnonType;
 use AppBundle\Event\FileEvent;
-use AppBundle\FileEvents;
+use AppBundle\Event\FileEvents;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
@@ -44,13 +45,7 @@ class FileController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($user instanceof User) {
-                $file->setUser($user);
-            }
-            $file->setIpAddress($request->getClientIp());
-
-
-            $this->get('stof_doctrine_extensions.uploadable.manager')->markEntityToUpload($file, $file->getFilename());
+            $this->get( 'gedmo.listener.uploadable' )->addEntityFileInfo( $file, new UploadedFileInfo($file->getName()) );
 
             $em->persist($file);
             $em->flush();
@@ -58,11 +53,11 @@ class FileController extends Controller
             $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, new FileEvent($file));
 
             if($file->getScanStatus()==File::SCAN_STATUS_OK) {
-                $this->addFlash('success', $this->get('translator')->trans('upload.success', array('file' => $file)));
+                $this->addFlash('success', $this->get('translator')->trans('upload.success', array('%file%' => $file)));
             } else if($file->getScanStatus()==File::SCAN_STATUS_FAILED) {
-                $this->addFlash('danger', $this->get('translator')->trans('upload.failed', array('file' => $file)));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.failed', array('%file%' => $file)));
             } else {
-                $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['file' => $file]));
+                $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['%file%' => $file]));
             }
 
             return $this->redirectToRoute('homepage');
@@ -84,7 +79,7 @@ class FileController extends Controller
         $em->remove($file);
         $em->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('deleteFile.success', array('file' => $file)));
+        $this->addFlash('success', $this->get('translator')->trans('alert.file_delete_ok', array('%file%' => $file)));
 
         return $this->redirectToRoute('homepage');
     }
@@ -97,11 +92,10 @@ class FileController extends Controller
     public function showAction(File $file)
     {
         if (false === $this->isGranted('ACCESS', $file)) {
-            $this->addFlash('warning', $this->get('translator')->trans('login.to.download'));
+            $this->addFlash('warning', $this->get('translator')->trans('alert.login_required'));
 
             return $this->render("frontend/File/show_with_login.html.twig", [
                 'file' => $file,
-                'days_before_clean' => $this->container->getParameter('days_before_clean'),
             ]);
         }
 
@@ -111,13 +105,11 @@ class FileController extends Controller
             return $this->render("frontend/File/show_with_password.html.twig", [
                 'file' => $file,
                 'form' => $form->createView(),
-                'days_before_clean' => $this->container->getParameter('days_before_clean'),
             ]);
         }
 
         return [
             'file' => $file,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -139,27 +131,26 @@ class FileController extends Controller
             if ($form->isValid()) {
 
                 if ($user instanceof User) {
-                    $file->addUsersWithAccess($user);
+                    $file->addSharedWith($user);
                     $em->persist($file);
                     $em->flush();
                 } else {
                     $session->set($file->getSlug(), true);
                 }
 
-                $this->addFlash('success', $this->get('translator')->trans('message.password.valid'));
+                $this->addFlash('success', $this->get('translator')->trans('alert.valid_password'));
             } else {
-                $this->addFlash('danger', $this->get('translator')->trans('message.password.invalid'));
+                $this->addFlash('danger', $this->get('translator')->trans('alert.invalid_password'));
+
                 return $this->render("frontend/File/show_with_password.html.twig", [
                     'file' => $file,
                     'form' => $form->createView(),
-                    'days_before_clean' => $this->container->getParameter('days_before_clean'),
                 ]);
             }
         }
 
         return [
             'file' => $file,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -189,8 +180,8 @@ class FileController extends Controller
         $response->trustXSendfileTypeHeader();
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $file->getFilename(),
-            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getFilename())
+            $file->getName(),
+            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getName())
         );
         $this->container->get('event_dispatcher')->dispatch(FileEvents::DOWNLOADED, new FileEvent($file));
 
@@ -210,7 +201,7 @@ class FileController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('access', $file)) {
             if ($user instanceof User) {
                 if(false === $file->hasAccess($user)){
-                    $file->addUsersWithAccess($user);
+                    $file->addSharedWith($user);
                     $em->persist($file);
                     $em->flush();
                 }
@@ -221,7 +212,6 @@ class FileController extends Controller
 
         return array(
             'file' => $file,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         );
     }
 }

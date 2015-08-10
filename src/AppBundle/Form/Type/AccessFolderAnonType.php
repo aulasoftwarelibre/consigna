@@ -11,7 +11,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Folder;
 use Symfony\Component\Validator\Constraints as Assert;
-use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -30,8 +30,10 @@ class AccessFolderAnonType extends AbstractType
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
                 )),
-                'label'=> 'password.access.folder'))
+                'label'=> 'label.password',
+            ))
             ->add('captcha', 'ewz_recaptcha', array(
+                'label'=> 'label.captcha',
                 'attr' => array(
                     'options' => array(
                         'theme' => 'light',
@@ -40,7 +42,7 @@ class AccessFolderAnonType extends AbstractType
                 ),
                 'mapped'      => false,
                 'constraints' => array(
-                    new True(),
+                    new IsTrue(),
                 ),
             ))
         ;

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="es" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="diff.ago.second">
+                <source>diff.ago.second</source>
+                <target><![CDATA[[0,30] a few seconds ago|]30,Inf] %count% seconds ago]]></target>
+            </trans-unit>
+            <trans-unit id="diff.ago.minute">
+                <source>diff.ago.minute</source>
+                <target><![CDATA[[0,1] one minute ago|]1,Inf] %count% minutes ago]]></target>
+            </trans-unit>
+            <trans-unit id="diff.ago.hour">
+                <source>diff.ago.hour</source>
+                <target><![CDATA[[0,1] one hour ago|]1,Inf] %count% hours ago]]></target>
+            </trans-unit>
+            <trans-unit id="diff.ago.day">
+                <source>diff.ago.day</source>
+                <target><![CDATA[[0,1] one day ago|]1,Inf] %count% days ago]]></target>
+            </trans-unit>
+            <trans-unit id="diff.ago.month">
+                <source>diff.ago.month</source>
+                <target><![CDATA[[0,1] one month ago|]1,Inf] %count% months ago]]></target>
+            </trans-unit>
+            <trans-unit id="diff.ago.year">
+                <source>diff.ago.year</source>
+                <target><![CDATA[[0,1] one year ago|]1,Inf] %count% years ago]]></target>
+            </trans-unit>
+            <trans-unit id="diff.in.second">
+                <source>diff.in.second</source>
+                <target><![CDATA[[0,30] in few seconds|]30,Inf] in %count% seconds]]></target>
+            </trans-unit>
+            <trans-unit id="diff.in.minute">
+                <source>diff.in.minute</source>
+                <target><![CDATA[[0,1] in one minute|]1,Inf] in %count% minutes]]></target>
+            </trans-unit>
+            <trans-unit id="diff.in.hour">
+                <source>diff.in.hour</source>
+                <target><![CDATA[[0,1] in one hour|]1,Inf] in %count% hours]]></target>
+            </trans-unit>
+            <trans-unit id="diff.in.day">
+                <source>diff.in.day</source>
+                <target><![CDATA[[0,1] in one day|]1,Inf] in %count% days]]></target>
+            </trans-unit>
+            <trans-unit id="diff.in.month">
+                <source>diff.in.month</source>
+                <target><![CDATA[[0,1] in one month|]1,Inf] in %count% months]]></target>
+            </trans-unit>
+            <trans-unit id="diff.in.year">
+                <source>diff.in.year</source>
+                <target><![CDATA[[0,1] in one year|]1,Inf] in %count% years]]></target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

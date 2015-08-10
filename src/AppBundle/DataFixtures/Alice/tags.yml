@@ -1,3 +1,3 @@
 \AppBundle\Entity\Tag:
     tags{1..15}:
-        tagName (unique): <tag()>
+        name (unique): <tag()>

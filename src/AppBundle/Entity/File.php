@@ -4,24 +4,61 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * File.
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\FileRepository")
+ * @ORM\Table(name="file")
+ * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FileRepository")
  * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback")
  */
 class File implements FileInterface
 {
     /**
-     *
+     * No virus detected
      */
     const SCAN_STATUS_OK = 1;
+    /**
+     * Pending to scan
+     */
     const SCAN_STATUS_PENDING = 2;
+    /**
+     * Scanning failed
+     */
     const SCAN_STATUS_FAILED = 3;
+    /**
+     * Virus detected
+     */
+    const SCAN_STATUS_INFECTED = 4;
+
+    /**
+     * Hook ip-traceable behavior
+     * updates createdFromIp, updatedFromIp fields
+     */
+    use IpTraceableEntity;
+
+    /**
+     * Hook timestampable behavior
+     * updates createdAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="file", type="string", length=255)
+     * @Gedmo\UploadableFileName
+     */
+    private $file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Folder", inversedBy="files")
+     */
+    private $folder;
 
     /**
      * @var int
@@ -33,47 +70,25 @@ class File implements FileInterface
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="file", type="string", length=255)
-     * @Gedmo\UploadableFileName
-     */
-    private $file;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="filename", type="string", length=255)
-     */
-    private $filename;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="path", type="string", length=255)
-     * @Gedmo\UploadableFilePath
-     */
-    private $path;
-
-    /**
      * @ORM\Column(name="mime_type", type="string")
      * @Gedmo\UploadableFileMimeType
      */
     private $mimeType;
 
     /**
-     * @ORM\Column(name="size", type="decimal")
-     * @Gedmo\UploadableFileSize
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $size;
+    private $name;
 
     /**
-     * @var \DateTime
+     * @var User
      *
-     * @ORM\Column(name="uploadDate", type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
      */
-    private $uploadDate;
+    private $owner;
 
     /**
      * @var string
@@ -85,9 +100,10 @@ class File implements FileInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(name="path", type="string", length=255)
+     * @Gedmo\UploadableFilePath
      */
-    private $salt;
+    private $path;
 
     /**
      * @var string
@@ -95,40 +111,11 @@ class File implements FileInterface
     private $plainPassword;
 
     /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="files")
-     */
-    private $user;
-
-    /**
-     * @var Tag
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
-     */
-    private $tags;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFiles")
-     */
-    private $usersWithAccess;
-
-    /**
-     * @ORM\Column(length=128, unique=true)
-     * @Gedmo\Slug(fields={"filename"})
-     */
-    private $slug;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Folder", inversedBy="files")
-     */
-    private $folder;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="shareCode", type="string", length=255)
+     * @ORM\Column(name="salt", type="string", length=255)
      */
-    private $shareCode;
+    private $salt;
 
     /**
      * @var string
@@ -138,203 +125,45 @@ class File implements FileInterface
     private $scanStatus;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="shareCode", type="string", length=255)
      */
-    private $ipAddress;
+    private $shareCode;
 
     /**
-     * @return mixed
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFiles")
      */
-    public function getIpAddress()
-    {
-        return $this->ipAddress;
-    }
+    private $sharedWith;
 
     /**
-     * @param mixed $ipAddress
+     * @ORM\Column(name="size", type="decimal")
+     * @Gedmo\UploadableFileSize
      */
-    public function setIpAddress($ipAddress)
-    {
-        $this->ipAddress = $ipAddress;
-    }
+    private $size;
 
     /**
-     * @return string
+     * @ORM\Column(length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"})
      */
-    public function getScanStatus()
-    {
-        return $this->scanStatus;
-    }
+    private $slug;
 
     /**
-     * @param string $scanStatus
+     * @var Tag
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
      */
-    public function setScanStatus($scanStatus)
-    {
-        $this->scanStatus = $scanStatus;
-    }
+    private $tags;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sharedWith = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
         $this->scanStatus = self::SCAN_STATUS_PENDING;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name.
-     *
-     * @param string $filename
-     *
-     * @return File
-     */
-    public function setFilename($filename)
-    {
-        $this->filename = $filename;
-
-        return $this;
-    }
-
-    /**
-     * Get filename.
-     *
-     * @return string
-     */
-    public function getFilename()
-    {
-        return $this->filename;
-    }
-
-    /**
-     * Set uploadDate.
-     *
-     * @param \DateTime $uploadDate
-     *
-     * @return File
-     */
-    public function setUploadDate($uploadDate)
-    {
-        $this->uploadDate = $uploadDate;
-
-        return $this;
-    }
-
-    /**
-     * Get uploadDate.
-     *
-     * @return \DateTime
-     */
-    public function getUploadDate()
-    {
-        return $this->uploadDate;
-    }
-
-    /**
-     * Set password.
-     *
-     * @param string $password
-     *
-     * @return File
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password.
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set user.
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return File
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user.
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @return Tag
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @param Tag $tags
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param mixed $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFolder()
-    {
-        return $this->folder;
-    }
-
-    /**
-     * @param mixed $folder
-     */
-    public function setFolder($folder)
-    {
-        $this->folder = $folder;
     }
 
     /**
@@ -344,11 +173,25 @@ class File implements FileInterface
      */
     public function __toString()
     {
-        return $this->getFilename();
+        return $this->getName();
     }
 
     /**
-     * Add tags.
+     * Add sharedWith
+     *
+     * @param \AppBundle\Entity\User $sharedWith
+     *
+     * @return File
+     */
+    public function addSharedWith(\AppBundle\Entity\User $sharedWith)
+    {
+        $this->sharedWith[] = $sharedWith;
+
+        return $this;
+    }
+
+    /**
+     * Add tags
      *
      * @param \AppBundle\Entity\Tag $tags
      *
@@ -362,148 +205,22 @@ class File implements FileInterface
     }
 
     /**
-     * Remove tags.
+     * Configure unique name
      *
-     * @param \AppBundle\Entity\Tag $tags
+     * @param $info
      */
-    public function removeTag(\AppBundle\Entity\Tag $tags)
+    public function configureFileCallback($info)
     {
-        $this->tags->removeElement($tags);
+        $this->setName($info['origFileName']);
+        $this->setSlug(sha1(mt_rand()));
     }
 
     /**
-     * Add usersWithAccess.
-     *
-     * @param \AppBundle\Entity\User $usersWithAccess
-     *
-     * @return File
+     * Remove credentials
      */
-    public function addUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
+    public function eraseCredentials()
     {
-        $this->usersWithAccess[] = $usersWithAccess;
-
-        return $this;
-    }
-
-    /**
-     * Remove usersWithAccess.
-     *
-     * @param \AppBundle\Entity\User $usersWithAccess
-     */
-    public function removeUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
-    {
-        $this->usersWithAccess->removeElement($usersWithAccess);
-    }
-
-    /**
-     * Get usersWithAccess.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsersWithAccess()
-    {
-        return $this->usersWithAccess;
-    }
-
-    /**
-     * Has access.
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return bool
-     */
-    public function hasAccess($user)
-    {
-        if ($this->getUser() == $user) {
-            return true;
-        }
-        foreach ($this->usersWithAccess as $uWithAccess) {
-            if ($user == $uWithAccess) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param string $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMimeType()
-    {
-        return $this->mimeType;
-    }
-
-    /**
-     * @param mixed $mimeType
-     */
-    public function setMimeType($mimeType)
-    {
-        $this->mimeType = $mimeType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param mixed $size
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param string $file
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * @param string $salt
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
+        $this->plainPassword = null;
     }
 
     /**
@@ -523,6 +240,235 @@ class File implements FileInterface
     }
 
     /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return File
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set file
+     *
+     * @param string $file
+     *
+     * @return File
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get folder
+     *
+     * @return \AppBundle\Entity\Folder
+     */
+    public function getFolder()
+    {
+        return $this->folder;
+    }
+
+    /**
+     * Set folder
+     *
+     * @param \AppBundle\Entity\Folder $folder
+     *
+     * @return File
+     */
+    public function setFolder(\AppBundle\Entity\Folder $folder = null)
+    {
+        $this->folder = $folder;
+
+        return $this;
+    }
+
+    /**
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get mimeType
+     *
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * Set mimeType
+     *
+     * @param string $mimeType
+     *
+     * @return File
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return File
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \AppBundle\Entity\User $owner
+     *
+     * @return File
+     */
+    public function setOwner(\AppBundle\Entity\User $owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return File
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return File
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get scanStatus
+     *
+     * @return string
+     */
+    public function getScanStatus()
+    {
+        return $this->scanStatus;
+    }
+
+    /**
+     * Set scanStatus
+     *
+     * @param string $scanStatus
+     *
+     * @return File
+     */
+    public function setScanStatus($scanStatus)
+    {
+        $this->scanStatus = $scanStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get shareCode
+     *
      * @return string
      */
     public function getShareCode()
@@ -531,21 +477,125 @@ class File implements FileInterface
     }
 
     /**
+     * Set shareCode
+     *
      * @param string $shareCode
+     *
+     * @return File
      */
     public function setShareCode($shareCode)
     {
         $this->shareCode = $shareCode;
+
+        return $this;
     }
 
-    public function configureFileCallback($info)
+    /**
+     * Get sharedWith
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSharedWith()
     {
-        $this->setFilename($info['origFileName']);
-        $this->setSlug(sha1(mt_rand()));
+        return $this->sharedWith;
     }
 
-    public function eraseCredentials()
+    /**
+     * Get size
+     *
+     * @return string
+     */
+    public function getSize()
     {
-        $this->plainPassword = null;
+        return $this->size;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     *
+     * @return File
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return File
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Has access.
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return bool
+     */
+    public function hasAccess($user)
+    {
+        if ($this->getOwner() == $user) {
+            return true;
+        }
+        foreach ($this->sharedWith as $uWithAccess) {
+            if ($user == $uWithAccess) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Remove sharedWith
+     *
+     * @param \AppBundle\Entity\User $sharedWith
+     */
+    public function removeSharedWith(\AppBundle\Entity\User $sharedWith)
+    {
+        $this->sharedWith->removeElement($sharedWith);
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
     }
 }

@@ -5,10 +5,14 @@ Feature: User identification
     I want to get identification with a login form
 
     Background:
+        Given existing organizations:
+            | name                  | code      | enabled       |
+            | Organization A        | a.org     | true          |
+            | Organization B        | b.org     | false         |
         Given existing users:
-            | username    | email             | plainPassword | enabled  |
-            | user1       | user1@uco.es      | secret1       | 1        |
-            | user2       | user2@uco.es      | secret2       | 1        |
+            | username    | email            | plainPassword | enabled  | organization |
+            | user1       | user1@a.org      | secret1       | 1        | a.org        |
+            | user2       | user2@b.org      | secret2       | 1        | b.org        |
 
     Scenario: Login with an existing user
         Given I am on "/login"
@@ -16,7 +20,7 @@ Feature: User identification
         And I fill in "password" with "secret1"
         And I press "Login"
         Then I should be on the homepage
-        And I should see "Sign out"
+        And I should see "Logout"
 
     Scenario: Login with a non existing user
         Given I am on "/login"

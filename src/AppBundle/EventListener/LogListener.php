@@ -9,7 +9,7 @@
 namespace AppBundle\EventListener;
 
 
-use AppBundle\FileEvents;
+use AppBundle\Event\FileEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AppBundle\Event\FileEvent;
 use Psr\Log\LoggerInterface;
@@ -61,7 +61,7 @@ class LogListener implements EventSubscriberInterface
     public function onFileSubmitted(FileEvent $event)
     {
         $file = $event->getFile();
-        $this->loggerInterface->info('File ' . $file . ' has been uploaded by '.$file->getUser().' with ip '.$file->getIpAddress());
+        $this->loggerInterface->info('File ' . $file . ' has been uploaded by '.$file->getOwner().' with ip '.$file->getCreatedFromIp());
     }
 
     /**
@@ -70,6 +70,6 @@ class LogListener implements EventSubscriberInterface
     public function onFileDownloaded(FileEvent $event)
     {
         $file = $event->getFile();
-        $this->loggerInterface->info('File ' . $file . ' has been downloaded by '.$file->getUser().' with ip '.$file->getIpAddress());
+        $this->loggerInterface->info('File ' . $file . ' has been downloaded by '.$file->getOwner().' with ip '.$file->getCreatedFromIp());
     }
 }

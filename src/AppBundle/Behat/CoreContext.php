@@ -9,9 +9,7 @@
 
 namespace AppBundle\Behat;
 
-use Sylius\Bundle\ResourceBundle\Behat\DefaultContext;
 use Guzzle;
-use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CoreContext extends DefaultContext

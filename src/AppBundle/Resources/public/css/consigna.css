@@ -1,40 +1,5 @@
 @import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
 
-
-/* D&D */
-
-#drag-drop-area {
-  border:4px dashed #bbb;
-  height:200px;
-  margin: 10px;
-}
-.drag-drop .drag-drop-inside {
-   margin:70px auto 0;
-   width:250px
- }
-.drag-drop-inside p {
-   color:#aaa;
-   font-size:14px;
-   margin:5px 0;
-   display:none
- }
-.drag-drop .drag-drop-inside p {
-   text-align:center
- }
-.drag-drop-inside p.drag-drop-info {
-   font-size:20px
- }
-.drag-drop .drag-drop-inside p,
-.drag-drop-inside p.drag-drop-buttons {
-   display:block
- }
-.drag-drop.drag-over #drag-drop-area {
-   border-color:#83b4d8}
-
-#drag-drop-area > div > p.drag-drop-buttons > div {
-   margin: 0 auto;
- }
-
 /* FILE */
 
 .file-list {
@@ -227,3 +192,112 @@
      }
 
 }
+
+/********************/
+/* Upload file list */
+
+/* Methods */
+.method .header, .method .cell {
+    padding: 6px 6px 6px 10px; }
+.method .list-header .header {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    color: #999;
+    background-color: #eee; }
+.method [class^="row"],
+.method [class*=" row"] {
+    border-bottom: 1px solid #ddd; }
+.method [class^="row"]:hover,
+.method [class*=" row"]:hover {
+    background-color: #f7f7f7; }
+.method .cell {
+    font-size: 0.85em; }
+.method .cell .mobile-isrequired {
+    display: none;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #aaa;
+    font-size: 0.8em; }
+.method .cell .propertyname {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+.method .cell .type {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+.method .cell code {
+    color: #428bca; }
+.method .cell a, .method .cell a:hover {
+    text-decoration: none; }
+.method .cell code.custom {
+    color: #8a6d3b;
+    text-decoration: none; }
+.method .cell .text-muted {
+    color: #ddd; }
+.method .progress {
+    margin: 7px 0 0; }
+@media (max-width: 991px) {
+    .method [class^="row"],
+    .method [class*=" row"] {
+        padding-top: 10px;
+        padding-bottom: 10px; }
+    .method .cell {
+        padding: 0 10px; }
+    .method .cell .propertyname {
+        font-weight: bold;
+        font-size: 1.2em; }
+    .method .cell .propertyname .lookuplink {
+        font-weight: normal;
+        font-size: 1.5em;
+        position: absolute;
+        top: 0;
+        right: 10px; }
+    .method .cell .type {
+        padding-left: 10px;
+        font-size: 1.1em; }
+    .method .cell .isrequired {
+        padding-left: 10px;
+        display: none; }
+    .method .cell .description {
+        padding-left: 10px; }
+    .method .cell .mobile-isrequired {
+        display: inline; } }
+
+
+/* Row Utilities */
+[class^='row'].margin-0,
+[class*=' row'].margin-0,
+[class^='form-group'].margin-0,
+[class*=' form-group'].margin-0 {
+    margin-left: -0px;
+    margin-right: -0px; }
+[class^='row'].margin-0 > [class^='col-'],
+[class^='row'].margin-0 > [class*=' col-'],
+[class*=' row'].margin-0 > [class^='col-'],
+[class*=' row'].margin-0 > [class*=' col-'],
+[class^='form-group'].margin-0 > [class^='col-'],
+[class^='form-group'].margin-0 > [class*=' col-'],
+[class*=' form-group'].margin-0 > [class^='col-'],
+[class*=' form-group'].margin-0 > [class*=' col-'] {
+    padding-right: 0px;
+    padding-left: 0px; }
+[class^='row'].margin-0 [class^='row'],
+[class^='row'].margin-0 [class*=' row'],
+[class^='row'].margin-0 [class^='form-group'],
+[class^='row'].margin-0 [class*=' form-group'],
+[class*=' row'].margin-0 [class^='row'],
+[class*=' row'].margin-0 [class*=' row'],
+[class*=' row'].margin-0 [class^='form-group'],
+[class*=' row'].margin-0 [class*=' form-group'],
+[class^='form-group'].margin-0 [class^='row'],
+[class^='form-group'].margin-0 [class*=' row'],
+[class^='form-group'].margin-0 [class^='form-group'],
+[class^='form-group'].margin-0 [class*=' form-group'],
+[class*=' form-group'].margin-0 [class^='row'],
+[class*=' form-group'].margin-0 [class*=' row'],
+[class*=' form-group'].margin-0 [class^='form-group'],
+[class*=' form-group'].margin-0 [class*=' form-group'] {
+    margin-left: 0;
+    margin-right: 0; }

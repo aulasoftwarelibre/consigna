@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
+    <body>
+      <!-- alerts -->
+      <trans-unit id="alert.access_anon_success">
+        <source>alert.access_anon_success</source>
+        <target>Se ha dado acceso como usuario anónimo. Recuerde cerrar el navegador al terminar.</target>
+      </trans-unit>
+      <trans-unit id="alert.access_user_success">
+        <source>alert.access_user_success</source>
+        <target>Se ha dado acceso al usuario %user%</target>
+      </trans-unit>
+      <trans-unit id="alert.file_created_ok">
+        <source>alert.file_created_ok</source>
+        <target>El archivo %file% ha sido creado satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="alert.file_delete_ok">
+        <source>alert.file_delete_ok</source>
+        <target>El archivo %file% ha sido eliminado satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="alert.file_updated_ok">
+        <source>alert.file_updated_ok</source>
+        <target>El archivo %file% ha sido actualizado correctamente</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_created_ok">
+        <source>alert.folder_created_ok</source>
+        <target>La carpeta %folder% ha sido creada satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_delete_ok">
+        <source>alert.folder_delete_ok</source>
+        <target>La carpeta %folder% ha sido eliminada satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_updated_ok">
+        <source>alert.folder_updated_ok</source>
+        <target>La carpeta %folder% ha sido actualizada correctamente</target>
+      </trans-unit>
+      <trans-unit id="alert.login_required">
+        <source>alert.login_required</source>
+        <target>Necesita iniciar sesión para realizar esta acción</target>
+      </trans-unit>
+      <trans-unit id="alert.invalid_password">
+        <source>alert.invalid_password</source>
+        <target>La contraseña no es correcta</target>
+      </trans-unit>
+      <trans-unit id="alert.valid_password">
+        <source>alert.valid_password</source>
+        <target>La contraseña es correcta</target>
+      </trans-unit>
+
+
+      <!-- description -->
+      <trans-unit id="description.no_files">
+        <source>description.no_files</source>
+        <target><![CDATA[<h4>No hay ficheros</h4>Esta carpeta está vacía. Puede añadir nuevos archivos arrastrándolos o pulsando sobre la opción <em>Subir fichero</em> de la barra superior. ]]></target>
+      </trans-unit>
+
+
+      <!-- file and folder labels -->
+      <trans-unit id="file.upload_from">
+        <source>file.upload_from</source>
+        <target><![CDATA[Subido desde <strong>%organization%</strong>]]> %created%.</target>
+      </trans-unit>
+      <trans-unit id="file.available_until">
+        <source>file.available_until</source>
+        <target><![CDATA[Se borrará <strong>%deleted%</strong>]]>.</target>
+      </trans-unit>
+
+
+      <!-- generic actions displayed on buttons and links -->
+      <trans-unit id="action.admin">
+        <source>action.admin</source>
+        <target>Administrar</target>
+      </trans-unit>
+      <trans-unit id="action.cancel">
+        <source>action.cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="action.cancel_all">
+        <source>action.cancel_all</source>
+        <target>Cancelar todos</target>
+      </trans-unit>
+      <trans-unit id="action.close">
+        <source>action.close</source>
+        <target>Cerrar</target>
+      </trans-unit>
+      <trans-unit id="action.copy">
+        <source>action.copy</source>
+        <target>Copiar</target>
+      </trans-unit>
+      <trans-unit id="action.check_password">
+        <source>action.check_password</source>
+        <target>Comprobar contraseña</target>
+      </trans-unit>
+      <trans-unit id="action.create_folder">
+        <source>action.create_folder</source>
+        <target>Crear carpeta</target>
+      </trans-unit>
+      <trans-unit id="action.delete">
+        <source>action.delete</source>
+        <target>Eliminar</target>
+      </trans-unit>
+      <trans-unit id="action.download">
+        <source>action.download</source>
+        <target>Descargar</target>
+      </trans-unit>
+      <trans-unit id="label.link">
+        <source>label.link</source>
+        <target>Compartir enlace</target>
+      </trans-unit>
+      <trans-unit id="action.login">
+        <source>action.login</source>
+        <target>Iniciar sesión</target>
+      </trans-unit>
+      <trans-unit id="action.logout">
+        <source>action.logout</source>
+        <target>Cerrar sesión</target>
+      </trans-unit>
+      <trans-unit id="action.show_all_files">
+        <source>action.show_all_files</source>
+        <target>Todos los archivos</target>
+      </trans-unit>
+      <trans-unit id="action.show_my_files">
+        <source>action.show_my_files</source>
+        <target>Mis archivos</target>
+      </trans-unit>
+      <trans-unit id="action.show_shared_files">
+        <source>action.show_shared_files</source>
+        <target>Archivos compartidos</target>
+      </trans-unit>
+      <trans-unit id="action.share_folder">
+        <source>action.share_folder</source>
+        <target>Compartir carpeta</target>
+      </trans-unit>
+      <trans-unit id="action.upload_all">
+        <source>action.upload_all</source>
+        <target>Subir todos</target>
+      </trans-unit>
+      <trans-unit id="action.upload_file">
+        <source>action.upload_file</source>
+        <target>Subir fichero</target>
+      </trans-unit>
+      <trans-unit id="action.update_folder">
+        <source>action.update_folder</source>
+        <target>Actualizar carpeta</target>
+      </trans-unit>
+
+
+      <!-- labels -->
+      <trans-unit id="label.actions">
+        <source>label.actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="label.anon_user">
+        <source>label.anon_user</source>
+        <target>usuario anónimo</target>
+      </trans-unit>
+      <trans-unit id="label.captcha">
+        <source>label.captcha</source>
+        <target>Captcha</target>
+      </trans-unit>
+      <trans-unit id="label.file">
+        <source>label.file</source>
+        <target>Fichero</target>
+      </trans-unit>
+      <trans-unit id="label.folder_name">
+        <source>label.folder_name</source>
+        <target>Nombre de la carpeta</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="label.progress">
+        <source>label.progress</source>
+        <target>Progreso</target>
+      </trans-unit>
+      <trans-unit id="label.repeat_password">
+        <source>label.repeat_password</source>
+        <target>Repetir contraseña</target>
+      </trans-unit>
+      <trans-unit id="label.search">
+        <source>label.search</source>
+        <target>Buscar...</target>
+      </trans-unit>
+      <trans-unit id="label.statistics">
+        <source>label.statistics</source>
+        <target><![CDATA[{0} No hay ficheros|{1} %total% en 1 fichero|]1,Inf] %total% en %count% ficheros]]></target>
+      </trans-unit>
+      <trans-unit id="label.tags">
+        <source>label.tags</source>
+        <target>Etiquetas</target>
+      </trans-unit>
+      <trans-unit id="label.users">
+        <source>label.users</source>
+        <target>Usuarios</target>
+      </trans-unit>
+
+
+      <!-- titles -->
+      <trans-unit id="title.create_folder">
+        <source>title.create_folder</source>
+        <target>Crear carpeta</target>
+      </trans-unit>
+      <trans-unit id="title.delete_element">
+        <source>title.delete_element</source>
+        <target>¿Realmente quieres eliminar este elemento?</target>
+      </trans-unit>
+      <trans-unit id="title.download_file">
+        <source>title.download_file</source>
+        <target>Descargar fichero</target>
+      </trans-unit>
+      <trans-unit id="title.edit_folder">
+        <source>title.edit_folder</source>
+        <target>Editar carpeta</target>
+      </trans-unit>
+      <trans-unit id="title.file_list">
+        <source>title.file_list</source>
+        <target>Lista de ficheros</target>
+      </trans-unit>
+      <trans-unit id="title.file_number">
+        <source>title.file_number</source>
+        <target><![CDATA[{0} No hay ficheros|{1} 1 fichero|]1,Inf] %count% ficheros]]></target>
+      </trans-unit>
+      <trans-unit id="title.folder_number">
+        <source>title.folder_number</source>
+        <target><![CDATA[{0} No hay carpetas|{1} 1 carpeta|]1,Inf] %count% carpetas]]></target>
+      </trans-unit>
+      <trans-unit id="title.main_folder">
+        <source>title.main_folder</source>
+        <target>Carpeta principal</target>
+      </trans-unit>
+      <trans-unit id="title.share_element">
+        <source>title.share_element</source>
+        <target>Compartir</target>
+      </trans-unit>
+      <trans-unit id="title.upload_file">
+        <source>title.upload_file</source>
+        <target>Subir fichero</target>
+      </trans-unit>
+
+      <!-- upload status -->
+      <trans-unit id="upload.failed">
+        <source>upload.failed</source>
+        <target>Error: Falló la carga del archivo</target>
+      </trans-unit>
+      <trans-unit id="upload.success">
+        <source>upload.success</source>
+        <target>El archivo se guardó satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="upload.virus">
+        <source>upload.virus</source>
+        <target>Error: Archivo infectado</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

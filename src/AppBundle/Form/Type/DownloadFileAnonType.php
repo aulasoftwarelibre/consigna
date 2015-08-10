@@ -11,7 +11,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\File;
 use Symfony\Component\Validator\Constraints as Assert;
-use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\True;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -28,8 +28,11 @@ class DownloadFileAnonType extends AbstractType
                 'mapped' => false,
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
-                )),'label' => 'password.download.file' ))
+                )),
+                'label' => 'label.password'
+            ))
             ->add('captcha', 'ewz_recaptcha', array(
+                'label' => 'label.captcha',
                 'attr' => array(
                     'options' => array(
                         'theme' => 'light',
@@ -38,7 +41,7 @@ class DownloadFileAnonType extends AbstractType
                 ),
                 'mapped'      => false,
                 'constraints' => array(
-                    new True(),
+                    new IsTrue(),
                 ),
             ))
         ;

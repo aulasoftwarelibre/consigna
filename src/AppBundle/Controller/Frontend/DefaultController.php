@@ -21,14 +21,13 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $files = $em->getRepository('AppBundle:File')->listFiles();
-        $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('folderName' => 'ASC'));
+        $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('name' => 'ASC'));
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
 
         return [
             'files' => $files,
             'folders' => $folders,
             'sum' => $sizeAndNumOfFiles,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -39,7 +38,7 @@ class DefaultController extends Controller
     public function myFilesAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $folders = $em->getRepository('AppBundle:Folder')->myFolders($user);
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
         $files = $em->getRepository('AppBundle:File')->myFiles($user);
@@ -48,7 +47,6 @@ class DefaultController extends Controller
             'files' => $files,
             'folders' => $folders,
             'sum' => $sizeAndNumOfFiles,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
     }
 
@@ -67,7 +65,6 @@ class DefaultController extends Controller
         return [
             'files' => $files,
             'folders' => $folders,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
             'sum' => $sizeAndNumOfFiles,
         ];
     }
@@ -79,7 +76,7 @@ class DefaultController extends Controller
     public function sharedWithMeAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $folders = $em->getRepository('AppBundle:Folder')->findSharedFolders($user);
         $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
         $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
@@ -88,7 +85,15 @@ class DefaultController extends Controller
             'files' => $files,
             'folders' => $folders,
             'sum' => $sizeAndNumOfFiles,
-            'days_before_clean' => $this->container->getParameter('days_before_clean'),
         ];
+    }
+
+    public function consignaStatisticsAction()
+    {
+        $statistics = $this->get('consigna.doctrine_orm.file_repository')->sizeAndNumOfFiles();
+
+        return $this->render('frontend/Default/statistics.html.twig',
+            ['statistics' => $statistics]
+        );
     }
 }

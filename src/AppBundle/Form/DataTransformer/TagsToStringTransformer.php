@@ -57,9 +57,9 @@ class TagsToStringTransformer implements DataTransformerInterface
 
         $tokens = preg_split('/(\s*,\s*)+/', $value, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($tokens as $token) {
-            if (null === ($tag = $this->om->getRepository('AppBundle:Tag')->findOneBy(array('tagName' => ($token))))) {
+            if (null === ($tag = $this->om->getRepository('AppBundle:Tag')->findOneBy(array('name' => ($token))))) {
                 $tag = new Tag();
-                $tag->setTagName($token);
+                $tag->setName($token);
                 $this->om->persist($tag);
             }
             $tags->add($tag);

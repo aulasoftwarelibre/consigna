@@ -3,11 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tag.
  *
- * @ORM\Table()
+ * @ORM\Table(name="tag")
  * @ORM\Entity
  */
 class Tag
@@ -24,82 +25,26 @@ class Tag
     /**
      * @var string
      *
-     * @ORM\Column(name="tagName", type="string")
+     * @ORM\Column(name="name", type="string", length=50)
+     * @Assert\Length(min="1", max="50")
+     * @Assert\NotBlank()
      */
-    private $tagName;
+    private $name;
 
     /**
      * @var Tag
      * @ORM\ManyToMany(targetEntity="File", mappedBy="tags")
+     * @Assert\Valid()
      */
     private $files;
-
-    public function __files_construct()
-    {
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * @var Tag
      * @ORM\ManyToMany(targetEntity="Folder", mappedBy="tags")
+     * @Assert\Valid()
      */
     private $folders;
 
-    public function __folders_construct()
-    {
-        $this->folders = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    /**
-     * @return Tag
-     */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
-     * @param Tag $files
-     */
-    public function setFiles($files)
-    {
-        $this->files = $files;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTagName()
-    {
-        return $this->tagName;
-    }
-
-    /**
-     * @param string $tagName
-     */
-    public function setTagName($tagName)
-    {
-        $this->tagName = $tagName;
-    }
-
-    /**
-     * To String.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getTagName();
-    }
     /**
      * Constructor.
      */
@@ -110,10 +55,53 @@ class Tag
     }
 
     /**
-     * Add files.
+     * To String.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Tag
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add files
      *
      * @param \AppBundle\Entity\File $files
-     *
      * @return Tag
      */
     public function addFile(\AppBundle\Entity\File $files)
@@ -124,7 +112,7 @@ class Tag
     }
 
     /**
-     * Remove files.
+     * Remove files
      *
      * @param \AppBundle\Entity\File $files
      */
@@ -134,10 +122,19 @@ class Tag
     }
 
     /**
-     * Add folders.
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Add folders
      *
      * @param \AppBundle\Entity\Folder $folders
-     *
      * @return Tag
      */
     public function addFolder(\AppBundle\Entity\Folder $folders)
@@ -148,7 +145,7 @@ class Tag
     }
 
     /**
-     * Remove folders.
+     * Remove folders
      *
      * @param \AppBundle\Entity\Folder $folders
      */
@@ -158,9 +155,9 @@ class Tag
     }
 
     /**
-     * Get folders.
+     * Get folders
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getFolders()
     {

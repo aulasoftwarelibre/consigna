@@ -11,7 +11,6 @@ namespace AppBundle\Behat;
 
 use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
-use Sylius\Bundle\ResourceBundle\Behat\DefaultContext;
 
 class UserContext extends DefaultContext
 {
@@ -22,11 +21,15 @@ class UserContext extends DefaultContext
     {
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash) {
+
+            $organization = $em->getRepository('AppBundle:Organization')->findOneBy(['code' => $hash['organization']]);
+
             $user = new User();
             $user->setUsername($hash['username']);
             $user->setPlainPassword($hash['plainPassword']);
             $user->setEmail($hash['email']);
             $user->setEnabled($hash['enabled']);
+            $user->setOrganization($organization);
 
             $em->persist($user);
         }

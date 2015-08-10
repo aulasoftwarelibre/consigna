@@ -5,16 +5,32 @@ namespace AppBundle\Entity;
 use AppBundle\Model\FileInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Folder.
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\FolderRepository")
+ * @ORM\Table(name="folder")
+ * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FolderRepository")
  */
 class Folder implements FileInterface
 {
+    /**
+     * Hook ip-traceable behavior
+     * updates createdFromIp, updatedFromIp fields
+     */
+    use IpTraceableEntity;
+
+    /**
+     * Hook timestampable behavior
+     * updates createdAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
     /**
      * @var int
      *
@@ -27,45 +43,46 @@ class Folder implements FileInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="folderName", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Length(min="3", max="255")
+     * @Assert\NotBlank()
      */
-    private $folderName;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="uploadDate", type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $uploadDate;
+    private $name;
 
     /**
      * @var User
      *
+     * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="folders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
-    private $user;
+    private $owner;
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="files")
+     *
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="folders")
      */
     private $tags;
 
     /**
+     * @var ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFolders")
      */
-    private $usersWithAccess;
+    private $sharedWith;
 
     /**
-     * @var
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="File", mappedBy="folder", cascade="all")
      */
     private $files;
 
     /**
-     * @Gedmo\Slug(fields={"folderName"})
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
@@ -73,9 +90,11 @@ class Folder implements FileInterface
     /**
      * Encrypted password. Must be persisted.
      *
+     * @var string
+     *
      * @ORM\Column(name="password", type="string", length=255)
      */
-    protected $password;
+    private $password;
 
     /**
      * @var string
@@ -97,105 +116,23 @@ class Folder implements FileInterface
     private $shareCode;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_permanent", type="boolean")
+     */
+    private $isPermanent;
+
+    /**
      * Construct.
      */
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usersWithAccess = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sharedWith = new \Doctrine\Common\Collections\ArrayCollection();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set folderName.
-     *
-     * @param string $folderName
-     *
-     * @return Folder
-     */
-    public function setFolderName($folderName)
-    {
-        $this->folderName = $folderName;
-
-        return $this;
-    }
-
-    /**
-     * Get folderName.
-     *
-     * @return string
-     */
-    public function getFolderName()
-    {
-        return $this->folderName;
-    }
-
-    /**
-     * Set uploadDate.
-     *
-     * @param \DateTime $uploadDate
-     *
-     * @return Folder
-     */
-    public function setUploadDate($uploadDate)
-    {
-        $this->uploadDate = $uploadDate;
-
-        return $this;
-    }
-
-    /**
-     * Get uploadDate.
-     *
-     * @return \DateTime
-     */
-    public function getUploadDate()
-    {
-        return $this->uploadDate;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @param Tag $tags
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
+        $this->isPermanent = false;
     }
 
     /**
@@ -205,43 +142,46 @@ class Folder implements FileInterface
      */
     public function __toString()
     {
-        return $this->getFolderName();
+        return $this->getName();
     }
 
     /**
-     * @return mixed
+     * Get name
+     *
+     * @return string
      */
-    public function getUsersWithAccess()
+    public function getName()
     {
-        return $this->usersWithAccess;
+        return $this->name;
     }
 
     /**
-     * @param mixed $usersWithAccess
+     * Set name
+     *
+     * @param string $name
+     * @return Folder
      */
-    public function setUsersWithAccess($usersWithAccess)
+    public function setName($name)
     {
-        $this->usersWithAccess = $usersWithAccess;
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get id
+     *
+     * @return integer
      */
-    public function getFiles()
+    public function getId()
     {
-        return $this->files;
+        return $this->id;
     }
 
     /**
-     * @param mixed $files
-     */
-    public function setFiles($files)
-    {
-        $this->files = $files;
-    }
-
-    /**
-     * @return mixed
+     * Get slug
+     *
+     * @return string
      */
     public function getSlug()
     {
@@ -249,18 +189,91 @@ class Folder implements FileInterface
     }
 
     /**
-     * @param mixed $slug
+     * Set slug
+     *
+     * @param string $slug
+     * @return Folder
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     /**
-     * Add tags.
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Folder
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return Folder
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Get shareCode
+     *
+     * @return string
+     */
+    public function getShareCode()
+    {
+        return $this->shareCode;
+    }
+
+    /**
+     * Set shareCode
+     *
+     * @param string $shareCode
+     * @return Folder
+     */
+    public function setShareCode($shareCode)
+    {
+        $this->shareCode = $shareCode;
+
+        return $this;
+    }
+
+    /**
+     * Add tags
      *
      * @param \AppBundle\Entity\Tag $tags
-     *
      * @return Folder
      */
     public function addTag(\AppBundle\Entity\Tag $tags)
@@ -271,7 +284,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove tags.
+     * Remove tags
      *
      * @param \AppBundle\Entity\Tag $tags
      */
@@ -281,34 +294,52 @@ class Folder implements FileInterface
     }
 
     /**
-     * Add usersWithAccess.
+     * Get tags
      *
-     * @param \AppBundle\Entity\User $usersWithAccess
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add sharedWith
      *
+     * @param \AppBundle\Entity\User $sharedWith
      * @return Folder
      */
-    public function addUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
+    public function addSharedWith(\AppBundle\Entity\User $sharedWith)
     {
-        $this->usersWithAccess[] = $usersWithAccess;
+        $this->sharedWith[] = $sharedWith;
 
         return $this;
     }
 
     /**
-     * Remove usersWithAccess.
+     * Remove sharedWith
      *
-     * @param \AppBundle\Entity\User $usersWithAccess
+     * @param \AppBundle\Entity\User $sharedWith
      */
-    public function removeUsersWithAccess(\AppBundle\Entity\User $usersWithAccess)
+    public function removeSharedWith(\AppBundle\Entity\User $sharedWith)
     {
-        $this->usersWithAccess->removeElement($usersWithAccess);
+        $this->sharedWith->removeElement($sharedWith);
     }
 
     /**
-     * Add files.
+     * Get sharedWith
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSharedWith()
+    {
+        return $this->sharedWith;
+    }
+
+    /**
+     * Add files
      *
      * @param \AppBundle\Entity\File $files
-     *
      * @return Folder
      */
     public function addFile(\AppBundle\Entity\File $files)
@@ -319,13 +350,23 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove files.
+     * Remove files
      *
      * @param \AppBundle\Entity\File $files
      */
     public function removeFile(\AppBundle\Entity\File $files)
     {
         $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 
     /**
@@ -337,11 +378,12 @@ class Folder implements FileInterface
      */
     public function hasAccess($user)
     {
-        if ($this->getUser() == $user) {
+        if ($this->getOwner() == $user) {
             return true;
         }
-        foreach ($this->usersWithAccess as $uWithAccess) {
-            if ($user == $uWithAccess) {
+
+        foreach ($this->sharedWith as $member) {
+            if ($user == $member) {
                 return true;
             }
         }
@@ -350,38 +392,31 @@ class Folder implements FileInterface
     }
 
     /**
-     * @return string
+     * Get owner
+     *
+     * @return \AppBundle\Entity\User
      */
-    public function getPassword()
+    public function getOwner()
     {
-        return $this->password;
+        return $this->owner;
     }
 
     /**
-     * @param string $password
+     * Set owner
+     *
+     * @param \AppBundle\Entity\User $owner
+     * @return Folder
      */
-    public function setPassword($password)
+    public function setOwner(\AppBundle\Entity\User $owner)
     {
-        $this->password = $password;
+        $this->owner = $owner;
+
+        return $this;
     }
 
     /**
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * @param string $salt
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-    }
-
-    /**
+     * Get plain password
+     *
      * @return string
      */
     public function getPlainPassword()
@@ -390,6 +425,8 @@ class Folder implements FileInterface
     }
 
     /**
+     * Set plain password
+     *
      * @param string $plainPassword
      */
     public function setPlainPassword($plainPassword)
@@ -398,23 +435,30 @@ class Folder implements FileInterface
     }
 
     /**
-     * @return mixed
+     * Get isPermanent
+     *
+     * @return boolean
      */
-    public function getShareCode()
+    public function isIsPermanent()
     {
-        return $this->shareCode;
+        return $this->isPermanent;
     }
 
     /**
-     * @param mixed $shareCode
+     * Set isPermanent
+     *
+     * @param boolean $isPermanent
      */
-    public function setShareCode($shareCode)
+    public function setIsPermanent($isPermanent)
     {
-        $this->shareCode = $shareCode;
+        $this->isPermanent = $isPermanent;
     }
 
+    /**
+     * Remove credentials
+     */
     public function eraseCredentials()
     {
-        $this->plainPassword = null;
+        $this->setPlainPassword(null);
     }
 }

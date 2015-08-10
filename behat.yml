@@ -20,6 +20,7 @@ default:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - AppBundle\Behat\CoreContext
+                - AppBundle\Behat\OrganizationContext
                 - AppBundle\Behat\UserContext
             filters:
                 tags: "@login"
@@ -27,6 +28,7 @@ default:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - AppBundle\Behat\CoreContext
+                - AppBundle\Behat\OrganizationContext
                 - AppBundle\Behat\UserContext
                 - AppBundle\Behat\TagContext
                 - AppBundle\Behat\FileContext

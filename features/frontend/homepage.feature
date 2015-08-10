@@ -4,11 +4,16 @@ Feature: List files
   As a consigna user
   I want to get the different list of files
   Background:
+    Given existing organizations:
+      | name                  | code      | enabled       |
+      | Organization A        | a.org     | true          |
+      | Organization B        | b.org     | false         |
+
     Given existing users:
-      | username    | email             | plainPassword | enabled  |
-      | user1       | user1@uco.es      | secret1       | 1        |
-      | user2       | user2@uco.es      | secret2       | 1        |
-      | user3       | user3@uco.es      | secret3       | 1        |
+      | username    | email            | plainPassword | enabled  | organization |
+      | user1       | user1@a.org      | secret1       | 1        | a.org        |
+      | user2       | user2@b.org      | secret2       | 1        | b.org        |
+      | user3       | user3@a.org      | secret3       | 1        | a.org        |
 
     And existing tags:
       | tagName |
@@ -48,19 +53,19 @@ Feature: List files
 
   Scenario: Follow All items in left menu
     Given I am on the main folder
-    When I follow "All items"
+    When I follow "All files"
     Then  I should see 5 elements
 
   Scenario: Follow My items in left menu
     Given I am on the main folder
     And I am authenticated as "user1" with "secret1"
-    When I follow "My items"
+    When I follow "My files"
     Then  I should see 2 elements
 
   Scenario: Follow Shared items in left menu
     Given I am on the main folder
     And I am authenticated as "user2" with "secret2"
-    When I follow "Shared items"
+    When I follow "Shared files"
     Then  I should see 1 elements
 
   Scenario: Follow main folder in breadcrum

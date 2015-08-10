@@ -28,7 +28,7 @@ class DownloadFileType extends AbstractType
                 'constraints' => new Assert\Callback(array(
                     'callback' => array($this, 'validate'),
                 )),
-                'label' => 'password.download.file'
+                'label' => 'label.password'
             ))
         ;
     }
