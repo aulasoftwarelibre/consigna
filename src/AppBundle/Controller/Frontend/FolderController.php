@@ -82,6 +82,7 @@ class FolderController extends Controller
 
     /**
      * @Route("/{slug}" , name="folder_show")
+     * @Method(methods={"GET"})
      * @Template("frontend/Folder/show.html.twig")
      */
     public function showAction(Folder $folder)
