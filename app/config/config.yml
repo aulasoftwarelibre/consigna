@@ -3,8 +3,9 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
-    - { resource: bundles/easy_admin.yml }
     - { resource: bundles/oneup_uploader.yml }
+    - { resource: bundles/sonata_admin.yml }
+    - { resource: bundles/sonata_block.yml }
 
 framework:
     #esi:             ~

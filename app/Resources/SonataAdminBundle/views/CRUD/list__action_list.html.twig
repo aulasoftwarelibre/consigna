@@ -1,0 +1,6 @@
+{% if admin.isGranted('VIEW', object.files.first) and admin.hasRoute('consigna.admin.folder|consigna.admin.file.list') %}
+    <a href="{{ admin.generateObjectUrl('consigna.admin.folder|consigna.admin.file.list', object) }}" class="btn btn-sm btn-default edit_link" title="{{ 'label.list_files'|trans({}, 'messages') }}">
+        <i class="glyphicon glyphicon-list"></i>
+        {{ 'label.list_files'|trans({}, 'messages') }}
+    </a>
+{% endif %}

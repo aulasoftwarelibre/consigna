@@ -1,0 +1,17 @@
+sonata_admin:
+    title: ConsignaUCO
+
+    dashboard:
+        groups:
+            consigna.admin.group_admin:
+                label: label.administration
+                label_catalogue: messages
+                items:
+                    - consigna.admin.user
+                    - consigna.admin.organization
+            consigna.admin.group_files:
+                label: label.files
+                label_catalogue: messages
+                items:
+                    - consigna.admin.folder
+                    - consigna.admin.file

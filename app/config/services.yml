@@ -13,6 +13,35 @@ services:
         #this is the place where the properties are passed to the UserProvider - see config.yml
         arguments: [@fos_user.user_manager, { sir: sir_id }, @doctrine.orm.entity_manager]
 
+# ADMIN
+
+    consigna.admin.organization:
+        class: AppBundle\Admin\OrganizationAdmin
+        arguments: [~, AppBundle\Entity\Organization, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: label.organization}
+
+    consigna.admin.file:
+        class: AppBundle\Admin\FileAdmin
+        arguments: [~, AppBundle\Entity\File, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: label.file}
+
+    consigna.admin.folder:
+        class: AppBundle\Admin\FolderAdmin
+        arguments: [~, AppBundle\Entity\Folder, SonataAdminBundle:CRUD]
+        calls:
+            - [ addChild, [@consigna.admin.file] ]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: label.folder}
+
+    consigna.admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [~, AppBundle\Entity\User, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: label.user}
+
+
 # EVENT LISTENERS
 
     consigna.security.listener:

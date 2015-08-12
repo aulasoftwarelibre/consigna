@@ -49,7 +49,6 @@ class Organization {
      * @var bool
      *
      * @ORM\Column(name="is_enabled", type="boolean", nullable=true)
-     * @Assert\Type(type="bool")
      */
     private $isEnabled;
 

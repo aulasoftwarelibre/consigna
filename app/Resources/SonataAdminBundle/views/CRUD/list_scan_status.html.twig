@@ -1,0 +1,13 @@
+{% extends admin.getTemplate('base_list_field') %}
+
+{% block field %}
+    {% if value == constant('SCAN_STATUS_OK', object) %}
+        <span class="label label-success">OK</span>
+    {% elseif value == constant('SCAN_STATUS_PENDING', object) %}
+        <span class="label label-warning">PENDING</span>
+    {% elseif value == constant('SCAN_STATUS_FAILED', object) %}
+        <span class="label label-important">FAILED</span>
+    {% elseif value == constant('SCAN_STATUS_INFECTED', object) %}
+        <span class="label label-danger">INFECTED</span>
+    {% endif %}
+{% endblock %}

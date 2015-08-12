@@ -18,11 +18,15 @@ hwi_oauth_redirect:
 sir_login:
     pattern: /login/check-sir
 
-# EasyAdmin
-easy_admin_bundle:
-    resource: "@AppBundle/Controller/Backend/AdminController.php"
-    type:     annotation
-    prefix:   /admin
+# app/config/routing.yml
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
 
 oneup_uploader:
     resource: .

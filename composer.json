@@ -28,11 +28,12 @@
         "gedmo/doctrine-extensions":            "~2.4",
         "guzzle/guzzle":                        "~3.9",
         "hwi/oauth-bundle":                     "~0.4@dev",
-        "javiereguiluz/easyadmin-bundle":       "master-dev",
         "jms/serializer-bundle":                "~1.0",
         "knplabs/knp-menu-bundle":              "2.0.*",
         "oneup/uploader-bundle":                "dev-master",
-        "twig/extensions":                      "~1.2"
+        "twig/extensions":                      "~1.2",
+        "sonata-project/admin-bundle":          "^2.4@dev",
+        "sonata-project/doctrine-orm-admin-bundle": "^2.3"
     },
     "require-dev": {
         "sensio/generator-bundle":              "~2.4",

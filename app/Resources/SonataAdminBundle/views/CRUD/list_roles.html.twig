@@ -1,0 +1,8 @@
+{% extends admin.getTemplate('base_list_field') %}
+
+{% block field %}
+    {% for role in value %}
+        {% set label = 'ADMIN' in role ? 'danger' : 'success' %}
+        <span class="label label-{{- label -}}">{{ role }}</span>
+    {% endfor %}
+{% endblock %}

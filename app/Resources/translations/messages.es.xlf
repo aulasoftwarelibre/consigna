@@ -197,6 +197,112 @@
       </trans-unit>
 
 
+      <trans-unit id="label.files">
+        <source>label.files</source>
+        <target>Ficheros</target>
+      </trans-unit>
+      <trans-unit id="label.list_files">
+        <source>label.list_files</source>
+        <target>Listar ficheros</target>
+      </trans-unit>
+      <trans-unit id="label.create_file">
+        <source>label.create_file</source>
+        <target>Crear fichero</target>
+      </trans-unit>
+      <trans-unit id="label.organization">
+        <source>label.organization</source>
+        <target>Organización</target>
+      </trans-unit>
+      <trans-unit id="label.name">
+        <source>label.name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="label.code">
+        <source>label.code</source>
+        <target>Código</target>
+      </trans-unit>
+      <trans-unit id="label.enabled">
+        <source>label.enabled</source>
+        <target>Activo</target>
+      </trans-unit>
+      <trans-unit id="label.folder">
+        <source>label.folder</source>
+        <target>Carpeta</target>
+      </trans-unit>
+      <trans-unit id="label.folders">
+        <source>label.folders</source>
+        <target>Carpeta</target>
+      </trans-unit>
+      <trans-unit id="label.is_permanent">
+        <source>label.is_permanent</source>
+        <target>Permanente</target>
+      </trans-unit>
+      <trans-unit id="label.created_from_ip">
+        <source>label.created_from_ip</source>
+        <target>Dirección IP</target>
+      </trans-unit>
+      <trans-unit id="label.created_at">
+        <source>label.created_at</source>
+        <target>Fecha creación</target>
+      </trans-unit>
+      <trans-unit id="label.owner">
+        <source>label.owner</source>
+        <target>Dueño</target>
+      </trans-unit>
+      <trans-unit id="label.shared_with">
+        <source>label.shared_with</source>
+        <target>Compartido con</target>
+      </trans-unit>
+      <trans-unit id="label.mime_type">
+        <source>label.mime_type</source>
+        <target>Tipo MIME</target>
+      </trans-unit>
+      <trans-unit id="label.scan_status">
+        <source>label.scan_status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit id="label.size">
+        <source>label.size</source>
+        <target>Tamaño</target>
+      </trans-unit>
+      <trans-unit id="label.username">
+        <source>label.username</source>
+        <target>Usuario</target>
+      </trans-unit>
+      <trans-unit id="label.email">
+        <source>label.email</source>
+        <target>Correo electrónico</target>
+      </trans-unit>
+      <trans-unit id="label.locked">
+        <source>label.locked</source>
+        <target>Bloqueado</target>
+      </trans-unit>
+      <trans-unit id="label.expired">
+        <source>label.expired</source>
+        <target>Caducado</target>
+      </trans-unit>
+      <trans-unit id="label.roles">
+        <source>label.roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="label.sir_id">
+        <source>label.sir_id</source>
+        <target>ID de SIR</target>
+      </trans-unit>
+      <trans-unit id="label.administration">
+        <source>label.administration</source>
+        <target>Administración</target>
+      </trans-unit>
+      <trans-unit id="label.user">
+        <source>label.user</source>
+        <target>Usuario</target>
+      </trans-unit>
+      <trans-unit id="label.last_login">
+        <source>label.last_login</source>
+        <target>Último acceso</target>
+      </trans-unit>
+
+
       <!-- titles -->
       <trans-unit id="title.create_folder">
         <source>title.create_folder</source>
