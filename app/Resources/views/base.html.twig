@@ -200,13 +200,9 @@
                     <div class="modal-body">
                         <form role="form">
                             <div class="box-body">
-                                <div class="form-group"><label for="exampleInputEmail1">{{ _('label.link') }}</label>
-                                    <div class="input-group"><input class="form-control" id="share">
-                                        <div class="input-group-btn">
-                                            <button type="button" id="sharebtn" class="btn btn-default"><i class="fa fa-copy"></i> {{ _('action.copy') }}
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">{{ _('label.link') }}</label>
+                                    <input readonly="readonly" class="form-control" id="share" onfocus="this.select();" onmouseup="return false;">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -223,7 +219,6 @@
     {% endblock %}
 
     {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
-        <script src="{{ asset('vendor/zeroclipboard/dist/ZeroClipboard.min.js')  }}"></script>
         {% javascripts filter="cssrewrite" output="compiled/js/consigna.js" debug=false
             "vendor/jquery/dist/jquery.js"
             "vendor/select2/select2.js"

@@ -20,6 +20,4 @@ $( document ).ready(function() {
         modal.find('#share').attr('value', url).select();
         modal.find('#sharebtn').attr('data-clipboard-text', url);
     })
-
-    var client = new ZeroClipboard( $("button#sharebtn") );
 });
