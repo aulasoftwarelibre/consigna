@@ -273,13 +273,14 @@ class FolderController extends Controller
     /**
      * @Route("/file/{slug}/download", name="folder_file_download")
      */
-    public function downloadFileAction(File $file)
+    public function downloadFileAction(File $file, Request $request)
     {
         $this->denyAccessUnlessGranted('DOWNLOAD', $file->getFolder());
 
         $fileToDownload = $file->getPath();
         $response = new BinaryFileResponse($fileToDownload);
         $response->trustXSendfileTypeHeader();
+        $response->prepare($request);
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $file->getName(),
