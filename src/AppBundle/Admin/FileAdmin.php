@@ -96,18 +96,18 @@ class FileAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('file', null, [
-                'label' => 'label.file',
-            ])
             ->add('name', null, [
                 'label' => 'label.name',
             ])
-            ->add('plainPassword', null, [
-                'label' => 'label.password',
-            ])
-            ->add('scanStatus', null, [
-                'label' => 'label.scan_status',
-            ])
+            ->add('plainPassword', 'repeated', [
+                    'type' => 'password',
+                    'options' => ['translation_domain' => 'FOSUserBundle'],
+                    'first_options' => ['label' => 'form.new_password'],
+                    'second_options' => ['label' => 'form.new_password_confirmation'],
+                    'invalid_message' => 'fos_user.password.mismatch',
+                    'required' => false,
+                ]
+            )
         ;
     }
 

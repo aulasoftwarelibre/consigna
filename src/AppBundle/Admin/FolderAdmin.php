@@ -84,9 +84,15 @@ class FolderAdmin extends Admin
             ->add('name', null, [
                 'label' => 'label.name',
             ])
-            ->add('plainPassword', 'password', [
-                'label' => 'label.password',
-            ])
+            ->add('plainPassword', 'repeated', [
+                    'type' => 'password',
+                    'options' => ['translation_domain' => 'FOSUserBundle'],
+                    'first_options' => ['label' => 'form.new_password'],
+                    'second_options' => ['label' => 'form.new_password_confirmation'],
+                    'invalid_message' => 'fos_user.password.mismatch',
+                    'required' => false,
+                ]
+            )
             ->add('isPermanent', null, [
                 'label' => 'label.is_permanent',
             ])
