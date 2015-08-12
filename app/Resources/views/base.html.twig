@@ -19,6 +19,7 @@
                 "vendor/admin-lte/dist/css/skins/skin-black.css"
                 "vendor/admin-lte/plugins/iCheck/square/blue.css"
                 "vendor/dropzone/dist/dropzone.css"
+                "vendor/plyr/dist/plyr.css"
                 "bundles/app/css/consigna.css"
             %}
             <link rel="stylesheet" href="{{ asset_url }}" />
@@ -219,6 +220,7 @@
     {% endblock %}
 
     {% block javascripts %}<!-- Librería jQuery requerida por los plugins de JavaScript -->
+        <script>(function (d, p) {var a = new XMLHttpRequest(),b = d.body;a.open("GET", p, true);a.send();a.onload = function () {var c = d.createElement("div");c.style.display = "none";c.innerHTML = a.responseText;b.insertBefore(c, b.childNodes[0]);}})(document, "{{ asset('vendor/plyr/dist/sprite.svg') }}");</script>
         {% javascripts filter="cssrewrite" output="compiled/js/consigna.js" debug=false
             "vendor/jquery/dist/jquery.js"
             "vendor/select2/select2.js"
@@ -227,6 +229,7 @@
             "vendor/admin-lte/plugins/iCheck/icheck.js"
             "vendor/admin-lte/dist/js/app.js"
             "vendor/dropzone/dist/dropzone.js"
+            "vendor/plyr/dist/plyr.js"
             "bundles/app/js/consigna.js"
         %}
             <script src="{{ asset_url }}"></script>

@@ -88,7 +88,6 @@ class FolderController extends Controller
     public function showAction(Folder $folder)
     {
         $em = $this->getDoctrine()->getManager();
-        $sizeAndNumOfFiles = $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
         $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
 
         if (false === $this->isGranted('ACCESS', $folder)) {
@@ -106,7 +105,6 @@ class FolderController extends Controller
         return [
             'files' => $files,
             'folder' => $folder,
-            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
@@ -120,7 +118,6 @@ class FolderController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
-        $sizeAndNumOfFiles = $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
         $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
 
 
@@ -154,7 +151,6 @@ class FolderController extends Controller
 
         return [
             'folder' => $folder,
-            'sum' => $sizeAndNumOfFiles,
             'files' => $files,
         ];
     }

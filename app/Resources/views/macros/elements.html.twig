@@ -77,22 +77,31 @@
 
 {% macro folderfile(file) %}
     {% set created = file.createdAt | time_diff %}
-    {% set deleted = file.createdAt | date_modify( days_before_clean ~ " days" ) | time_diff %}
     {% set organization = file.owner is empty ? _('label.anon_user') : file.owner.organization.code %}
 
     <li>
         <div class="square">
+            {% if file.mimeType starts with 'audio/' %}
+            <span class="icon"><i class="fa fa-file-sound-o"></i></span>
+            {% else %}
             <span class="icon"><i class="fa fa-file-o"></i></span>
+            {% endif %}
+
         </div>
         <div class="info">
             <h2 class="title"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}">{{ file.name }}</a></h2>
             <p class="desc">
                 <small>
                     {{ _('file.upload_from', {'%organization%': organization, '%created%': created }) | raw }}
-                    {%- if not file.folder.isPermanent %}
-                        {{ _('file.available_until', {'%deleted%': deleted}) | raw }}
-                    {% endif -%}
                 </small>
+                {% if file.mimeType starts with 'audio/' %}
+                <div class="player">
+                    <audio controls preload="none">
+                        <!-- Audio files -->
+                        <source src="{{ path('folder_file_download', {'slug': file.slug}) }}" type="{{ file.mimeType }}">
+                    </audio>
+                </div>
+                {% endif %}
             </p>
             <ul>
                 {% for tag in file.tags %}
@@ -135,3 +144,4 @@
         {% endif %}
     {% endspaceless %}
 {% endmacro %}
+
