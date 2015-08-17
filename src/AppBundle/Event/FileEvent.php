@@ -6,27 +6,22 @@ use Symfony\Component\EventDispatcher\Event;
 use AppBundle\Entity\File;
 
 /**
- * Class FileEvent
- * @package AppBundle\Event
+ * Class FileEvent.
  */
 class FileEvent extends Event
 {
-    /*
-     * @var File
-     */
     /**
-     * @var
+     * @var File
      */
     private $file;
 
     /**
      * @param $file
      */
-    function __construct($file)
+    public function __construct(File $file)
     {
         $this->file = $file;
     }
-
 
     /**
      * @return File
@@ -35,6 +30,4 @@ class FileEvent extends Event
     {
         return $this->file;
     }
-
-
 }

@@ -6,7 +6,6 @@
  * Date: 27/04/15
  * Time: 18:04.
  */
-
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Entity\File;
@@ -83,7 +82,7 @@ class FileVoter extends AbstractVoter
                         return true;
                     }
                 } else {
-                    if ($this->session->has($object->getSlug())) {
+                    if ($this->session->has($object->getShareCode())) {
                         return true;
                     }
                 }

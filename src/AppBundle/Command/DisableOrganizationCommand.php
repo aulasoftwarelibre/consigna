@@ -1,19 +1,19 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: juanan
  * Date: 3/05/15
- * Time: 20:31
+ * Time: 20:31.
  */
-
 namespace AppBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DisableOrganizationCommand extends ContainerAwareCommand{
-
+class DisableOrganizationCommand extends ContainerAwareCommand
+{
     protected function configure()
     {
         $this
@@ -25,7 +25,7 @@ class DisableOrganizationCommand extends ContainerAwareCommand{
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $organization = $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Organization')->findOneByCode($input->getArgument('Code'));
-        if(null===$organization) {
+        if (null === $organization) {
             $output->writeln('This organization does not exist');
         } else {
             $organization->setisEnabled(false);

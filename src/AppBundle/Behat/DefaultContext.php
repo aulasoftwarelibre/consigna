@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 02/08/15
- * Time: 23:14
+ * Time: 23:14.
  */
-
 namespace AppBundle\Behat;
 
 use Behat\Behat\Context\Context;
@@ -34,9 +34,9 @@ class DefaultContext extends RawMinkContext implements Context, KernelAwareConte
      * @var array
      */
     protected $actions = array(
-        'viewing'  => 'show',
+        'viewing' => 'show',
         'creation' => 'create',
-        'editing'  => 'update',
+        'editing' => 'update',
         'building' => 'build',
     );
 
@@ -58,18 +58,17 @@ class DefaultContext extends RawMinkContext implements Context, KernelAwareConte
 
         $isMySqlDriver = $entityManager->getConnection()->getDriver() instanceof PDOMySqlDriver;
         if ($isMySqlDriver) {
-            $entityManager->getConnection()->executeUpdate("SET foreign_key_checks = 0;");
+            $entityManager->getConnection()->executeUpdate('SET foreign_key_checks = 0;');
         }
 
         $purger = new ORMPurger($entityManager);
         $purger->purge();
 
         if ($isMySqlDriver) {
-            $entityManager->getConnection()->executeUpdate("SET foreign_key_checks = 1;");
+            $entityManager->getConnection()->executeUpdate('SET foreign_key_checks = 1;');
         }
 
         $entityManager->clear();
-
     }
 
     /**
@@ -171,7 +170,7 @@ class DefaultContext extends RawMinkContext implements Context, KernelAwareConte
             return $this->generateUrl($page, $parameters);
         }
 
-        $route  = str_replace(' ', '_', trim($page));
+        $route = str_replace(' ', '_', trim($page));
         $routes = $this->getContainer()->get('router')->getRouteCollection();
 
         if (null === $routes->get($route)) {

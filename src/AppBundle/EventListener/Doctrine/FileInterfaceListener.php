@@ -6,8 +6,7 @@
  * Date: 8/04/15
  * Time: 13:20.
  */
-
-namespace AppBundle\EventListener;
+namespace AppBundle\EventListener\Doctrine;
 
 use AppBundle\Model\FileInterface;
 use Doctrine\Common\EventSubscriber;
@@ -16,7 +15,7 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-class SecurityConsignaListener implements EventSubscriber
+class FileInterfaceListener implements EventSubscriber
 {
     /**
      * @var EncoderFactoryInterface
@@ -43,23 +42,27 @@ class SecurityConsignaListener implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args)
     {
-        $this->handleEvent($args);
+        $object = $args->getObject();
+        if ($object instanceof FileInterface) {
+            $this->updateUserFields($object);
+        }
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
-        $this->handleEvent($args);
+        $object = $args->getObject();
+        if ($object instanceof FileInterface) {
+            $this->updateUserFields($object);
+        }
     }
 
-    private function handleEvent(LifecycleEventArgs $args)
+    protected function updateUserFields(FileInterface $object)
     {
-        $entity = $args->getObject();
-
-        if ($entity instanceof FileInterface) {
-            if (0 !== strlen($password = $entity->getPlainPassword())) {
-                $encoder = $this->encoderFactory->getEncoder($entity);
-                $entity->setPassword($encoder->encodePassword($password, $entity->getSalt()));
-                $entity->eraseCredentials();
+        if ($object instanceof FileInterface) {
+            if (0 !== strlen($password = $object->getPlainPassword())) {
+                $encoder = $this->encoderFactory->getEncoder($object);
+                $object->setPassword($encoder->encodePassword($password, $object->getSalt()));
+                $object->eraseCredentials();
             }
         }
     }

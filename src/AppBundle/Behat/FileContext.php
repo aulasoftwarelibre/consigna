@@ -6,7 +6,6 @@
  * Date: 11/01/15
  * Time: 19:14.
  */
-
 namespace AppBundle\Behat;
 
 use AppBundle\Entity\File;
@@ -38,7 +37,7 @@ class FileContext extends DefaultContext
             $file->setSize(100);
             $file->setMimeType('pdf');
             $file->setFile('test.pdf');
-            $file->setPath($this->kernel->getRootDir() . '/../features/files/test.pdf');
+            $file->setPath($this->kernel->getRootDir().'/../features/files/test.pdf');
             $file->setScanStatus(File::SCAN_STATUS_OK);
             if ($userWithAccess) {
                 $file->addSharedWith($userWithAccess);
@@ -62,17 +61,21 @@ class FileContext extends DefaultContext
 
             $user = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['username']);
             $userWithAccess = $this->getEntityManager()->getRepository('AppBundle:User')->findOneByUsername($hash['userWithAccess']);
-            $tag = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByName($hash['tags']);
             $folder->setName($hash['folderName']);
             $folder->setPlainPassword('secret');
+
             if ($user) {
                 $folder->setOwner($user);
             }
+
             if ($userWithAccess) {
                 $folder->addSharedWith($userWithAccess);
             }
-            if ($tag) {
-                $folder->addTag($tag);
+
+            $tags = explode(',', $hash['tags']);
+            foreach ($tags as $tag) {
+                $entity = $this->getEntityManager()->getRepository('AppBundle:Tag')->findOneByName(trim($tag));
+                $folder->addTag($entity);
             }
 
             $em->persist($folder);

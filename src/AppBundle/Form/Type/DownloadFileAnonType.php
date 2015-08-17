@@ -6,66 +6,38 @@
  * Date: 19/03/15
  * Time: 12:58.
  */
-
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\File;
-use Symfony\Component\Validator\Constraints as Assert;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-class DownloadFileAnonType extends AbstractType
+class DownloadFileAnonType extends DownloadFileType
 {
-    private $encoderFactory;
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('password', 'password', array(
-                'mapped' => false,
-                'constraints' => new Assert\Callback(array(
-                    'callback' => array($this, 'validate'),
-                )),
-                'label' => 'label.password'
-            ))
-            ->add('captcha', 'ewz_recaptcha', array(
-                'label' => 'label.captcha',
-                'attr' => array(
-                    'options' => array(
-                        'theme' => 'light',
-                        'type'  => 'image',
-                    ),
-                ),
-                'mapped'      => false,
-                'constraints' => array(
-                    new IsTrue(),
-                ),
-            ))
-        ;
+            ->add(
+                'captcha',
+                'ewz_recaptcha',
+                [
+                    'label' => 'label.captcha',
+                    'attr' => [
+                        'options' => [
+                            'theme' => 'light',
+                            'type' => 'image',
+                        ],
+                    ],
+                    'mapped' => false,
+                    'constraints' => [
+                        new IsTrue(),
+                    ],
+                ]
+            );
     }
 
     public function getName()
     {
-        return 'file';
-    }
-
-    public function validate($plainPassword, ExecutionContextInterface $context)
-    {
-        /** @var File $file */
-        $file = $context->getRoot()->getData();
-
-        if (false === $this->encoderFactory->getEncoder($file)->isPasswordValid($file->getPassword(), $plainPassword, $file->getSalt())) {
-            $context->buildViolation('Password is not valid.')
-                ->atPath('password')
-                ->addViolation();
-        }
-    }
-
-    public function __construct(EncoderFactoryInterface $encoderFactory)
-    {
-        $this->encoderFactory = $encoderFactory;
+        return 'consigna_download_file_anon';
     }
 }

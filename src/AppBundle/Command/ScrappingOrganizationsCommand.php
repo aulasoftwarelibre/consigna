@@ -1,13 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 02/05/15
- * Time: 05:34
+ * Time: 05:34.
  */
-
 namespace AppBundle\Command;
-
 
 use AppBundle\Entity\Organization;
 use Goutte\Client;
@@ -32,27 +31,27 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
     {
         $client = new Client();
 
-
-        $output->writeln("Recogiendo datos");
+        $output->writeln('Recogiendo datos');
         $crawler = $client->request('GET', self::URL);
 
         $organizations = $crawler->filter('.codigo_scroll')->each(function (Crawler $node) use ($output) {
             $university = $node->filter('div > a')->getNode(1)->textContent;
-            $output->writeln( $university );
+            $output->writeln($university);
 
             $data = $node->filter('table > tbody > tr')->each(function (Crawler $node) {
                 $key = $node->filter('td')->getNode(0)->textContent;
                 $value = $node->filter('td')->getNode(1)->textContent;
+
                 return [$key => $value];
             });
 
             $metadata = [];
-            array_walk($data, function($element) use (&$metadata) {
+            array_walk($data, function ($element) use (&$metadata) {
                 $metadata = array_merge($metadata, $element);
             });
 
             if (empty($metadata['sHO'])) {
-                return null;
+                return;
             }
 
             $organization = new Organization();
@@ -66,7 +65,7 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
         /** @var Organization $organization */
         foreach ($organizations as $organization) {
             if ($organization instanceof Organization
-                && ! $this->getManager()->getRepository('AppBundle:Organization')->findOneBy(['code' => $organization->getCode()])
+                && !$this->getManager()->getRepository('AppBundle:Organization')->findOneBy(['code' => $organization->getCode()])
             ) {
                 $this->getManager()->persist($organization);
             }
@@ -79,5 +78,4 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
     {
         return $this->getContainer()->get('doctrine.orm.entity_manager');
     }
-
 }

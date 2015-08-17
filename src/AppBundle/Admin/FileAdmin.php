@@ -63,7 +63,7 @@ class FileAdmin extends Admin
             ])
             ->add('scanStatus', null, [
                 'label' => 'label.scan_status',
-                'template' => 'SonataAdminBundle:CRUD:list_scan_status.html.twig'
+                'template' => 'SonataAdminBundle:CRUD:list_scan_status.html.twig',
             ])
             ->add('size', null, [
                 'label' => 'label.size',
@@ -85,7 +85,7 @@ class FileAdmin extends Admin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                )
+                ),
             ))
         ;
     }
@@ -153,6 +153,6 @@ class FileAdmin extends Admin
      */
     public function getParentAssociationMapping()
     {
-        return "folder";
+        return 'folder';
     }
 }

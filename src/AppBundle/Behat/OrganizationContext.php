@@ -1,13 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 10/08/15
- * Time: 21:06
+ * Time: 21:06.
  */
-
 namespace AppBundle\Behat;
-
 
 use AppBundle\Entity\Organization;
 use Behat\Gherkin\Node\TableNode;

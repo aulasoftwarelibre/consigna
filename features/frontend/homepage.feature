@@ -47,7 +47,7 @@ Feature: List files
   Examples:
     | word      | number    |
     | file1     | 1         |
-    | f         | 6         |
+    | f         | 5         |
     | nothing   | 0         |
     | tag1      | 2         |
 
@@ -60,7 +60,7 @@ Feature: List files
     Given I am on the main folder
     And I am authenticated as "user1" with "secret1"
     When I follow "My files"
-    Then  I should see 2 elements
+    Then  I should see 1 elements
 
   Scenario: Follow Shared items in left menu
     Given I am on the main folder

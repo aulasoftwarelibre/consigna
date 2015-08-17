@@ -1,13 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 07/08/15
- * Time: 03:46
+ * Time: 03:46.
  */
-
-namespace AppBundle\EventListener;
-
+namespace AppBundle\EventListener\Doctrine;
 
 use Gedmo\Blameable\BlameableListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -35,13 +34,13 @@ class UserTraceSubscriber implements EventSubscriberInterface
     private $tokenStorage;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param BlameableListener                  $blameableListener
      * @param TokenStorageInterface|null         $tokenStorage
      * @param AuthorizationCheckerInterface|null $authorizationChecker
      */
-    function __construct(BlameableListener $blameableListener, TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(BlameableListener $blameableListener, TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->blameableListener = $blameableListener;
         $this->tokenStorage = $tokenStorage;
@@ -51,7 +50,7 @@ class UserTraceSubscriber implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event)
     {
         if (null === $this->tokenStorage) {
-            return null;
+            return;
         }
 
         $token = $this->tokenStorage->getToken();
@@ -67,5 +66,4 @@ class UserTraceSubscriber implements EventSubscriberInterface
             KernelEvents::REQUEST => 'onKernelRequest',
         ];
     }
-
 }

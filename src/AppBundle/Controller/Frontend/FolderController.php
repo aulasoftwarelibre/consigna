@@ -6,213 +6,72 @@
  * Date: 16/03/15
  * Time: 17:46.
  */
-
 namespace AppBundle\Controller\Frontend;
 
-use AppBundle\Doctrine\Extensions\UploadedFileInfo;
+use AppBundle\Controller\Controller;
 use AppBundle\Entity\Folder;
-use AppBundle\Entity\File;
 use AppBundle\Entity\User;
+use AppBundle\Event\ConsignaEvents;
+use AppBundle\Event\FolderEvent;
+use AppBundle\Event\UserAccessSharedEvent;
 use AppBundle\Form\Type\AccessFolderAnonType;
 use AppBundle\Form\Type\AccessFolderType;
 use AppBundle\Form\Type\CreateFolderType;
-use AppBundle\Event\FileEvent;
-use AppBundle\Event\FileEvents;
 use AppBundle\Form\Type\EditFolderType;
-use AppBundle\Form\Type\FolderCreateFileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Class FolderController
+ * Class FolderController.
  *
- * @package AppBundle\Controller\Frontend
  * @Route("/folder")
  */
 class FolderController extends Controller
 {
     /**
-     * @Route("/new" , name="folder_new")
-     * @Template("frontend/Folder/new.html.twig")
+     * @Method({"GET"})
+     * @ParamConverter("folder", options={"repository_method" = "findOneActiveBySlug"})
+     * @Route("/s/{shareCode}", name="folder_access_share")
      */
-    public function newAction(Request $request)
+    public function accessShareAction(Folder $folder)
     {
-        $folder = new Folder();
-        $this->denyAccessUnlessGranted('CREATE', $folder);
-
-        $form = $this->createForm(new CreateFolderType(), $folder);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($folder);
-            $em->flush();
-
-            $this->addFlash('success', $this->get('translator')->trans('alert.folder_created_ok', ['%folder%' => $folder]));
-
-            return $this->redirectToRoute('homepage');
-        }
-
-        return [
-            'form' => $form->createView(),
-        ];
-    }
-
-    /**
-     * @Route("/{slug}/delete", name="folder_delete")
-     * @Security("is_granted('DELETE', folder)")
-     */
-    public function deleteAction(Folder $folder)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($folder);
-        $em->flush();
-
-        $this->addFlash('success', $this->get('translator')->trans('alert.folder_delete_ok', ['%folder%' => $folder]));
-
-        return $this->redirectToRoute('homepage');
-    }
-
-    /**
-     * @Route("/{slug}" , name="folder_show")
-     * @Method(methods={"GET"})
-     * @Template("frontend/Folder/show.html.twig")
-     */
-    public function showAction(Folder $folder)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
-
         if (false === $this->isGranted('ACCESS', $folder)) {
-            $form = $this->createAccessFolderForm($folder);
-
-            return $this->render(
-                "frontend/Folder/show_with_password.html.twig",
-                [
-                    'folder' => $folder,
-                    'form' => $form->createView(),
-                ]
-            );
+            $this->dispatch(ConsignaEvents::FOLDER_ACCESS_SUCCESS, new UserAccessSharedEvent($folder, $this->getUser()));
         }
 
-        return [
-            'files' => $files,
-            'folder' => $folder,
-        ];
+        return $this->redirectToRoute(
+            'folder_show',
+            [
+                'slug' => $folder->getSlug(),
+            ]
+        );
     }
 
     /**
-     * @Route("/{slug}", name="folder_check")
      * @Method(methods={"POST"})
-     * @Template("frontend/Folder/show.html.twig")
+     * @ParamConverter("folder", options={"repository_method" = "findOneActiveBySlug"})
+     * @Route("/{slug}/show", name="folder_check_password")
      */
     public function checkPasswordAction(Folder $folder, Request $request)
     {
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $session = $this->get('session');
-        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
-
-
         if (false === $this->isGranted('ACCESS', $folder)) {
             $form = $this->createAccessFolderForm($folder);
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                if ($user instanceof User) {
-                    $folder->addSharedWith($user);
-                    $em->persist($folder);
-                    $em->flush();
-                } else {
-                    $session->set($folder->getSlug(), true);
-                }
-
-                $this->addFlash('success', $this->get('translator')->trans('alert.valid_password'));
+                $this->dispatch(ConsignaEvents::FOLDER_ACCESS_SUCCESS, new UserAccessSharedEvent($folder, $this->getUser()));
+                $this->dispatch(ConsignaEvents::CHECK_PASSWORD_SUCCESS, new FolderEvent($folder));
             } else {
-                $this->addFlash('danger', $this->get('translator')->trans('alert.invalid_password'));
-
                 return $this->render(
-                    "frontend/Folder/show_with_password.html.twig",
+                    'frontend/folder/show_with_password.html.twig',
                     [
                         'folder' => $folder,
                         'form' => $form->createView(),
-                        'files' => $files,
                     ]
                 );
-            }
-        }
-
-        return [
-            'folder' => $folder,
-            'files' => $files,
-        ];
-    }
-
-    private function createAccessFolderForm($folder)
-    {
-        $factory = $this->get('security.encoder_factory');
-        if ($this->getUser() instanceof User) {
-            $type = new AccessFolderType($factory);
-        } else {
-            $type = new AccessFolderAnonType($factory);
-        }
-
-        return $this->createForm($type, $folder);
-    }
-
-    /**
-     * @Route("/{slug}/share" , name="folder_edit")
-     * @Template("frontend/Folder/share.html.twig")
-     */
-    public function shareAction(Folder $folder, Request $request)
-    {
-        $this->denyAccessUnlessGranted('SHARE', $folder);
-
-        $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
-
-        $form = $this->createForm(new EditFolderType(), $folder);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($folder);
-            $em->flush();
-
-            $this->addFlash('success', $this->get('translator')->trans('alert.folder_updated_ok', ['%folder%' => $folder]));
-
-            return $this->redirectToRoute("folder_show", ['slug' => $folder->getSlug()]);
-        }
-
-        return [
-            'files' => $files,
-            'folder' => $folder,
-            'form' => $form->createView(),
-        ];
-    }
-
-    /**
-     * @Route("/s/{shareCode}/{slug}", name="folder_share")
-     */
-    public function ShareFileAction(Folder $folder)
-    {
-        $user = $this->getUser();
-
-        if (false === $this->isGranted('ACCESS', $folder)) {
-            if ($user instanceof User) {
-                $folder->addSharedWith($user);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($folder);
-                $em->flush();
-            } else {
-                $this->get('session')->set($folder->getSlug(), true);
             }
         }
 
@@ -220,86 +79,140 @@ class FolderController extends Controller
     }
 
     /**
-     * @Route("/{slug}/file/upload" , name="folder_file_upload")
-     * @Template("frontend/Folder/file_upload.html.twig")
+     * @Method({"DELETE"})
+     * @ParamConverter("folder", options={"repository_method" = "findOneActiveBySlug"})
+     * @Route("/{slug}/delete", name="folder_delete")
+     * @Security("is_granted('DELETE', folder)")
      */
-    public function createFileAction(Request $request, Folder $folder)
+    public function deleteAction(Folder $folder, Request $request)
     {
-        $this->denyAccessUnlessGranted('UPLOAD', $folder);
-
-        $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('AppBundle:Folder')->listFiles($folder);
-
-        $file = new File();
-        $form = $this->createForm(new FolderCreateFileType(), $file);
+        $form = $this->createDeleteForm();
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $this->delete($folder);
+            $this->dispatch(ConsignaEvents::FOLDER_DELETE_SUCCESS, new FolderEvent($folder));
 
-            $file->setFolder($folder);
+            return $this->redirectToRoute('homepage');
+        }
 
-            $this->get('gedmo.listener.uploadable')->addEntityFileInfo($file, new UploadedFileInfo($file->getName()));
+        $this->dispatch(ConsignaEvents::FOLDER_DELETE_ERROR, new FolderEvent($folder));
 
-            $em->persist($file);
-            $em->flush();
+        return $this->redirectToRoute('homepage');
+    }
 
-            $this->container->get('event_dispatcher')->dispatch(FileEvents::SUBMITTED, new FileEvent($file));
+    /**
+     * @Method({"GET", "POST"})
+     * @Route("/new" , name="folder_new")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function newAction(Request $request)
+    {
+        $folder = new Folder();
+        $form = $this->createFolderForm($folder);
+        $form->handleRequest($request);
 
-            if ($file->getScanStatus() == File::SCAN_STATUS_OK) {
-                $this->addFlash('success', $this->get('translator')->trans('upload.success', ['file' => $file]));
-            } else {
-                if ($file->getScanStatus() == File::SCAN_STATUS_FAILED) {
-                    $this->addFlash('danger', $this->get('translator')->trans('upload.failed', ['file' => $file]));
-                } else {
-                    $this->addFlash('danger', $this->get('translator')->trans('upload.virus', ['file' => $file]));
-                }
-            }
+        if ($form->isValid()) {
+            $event = new FolderEvent($folder);
+            $this->save($folder);
+
+            $this->dispatch(ConsignaEvents::FOLDER_NEW_SUCCESS, $event);
 
             return $this->redirectToRoute('folder_show', ['slug' => $folder->getSlug()]);
         }
 
-        return [
-            'files' => $files,
-            'folder' => $folder,
-            'form' => $form->createView(),
-        ];
-    }
-
-    /**
-     * @Route("/file/{slug}/download", name="folder_file_download")
-     */
-    public function downloadFileAction(File $file, Request $request)
-    {
-        $this->denyAccessUnlessGranted('DOWNLOAD', $file->getFolder());
-
-        $fileToDownload = $file->getPath();
-        $response = new BinaryFileResponse($fileToDownload);
-        $response->trustXSendfileTypeHeader();
-        $response->prepare($request);
-        $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $file->getName(),
-            iconv('UTF-8', 'ASCII//TRANSLIT', $file->getName())
+        return $this->render(
+            'frontend/folder/new.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
         );
-
-        return $response;
     }
 
     /**
-     * @Route("/file/{slug}/delete", name="folder_file_delete")
+     * @Method({"GET", "POST"})
+     * @ParamConverter("folder", options={"repository_method" = "findOneActiveBySlug"})
+     * @Route("/{slug}/share" , name="folder_share")
+     * @Security("is_granted('SHARE', folder)")
      */
-    public function deleteFileAction(File $file)
+    public function shareAction(Folder $folder, Request $request)
     {
-        $folder = $file->getFolder();
-        $this->denyAccessUnlessGranted('DELETE', $folder);
+        $form = $this->createForm(new EditFolderType(), $folder);
+        $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($file);
-        $em->flush();
+        if ($form->isValid()) {
+            $this->save($folder);
+            $this->dispatch(ConsignaEvents::FOLDER_UPDATE_SUCCESS, new FolderEvent($folder));
 
-        $this->addFlash('success', $this->get('translator')->trans('alert.file_delete_ok', ['file' => $file]));
+            return $this->redirectToRoute('folder_show', ['slug' => $folder->getSlug()]);
+        }
 
-        return $this->redirectToRoute("folder_show", ['slug' => $folder->getSlug()]);
+        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['folder' => $folder]);
+
+        return $this->render(
+            'frontend/folder/share.html.twig',
+            [
+                'files' => $files,
+                'folder' => $folder,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Method({"GET"})
+     * @ParamConverter("folder", options={"repository_method" = "findOneActiveBySlug"})
+     * @Route("/{slug}/show", name="folder_show")
+     */
+    public function showAction(Folder $folder)
+    {
+        if (false === $this->isGranted('ACCESS', $folder)) {
+            $form = $this->createAccessFolderForm($folder);
+
+            return $this->render(
+                'frontend/folder/show_with_password.html.twig',
+                [
+                    'folder' => $folder,
+                    'form' => $form->createView(),
+                ]
+            );
+        }
+
+        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['folder' => $folder]);
+
+        return $this->render(
+            'frontend/folder/show.html.twig',
+            [
+                'files' => $files,
+                'folder' => $folder,
+            ]
+        );
+    }
+
+    private function createFolderForm($folder)
+    {
+        $translator = $this->get('translator');
+        $type = new CreateFolderType($translator);
+
+        return $this->createForm($type, $folder);
+    }
+
+    /**
+     * @param $folder
+     *
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createAccessFolderForm($folder)
+    {
+        $factory = $this->get('security.encoder_factory');
+        $translator = $this->get('translator');
+
+        if ($this->getUser() instanceof User) {
+            $type = new AccessFolderType($factory, $translator);
+        } else {
+            $type = new AccessFolderAnonType($factory, $translator);
+        }
+
+        return $this->createForm($type, $folder);
     }
 }

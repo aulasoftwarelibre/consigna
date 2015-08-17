@@ -6,10 +6,8 @@
  * Date: 8/10/14
  * Time: 9:57.
  */
-
 namespace AppBundle\Behat;
 
-use Guzzle;
 use Symfony\Component\HttpFoundation\Response;
 
 class CoreContext extends DefaultContext
@@ -69,27 +67,27 @@ class CoreContext extends DefaultContext
 ////         $this->response = $request->send();
 //     }
 
-    /**
-     * @Then /^I should see response status code "([^"]*)"$/
-     */
+     /**
+      * @Then /^I should see response status code "([^"]*)"$/
+      */
      public function iShouldSeeResponseStatusCode($statusCode)
      {
          $response = new Response();
          $responseStatusCode = $response->getStatusCode();
 
          if (!$responseStatusCode == intval($statusCode)) {
-            throw new \Exception(sprintf("Did not see response status code %s, but %s.", $statusCode, $responseStatusCode));
+             throw new \Exception(sprintf('Did not see response status code %s, but %s.', $statusCode, $responseStatusCode));
          }
      }
 
      /**
-     * @Then /^I should see in the header "([^"]*)":"([^"]*)"$/
-     */
+      * @Then /^I should see in the header "([^"]*)":"([^"]*)"$/
+      */
      public function iShouldSeeInTheHeader($header, $value)
      {
          $headers = $this->getSession()->getResponseHeaders();
-         if ( false === in_array($value, $headers[$header]) ) {
-             throw new \Exception(sprintf("Did not see %s with value %s.", $header, $value));
+         if (false === in_array($value, $headers[$header])) {
+             throw new \Exception(sprintf('Did not see %s with value %s.', $header, $value));
          }
      }
- }
+}

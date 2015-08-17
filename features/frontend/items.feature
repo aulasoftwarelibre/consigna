@@ -37,7 +37,7 @@ Feature: manage items
       And I am authenticated as "user1" with "secret1"
       And "user1" has access to "folder1"
       When I follow "folder1"
-      Then I should be on "en/folder/folder1"
+      Then I should be on "en/folder/folder1/show"
       And I should see 1 elements
 
   Scenario: Access to a protected folder
@@ -48,7 +48,7 @@ Feature: manage items
       When I fill in "Password" with "secret"
       And I press "Check password"
       Then access is granted to "user3" in "folder1"
-      Then I should be on "en/folder/folder1"
+      Then I should be on "en/folder/folder1/show"
 
   Scenario: Download a file
     Given I am on the main folder

@@ -3,9 +3,9 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
+use AppBundle\Model\Traits\ExpirableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -19,17 +19,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Folder implements FileInterface
 {
-    /**
+    /*
      * Hook ip-traceable behavior
      * updates createdFromIp, updatedFromIp fields
      */
     use IpTraceableEntity;
 
-    /**
+    /*
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
      */
     use TimestampableEntity;
+
+    /*
+     * Hook expirable behaviour
+     */
+    use ExpirableEntity;
 
     /**
      * @var int
@@ -116,11 +121,11 @@ class Folder implements FileInterface
     private $shareCode;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="is_permanent", type="boolean")
      */
-    private $isPermanent;
+    private $permanent;
 
     /**
      * Construct.
@@ -131,8 +136,8 @@ class Folder implements FileInterface
         $this->sharedWith = new \Doctrine\Common\Collections\ArrayCollection();
         $this->files = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
-        $this->isPermanent = false;
+        $this->shareCode = base64_encode(bin2hex(openssl_random_pseudo_bytes(15)));
+        $this->permanent = false;
     }
 
     /**
@@ -146,7 +151,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -156,9 +161,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Folder
      */
     public function setName($name)
@@ -169,9 +175,9 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -179,7 +185,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -189,9 +195,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
+     *
      * @return Folder
      */
     public function setSlug($slug)
@@ -202,7 +209,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -212,9 +219,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
+     *
      * @return Folder
      */
     public function setPassword($password)
@@ -225,7 +233,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get salt
+     * Get salt.
      *
      * @return string
      */
@@ -235,9 +243,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set salt
+     * Set salt.
      *
      * @param string $salt
+     *
      * @return Folder
      */
     public function setSalt($salt)
@@ -248,7 +257,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get shareCode
+     * Get shareCode.
      *
      * @return string
      */
@@ -258,9 +267,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set shareCode
+     * Set shareCode.
      *
      * @param string $shareCode
+     *
      * @return Folder
      */
     public function setShareCode($shareCode)
@@ -271,9 +281,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Add tags
+     * Add tags.
      *
      * @param \AppBundle\Entity\Tag $tags
+     *
      * @return Folder
      */
     public function addTag(\AppBundle\Entity\Tag $tags)
@@ -284,7 +295,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove tags
+     * Remove tags.
      *
      * @param \AppBundle\Entity\Tag $tags
      */
@@ -294,7 +305,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -304,9 +315,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Add sharedWith
+     * Add sharedWith.
      *
      * @param \AppBundle\Entity\User $sharedWith
+     *
      * @return Folder
      */
     public function addSharedWith(\AppBundle\Entity\User $sharedWith)
@@ -317,7 +329,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove sharedWith
+     * Remove sharedWith.
      *
      * @param \AppBundle\Entity\User $sharedWith
      */
@@ -327,7 +339,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get sharedWith
+     * Get sharedWith.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -337,9 +349,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Add files
+     * Add files.
      *
      * @param \AppBundle\Entity\File $files
+     *
      * @return Folder
      */
     public function addFile(\AppBundle\Entity\File $files)
@@ -350,7 +363,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Remove files
+     * Remove files.
      *
      * @param \AppBundle\Entity\File $files
      */
@@ -360,7 +373,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get files
+     * Get files.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -392,7 +405,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
      * @return \AppBundle\Entity\User
      */
@@ -402,9 +415,10 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param \AppBundle\Entity\User $owner
+     *
      * @return Folder
      */
     public function setOwner(\AppBundle\Entity\User $owner)
@@ -415,7 +429,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get plain password
+     * Get plain password.
      *
      * @return string
      */
@@ -425,7 +439,7 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set plain password
+     * Set plain password.
      *
      * @param string $plainPassword
      */
@@ -435,27 +449,27 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get isPermanent
+     * Get permanent.
      *
-     * @return boolean
+     * @return bool
      */
-    public function isIsPermanent()
+    public function isPermanent()
     {
-        return $this->isPermanent;
+        return $this->permanent;
     }
 
     /**
-     * Set isPermanent
+     * Set permanent.
      *
-     * @param boolean $isPermanent
+     * @param bool $permanent
      */
-    public function setIsPermanent($isPermanent)
+    public function setPermanent($permanent)
     {
-        $this->isPermanent = $isPermanent;
+        $this->permanent = $permanent;
     }
 
     /**
-     * Remove credentials
+     * Remove credentials.
      */
     public function eraseCredentials()
     {

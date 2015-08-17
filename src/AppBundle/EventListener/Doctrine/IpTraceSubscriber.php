@@ -1,13 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 07/08/15
- * Time: 03:17
+ * Time: 03:17.
  */
-
-namespace AppBundle\EventListener;
-
+namespace AppBundle\EventListener\Doctrine;
 
 use Gedmo\IpTraceable\IpTraceableListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,7 +26,7 @@ class IpTraceSubscriber implements EventSubscriberInterface
      */
     private $request;
 
-    function __construct(IpTraceableListener $ipTraceableListener, RequestStack $request = null)
+    public function __construct(IpTraceableListener $ipTraceableListener, RequestStack $request = null)
     {
         $this->ipTraceableListener = $ipTraceableListener;
         $this->request = $request;

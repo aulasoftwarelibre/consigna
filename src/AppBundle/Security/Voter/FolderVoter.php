@@ -6,7 +6,6 @@
  * Date: 27/04/15
  * Time: 18:09.
  */
-
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Entity\Folder;
@@ -22,7 +21,7 @@ class FolderVoter extends AbstractVoter
      */
     private $session;
 
-    function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session)
     {
         $this->session = $session;
     }
@@ -74,7 +73,7 @@ class FolderVoter extends AbstractVoter
                         return true;
                     }
                 } else {
-                    if ($this->session->has($object->getSlug())) {
+                    if ($this->session->has($object->getShareCode())) {
                         return true;
                     }
                 }

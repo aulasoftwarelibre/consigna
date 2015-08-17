@@ -1,13 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 16/08/15
- * Time: 11:24
+ * Time: 11:24.
  */
-
 namespace AppBundle\Twig;
-
 
 class TwigSizeExtension extends \Twig_Extension
 {
@@ -34,11 +33,12 @@ class TwigSizeExtension extends \Twig_Extension
     {
         foreach ($this->units as $unit) {
             if ($bytes < 1024) {
-                return sprintf("%d %s", $bytes, $unit);
+                return sprintf('%d %s', $bytes, $unit);
             }
             $bytes /= 1024;
         }
-        return sprintf("%.2f TB", $bytes);
+
+        return sprintf('%.2f TB', $bytes);
     }
 
     /**

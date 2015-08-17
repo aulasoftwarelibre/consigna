@@ -1,13 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 05/08/15
- * Time: 06:26
+ * Time: 06:26.
  */
-
 namespace AppBundle\Doctrine\Extensions;
-
 
 use Gedmo\Uploadable\FileInfo\FileInfoInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -52,12 +51,12 @@ class UploadedFileInfo implements FileInfoInterface
         if ($this->uploadedFile instanceof UploadedFile) {
             return $this->uploadedFile->getError();
         } else {
-            return null;
+            return;
         }
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isUploadedFile()
     {

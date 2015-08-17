@@ -1,11 +1,11 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
     database_driver:   pdo_mysql
-    database_host:     127.0.0.1
+    database_host:     '%database.host%'
     database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_name:     '%database.name%'
+    database_user:     '%database.user%'
+    database_password: '%database.password%'
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
@@ -18,11 +18,12 @@ parameters:
 
     sir_app_id: ~
     sir_app_secret: ~
+    default_sir_idp: uco.es
 
     recaptcha_public_key: ~
     recaptcha_private_key: ~
 
-    days_before_clean: 7
+    expire_date: 7 days
     antivirus_path: /usr/bin/clamdscan
 
     supported_languages: ['es', 'en']

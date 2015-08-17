@@ -17,7 +17,7 @@ class DeleteCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $days = $this->getContainer()->getParameter('days_before_clean');
+        $days = $this->getContainer()->getParameter('expire_date');
         $date = new \DateTime('-'.$days.'days');
         $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Folder')->deleteLapsedFolders($date);
         $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:File')->deleteLapsedFiles($date);

@@ -2,21 +2,18 @@
 
 namespace AppBundle\EventListener;
 
-
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class LocaleListener implements EventSubscriberInterface
 {
-
     private $supported_languages;
 
-    function __construct($supported_languages)
+    public function __construct($supported_languages)
     {
         $this->supported_languages = $supported_languages;
     }
-
 
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -25,6 +22,7 @@ class LocaleListener implements EventSubscriberInterface
 
         if (!$request->hasPreviousSession()) {
             $request->setLocale($defaultLocale);
+
             return;
         }
 
@@ -38,13 +36,13 @@ class LocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return [
             KernelEvents::REQUEST => [
-                [ 'onKernelRequest', 17 ]
+                ['onKernelRequest', 17],
             ],
         ];
     }

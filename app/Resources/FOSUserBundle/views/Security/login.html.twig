@@ -4,12 +4,15 @@
     {% if error %}
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ error|trans({}, 'FOSUserBundle') }}
+            {{ error.message|trans(error.messageData, 'security') }}
         </div>
     {% endif %}
 
     <form action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% if app.request.get('_route') != app.request.headers.get('referer') %}
+            <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />
+        {% endif %}
 
         <div class="form-group has-feedback">
             <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}">

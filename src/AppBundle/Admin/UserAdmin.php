@@ -180,7 +180,6 @@ class UserAdmin extends Admin
         $userManager->updateUser($object);
     }
 
-
     private function refactorRoles()
     {
         $originRoles = $this->getConfigurationPool()->getContainer()->getParameter('security.role_hierarchy.roles');

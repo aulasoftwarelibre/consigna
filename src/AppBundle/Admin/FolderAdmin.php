@@ -27,7 +27,7 @@ class FolderAdmin extends Admin
             ->add('name', null, [
                 'label' => 'label.name',
             ])
-            ->add('isPermanent', null, [
+            ->add('permanent', null, [
                 'label' => 'label.is_permanent',
             ])
             ->add('createdFromIp', null, [
@@ -51,7 +51,7 @@ class FolderAdmin extends Admin
             ->add('name', null, [
                 'label' => 'label.name',
             ])
-            ->add('isPermanent', null, [
+            ->add('permanent', null, [
                 'label' => 'label.is_permanent',
                 'editable' => true,
             ])
@@ -70,7 +70,7 @@ class FolderAdmin extends Admin
                     'edit' => array(),
                     'delete' => array(),
                     'list' => array(),
-                )
+                ),
             ))
         ;
     }
@@ -93,17 +93,17 @@ class FolderAdmin extends Admin
                     'required' => false,
                 ]
             )
-            ->add('isPermanent', null, [
+            ->add('permanent', null, [
                 'label' => 'label.is_permanent',
             ])
             ->add('owner', null, [
                 'label' => 'label.owner',
             ])
             ->add('sharedWith', null, [
-                'label' => 'label.shared_with'
+                'label' => 'label.shared_with',
             ])
             ->setHelps([
-                'isPermanent' => 'help.folder.is_permanent',
+                'permanent' => 'help.folder.is_permanent',
             ])
         ;
     }
@@ -118,7 +118,7 @@ class FolderAdmin extends Admin
             ->add('name', null, [
                 'label' => 'label.name',
             ])
-            ->add('isPermanent', null, [
+            ->add('permanent', null, [
                 'label' => 'label.is_permanent',
                 'editable' => true,
             ])
@@ -132,10 +132,10 @@ class FolderAdmin extends Admin
                 'label' => 'label.owner',
             ])
             ->add('sharedWith', null, [
-                'label' => 'label.shared_with'
+                'label' => 'label.shared_with',
             ])
             ->add('files', null, [
-                'label' => 'label.files'
+                'label' => 'label.files',
             ])
         ;
     }
@@ -151,13 +151,15 @@ class FolderAdmin extends Admin
      */
     protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-        if (!$childAdmin && !in_array($action, array('edit', 'show'))) { return; }
+        if (!$childAdmin && !in_array($action, array('edit', 'show'))) {
+            return;
+        }
 
         $admin = $this->isChild() ? $this->getParent() : $this;
         $id = $admin->getRequest()->get('id');
 
         $menu->addChild('label.files', array('attributes' => array('dropdown' => true)));
-        $menu['label.files']->addChild('label.list_files', array('uri' => $admin->generateUrl('consigna.admin.folder|consigna.admin.file.list', array('id' => $id))))->setAttribute('icon', 'fa fa-list');;
-        $menu['label.files']->addChild('label.create_file', array('uri' => $admin->generateUrl('consigna.admin.folder|consigna.admin.file.create', array('id' => $id))))->setAttribute('icon', 'fa fa-plus-circle');;
+        $menu['label.files']->addChild('label.list_files', array('uri' => $admin->generateUrl('consigna.admin.folder|consigna.admin.file.list', array('id' => $id))))->setAttribute('icon', 'fa fa-list');
+        $menu['label.files']->addChild('label.create_file', array('uri' => $admin->generateUrl('consigna.admin.folder|consigna.admin.file.create', array('id' => $id))))->setAttribute('icon', 'fa fa-plus-circle');
     }
 }

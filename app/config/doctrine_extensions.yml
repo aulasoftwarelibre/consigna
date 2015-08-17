@@ -7,17 +7,17 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-    gedmo.listener.sluggable:
-        class: Gedmo\Sluggable\SluggableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-
     gedmo.listener.uploadable:
         class: Gedmo\Uploadable\UploadableListener
         tags:
-            - { name: doctrine.event_subscriber, connection: default }
+            - { name: doctrine.event_subscriber, connection: default, priority: 10 }
         calls:
             - [ setDefaultPath, [ "%kernel.root_dir%/../private" ] ]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default, priority: 5 }
 
     gedmo.listener.iptraceable:
         class: Gedmo\IpTraceable\IpTraceableListener
@@ -25,7 +25,7 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
 
     consigna.listener.iptrace:
-        class: AppBundle\EventListener\IpTraceSubscriber
+        class: AppBundle\EventListener\Doctrine\IpTraceSubscriber
         tags:
             - { name: kernel.event_subscriber }
         arguments:
@@ -38,7 +38,7 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
 
     consigna.listener.usertrace:
-        class: AppBundle\EventListener\UserTraceSubscriber
+        class: AppBundle\EventListener\Doctrine\UserTraceSubscriber
         tags:
             - { name: kernel.event_subscriber }
         arguments:

@@ -64,11 +64,10 @@ class Tag
         return $this->getName();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -76,9 +75,10 @@ class Tag
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Tag
      */
     public function setName($name)
@@ -89,9 +89,9 @@ class Tag
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -99,9 +99,10 @@ class Tag
     }
 
     /**
-     * Add files
+     * Add files.
      *
      * @param \AppBundle\Entity\File $files
+     *
      * @return Tag
      */
     public function addFile(\AppBundle\Entity\File $files)
@@ -112,7 +113,7 @@ class Tag
     }
 
     /**
-     * Remove files
+     * Remove files.
      *
      * @param \AppBundle\Entity\File $files
      */
@@ -122,9 +123,9 @@ class Tag
     }
 
     /**
-     * Get files
+     * Get files.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFiles()
     {
@@ -132,9 +133,10 @@ class Tag
     }
 
     /**
-     * Add folders
+     * Add folders.
      *
      * @param \AppBundle\Entity\Folder $folders
+     *
      * @return Tag
      */
     public function addFolder(\AppBundle\Entity\Folder $folders)
@@ -145,7 +147,7 @@ class Tag
     }
 
     /**
-     * Remove folders
+     * Remove folders.
      *
      * @param \AppBundle\Entity\Folder $folders
      */
@@ -155,9 +157,9 @@ class Tag
     }
 
     /**
-     * Get folders
+     * Get folders.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFolders()
     {

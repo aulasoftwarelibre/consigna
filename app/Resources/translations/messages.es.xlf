@@ -13,35 +13,47 @@
       </trans-unit>
       <trans-unit id="alert.file_created_ok">
         <source>alert.file_created_ok</source>
-        <target>El archivo %file% ha sido creado satisfactoriamente</target>
+        <target>El archivo ha sido creado satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="alert.file_delete_error">
+        <source>alert.file_delete_error</source>
+        <target>Hubo un error al eliminar el fichero</target>
       </trans-unit>
       <trans-unit id="alert.file_delete_ok">
         <source>alert.file_delete_ok</source>
-        <target>El archivo %file% ha sido eliminado satisfactoriamente</target>
+        <target>El archivo ha sido eliminado satisfactoriamente</target>
       </trans-unit>
       <trans-unit id="alert.file_updated_ok">
         <source>alert.file_updated_ok</source>
-        <target>El archivo %file% ha sido actualizado correctamente</target>
-      </trans-unit>
-      <trans-unit id="alert.folder_created_ok">
-        <source>alert.folder_created_ok</source>
-        <target>La carpeta %folder% ha sido creada satisfactoriamente</target>
+        <target>El archivo ha sido actualizado correctamente</target>
       </trans-unit>
       <trans-unit id="alert.folder_delete_ok">
         <source>alert.folder_delete_ok</source>
-        <target>La carpeta %folder% ha sido eliminada satisfactoriamente</target>
+        <target>La carpeta ha sido eliminada satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_created_ok">
+        <source>alert.folder_created_ok</source>
+        <target>La carpeta ha sido creada satisfactoriamente</target>
+      </trans-unit>
+      <trans-unit id="alert.folder_delete_error">
+        <source>alert.folder_delete_error</source>
+        <target>Hubo un error al eliminar la carpeta</target>
       </trans-unit>
       <trans-unit id="alert.folder_updated_ok">
         <source>alert.folder_updated_ok</source>
-        <target>La carpeta %folder% ha sido actualizada correctamente</target>
+        <target>La carpeta ha sido actualizada correctamente</target>
+      </trans-unit>
+      <trans-unit id="alert.invalid_password">
+        <source>alert.invalid_password</source>
+        <target>La contraseña no es correcta</target>
       </trans-unit>
       <trans-unit id="alert.login_required">
         <source>alert.login_required</source>
         <target>Necesita iniciar sesión para realizar esta acción</target>
       </trans-unit>
-      <trans-unit id="alert.invalid_password">
-        <source>alert.invalid_password</source>
-        <target>La contraseña no es correcta</target>
+      <trans-unit id="alert.organization_disabled">
+        <source>alert.organization_disabled</source>
+        <target>Su organización no está autorizada para usar Consigna.</target>
       </trans-unit>
       <trans-unit id="alert.valid_password">
         <source>alert.valid_password</source>
@@ -145,11 +157,24 @@
         <target>Actualizar carpeta</target>
       </trans-unit>
 
+      <!-- help and error messages -->
+      <trans-unit id="help.tags">
+        <source>help.tags</source>
+        <target>Distinga sus envíos de los demás etiquetándolos. Escriba cada etiqueta separada por comas.</target>
+      </trans-unit>
+      <trans-unit id="help.password_mismatch">
+        <source>help.password_mismatch</source>
+        <target>Las contraseñas deben coincidir</target>
+      </trans-unit>
 
       <!-- labels -->
       <trans-unit id="label.actions">
         <source>label.actions</source>
         <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="label.administration">
+        <source>label.administration</source>
+        <target>Administración</target>
       </trans-unit>
       <trans-unit id="label.anon_user">
         <source>label.anon_user</source>
@@ -159,13 +184,89 @@
         <source>label.captcha</source>
         <target>Captcha</target>
       </trans-unit>
+      <trans-unit id="label.choose_file">
+        <source>label.choose_file</source>
+        <target>Seleccionar ficheros</target>
+      </trans-unit>
+      <trans-unit id="label.code">
+        <source>label.code</source>
+        <target>Código</target>
+      </trans-unit>
+      <trans-unit id="label.create_file">
+        <source>label.create_file</source>
+        <target>Crear fichero</target>
+      </trans-unit>
+      <trans-unit id="label.created_at">
+        <source>label.created_at</source>
+        <target>Fecha creación</target>
+      </trans-unit>
+      <trans-unit id="label.created_from_ip">
+        <source>label.created_from_ip</source>
+        <target>Dirección IP</target>
+      </trans-unit>
+      <trans-unit id="label.email">
+        <source>label.email</source>
+        <target>Correo electrónico</target>
+      </trans-unit>
+      <trans-unit id="label.enabled">
+        <source>label.enabled</source>
+        <target>Activo</target>
+      </trans-unit>
+      <trans-unit id="label.expired">
+        <source>label.expired</source>
+        <target>Caducado</target>
+      </trans-unit>
       <trans-unit id="label.file">
         <source>label.file</source>
         <target>Fichero</target>
       </trans-unit>
+      <trans-unit id="label.files">
+        <source>label.files</source>
+        <target>Ficheros</target>
+      </trans-unit>
+      <trans-unit id="label.folder">
+        <source>label.folder</source>
+        <target>Carpeta</target>
+      </trans-unit>
+      <trans-unit id="label.folders">
+        <source>label.folders</source>
+        <target>Carpeta</target>
+      </trans-unit>
       <trans-unit id="label.folder_name">
         <source>label.folder_name</source>
         <target>Nombre de la carpeta</target>
+      </trans-unit>
+      <trans-unit id="label.is_permanent">
+        <source>label.is_permanent</source>
+        <target>Permanente</target>
+      </trans-unit>
+      <trans-unit id="label.last_login">
+        <source>label.last_login</source>
+        <target>Último acceso</target>
+      </trans-unit>
+      <trans-unit id="label.list_files">
+        <source>label.list_files</source>
+        <target>Listar ficheros</target>
+      </trans-unit>
+      <trans-unit id="label.locked">
+        <source>label.locked</source>
+        <target>Bloqueado</target>
+      </trans-unit>
+      <trans-unit id="label.mime_type">
+        <source>label.mime_type</source>
+        <target>Tipo MIME</target>
+      </trans-unit>
+      <trans-unit id="label.name">
+        <source>label.name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="label.owner">
+        <source>label.owner</source>
+        <target>Dueño</target>
+      </trans-unit>
+      <trans-unit id="label.organization">
+        <source>label.organization</source>
+        <target>Organización</target>
       </trans-unit>
       <trans-unit id="label.password">
         <source>label.password</source>
@@ -179,9 +280,29 @@
         <source>label.repeat_password</source>
         <target>Repetir contraseña</target>
       </trans-unit>
+      <trans-unit id="label.roles">
+        <source>label.roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="label.scan_status">
+        <source>label.scan_status</source>
+        <target>Estado</target>
+      </trans-unit>
       <trans-unit id="label.search">
         <source>label.search</source>
         <target>Buscar...</target>
+      </trans-unit>
+      <trans-unit id="label.shared_with">
+        <source>label.shared_with</source>
+        <target>Compartido con</target>
+      </trans-unit>
+      <trans-unit id="label.sir_id">
+        <source>label.sir_id</source>
+        <target>ID de SIR</target>
+      </trans-unit>
+      <trans-unit id="label.size">
+        <source>label.size</source>
+        <target>Tamaño</target>
       </trans-unit>
       <trans-unit id="label.statistics">
         <source>label.statistics</source>
@@ -191,115 +312,17 @@
         <source>label.tags</source>
         <target>Etiquetas</target>
       </trans-unit>
-      <trans-unit id="label.users">
-        <source>label.users</source>
-        <target>Usuarios</target>
-      </trans-unit>
-
-
-      <trans-unit id="label.files">
-        <source>label.files</source>
-        <target>Ficheros</target>
-      </trans-unit>
-      <trans-unit id="label.list_files">
-        <source>label.list_files</source>
-        <target>Listar ficheros</target>
-      </trans-unit>
-      <trans-unit id="label.create_file">
-        <source>label.create_file</source>
-        <target>Crear fichero</target>
-      </trans-unit>
-      <trans-unit id="label.organization">
-        <source>label.organization</source>
-        <target>Organización</target>
-      </trans-unit>
-      <trans-unit id="label.name">
-        <source>label.name</source>
-        <target>Nombre</target>
-      </trans-unit>
-      <trans-unit id="label.code">
-        <source>label.code</source>
-        <target>Código</target>
-      </trans-unit>
-      <trans-unit id="label.enabled">
-        <source>label.enabled</source>
-        <target>Activo</target>
-      </trans-unit>
-      <trans-unit id="label.folder">
-        <source>label.folder</source>
-        <target>Carpeta</target>
-      </trans-unit>
-      <trans-unit id="label.folders">
-        <source>label.folders</source>
-        <target>Carpeta</target>
-      </trans-unit>
-      <trans-unit id="label.is_permanent">
-        <source>label.is_permanent</source>
-        <target>Permanente</target>
-      </trans-unit>
-      <trans-unit id="label.created_from_ip">
-        <source>label.created_from_ip</source>
-        <target>Dirección IP</target>
-      </trans-unit>
-      <trans-unit id="label.created_at">
-        <source>label.created_at</source>
-        <target>Fecha creación</target>
-      </trans-unit>
-      <trans-unit id="label.owner">
-        <source>label.owner</source>
-        <target>Dueño</target>
-      </trans-unit>
-      <trans-unit id="label.shared_with">
-        <source>label.shared_with</source>
-        <target>Compartido con</target>
-      </trans-unit>
-      <trans-unit id="label.mime_type">
-        <source>label.mime_type</source>
-        <target>Tipo MIME</target>
-      </trans-unit>
-      <trans-unit id="label.scan_status">
-        <source>label.scan_status</source>
-        <target>Estado</target>
-      </trans-unit>
-      <trans-unit id="label.size">
-        <source>label.size</source>
-        <target>Tamaño</target>
+      <trans-unit id="label.user">
+        <source>label.user</source>
+        <target>Usuario</target>
       </trans-unit>
       <trans-unit id="label.username">
         <source>label.username</source>
         <target>Usuario</target>
       </trans-unit>
-      <trans-unit id="label.email">
-        <source>label.email</source>
-        <target>Correo electrónico</target>
-      </trans-unit>
-      <trans-unit id="label.locked">
-        <source>label.locked</source>
-        <target>Bloqueado</target>
-      </trans-unit>
-      <trans-unit id="label.expired">
-        <source>label.expired</source>
-        <target>Caducado</target>
-      </trans-unit>
-      <trans-unit id="label.roles">
-        <source>label.roles</source>
-        <target>Roles</target>
-      </trans-unit>
-      <trans-unit id="label.sir_id">
-        <source>label.sir_id</source>
-        <target>ID de SIR</target>
-      </trans-unit>
-      <trans-unit id="label.administration">
-        <source>label.administration</source>
-        <target>Administración</target>
-      </trans-unit>
-      <trans-unit id="label.user">
-        <source>label.user</source>
-        <target>Usuario</target>
-      </trans-unit>
-      <trans-unit id="label.last_login">
-        <source>label.last_login</source>
-        <target>Último acceso</target>
+      <trans-unit id="label.users">
+        <source>label.users</source>
+        <target>Usuarios</target>
       </trans-unit>
 
 

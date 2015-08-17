@@ -8,92 +8,99 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Class DefaultController
- * @package AppBundle\Controller\Frontend
+ * Class DefaultController.
  */
 class DefaultController extends Controller
 {
     /**
      * @Route("/" , name="homepage")
-     * @Template("frontend/Default/homepage.html.twig")
+     * @Template("frontend/default/homepage.html.twig")
      */
-    public function filesListAction()
+    public function defaultAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('AppBundle:File')->listFiles();
-        $folders = $em->getRepository('AppBundle:Folder')->findBy(array(), array('name' => 'ASC'));
-        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy();
+        $files = $this->get('consigna.repository.file')->findActiveFilesBy();
 
         return [
             'files' => $files,
             'folders' => $folders,
-            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
     /**
      * @Route("/user/files", name="user_files")
-     * @Template("frontend/Default/homepage.html.twig")
+     * @Template("frontend/default/homepage.html.twig")
      */
     public function myFilesAction()
     {
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $folders = $em->getRepository('AppBundle:Folder')->myFolders($user);
-        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
-        $files = $em->getRepository('AppBundle:File')->myFiles($user);
+        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy(['owner' => $user]);
+        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['owner' => $user]);
 
         return [
             'files' => $files,
             'folders' => $folders,
-            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
     /**
      * @Route("/find", name="find")
-     * @Template("frontend/Default/homepage.html.twig")
+     * @Template("frontend/default/homepage.html.twig")
      */
-    public function findFileAction(Request $request)
+    public function searchAction(Request $request)
     {
         $word = $request->get('word');
-        $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('AppBundle:File')->findFiles($word);
-        $folders = $em->getRepository('AppBundle:Folder')->findFolders($word);
-        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy(['search' => $word]);
+        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['search' => $word]);
 
         return [
             'files' => $files,
             'folders' => $folders,
-            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
     /**
      * @Route("/user/shared_elements", name="shared_elements")
-     * @Template("frontend/Default/homepage.html.twig")
+     * @Template("frontend/default/homepage.html.twig")
      */
     public function sharedWithMeAction()
     {
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $folders = $em->getRepository('AppBundle:Folder')->findSharedFolders($user);
-        $files = $em->getRepository('AppBundle:File')->findSharedFiles($user);
-        $sizeAndNumOfFiles= $em->getRepository('AppBundle:File')->sizeAndNumOfFiles();
+        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy(['shared' => $user]);
+        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['shared' => $user]);
 
         return [
             'files' => $files,
             'folders' => $folders,
-            'sum' => $sizeAndNumOfFiles,
         ];
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function consignaStatisticsAction()
     {
-        $statistics = $this->get('consigna.doctrine_orm.file_repository')->sizeAndNumOfFiles();
+        $statistics = $this->get('consigna.repository.file')->sizeAndNumOfFiles();
 
-        return $this->render('frontend/Default/statistics.html.twig',
+        return $this->render('frontend/default/statistics.html.twig',
             ['statistics' => $statistics]
         );
+    }
+
+    /**
+     * Creates a form to delete a entity.
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    public function createDeleteFormAction()
+    {
+        $deleteForm = $this->createFormBuilder()
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+
+        return $this->render(':frontend/default:delete.html.twig', [
+            'delete_form' => $deleteForm->createView(),
+        ]);
     }
 }

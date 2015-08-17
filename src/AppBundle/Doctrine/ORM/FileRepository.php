@@ -6,83 +6,17 @@
  * Date: 30/01/15
  * Time: 20:35.
  */
-
 namespace AppBundle\Doctrine\ORM;
 
 use AppBundle\Entity\File;
+use AppBundle\Entity\Folder;
+use AppBundle\Entity\User;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
 
-
 class FileRepository extends EntityRepository
 {
-    public function listFiles()
-    {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('
-            SELECT file
-            FROM AppBundle:File file
-            WHERE file.folder IS NULL
-            AND file.scanStatus = :status
-            ORDER BY file.name ASC'
-        );
-
-        $query->setParameter('status',File::SCAN_STATUS_OK);
-        return $query->getResult();
-    }
-
-    public function findFiles($word)
-    {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('
-            SELECT file, tag
-            FROM AppBundle:File file
-            LEFT JOIN file.tags tag
-            WHERE file.name LIKE :word
-            OR tag.name LIKE :word
-            AND file.scanStatus = :status
-            ORDER BY file.name ASC'
-        );
-        $query->setParameter('word', '%'.$word.'%');
-        $query->setParameter('status',File::SCAN_STATUS_OK);
-
-        return $query->getResult();
-    }
-
-    public function myFiles($owner)
-    {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('
-            SELECT file
-            FROM AppBundle:File file
-            WHERE file.owner = :owner
-            AND file.scanStatus = :status
-            ORDER BY file.name ASC'
-        );
-        $query->setParameter('owner', $owner);
-        $query->setParameter('status',File::SCAN_STATUS_OK);
-
-        return $query->getResult();
-    }
-
-    public function findSharedFiles($user)
-    {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('
-            SELECT file, user
-            FROM AppBundle:File file
-            JOIN file.sharedWith user
-            WHERE user.username = :user
-            AND file.scanStatus = :status
-            ORDER BY file.name ASC'
-        );
-        $query->setParameter('user', $user->getUsername());
-        $query->setParameter('status',File::SCAN_STATUS_OK);
-
-        return $query->getResult();
-    }
-
     public function deleteLapsedFiles($date)
     {
         $em = $this->getEntityManager();
@@ -108,7 +42,6 @@ class FileRepository extends EntityRepository
                 $file->setScanStatus(File::SCAN_STATUS_OK);
                 $em->persist($file);
             }
-
         }
         $em->flush();
     }
@@ -121,19 +54,103 @@ class FileRepository extends EntityRepository
             FROM AppBundle:File c
             WHERE c.scanStatus = :status'
         );
-        $query->setParameter('status',File::SCAN_STATUS_OK);
+        $query->setParameter('status', File::SCAN_STATUS_OK);
+
         return $query->getOneOrNullResult(AbstractQuery::HYDRATE_ARRAY);
     }
 
-    public function num()
+    /**
+     * @param $args
+     *
+     * @return mixed
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneActiveBySlug($args)
     {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('
-            SELECT COUNT (c)
-            FROM AppBundle:File c
-            WHERE c.scanStatus = :status'
-        );
-        $query->setParameter('status',File::SCAN_STATUS_OK);
-        return $query->getSingleScalarResult();
+        $qb = $this->getQueryActive();
+        $query = $qb->andWhere('file.slug = :slug')
+            ->setParameter('slug', $args['slug'])
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @param array $args
+     * @param array $orderBy
+     *
+     * @return array
+     */
+    public function findActiveFilesBy(array $args = [], array $orderBy = ['file.name', 'ASC'])
+    {
+        $folder = array_key_exists('folder', $args) ? $args['folder'] : null;
+        $owner = array_key_exists('owner', $args) ? $args['owner'] : null;
+        $shared = array_key_exists('shared', $args) ? $args['shared'] : null;
+        $search = array_key_exists('search', $args) ? $args['search'] : null;
+
+        $qb = $this->getQueryActive($owner, $shared, $search, $orderBy);
+
+        if ($folder) {
+            $query = $qb->andWhere('file.folder = :folder')
+                ->setParameter('folder', $folder)
+            ;
+        } else {
+            $query = $qb->andWhere('file.folder IS NULL');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param User|null $owner
+     * @param User|null $shared
+     * @param null      $search
+     * @param array     $orderBy
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function getQueryActive(User $owner = null, User $shared = null, $search = null, array $orderBy = ['file.name', 'ASC'])
+    {
+        $qb = $this->createQueryBuilder('file');
+        $query = $qb->select('file', 'folder', 'owner', 'organization', 'tags')
+            ->leftJoin('file.folder', 'folder')
+            ->leftJoin('file.owner', 'owner')
+            ->leftJoin('owner.organization', 'organization')
+            ->leftJoin('file.tags', 'tags')
+            ->where('file.scanStatus = :status')
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->andX('file.folder IS NULL', 'file.expiresAt > :now'),
+                $qb->expr()->andX('folder.permanent = false and folder.expiresAt > :now'),
+                'folder.permanent = true'
+            ))
+            ->orderBy($orderBy[0], $orderBy[1])
+            ->setParameter('status', File::SCAN_STATUS_OK)
+            ->setParameter('now', new \DateTime())
+        ;
+
+        if ($owner) {
+            $query = $query->andWhere('file.owner = :owner')
+                ->setParameter('owner', $owner)
+            ;
+        }
+
+        if ($shared) {
+            $query = $query->leftJoin('file.sharedWith', 'users')
+                ->andWhere('users.id = :id')
+                ->setParameter('id', $shared->getId())
+            ;
+        }
+
+        if ($search) {
+            $query = $query->andWhere($qb->expr()->orX(
+                    'file.name LIKE :search',
+                    'tags.name LIKE :search'
+                ))
+                ->setParameter('search', "%${search}%")
+            ;
+        }
+
+        return $query;
     }
 }

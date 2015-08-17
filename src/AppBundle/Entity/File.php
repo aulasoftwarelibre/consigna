@@ -3,62 +3,54 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
+use AppBundle\Model\Traits\ExpirableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * File.
  *
  * @ORM\Table(name="file")
  * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FileRepository")
- * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback")
+ * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback", appendNumber=true)
  */
 class File implements FileInterface
 {
     /**
-     * No virus detected
+     * No virus detected.
      */
     const SCAN_STATUS_OK = 1;
     /**
-     * Pending to scan
+     * Pending to scan.
      */
     const SCAN_STATUS_PENDING = 2;
     /**
-     * Scanning failed
+     * Scanning failed.
      */
     const SCAN_STATUS_FAILED = 3;
     /**
-     * Virus detected
+     * Virus detected.
      */
     const SCAN_STATUS_INFECTED = 4;
 
-    /**
+    /*
      * Hook ip-traceable behavior
      * updates createdFromIp, updatedFromIp fields
      */
     use IpTraceableEntity;
 
-    /**
+    /*
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
      */
     use TimestampableEntity;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="file", type="string", length=255)
-     * @Gedmo\UploadableFileName
+    /*
+     * Hook expirable behaviour
      */
-    private $file;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Folder", inversedBy="files")
-     */
-    private $folder;
+    use ExpirableEntity;
 
     /**
      * @var int
@@ -68,6 +60,16 @@ class File implements FileInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     */
+    private $file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Folder", inversedBy="files")
+     */
+    private $folder;
 
     /**
      * @ORM\Column(name="mime_type", type="string")
@@ -144,7 +146,7 @@ class File implements FileInterface
 
     /**
      * @ORM\Column(length=128, unique=true)
-     * @Gedmo\Slug(fields={"name"})
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
      */
     private $slug;
 
@@ -155,14 +157,14 @@ class File implements FileInterface
     private $tags;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sharedWith = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->shareCode = bin2hex(openssl_random_pseudo_bytes(8));
+        $this->shareCode = base64_encode(bin2hex(openssl_random_pseudo_bytes(15)));
         $this->scanStatus = self::SCAN_STATUS_PENDING;
     }
 
@@ -177,7 +179,7 @@ class File implements FileInterface
     }
 
     /**
-     * Add sharedWith
+     * Add sharedWith.
      *
      * @param \AppBundle\Entity\User $sharedWith
      *
@@ -191,7 +193,7 @@ class File implements FileInterface
     }
 
     /**
-     * Add tags
+     * Add tags.
      *
      * @param \AppBundle\Entity\Tag $tags
      *
@@ -205,18 +207,7 @@ class File implements FileInterface
     }
 
     /**
-     * Configure unique name
-     *
-     * @param $info
-     */
-    public function configureFileCallback($info)
-    {
-        $this->setName($info['origFileName']);
-        $this->setSlug(sha1(mt_rand()));
-    }
-
-    /**
-     * Remove credentials
+     * Remove credentials.
      */
     public function eraseCredentials()
     {
@@ -240,7 +231,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get salt
+     * Get salt.
      *
      * @return string
      */
@@ -250,7 +241,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set salt
+     * Set salt.
      *
      * @param string $salt
      *
@@ -264,7 +255,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get file
+     * Get file.
      *
      * @return string
      */
@@ -274,7 +265,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set file
+     * Set file.
      *
      * @param string $file
      *
@@ -288,7 +279,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get folder
+     * Get folder.
      *
      * @return \AppBundle\Entity\Folder
      */
@@ -298,7 +289,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set folder
+     * Set folder.
      *
      * @param \AppBundle\Entity\Folder $folder
      *
@@ -312,11 +303,10 @@ class File implements FileInterface
     }
 
     /**
-
-    /**
-     * Get id
+     /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -324,7 +314,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get mimeType
+     * Get mimeType.
      *
      * @return string
      */
@@ -334,7 +324,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set mimeType
+     * Set mimeType.
      *
      * @param string $mimeType
      *
@@ -348,7 +338,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -358,9 +348,10 @@ class File implements FileInterface
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return File
      */
     public function setName($name)
@@ -371,7 +362,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
      * @return \AppBundle\Entity\User
      */
@@ -381,7 +372,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param \AppBundle\Entity\User $owner
      *
@@ -395,7 +386,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -405,7 +396,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -419,7 +410,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get path
+     * Get path.
      *
      * @return string
      */
@@ -429,7 +420,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set path
+     * Set path.
      *
      * @param string $path
      *
@@ -442,8 +433,13 @@ class File implements FileInterface
         return $this;
     }
 
+    public function getBasename()
+    {
+        return pathinfo($this->path, PATHINFO_BASENAME);
+    }
+
     /**
-     * Get scanStatus
+     * Get scanStatus.
      *
      * @return string
      */
@@ -453,7 +449,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set scanStatus
+     * Set scanStatus.
      *
      * @param string $scanStatus
      *
@@ -467,7 +463,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get shareCode
+     * Get shareCode.
      *
      * @return string
      */
@@ -477,7 +473,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set shareCode
+     * Set shareCode.
      *
      * @param string $shareCode
      *
@@ -491,7 +487,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get sharedWith
+     * Get sharedWith.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -501,7 +497,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get size
+     * Get size.
      *
      * @return string
      */
@@ -511,7 +507,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set size
+     * Set size.
      *
      * @param string $size
      *
@@ -525,7 +521,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -535,7 +531,7 @@ class File implements FileInterface
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -549,7 +545,7 @@ class File implements FileInterface
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -580,7 +576,7 @@ class File implements FileInterface
     }
 
     /**
-     * Remove sharedWith
+     * Remove sharedWith.
      *
      * @param \AppBundle\Entity\User $sharedWith
      */
@@ -590,12 +586,22 @@ class File implements FileInterface
     }
 
     /**
-     * Remove tags
+     * Remove tags.
      *
      * @param \AppBundle\Entity\Tag $tags
      */
     public function removeTag(\AppBundle\Entity\Tag $tags)
     {
         $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Set original name.
+     *
+     * @param array $info
+     */
+    public function configureFileCallback(array $info)
+    {
+        $this->name = $info['origFileName'];
     }
 }

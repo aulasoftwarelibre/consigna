@@ -1,25 +1,24 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: juanan
  * Date: 29/04/15
- * Time: 11:38
+ * Time: 11:38.
  */
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="organization")
  * @UniqueEntity("code")
  */
-class Organization {
-
+class Organization
+{
     /**
      * @var int
      *
@@ -59,7 +58,7 @@ class Organization {
     private $users;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -67,19 +66,19 @@ class Organization {
     }
 
     /**
-     * Return name
+     * Return name.
      *
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return $this->name;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -87,9 +86,10 @@ class Organization {
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Organization
      */
     public function setName($name)
@@ -100,9 +100,9 @@ class Organization {
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -110,9 +110,10 @@ class Organization {
     }
 
     /**
-     * Set code
+     * Set code.
      *
      * @param string $code
+     *
      * @return Organization
      */
     public function setCode($code)
@@ -123,9 +124,9 @@ class Organization {
     }
 
     /**
-     * Get code
+     * Get code.
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -133,9 +134,10 @@ class Organization {
     }
 
     /**
-     * Set isEnabled
+     * Set isEnabled.
      *
-     * @param boolean $isEnabled
+     * @param bool $isEnabled
+     *
      * @return Organization
      */
     public function setIsEnabled($isEnabled)
@@ -146,9 +148,9 @@ class Organization {
     }
 
     /**
-     * Get isEnabled
+     * Get isEnabled.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsEnabled()
     {
@@ -156,9 +158,10 @@ class Organization {
     }
 
     /**
-     * Add users
+     * Add users.
      *
      * @param \AppBundle\Entity\User $users
+     *
      * @return Organization
      */
     public function addUser(\AppBundle\Entity\User $users)
@@ -169,7 +172,7 @@ class Organization {
     }
 
     /**
-     * Remove users
+     * Remove users.
      *
      * @param \AppBundle\Entity\User $users
      */
@@ -179,9 +182,9 @@ class Organization {
     }
 
     /**
-     * Get users
+     * Get users.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {

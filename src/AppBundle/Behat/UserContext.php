@@ -6,7 +6,6 @@
  * Date: 18/01/15
  * Time: 17:58.
  */
-
 namespace AppBundle\Behat;
 
 use AppBundle\Entity\User;
@@ -21,7 +20,6 @@ class UserContext extends DefaultContext
     {
         $em = $this->getEntityManager();
         foreach ($tableNode as $hash) {
-
             $organization = $em->getRepository('AppBundle:Organization')->findOneBy(['code' => $hash['organization']]);
 
             $user = new User();
