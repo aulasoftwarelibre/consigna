@@ -18,20 +18,40 @@ class DisableOrganizationCommand extends ContainerAwareCommand
     {
         $this
             ->setName('consigna:organization:disable')
-            ->setDescription('Change organization status to disable')
-            ->addArgument('Code');
+            ->addArgument('code');
+    }
+
+    /**
+     * Returns the description for the command.
+     *
+     * @return string The description for the command
+     *
+     * @api
+     */
+    public function getDescription()
+    {
+        return $this->getContainer()->get('translator')->trans('action.organization_disable', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $organization = $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Organization')->findOneByCode($input->getArgument('Code'));
-        if (null === $organization) {
-            $output->writeln('This organization does not exist');
-        } else {
-            $organization->setisEnabled(false);
-            $this->getContainer()->get('doctrine.orm.default_entity_manager')->persist($organization);
-            $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush();
-            $output->writeln('Organization status has been updated to disable');
+        $translator = $this->getContainer()->get('translator');
+        $manager = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        $organization = $this->getContainer()->get('consigna.repository.organization')->findOneBy([
+            'code' => $input->getArgument('code'),
+        ]);
+
+        if (!$organization) {
+            $output->writeln($translator->trans('action.organization_missing', [], 'command'));
+
+            return 1;
         }
+
+        $organization->setisEnabled(false);
+        $manager->persist($organization);
+        $manager->flush();
+
+        $output->writeln($translator->trans('action.organization_disable_success', ['%name%' => $organization], 'command'));
     }
 }

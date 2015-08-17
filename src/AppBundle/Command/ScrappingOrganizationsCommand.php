@@ -23,20 +23,50 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
     {
         $this
             ->setName('consigna:database:initialize')
-            ->setDescription('Download data from IDPs')
         ;
+    }
+
+    /**
+     * Returns the description for the command.
+     *
+     * @return string The description for the command
+     *
+     * @api
+     */
+    public function getDescription()
+    {
+        return $this->getContainer()->get('translator')->trans('action.database_init', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $client = new Client();
+        $translator = $this->getContainer()->get('translator');
+        $manager = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $output->writeln('Recogiendo datos');
+        $output->writeln($translator->trans('reading_data', [], 'command'));
+        $organizations = $this->scrapping();
+
+        /** @var Organization $organization */
+        foreach ($organizations as $organization) {
+            if ($organization instanceof Organization
+                && !$this->getContainer()->get('consigna.repository.organization')->findOneBy(['code' => $organization->getCode()])
+            ) {
+                $output->writeln($translator->trans('new_organization', ['%name%' => $organization], 'command'));
+                $manager->persist($organization);
+            }
+        }
+        $manager->flush();
+
+        $output->writeln($translator->trans('action.database_success', [], 'command'));
+    }
+
+    private function scrapping()
+    {
+        $client = new Client();
         $crawler = $client->request('GET', self::URL);
 
-        $organizations = $crawler->filter('.codigo_scroll')->each(function (Crawler $node) use ($output) {
+        $organizations = $crawler->filter('.codigo_scroll')->each(function (Crawler $node) {
             $university = $node->filter('div > a')->getNode(1)->textContent;
-            $output->writeln($university);
 
             $data = $node->filter('table > tbody > tr')->each(function (Crawler $node) {
                 $key = $node->filter('td')->getNode(0)->textContent;
@@ -62,20 +92,6 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
             return $organization;
         });
 
-        /** @var Organization $organization */
-        foreach ($organizations as $organization) {
-            if ($organization instanceof Organization
-                && !$this->getManager()->getRepository('AppBundle:Organization')->findOneBy(['code' => $organization->getCode()])
-            ) {
-                $this->getManager()->persist($organization);
-            }
-        }
-
-        $this->getManager()->flush();
-    }
-
-    private function getManager()
-    {
-        return $this->getContainer()->get('doctrine.orm.entity_manager');
+        return $organizations;
     }
 }

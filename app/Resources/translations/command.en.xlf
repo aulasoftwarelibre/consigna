@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="es" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="action.scan_files">
+                <source>action.scan_files</source>
+                <target>Scan all files</target>
+            </trans-unit>
+            <trans-unit id="action.scan_virus_detected">
+                <source>action.scan_virus_detected</source>
+                <target>File %file% is infected</target>
+            </trans-unit>
+            <trans-unit id="action.scan_files_success">
+                <source>action.scan_files_success</source>
+                <target>Scanning finished</target>
+            </trans-unit>
+            <trans-unit id="action.scan_files_missing">
+                <source>action.scan_files_missing</source>
+                <target>clamdscan client not found</target>
+            </trans-unit>
+            <trans-unit id="action.clean_files">
+                <source>action.clean_files</source>
+                <target>Remove old and infected files</target>
+            </trans-unit>
+            <trans-unit id="action.clean_files_success">
+                <source>action.clean_files_success</source>
+                <target>Cleaning finished</target>
+            </trans-unit>
+            <trans-unit id="action.database_init">
+                <source>action.database_init</source>
+                <target>Download IDPs database from Rediris</target>
+            </trans-unit>
+            <trans-unit id="reading_data">
+                <source>reading_data</source>
+                <target>Reading data</target>
+            </trans-unit>
+            <trans-unit id="new_organization">
+                <source>new_organization</source>
+                <target>New organization: %name%</target>
+            </trans-unit>
+            <trans-unit id="action.database_success">
+                <source>action.database_success</source>
+                <target>Database updated</target>
+            </trans-unit>
+            <trans-unit id="action.organization_list">
+                <source>action.organization_list</source>
+                <target>Organization list</target>
+            </trans-unit>
+            <trans-unit id="name">
+                <source>name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="code">
+                <source>code</source>
+                <target>Code</target>
+            </trans-unit>
+            <trans-unit id="active">
+                <source>active</source>
+                <target>Active</target>
+            </trans-unit>
+            <trans-unit id="action.organization_disable">
+                <source>action.organization_disable</source>
+                <target>Disable organization</target>
+            </trans-unit>
+            <trans-unit id="action.organization_enable">
+                <source>action.organization_enable</source>
+                <target>Enable organization</target>
+            </trans-unit>
+            <trans-unit id="action.organization_missing">
+                <source>action.organization_missing</source>
+                <target>Organization not exists</target>
+            </trans-unit>
+            <trans-unit id="action.organization_disable_success">
+                <source>action.organization_disable_success</source>
+                <target><![CDATA[Organization <info>%name%</info> has been disabled]]></target>
+            </trans-unit>
+            <trans-unit id="action.organization_enable_success">
+                <source>action.organization_enable_success</source>
+                <target><![CDATA[Organization <info>%name%</info> has been enabled]]></target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

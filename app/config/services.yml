@@ -121,14 +121,19 @@ services:
 
 # REPOSITORIES
 
+    consigna.repository.file:
+        class: AppBundle\Doctrine\ORM\FileRepository
+        arguments: [ AppBundle:File ]
+        factory: [ @doctrine, getRepository ]
+
     consigna.repository.folder:
         class: AppBundle\Doctrine\ORM\FolderRepository
         arguments: [ AppBundle:Folder ]
         factory: [ @doctrine, getRepository ]
 
-    consigna.repository.file:
-        class: AppBundle\Doctrine\ORM\FileRepository
-        arguments: [ AppBundle:File ]
+    consigna.repository.organization:
+        class: AppBundle\Doctrine\ORM\OrganizationRepository
+        arguments: [ AppBundle:Organization ]
         factory: [ @doctrine, getRepository ]
 
 # TWIG

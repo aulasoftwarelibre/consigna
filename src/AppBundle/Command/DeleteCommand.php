@@ -12,15 +12,25 @@ class DeleteCommand extends ContainerAwareCommand
     {
         $this
             ->setName('consigna:cron:cleanfiles')
-            ->setDescription('Delete lapsed files ');
+        ;
+    }
+
+    /**
+     * Returns the description for the command.
+     *
+     * @return string The description for the command
+     *
+     * @api
+     */
+    public function getDescription()
+    {
+        return $this->getContainer()->get('translator')->trans('action.clean_files', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $days = $this->getContainer()->getParameter('expire_date');
-        $date = new \DateTime('-'.$days.'days');
-        $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Folder')->deleteLapsedFolders($date);
-        $this->getContainer()->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:File')->deleteLapsedFiles($date);
-        $output->writeln('Lapsed files and folders has been removed');
+        $this->getContainer()->get('consigna.repository.folder')->deleteExpired();
+        $this->getContainer()->get('consigna.repository.file')->deleteExpired();
+        $output->writeln($this->getContainer()->get('translator')->trans('action.clean_files_success', [], 'command'));
     }
 }

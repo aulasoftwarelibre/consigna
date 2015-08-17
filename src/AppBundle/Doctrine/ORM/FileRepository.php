@@ -13,37 +13,23 @@ use AppBundle\Entity\Folder;
 use AppBundle\Entity\User;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
-use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
 
 class FileRepository extends EntityRepository
 {
-    public function deleteLapsedFiles($date)
+    public function deleteExpired()
     {
-        $em = $this->getEntityManager();
-        $files = $em->getRepository('AppBundle:File')->findAll();
-        foreach ($files as $file) {
-            if ($file->getCreatedAt() <= $date) {
-                $em->remove($file);
-            }
-        }
-        $em->flush();
-    }
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->delete('AppBundle:File', 'file')
+            ->andWhere($qb->expr()->andX(
+                $qb->expr()->isNull('file.folder'),
+                'file.expiresAt < :now'
+            ))
+            ->orWhere('file.scanStatus = :virus')
+            ->setParameter('now', new \DateTime())
+            ->setParameter('virus', File::SCAN_STATUS_INFECTED)
+            ->getQuery();
 
-    public function scanAllFiles($antivirusPath)
-    {
-        $em = $this->getEntityManager();
-        $files = $em->getRepository('AppBundle:File')->findAll();
-        $adapter = new ClamAVAdapter($antivirusPath);
-        foreach ($files as $file) {
-            $result = $adapter->scan([$file->getPath()]);
-            if ($result->hasVirus()) {
-                $em->remove($file);
-            } else {
-                $file->setScanStatus(File::SCAN_STATUS_OK);
-                $em->persist($file);
-            }
-        }
-        $em->flush();
+        return $query->getScalarResult();
     }
 
     public function sizeAndNumOfFiles()
@@ -52,8 +38,8 @@ class FileRepository extends EntityRepository
         $query = $em->createQuery('
             SELECT SUM(c.size) total, COUNT (c) files
             FROM AppBundle:File c
-            WHERE c.scanStatus = :status'
-        );
+            WHERE c.scanStatus = :status
+        ');
         $query->setParameter('status', File::SCAN_STATUS_OK);
 
         return $query->getOneOrNullResult(AbstractQuery::HYDRATE_ARRAY);

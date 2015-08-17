@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="action.scan_files">
+                <source>action.scan_files</source>
+                <target>Escanear todos los ficheros</target>
+            </trans-unit>
+            <trans-unit id="action.scan_virus_detected">
+                <source>action.scan_virus_detected</source>
+                <target>El archivo %file% está infectado</target>
+            </trans-unit>
+            <trans-unit id="action.scan_files_success">
+                <source>action.scan_files_success</source>
+                <target>Escaneo finalizado</target>
+            </trans-unit>
+            <trans-unit id="action.scan_files_missing">
+                <source>action.scan_files_missing</source>
+                <target>El cliente de clamdscan no se ha encontrado</target>
+            </trans-unit>
+            <trans-unit id="action.clean_files">
+                <source>action.clean_files</source>
+                <target>Eliminar ficheros caducados e infectados</target>
+            </trans-unit>
+            <trans-unit id="action.clean_files_success">
+                <source>action.clean_files_success</source>
+                <target>Limpieza terminada</target>
+            </trans-unit>
+            <trans-unit id="action.database_init">
+                <source>action.database_init</source>
+                <target>Descargar base de datos de IDP de Rediris</target>
+            </trans-unit>
+            <trans-unit id="reading_data">
+                <source>reading_data</source>
+                <target>Obteniendo datos</target>
+            </trans-unit>
+            <trans-unit id="new_organization">
+                <source>new_organization</source>
+                <target>Nueva organización: %name%</target>
+            </trans-unit>
+            <trans-unit id="action.database_success">
+                <source>action.database_success</source>
+                <target>Base de datos actualizada</target>
+            </trans-unit>
+            <trans-unit id="action.organization_list">
+                <source>action.organization_list</source>
+                <target>Lista de organizaciones</target>
+            </trans-unit>
+            <trans-unit id="name">
+                <source>name</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="code">
+                <source>code</source>
+                <target>Código</target>
+            </trans-unit>
+            <trans-unit id="active">
+                <source>active</source>
+                <target>Activa</target>
+            </trans-unit>
+            <trans-unit id="action.organization_disable">
+                <source>action.organization_disable</source>
+                <target>Desactivar organización</target>
+            </trans-unit>
+            <trans-unit id="action.organization_enable">
+                <source>action.organization_enable</source>
+                <target>Activar organización</target>
+            </trans-unit>
+            <trans-unit id="action.organization_missing">
+                <source>action.organization_missing</source>
+                <target>La organización indicada no existe</target>
+            </trans-unit>
+            <trans-unit id="action.organization_disable_success">
+                <source>action.organization_disable_success</source>
+                <target><![CDATA[La organización <info>%name%</info> ha sido desactivada]]></target>
+            </trans-unit>
+            <trans-unit id="action.organization_enable_success">
+                <source>action.organization_enable_success</source>
+                <target><![CDATA[La organización <info>%name%</info> ha sido activada]]></target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -14,17 +14,18 @@ use Doctrine\ORM\EntityRepository;
 
 class FolderRepository extends EntityRepository
 {
-    public function deleteLapsedFolders($date)
+    public function deleteExpired()
     {
-        $em = $this->getEntityManager();
-        $folders = $em->getRepository('AppBundle:Folder')->findBy(['permanent' => false]);
-        foreach ($folders as $folder) {
-            if ($folder->getCreatedAt() == $date) {
-                $em->remove($folder);
-                $em->persist($folder);
-            }
-        }
-        $em->flush();
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb
+            ->delete('AppBundle:Folder', 'folder')
+            ->where('folder.expiresAt < :now')
+            ->andWhere('folder.permanent = :false')
+            ->setParameter('now', new \DateTime())
+            ->setParameter('false', false)
+            ->getQuery();
+
+        return $query->getScalarResult();
     }
 
     public function findOneActiveBySlug($args)
