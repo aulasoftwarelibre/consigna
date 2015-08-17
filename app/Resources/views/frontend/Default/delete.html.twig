@@ -1,0 +1,17 @@
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="{{ 'title.delete_element' | trans }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {{ form_start(delete_form, {'attr': {'id': 'delete'}}) }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{ 'title.delete_element' | trans }}</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'action.cancel' | trans }}</button>
+                    <button type="submit" class="btn btn-primary">{{ 'action.delete' | trans }}</button>
+                </div>
+            {{ form(delete_form) }}
+            {{ form_end(delete_form) }}
+        </div>
+    </div>
+</div>

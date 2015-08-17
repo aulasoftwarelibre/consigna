@@ -2,10 +2,10 @@
 {% import 'macros/elements.html.twig' as elements %}
 
 {% block header_title %}
-    <h1>{{ _('title.main_folder') }}
+    <h1>{{ 'title.main_folder' | trans }}
         <small>
-            {{ __('title.folder_number', folders | length) }} -
-            {{ __('title.file_number', files | length) }}
+            {{ 'title.folder_number' | transchoice(folders | length) }} -
+            {{ 'title.file_number' | transchoice(files | length) }}
         </small>
     </h1>
 {% endblock %}
@@ -15,10 +15,10 @@
         <div class="col-md-12">
             <ul class="file-list">
                 {% for folder in folders %}
-                    {{ elements.folder(folder, days_before_clean) }}
+                    {{ elements.folder(folder) }}
                 {% endfor %}
                 {% for file in files %}
-                    {{ elements.file(file, days_before_clean) }}
+                    {{ elements.file(file) }}
                 {% endfor %}
             </ul>
         </div>

@@ -1,0 +1,15 @@
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.root_dir%/../private/"
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        folder_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 100], mode: outbound }

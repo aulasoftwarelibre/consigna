@@ -8,6 +8,6 @@ oneup_uploader:
             storage:
                 type: filesystem
                 directory: "%kernel.root_dir%/../private/uploads"
-            use_orphanage: true
+            use_orphanage: false
             enable_progress: true
             namer: consigna.namer.real

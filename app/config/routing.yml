@@ -28,6 +28,11 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+# liip image
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+# uploader
 oneup_uploader:
     resource: .
     type: uploader

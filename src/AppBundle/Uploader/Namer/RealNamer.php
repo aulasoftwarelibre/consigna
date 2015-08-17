@@ -1,13 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 09/08/15
- * Time: 21:05
+ * Time: 21:05.
  */
-
 namespace AppBundle\Uploader\Namer;
-
 
 use Oneup\UploaderBundle\Uploader\File\FileInterface;
 use Oneup\UploaderBundle\Uploader\Naming\NamerInterface;
@@ -15,9 +14,9 @@ use Oneup\UploaderBundle\Uploader\Naming\NamerInterface;
 class RealNamer implements NamerInterface
 {
     /**
-     * Name a given file and return the name
+     * Name a given file and return the name.
      *
-     * @param  FileInterface $file
+     * @param FileInterface $file
      *
      * @return string
      */
@@ -25,5 +24,4 @@ class RealNamer implements NamerInterface
     {
         return $file->getClientOriginalName();
     }
-
 }

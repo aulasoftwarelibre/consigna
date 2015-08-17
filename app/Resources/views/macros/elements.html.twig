@@ -1,7 +1,7 @@
 {% macro folder(folder) %}
     {% set created = folder.createdAt | time_diff %}
-    {% set deleted = folder.createdAt | date_modify( days_before_clean ~ " days" ) | time_diff %}
-    {% set organization = folder.owner is empty ? _('label.anon_user') : folder.owner.organization.code %}
+    {% set deleted = folder.expiresAt | time_diff %}
+    {% set organization = folder.owner is empty ? 'label.anon_user' | trans : folder.owner.organization.code %}
 
     <li>
         <div class="square">
@@ -11,9 +11,9 @@
             <h2 class="title"><a href="{{ path('folder_show', {'slug': folder.slug}) }}">{{ folder.name }}</a></h2>
             <p class="desc">
                 <small>
-                    {{ _('file.upload_from', {'%organization%': organization, '%created%': created }) | raw }}
+                    {{ 'file.upload_from' | trans({'%organization%': organization, '%created%': created }) | raw }}
                     {%- if not folder.isPermanent %}
-                        {{ _('file.available_until', {'%deleted%': deleted}) | raw }}
+                        {{ 'file.available_until' | trans({'%deleted%': deleted}) | raw }}
                     {% endif -%}
                 </small>
             </p>
@@ -27,7 +27,7 @@
             <ul>
                 <li class="action" style="width:33%;"><a href="{{ path('folder_show', {'slug': folder.slug}) }}"><span class="fa fa-folder-open-o"></span></a></li>
                 {% if is_granted('SHARE', folder) %}
-                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url("folder_share",{'slug':folder.slug,'shareCode': folder.shareCode }) }}"><a href="#" title="Share {{ folder.name }}"><span class="fa fa-share-alt"></span></a></li>
+                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url("folder_access_share",{'shareCode': folder.shareCode }) }}"><a href="#" title="Share {{ folder.name }}"><span class="fa fa-share-alt"></span></a></li>
                 {% endif %}
                 {% if is_granted('DELETE', folder) %}
                     <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path('folder_delete',{'slug':folder.slug}) }}"><a href="#" title="Delete {{ folder.name }}"><span class="fa fa-trash"></span></a></li>
@@ -40,8 +40,9 @@
 
 {% macro file(file) %}
     {% set created = file.createdAt | time_diff %}
-    {% set deleted = file.createdAt | date_modify( days_before_clean ~ " days" ) | time_diff %}
-    {% set organization = file.owner is empty ? _('label.anon_user') : file.owner.organization.code %}
+    {% set deleted = file.expiresAt | time_diff %}
+    {% set organization = file.owner is empty ? 'label.anon_user' | trans : file.owner.organization.code %}
+
 
     <li>
         <div class="square">
@@ -51,8 +52,8 @@
             <h2 class="title"><a href="{{ path("file_show", {'slug': file.slug}) }}">{{ file.name }}</a></h2>
             <p class="desc">
                 <small>
-                    {{ _('file.upload_from', {'%organization%': organization, '%created%': created }) | raw }}
-                    {{ _('file.available_until', {'%deleted%': deleted}) | raw }}
+                    {{ 'file.upload_from' | trans({'%organization%': organization, '%created%': created }) | raw }}
+                    {{ 'file.available_until' | trans({'%deleted%': deleted}) | raw }}
                 </small>
             </p>
             <ul>
@@ -65,7 +66,7 @@
             <ul>
                 <li class="action" style="width:33%;"><a href="{{ path('file_show', {'slug': file.slug}) }}" title="Download {{ file.name }}"><span class="fa fa-download"></span></a></li>
                 {% if is_granted('SHARE', file) %}
-                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}" ><a href="#" title="Share {{ file.name }}"><span class="fa fa-share-alt"></span></a></li>
+                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_access_share',{'shareCode': file.shareCode}) }}" ><a href="#" title="Share {{ file.name }}"><span class="fa fa-share-alt"></span></a></li>
                 {% endif %}
                 {% if is_granted('DELETE', file) %}
                     <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path('file_delete',{'slug':file.slug}) }}"><a href="#" title="Delete {{ file.name }}"><span class="fa fa-trash"></span></a></li>
@@ -77,31 +78,36 @@
 
 {% macro folderfile(file) %}
     {% set created = file.createdAt | time_diff %}
-    {% set organization = file.owner is empty ? _('label.anon_user') : file.owner.organization.code %}
+    {% set organization = file.owner is empty ? 'label.anon_user' | trans : file.owner.organization.code %}
+    {% set folder = file.folder %}
 
     <li>
         <div class="square">
-            {% if file.mimeType starts with 'audio/' %}
+            {% if file.mimeType starts with 'audio/' or file.mimeType ends with '/ogg' %}
             <span class="icon"><i class="fa fa-file-sound-o"></i></span>
+            {% elseif file.mimeType starts with 'image/' %}
+            <a href="{{ path("file_download", {'slug': file.slug}) }}" data-lightbox="roadtrip">
+                <img alt="{{ file.slug }}" src="{{ file.basename | imagine_filter('folder_thumb') }}">
+            </a>
             {% else %}
             <span class="icon"><i class="fa fa-file-o"></i></span>
             {% endif %}
 
         </div>
         <div class="info">
-            <h2 class="title"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}">{{ file.name }}</a></h2>
+            <h2 class="title"><a href="{{ path("file_download", {'slug': file.slug}) }}">{{ file.name }}</a></h2>
             <p class="desc">
                 <small>
-                    {{ _('file.upload_from', {'%organization%': organization, '%created%': created }) | raw }}
+                    {{ 'file.upload_from' | trans({'%organization%': organization, '%created%': created }) | raw }}
                 </small>
-                {% if file.mimeType starts with 'audio/' %}
+                {% if file.mimeType starts with 'audio/' or file.mimeType ends with '/ogg' %}
                 <div class="player">
                     <audio controls preload="none">
                         <!-- Audio files -->
-                        <source src="{{ path('folder_file_download', {'slug': file.slug}) }}" type="{{ file.mimeType }}">
+                        <source src="{{ path('file_download', {'slug': file.slug}) }}" type="{{ file.mimeType }}">
                     </audio>
                 </div>
-                {% endif %}
+            {% endif %}
             </p>
             <ul>
                 {% for tag in file.tags %}
@@ -111,37 +117,11 @@
         </div>
         <div class="actions">
             <ul>
-                <li class="action" style="width:33%;"><a href="{{ path("folder_file_download", {'slug': file.slug}) }}" title="Download {{ file.name }}"><span class="fa fa-download"></span></a></li>
-                {% if is_granted('SHARE', file) %}
-                    <li class="action share" style="width:34%;" data-toggle="modal" data-target="#ShareModal" data-url="{{ url('file_share',{'slug':file.slug, 'shareCode': file.shareCode}) }}" ><a href="#" title="Share {{ file.name }}"><span class="fa fa-share-alt"></span></a></li>
-
-                {% endif %}
+                <li class="action" style="width:33%;"><a href="{{ path("file_download", {'slug': file.slug}) }}" title="Download {{ file.name }}"><span class="fa fa-download"></span></a></li>
                 {% if is_granted('DELETE', file.folder) %}
-                    <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path("folder_file_delete", {'slug': file.slug}) }}"><a href="#" title="Delete {{ file.name }}"><span class="fa fa-trash"></span></a></li>
+                    <li class="action trash" style="width:33%;" data-toggle="modal" data-target="#DeleteModal" data-url="{{ path("file_delete", {'slug': file.slug}) }}"><a href="#" title="Delete {{ file.name }}"><span class="fa fa-trash"></span></a></li>
                 {% endif %}
             </ul>
         </div>
     </li>
 {% endmacro %}
-
-{% macro bytesToSize(bytes) %}
-    {% spaceless %}
-        {% set kilobyte = 1024 %}
-        {% set megabyte = kilobyte * 1024 %}
-        {% set gigabyte = megabyte * 1024 %}
-        {% set terabyte = gigabyte * 1024 %}
-
-        {% if bytes < kilobyte %}
-            {{ bytes ~ ' bytes' }}
-        {% elseif bytes < megabyte %}
-            {{ (bytes / kilobyte)|number_format(2, '.') ~ ' KB' }}
-        {% elseif bytes < gigabyte %}
-            {{ (bytes / megabyte)|number_format(2, '.') ~ ' MB' }}
-        {% elseif bytes < terabyte %}
-            {{ (bytes / gigabyte)|number_format(2, '.') ~ ' GB' }}
-        {% else %}
-            {{ (bytes / terabyte)|number_format(2, '.') ~ ' TB' }}
-        {% endif %}
-    {% endspaceless %}
-{% endmacro %}
-

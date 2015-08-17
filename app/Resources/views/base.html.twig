@@ -10,16 +10,16 @@
         </title>
         {% block stylesheets %}
             {% stylesheets filter="cssrewrite" output="compiled/css/consigna.css" debug=false
-                "vendor/bootstrap/dist/css/bootstrap.css"
+                "vendor/bootstrap/dist/css/bootstrap.min.css"
                 "vendor/select2/select2.css"
                 "vendor/select2/select2-bootstrap.css"
-                "vendor/font-awesome/css/font-awesome.css"
-                "vendor/ionicons/css/ionicons.css"
-                "vendor/admin-lte/dist/css/AdminLTE.css"
+                "vendor/font-awesome/css/font-awesome.min.css"
+                "vendor/admin-lte/dist/css/AdminLTE.min.css"
                 "vendor/admin-lte/dist/css/skins/skin-black.css"
                 "vendor/admin-lte/plugins/iCheck/square/blue.css"
-                "vendor/dropzone/dist/dropzone.css"
+                "vendor/dropzone/dist/min/dropzone.min.css"
                 "vendor/plyr/dist/plyr.css"
+                "vendor/lightbox2/dist/css/lightbox.css"
                 "bundles/app/css/consigna.css"
             %}
             <link rel="stylesheet" href="{{ asset_url }}" />
@@ -57,11 +57,11 @@
                             {% block navbar %}
                             {% if app.user %}
                             <li class="tasks-menu">
-                                <a href="{{ path("folder_new") }}"><i class="fa fa-folder-o"></i> {{ _('action.create_folder') }}</a>
+                                <a href="{{ path("folder_new") }}"><i class="fa fa-folder-o"></i> {{ 'action.create_folder' | trans }}</a>
                             </li>
                             {% endif %}
                             <li class="tasks-menu">
-                                <a href="{{ path("file_upload") }}"><i class="fa fa-upload"></i> {{ _('action.upload_file') }}</a>
+                                <a href="{{ path("file_upload") }}"><i class="fa fa-upload"></i> {{ 'action.upload_file' | trans }}</a>
                             </li>
                             {% endblock %}
 
@@ -88,16 +88,16 @@
                                     <li class="user-footer">
                                         <div class="text-center">
                                             {% if is_granted("ROLE_ADMIN") %}
-                                            <a href="{{ path("sonata_admin_dashboard") }}" class="btn btn-default btn-flat">{{ _('action.admin') }}</a>
+                                            <a href="{{ path("sonata_admin_dashboard") }}" class="btn btn-default btn-flat">{{ 'action.admin' | trans }}</a>
                                             {% endif %}
-                                            <a href="{{ path("fos_user_security_logout") }}" class="btn btn-default btn-flat">{{ _('action.logout') }}</a>
+                                            <a href="{{ path("fos_user_security_logout") }}" class="btn btn-default btn-flat">{{ 'action.logout' | trans }}</a>
                                         </div>
                                     </li>
                                 </ul>
                             </li>
                             {% else %}
                             <li class="tasks-menu">
-                                <a href="{{ path("fos_user_security_login") }}"><i class="fa fa-sign-in"></i> {{ _('action.login') }}</a>
+                                <a href="{{ path("fos_user_security_login") }}"><i class="fa fa-sign-in"></i> {{ 'action.login' | trans }}</a>
                             </li>
                             {% endif %}
                         </ul>
@@ -115,7 +115,7 @@
                     <!-- search form (Optional) -->
                     <form action="{{ path('find') }}" method="get" class="sidebar-form">
                         <div class="input-group">
-                            <input type="text" name="word" class="form-control" placeholder={{ _('label.search') }}>
+                            <input type="text" name="word" class="form-control" placeholder={{ 'label.search' | trans }}>
                             <span class="input-group-btn">
                                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
                             </span>
@@ -140,7 +140,7 @@
                         {% endblock %}
                         <ol class="breadcrumb">
                         {% block breadcrumb %}
-                            <li><a class="active" href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ _('title.main_folder') }}</a></li>
+                            <li><a class="active" href="{{ path('homepage') }}"><i class="fa fa-dashboard"></i> {{ 'title.main_folder' | trans }}</a></li>
                         {% endblock %}
                         </ol>
                     {% endblock %}
@@ -152,9 +152,9 @@
                     {% block alert %}
                         {% for type, messages in app.session.flashBag.all %}
                             {% for message in messages %}
-                                <div class="alert alert-{{ type }} alert-dismissable">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                    {{ message }}
+                                <div class="notice notice-{{ type }} notice-autocloseable">
+                                    <button type="button" class="close" aria-hidden="true"><i class="fa fa-clock-o fa-spin"></i></button>
+                                        {{ message }}
                                 </div>
                             {% endfor %}
                         {% endfor %}
@@ -176,45 +176,32 @@
         </div><!-- ./wrapper -->
 
         {% block modal %}
-        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="{{ _('title.delete_element') }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{ _('title.delete_element') }}</h4>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ _('action.cancel') }}</button>
-                        <a id="delete" class="btn btn-primary">{{ _('action.delete') }}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {{ render(controller('AppBundle:Frontend/Default:createDeleteForm')) }}
 
-        <div class="modal fade" id="ShareModal" tabindex="-1" role="dialog" aria-labelledby="{{ _('title.share_element') }}" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{ _('title.share_element') }}</h4></div>
-                    <div class="modal-body">
-                        <form role="form">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">{{ _('label.link') }}</label>
-                                    <input readonly="readonly" class="form-control" id="share" onfocus="this.select();" onmouseup="return false;">
+            <div class="modal fade" id="ShareModal" tabindex="-1" role="dialog" aria-labelledby="{{ 'title.share_element' | trans }}" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{ 'title.share_element' | trans }}</h4></div>
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">{{ 'label.link' | trans }}</label>
+                                        <input readonly="readonly" class="form-control" id="share" onfocus="this.select();" onmouseup="return false;">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ _('action.close') }}</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'action.close' | trans }}</button>
+                                </div>
 
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endblock %}
 
     {% endblock %}
@@ -230,6 +217,7 @@
             "vendor/admin-lte/dist/js/app.js"
             "vendor/dropzone/dist/dropzone.js"
             "vendor/plyr/dist/plyr.js"
+            "vendor/lightbox2/dist/js/lightbox.min.js"
             "bundles/app/js/consigna.js"
         %}
             <script src="{{ asset_url }}"></script>

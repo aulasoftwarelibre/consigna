@@ -3,13 +3,17 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
+    - { resource: bundles/liip_imagine.yml }
     - { resource: bundles/oneup_uploader.yml }
     - { resource: bundles/sonata_admin.yml }
     - { resource: bundles/sonata_block.yml }
 
 framework:
     #esi:             ~
-    translator:      { fallback: "%locale%" }
+    translator:
+        enabled:    true
+        fallback:   "%locale%"
+        logging:    true
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -29,6 +33,7 @@ framework:
     fragments: { path: /_fragment }
     http_method_override: true
 
+
 ewz_recaptcha:
     public_key: %recaptcha_public_key%
     private_key: %recaptcha_private_key%
@@ -40,12 +45,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: ['bootstrap_3_layout.html.twig']
-    globals:
-        days_before_clean: %days_before_clean%
-
-
-
+        resources: ['frontend/default/bootstrap_3_layout.html.twig']
 
 # Assetic Configuration
 assetic:
@@ -95,6 +95,8 @@ fos_user:
     user_class: AppBundle\Entity\User
     group:
         group_class: AppBundle\Entity\Group
+    service:
+        user_manager: consigna.doctrine.user_manager
 
 
 hwi_oauth:
