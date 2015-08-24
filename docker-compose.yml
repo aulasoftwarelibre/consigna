@@ -3,14 +3,8 @@ application:
     volumes:
         - .:/var/www/symfony
         - ./docker/logs/symfony:/var/www/symfony/app/logs
+        - ../ritsiGA-simplesamlphp:/var/simplesamlphp
     tty: true
-db:
-    image: mariadb:latest
-    ports:
-        - 3306:3306
-    environment:
-        MYSQL_ROOT_PASSWORD: mysql
-        MYSQL_DATABASE: symfony_dev
 clamav:
     image: dinkel/clamavd
     expose:
@@ -20,17 +14,19 @@ clamav:
 php:
     build: docker/php-fpm
     expose:
-        - 9000:9000
+        - 9001:9001
     volumes_from:
         - application
-        - clamav
     links:
-        - db
         - clamav
+    external_links:
+        - db
+    extra_hosts:
+      - 'consigna.dev:172.17.42.1'
     environment:
       - SYMFONY__DATABASE__USER=root
       - SYMFONY__DATABASE__PASSWORD=mysql
-      - SYMFONY__DATABASE__NAME=symfony
+      - SYMFONY__DATABASE__NAME=consigna
       - SYMFONY__DATABASE__HOST=db
       - SYMFONY_ENV=dev
 nginx:

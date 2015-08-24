@@ -16,6 +16,7 @@ parameters:
 
     locale: en
 
+    simplesaml_host: consigna.dev
     sir_app_id: ~
     sir_app_secret: ~
     default_sir_idp: uco.es

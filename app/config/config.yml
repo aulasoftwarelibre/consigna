@@ -122,13 +122,12 @@ hwi_oauth:
             type:                oauth2
             client_id:           "%sir_app_id%"
             client_secret:       "%sir_app_secret%"
-            access_token_url:    http://consigna.dev/simplesaml/module.php/oauth2/token.php
-            authorization_url:   http://consigna.dev/simplesaml/module.php/oauth2/authorize.php
-            infos_url:           http://consigna.dev/simplesaml/module.php/oauth2/user.php
+            access_token_url:    "http://%simplesaml_host%/simplesaml/module.php/oauth2/token.php"
+            authorization_url:   "http://%simplesaml_host%/simplesaml/module.php/oauth2/authorize.php"
+            infos_url:           "http://%simplesaml_host%/simplesaml/module.php/oauth2/user.php"
             scope:               "user_details"
             user_response_class: AppBundle\OAuth\Response\SirUserResponse
 
-#
 #stof_doctrine_extensions:
 #    uploadable:
 #        default_file_path:       %kernel.root_dir%/../private

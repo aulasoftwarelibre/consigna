@@ -4,21 +4,24 @@ MAINTAINER Sergio Gómez <sergio@uco.es>
 
 EXPOSE 9000
 
-RUN apt-get update && apt-get install -y php5-common php5-cli php5-fpm php5-mcrypt php5-mysql php5-apcu php5-gd php5-imagick php5-curl php5-intl
+RUN add-apt-repository ppa:ondrej/php5-5.6
+RUN apt-get update && apt-get install -y --force-yes git php5 php5-curl php5-fpm php5-gd php5-intl php5-mcrypt php5-mysqlnd php5-pgsql php5-readline php5-sqlite php5-xdebug
 RUN apt-get install -y python-pyclamd
 
 # Scripts
 RUN mkdir -p /etc/my_init.d
-ADD scripts/deploy.sh /etc/my_init.d/deploy.sh
-# Services
-RUN mkdir /etc/service/php-fpm
-ADD scripts/php-fpm.sh /etc/service/php-fpm/run
+ADD deploy.sh /etc/my_init.d/deploy.sh
+RUN mkdir -p /etc/service/phpfpm
+ADD phpfpm.sh /etc/service/phpfpm/run
+RUN cd /usr/bin && curl -sS https://getcomposer.org/installer | php
 # Change clamdscan
-ADD scripts/clamdscan.py /usr/bin/clamdscan
+ADD clamdscan.py /usr/bin/clamdscan
 
+# PHP+Symfony Configuration
 ADD symfony.ini /etc/php5/fpm/conf.d/
 ADD symfony.ini /etc/php5/cli/conf.d/
 ADD symfony.pool.conf /etc/php5/fpm/pool.d/
+RUN rm /etc/php5/fpm/pool.d/www.conf
 
 RUN usermod -u 1000 www-data
 
