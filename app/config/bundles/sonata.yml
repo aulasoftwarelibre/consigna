@@ -15,3 +15,11 @@ sonata_admin:
                 items:
                     - consigna.admin.folder
                     - consigna.admin.file
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        # Your other blocks
