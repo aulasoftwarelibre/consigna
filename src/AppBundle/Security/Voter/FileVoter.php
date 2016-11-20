@@ -1,22 +1,34 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: juanan
- * Date: 27/04/15
- * Time: 18:04.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+
 namespace AppBundle\Security\Voter;
+
 
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class FileVoter extends AbstractVoter
+class FileVoter extends Voter
 {
+    const ACCESS = 'ACCESS';
+    const DELETE = 'DELETE';
+    const DOWNLOAD = 'DOWNLOAD';
+    const SHARE = 'SHARE';
+
+
     /**
-     * @var
+     * @var SessionInterface
      */
     private $session;
 
@@ -25,77 +37,65 @@ class FileVoter extends AbstractVoter
         $this->session = $session;
     }
 
-    /**
-     * Return an array of supported classes. This will be called by supportsClass.
-     *
-     * @return array an array of supported classes, i.e. array('Acme\DemoBundle\Model\Product')
-     */
-    protected function getSupportedClasses()
+    protected function supports($attribute, $subject)
     {
-        return ['AppBundle\Entity\File'];
-    }
-
-    /**
-     * Return an array of supported attributes. This will be called by supportsAttribute.
-     *
-     * @return array an array of supported attributes, i.e. array('CREATE', 'READ')
-     */
-    protected function getSupportedAttributes()
-    {
-        return ['ACCESS', 'DOWNLOAD', 'DELETE', 'SHARE'];
-    }
-
-    /**
-     * Perform a single access check operation on a given attribute, object and (optionally) user
-     * It is safe to assume that $attribute and $object's class pass supportsAttribute/supportsClass
-     * $user can be one of the following:
-     *   a UserInterface object (fully authenticated user)
-     *   a string               (anonymously authenticated user).
-     *
-     * @param string $attribute
-     * @param File   $object
-     * @param User   $user
-     *
-     * @return bool
-     */
-    protected function isGranted($attribute, $object, $user = null)
-    {
-        if ($object->getScanStatus() != File::SCAN_STATUS_OK) {
+        if (!$subject instanceof File) {
             return false;
         }
 
-        if ($user instanceof User && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+        if (!in_array($attribute, [self::ACCESS, self::DELETE, self::DOWNLOAD, self::SHARE])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $attribute
+     * @param File $subject
+     * @param TokenInterface $token
+     * @return boolean
+     */
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    {
+        if (File::SCAN_STATUS_OK !== $subject->getScanStatus()) {
+            return false;
+        }
+
+        $user = $token->getUser();
+
+        if ($user instanceof User && in_array('ROLE_ADMIN', $user->getRoles())) {
             return true;
         }
 
         switch ($attribute) {
-            case 'ACCESS':
-                if ($user instanceof User || $object->getOwner()) {
+            case self::ACCESS:
+                if ($user instanceof User || $subject->getOwner()) {
                     return true;
                 }
+                break;
 
-            break;
-
-            case 'DOWNLOAD':
+            case self::DOWNLOAD:
                 if ($user instanceof User) {
-                    if ($object->hasAccess($user)) {
+                    if ($subject->hasAccess($user)) {
                         return true;
                     }
                 } else {
-                    if ($this->session->has($object->getShareCode())) {
+                    if ($this->session->has($subject->getShareCode())) {
                         return true;
                     }
                 }
-            break;
+                break;
 
-            case 'DELETE':
-            case 'SHARE':
-                if ($user instanceof User && $object->getOwner() == $user) {
+            case self::DELETE:
+            case self::SHARE:
+                if ($user instanceof User && $subject->getOwner() == $user) {
                     return true;
                 }
-            break;
+                break;
         }
 
         return false;
     }
+
 }
