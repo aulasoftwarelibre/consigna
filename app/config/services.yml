@@ -107,18 +107,6 @@ services:
         tags:
             - { name: form.type, alias: tags_text }
 
-# FOS USER BUNDLE
-
-    consigna.doctrine.user_manager:
-        class: AppBundle\Doctrine\UserManager
-        arguments:
-            - @security.encoder_factory
-            - @fos_user.util.username_canonicalizer
-            - @fos_user.util.email_canonicalizer
-            - @fos_user.entity_manager
-            - %fos_user.model.user.class%
-            - %default_sir_idp%
-
 # REPOSITORIES
 
     consigna.repository.file:

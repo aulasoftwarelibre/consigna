@@ -90,14 +90,14 @@
                                             {% if is_granted("ROLE_ADMIN") %}
                                             <a href="{{ path("sonata_admin_dashboard") }}" class="btn btn-default btn-flat">{{ 'action.admin' | trans }}</a>
                                             {% endif %}
-                                            <a href="{{ path("fos_user_security_logout") }}" class="btn btn-default btn-flat">{{ 'action.logout' | trans }}</a>
+                                            <a href="{{ path("logout") }}" class="btn btn-default btn-flat">{{ 'action.logout' | trans }}</a>
                                         </div>
                                     </li>
                                 </ul>
                             </li>
                             {% else %}
                             <li class="tasks-menu">
-                                <a href="{{ path("fos_user_security_login") }}"><i class="fa fa-sign-in"></i> {{ 'action.login' | trans }}</a>
+                                <a href="{{ path("login") }}"><i class="fa fa-sign-in"></i> {{ 'action.login' | trans }}</a>
                             </li>
                             {% endif %}
                         </ul>

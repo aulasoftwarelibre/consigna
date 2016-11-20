@@ -1,22 +1,9 @@
-#FosUserBundle Routes
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+uco_user:
+    resource: '@UcoUserBundle/Resources/config/routing.xml'
+    prefix:   '/'
 
-#HWIOAuthBundle routes
-hwi_oauth_security:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix: /login
-
-hwi_oauth_connect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix: /login
-
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /login
-
-sir_login:
-    pattern: /login/check-sir
+ssp_bundle:
+    resource: '@SSPGuardBundle/Resources/config/routing/connect.xml'
 
 # app/config/routing.yml
 admin:

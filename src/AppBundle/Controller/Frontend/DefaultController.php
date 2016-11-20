@@ -14,7 +14,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/" , name="homepage")
-     * @Template("frontend/default/homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function defaultAction()
     {
@@ -29,7 +29,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/user/files", name="user_files")
-     * @Template("frontend/default/homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function myFilesAction()
     {
@@ -45,7 +45,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/find", name="find")
-     * @Template("frontend/default/homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function searchAction(Request $request)
     {
@@ -61,7 +61,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/user/shared_elements", name="shared_elements")
-     * @Template("frontend/default/homepage.html.twig")
+     * @Template("frontend/Default/homepage.html.twig")
      */
     public function sharedWithMeAction()
     {
@@ -82,7 +82,7 @@ class DefaultController extends Controller
     {
         $statistics = $this->get('consigna.repository.file')->sizeAndNumOfFiles();
 
-        return $this->render('frontend/default/statistics.html.twig',
+        return $this->render('frontend/Default/statistics.html.twig',
             ['statistics' => $statistics]
         );
     }
@@ -99,7 +99,7 @@ class DefaultController extends Controller
             ->getForm()
         ;
 
-        return $this->render(':frontend/default:delete.html.twig', [
+        return $this->render(':frontend/Default:delete.html.twig', [
             'delete_form' => $deleteForm->createView(),
         ]);
     }

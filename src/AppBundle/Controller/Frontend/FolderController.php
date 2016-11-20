@@ -66,7 +66,7 @@ class FolderController extends Controller
                 $this->dispatch(ConsignaEvents::CHECK_PASSWORD_SUCCESS, new FolderEvent($folder));
             } else {
                 return $this->render(
-                    'frontend/folder/show_with_password.html.twig',
+                    'frontend/Folder/show_with_password.html.twig',
                     [
                         'folder' => $folder,
                         'form' => $form->createView(),
@@ -122,7 +122,7 @@ class FolderController extends Controller
         }
 
         return $this->render(
-            'frontend/folder/new.html.twig',
+            'frontend/Folder/new.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -150,7 +150,7 @@ class FolderController extends Controller
         $files = $this->get('consigna.repository.file')->findActiveFilesBy(['folder' => $folder]);
 
         return $this->render(
-            'frontend/folder/share.html.twig',
+            'frontend/Folder/share.html.twig',
             [
                 'files' => $files,
                 'folder' => $folder,
@@ -170,7 +170,7 @@ class FolderController extends Controller
             $form = $this->createAccessFolderForm($folder);
 
             return $this->render(
-                'frontend/folder/show_with_password.html.twig',
+                'frontend/Folder/show_with_password.html.twig',
                 [
                     'folder' => $folder,
                     'form' => $form->createView(),
@@ -181,7 +181,7 @@ class FolderController extends Controller
         $files = $this->get('consigna.repository.file')->findActiveFilesBy(['folder' => $folder]);
 
         return $this->render(
-            'frontend/folder/show.html.twig',
+            'frontend/Folder/show.html.twig',
             [
                 'files' => $files,
                 'folder' => $folder,

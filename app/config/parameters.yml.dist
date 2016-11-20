@@ -16,10 +16,8 @@ parameters:
 
     locale: en
 
-    simplesaml_host: consigna.dev
-    sir_app_id: ~
-    sir_app_secret: ~
     default_sir_idp: uco.es
+    simplesamlphp_installation_path: ~
 
     recaptcha_public_key: ~
     recaptcha_private_key: ~

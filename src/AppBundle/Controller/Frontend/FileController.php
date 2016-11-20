@@ -62,7 +62,7 @@ class FileController extends Controller
                 $this->dispatch(ConsignaEvents::CHECK_PASSWORD_SUCCESS, new FileEvent($file));
             } else {
                 return $this->render(
-                    'frontend/file/show_with_password.html.twig',
+                    'frontend/File/show_with_password.html.twig',
                     [
                         'file' => $file,
                         'form' => $form->createView(),
@@ -150,7 +150,7 @@ class FileController extends Controller
             $this->addFlashTrans('warning', 'alert.login_required');
 
             return $this->render(
-                'frontend/file/show_with_login.html.twig',
+                'frontend/File/show_with_login.html.twig',
                 [
                     'file' => $file,
                 ]
@@ -161,7 +161,7 @@ class FileController extends Controller
             $form = $this->createDownloadFileForm($file);
 
             return $this->render(
-                'frontend/file/show_with_password.html.twig',
+                'frontend/File/show_with_password.html.twig',
                 [
                     'file' => $file,
                     'form' => $form->createView(),
@@ -170,7 +170,7 @@ class FileController extends Controller
         }
 
         return $this->render(
-            'frontend/file/show.html.twig',
+            'frontend/File/show.html.twig',
             [
                 'file' => $file,
             ]
@@ -207,7 +207,7 @@ class FileController extends Controller
         }
 
         return $this->render(
-            'frontend/file/upload.html.twig',
+            'frontend/File/upload.html.twig',
             [
                 'form' => $form->createView(),
             ]

@@ -3,10 +3,8 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
-    - { resource: bundles/liip_imagine.yml }
-    - { resource: bundles/oneup_uploader.yml }
-    - { resource: bundles/sonata_admin.yml }
-    - { resource: bundles/sonata_block.yml }
+    - { resource: bundles/ }
+    - { resource: '/etc/credentials/consigna.yml', ignore_errors: true }
 
 framework:
     #esi:             ~
@@ -33,19 +31,12 @@ framework:
     fragments: { path: /_fragment }
     http_method_override: true
 
-
-ewz_recaptcha:
-    public_key: %recaptcha_public_key%
-    private_key: %recaptcha_private_key%
-    locale_key:  %kernel.default_locale%
-
-
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources: ['frontend/default/bootstrap_3_layout.html.twig']
+    form_themes:
+        - 'frontend/Default/bootstrap_3_layout.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -89,52 +80,3 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-fos_user:
-    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
-    firewall_name: main
-    user_class: AppBundle\Entity\User
-    group:
-        group_class: AppBundle\Entity\Group
-    service:
-        user_manager: consigna.doctrine.user_manager
-
-
-hwi_oauth:
-    #this is my custom user provider, created from FOSUBUserProvider - will manage the
-    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
-    #and also, the connecting part (get the token and the user_id)
-
-    connect:
-        account_connector: my_user_provider
-
-    # name of the firewall in which this bundle is active, this setting MUST be set
-
-    firewall_name: main
-
-    fosub:
-        username_iterations: 30
-        properties:
-            # these properties will be used/redefined later in the custom FOSUBUserProvider service.
-            google: google_id
-
-    resource_owners:
-        sir:
-            type:                oauth2
-            client_id:           "%sir_app_id%"
-            client_secret:       "%sir_app_secret%"
-            access_token_url:    "http://%simplesaml_host%/simplesaml/module.php/oauth2/token.php"
-            authorization_url:   "http://%simplesaml_host%/simplesaml/module.php/oauth2/authorize.php"
-            infos_url:           "http://%simplesaml_host%/simplesaml/module.php/oauth2/user.php"
-            scope:               "user_details"
-            user_response_class: AppBundle\OAuth\Response\SirUserResponse
-
-#stof_doctrine_extensions:
-#    uploadable:
-#        default_file_path:       %kernel.root_dir%/../private
-#        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
-#        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
-#    orm:
-#        default:
-#            sluggable: true
-#            timestampable: true
-#            uploadable: true
