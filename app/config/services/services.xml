@@ -1,11 +1,83 @@
 <?xml version="1.0" ?>
 
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service class="AppBundle\Services\Clamav\ScanFile" id="consigna.service.scan_file">
+
+        <!-- listeners -->
+
+        <service id="consigna.listener.flash" class="AppBundle\EventListener\FlashListener">
+            <argument type="service" id="session"/>
+            <argument type="service" id="translator"/>
+            <tag name="kernel.event_subscriber"/>
         </service>
+
+        <service id="consigna.listener.expirable" class="AppBundle\EventListener\Doctrine\ExpirableListener">
+            <argument>%expire_date%</argument>
+            <tag name="doctrine.event_listener" event="prePersist"/>
+        </service>
+
+        <service id="consigna.listener.user_access_shared" class="AppBundle\EventListener\Security\UserAccessSharedListener">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="session"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.file_interface" class="AppBundle\EventListener\Doctrine\FileInterfaceListener">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.virus" class="AppBundle\EventListener\VirusConsignaListener">
+            <argument type="service" id="logger"/>
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="consigna.service.scan_file"/>
+            <argument type="service" id="mailer"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.logger" class="AppBundle\EventListener\LoggerListener">
+            <argument type="service" id="logger"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.user_login" class="AppBundle\EventListener\Security\UserLoginListener">
+            <argument type="service" id="session"/>
+            <argument type="service" id="security.authorization_checker"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.locale" class="AppBundle\EventListener\LocaleListener">
+            <argument>%supported_languages%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.uploads" class="AppBundle\EventListener\UploadListener">
+            <argument type="service" id="service_container"/>
+            <tag name="kernel.event_listener" event="oneup_uploader.pre_upload" method="onPreUpload"/>
+            <tag name="kernel.event_listener" event="oneup_uploader.post_upload" method="onUpload"/>
+        </service>
+
+        <!-- others -->
+
+        <service id="consigna.service.scan_file" class="AppBundle\Services\Clamav\ScanFile">
+        </service>
+
+        <service id="consigna.namer.real" class="AppBundle\Uploader\Namer\RealNamer">
+        </service>
+
     </services>
+
 </container>

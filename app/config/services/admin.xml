@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="consigna.admin.file" class="AppBundle\Admin\FileAdmin">
+            <tag name="sonata.admin" manager_type="orm" label="menu.file"/>
+            <argument/>
+            <argument>AppBundle\Entity\File</argument>
+            <argument/>
+        </service>
+
+        <service id="consigna.admin.folder" class="AppBundle\Admin\FolderAdmin">
+            <tag name="sonata.admin" manager_type="orm" label="menu.folder"/>
+            <argument/>
+            <argument>AppBundle\Entity\Folder</argument>
+            <argument/>
+            <call method="addChild">
+                <argument type="service" id="consigna.admin.file"/>
+            </call>
+        </service>
+
+        <service id="consigna.admin.organization" class="AppBundle\Admin\OrganizationAdmin">
+            <tag name="sonata.admin" manager_type="orm" label="menu.organization"/>
+            <argument/>
+            <argument>AppBundle\Entity\Organization</argument>
+            <argument/>
+        </service>
+
+        <service id="consigna.admin.user" class="AppBundle\Admin\UserAdmin">
+            <tag name="sonata.admin" manager_type="orm" label="menu.user"/>
+            <argument/>
+            <argument>AppBundle\Entity\User</argument>
+            <argument/>
+        </service>
+
+    </services>
+
+</container>

@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="consigna.extension.size" class="AppBundle\Twig\TwigSizeExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="twig.data_extension" class="Twig_Extensions_Extension_Date">
+            <argument type="service" id="translator"/>
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="twig.text_extension" class="Twig_Extensions_Extension_Text">
+            <tag name="twig.extension"/>
+        </service>
+
+    </services>
+
+</container>
