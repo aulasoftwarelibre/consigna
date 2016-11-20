@@ -11,7 +11,7 @@ namespace AppBundle\EventListener;
 use AppBundle\Entity\File;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\FileEvent;
-use CL\Tissue\Adapter\ClamAv\ClamAvAdapter;
+use AppBundle\Services\Clamav\ScanFile;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,11 +22,6 @@ use Swift_Mailer;
  */
 class VirusConsignaListener implements EventSubscriberInterface
 {
-    /**
-     * @var
-     */
-    private $antivirus_path;
-
     /**
      * @var EntityManager
      */
@@ -41,22 +36,26 @@ class VirusConsignaListener implements EventSubscriberInterface
      * @var Swift_Mailer
      */
     private $swiftMailer;
+    /**
+     * @var ScanFile
+     */
+    private $scanFile;
 
     /**
      * @param LoggerInterface $loggerInterface
      * @param EntityManager   $entityManager
-     * @param                 $antivirus_path
+     * @param ScanFile        $scanFile
      * @param Swift_Mailer    $mailer
      */
     public function __construct(
         LoggerInterface $loggerInterface,
         EntityManager $entityManager,
-        $antivirus_path,
+        ScanFile $scanFile,
         Swift_Mailer $mailer
     ) {
         $this->loggerInterface = $loggerInterface;
         $this->entityManager = $entityManager;
-        $this->antivirus_path = $antivirus_path;
+        $this->scanFile = $scanFile;
         $this->swiftMailer = $mailer;
     }
 
@@ -79,10 +78,9 @@ class VirusConsignaListener implements EventSubscriberInterface
         $path = $file->getPath();
 
         try {
-            $adapter = new ClamAVAdapter($this->antivirus_path);
-            $result = $adapter->scan([$path]);
+            $result = $this->scanFile->scan($path);
 
-            if ($result->hasVirus()) {
+            if ($result['status'] !== 'OK') {
                 $this->loggerInterface->info('File '.$file.' is infected');
                 $file->setScanStatus(File::SCAN_STATUS_INFECTED);
             } else {

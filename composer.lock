@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f0edd362aabd24158082361dd11c40f",
-    "content-hash": "10237eb1f27db2a00096b71931551a18",
+    "hash": "8946faadc7b15a653a17943b6ac059c5",
+    "content-hash": "b5487df181746718bf78ed2c82cfcebd",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -48,71 +48,27 @@
             "time": "2015-09-28 16:26:35"
         },
         {
-            "name": "cleentfaar/tissue",
-            "version": "dev-master",
+            "name": "blurgroup/quahog",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
-                "url": "/home/sergio/Developer/bundles/tissue",
-                "reference": "7a36adfe3fe3854f85bbe29e568ef00df17e3e7f"
-            },
-            "require": {
-                "php": ">=5.4",
-                "symfony/options-resolver": "~2.3|~3.0",
-                "symfony/process": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CL\\Tissue\\": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cas Leentfaar",
-                    "homepage": "https://github.com/cleentfaar",
-                    "email": "info@casleentfaar.com"
-                }
-            ],
-            "description": "A PHP library that scans your files for viruses using the adapter of your choice",
-            "keywords": [
-                "anti-virus",
-                "clamav",
-                "security",
-                "virus"
-            ],
-            "time": "2016-02-11 18:06:32"
-        },
-        {
-            "name": "cleentfaar/tissue-clamav-adapter",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cleentfaar/tissue-clamav-adapter.git",
-                "reference": "1f968d03791c6fcc7305f643731a9a64b39f56ee"
+                "url": "https://github.com/jonjomckay/quahog.git",
+                "reference": "21f48f30e1d4cee93c6aee6c725ff711144cd5d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cleentfaar/tissue-clamav-adapter/zipball/1f968d03791c6fcc7305f643731a9a64b39f56ee",
-                "reference": "1f968d03791c6fcc7305f643731a9a64b39f56ee",
+                "url": "https://api.github.com/repos/jonjomckay/quahog/zipball/21f48f30e1d4cee93c6aee6c725ff711144cd5d1",
+                "reference": "21f48f30e1d4cee93c6aee6c725ff711144cd5d1",
                 "shasum": ""
             },
             "require": {
-                "cleentfaar/tissue": "dev-master",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.2"
+                "clue/socket-raw": "0.1.*",
+                "php": ">=5.3"
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "CL\\Tissue\\Adapter\\ClamAv\\": ""
+                "psr-0": {
+                    "Quahog": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -121,20 +77,58 @@
             ],
             "authors": [
                 {
-                    "name": "Cas Leentfaar",
-                    "email": "info@casleentfaar.com",
-                    "homepage": "https://github.com/cleentfaar"
+                    "name": "Jonjo McKay",
+                    "email": "jonjo@jonjomckay.com"
                 }
             ],
-            "description": "A Tissue adapter that implements the ClamAV virus-scanner",
-            "keywords": [
-                "anti-virus",
-                "clamav",
-                "security",
-                "tissue",
-                "virus"
+            "description": "A PHP client library for ClamAV clamd daemon",
+            "time": "2016-09-27 14:53:08"
+        },
+        {
+            "name": "clue/socket-raw",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clue/php-socket-raw.git",
+                "reference": "0b5f6b4c5fe0f5512213abe0b7385fd624a22e6b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/clue/php-socket-raw/zipball/0b5f6b4c5fe0f5512213abe0b7385fd624a22e6b",
+                "reference": "0b5f6b4c5fe0f5512213abe0b7385fd624a22e6b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-sockets": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Socket": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
             ],
-            "time": "2014-11-19 11:22:34"
+            "description": "Simple and lightweight OOP wrapper for PHP's low level sockets extension (ext-sockets)",
+            "homepage": "https://github.com/clue/socket-raw",
+            "keywords": [
+                "Socket",
+                "client",
+                "datagram",
+                "dgram",
+                "icmp",
+                "ipv6",
+                "server",
+                "stream",
+                "tcp",
+                "udg",
+                "udp",
+                "unix"
+            ],
+            "time": "2013-05-09 09:16:48"
         },
         {
             "name": "cocur/slugify",
@@ -1552,155 +1546,6 @@
             "time": "2014-10-12 19:18:40"
         },
         {
-            "name": "hwi/oauth-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hwi/HWIOAuthBundle.git",
-                "reference": "429ae3fe1641a54ea0934bb06dac355affc41f8d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/429ae3fe1641a54ea0934bb06dac355affc41f8d",
-                "reference": "429ae3fe1641a54ea0934bb06dac355affc41f8d",
-                "shasum": ""
-            },
-            "require": {
-                "kriswallsmith/buzz": "~0.13",
-                "php": ">=5.3.3",
-                "symfony/form": "~2.3|~3.0",
-                "symfony/framework-bundle": "~2.3|~3.0",
-                "symfony/options-resolver": "~2.3|~3.0",
-                "symfony/security-bundle": "~2.3|~3.0",
-                "symfony/yaml": "~2.3|~3.0"
-            },
-            "conflict": {
-                "twig/twig": "<1.12"
-            },
-            "require-dev": {
-                "doctrine/orm": "~2.3",
-                "fabpot/php-cs-fixer": "~1.11",
-                "friendsofsymfony/user-bundle": "~1.3|~2.0",
-                "phpunit/phpunit": "~4.8|~5.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0",
-                "symfony/property-access": "~2.3|~3.0",
-                "symfony/stopwatch": "~2.5|~3.0",
-                "symfony/twig-bundle": "~2.3|~3.0",
-                "symfony/validator": "~2.3|~3.0"
-            },
-            "suggest": {
-                "doctrine/doctrine-bundle": "to use Doctrine user provider",
-                "friendsofsymfony/user-bundle": "to connect FOSUB with this bundle",
-                "symfony/property-access": "to use FOSUB integration with this bundle",
-                "symfony/twig-bundle": "to use the Twig hwi_oauth_* functions"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.5-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "HWI\\Bundle\\OAuthBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/hwi/HWIOAuthBundle/contributors"
-                },
-                {
-                    "name": "Joseph Bielawski",
-                    "email": "stloyd@gmail.com"
-                },
-                {
-                    "name": "Alexander",
-                    "email": "iam.asm89@gmail.com"
-                },
-                {
-                    "name": "Geoffrey Bachelet",
-                    "email": "geoffrey.bachelet@gmail.com"
-                }
-            ],
-            "description": "Support for authenticating users using both OAuth1.0a and OAuth2 in Symfony2.",
-            "homepage": "http://github.com/hwi/HWIOAuthBundle",
-            "keywords": [
-                "37signals",
-                "Authentication",
-                "Deezer",
-                "EVE Online",
-                "amazon",
-                "asana",
-                "auth0",
-                "azure",
-                "bitbucket",
-                "bitly",
-                "box",
-                "bufferapp",
-                "clever",
-                "dailymotion",
-                "deviantart",
-                "discogs",
-                "disqus",
-                "dropbox",
-                "eventbrite",
-                "facebook",
-                "firewall",
-                "fiware",
-                "flickr",
-                "foursquare",
-                "github",
-                "google",
-                "hubic",
-                "instagram",
-                "jawbone",
-                "jira",
-                "linkedin",
-                "mail.ru",
-                "oauth",
-                "oauth1",
-                "oauth2",
-                "odnoklassniki",
-                "paypal",
-                "qq",
-                "reddit",
-                "runkeeper",
-                "salesforce",
-                "security",
-                "sensio connect",
-                "sina weibo",
-                "slack",
-                "sound cloud",
-                "spotify",
-                "stack exchange",
-                "stereomood",
-                "strava",
-                "toshl",
-                "trakt",
-                "trello",
-                "twitch",
-                "twitter",
-                "vkontakte",
-                "wechat",
-                "windows live",
-                "wordpress",
-                "wunderlist",
-                "xing",
-                "yahoo",
-                "yandex",
-                "youtube"
-            ],
-            "time": "2016-10-03 14:27:17"
-        },
-        {
             "name": "imagine/imagine",
             "version": "v0.6.3",
             "source": {
@@ -2328,54 +2173,6 @@
                 "minification"
             ],
             "time": "2016-11-11 18:43:20"
-        },
-        {
-            "name": "kriswallsmith/buzz",
-            "version": "v0.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kriswallsmith/Buzz.git",
-                "reference": "d4041666c3ffb379af02a92dabe81c904b35fab8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/d4041666c3ffb379af02a92dabe81c904b35fab8",
-                "reference": "d4041666c3ffb379af02a92dabe81c904b35fab8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "suggest": {
-                "ext-curl": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Buzz": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                }
-            ],
-            "description": "Lightweight HTTP client",
-            "homepage": "https://github.com/kriswallsmith/Buzz",
-            "keywords": [
-                "curl",
-                "http client"
-            ],
-            "time": "2015-06-25 17:26:56"
         },
         {
             "name": "liip/imagine-bundle",
@@ -5805,10 +5602,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cleentfaar/tissue": 20,
-        "cleentfaar/tissue-clamav-adapter": 20,
+        "blurgroup/quahog": 20,
         "friendsofsymfony/user-bundle": 20,
-        "hwi/oauth-bundle": 20,
         "sonata-project/admin-bundle": 20
     },
     "prefer-stable": false,

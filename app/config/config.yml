@@ -4,6 +4,7 @@ imports:
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
     - { resource: bundles/ }
+    - { resource: services/ }
     - { resource: '/etc/credentials/consigna.yml', ignore_errors: true }
 
 framework:
