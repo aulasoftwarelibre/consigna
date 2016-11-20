@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Folder.
  *
  * @ORM\Table(name="folder")
- * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FolderRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FolderRepository")
  */
 class Folder implements FileInterface
 {

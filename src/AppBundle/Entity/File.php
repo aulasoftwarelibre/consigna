@@ -13,7 +13,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * File.
  *
  * @ORM\Table(name="file")
- * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\FileRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FileRepository")
  * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback", appendNumber=true)
  */
 class File implements FileInterface

@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Doctrine\ORM\OrganizationRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganizationRepository")
  * @ORM\Table(name="organization")
  * @UniqueEntity("code")
  */
