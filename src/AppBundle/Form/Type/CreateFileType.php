@@ -9,47 +9,36 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class CreateFileType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * CreateFileType constructor.
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', [
+            ->add('file', FileType::class, [
                 'label' => 'label.file',
                 'attr' => [
                     'class' => 'filestyle',
                     'data-buttonBefore' => 'true',
-                    'data-buttonText' => $this->translator->trans('label.choose_file'),
+                    'data-buttonText' => 'label.choose_file',
                 ],
             ])
-            ->add('tags', 'tags_text', [
+            ->add('tags', TagsTextType::class, [
                 'label' => 'label.tags',
             ])
-            ->add('plainPassword', 'repeated', [
-                'type' => 'password',
-                'invalid_message' => $this->translator->trans('help.password_mismatch'),
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'help.password_mismatch',
                 'first_options' => ['label' => 'label.password'],
                 'second_options' => ['label' => 'label.repeat_password'],
             ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consigna_upload_file';
     }

@@ -8,6 +8,7 @@
  */
 namespace AppBundle\Form\Type;
 
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -17,23 +18,24 @@ class CreateFileAnonType extends CreateFileType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('captcha', 'ewz_recaptcha', array(
+            ->add('captcha', EWZRecaptchaType::class, [
                 'label' => 'label.captcha',
-                'attr' => array(
-                    'options' => array(
+                'attr' => [
+                    'options' => [
+                        'size' => 'normal',
                         'theme' => 'light',
                         'type' => 'image',
-                    ),
-                ),
+                    ],
+                ],
                 'mapped' => false,
-                'constraints' => array(
+                'constraints' => [
                     new IsTrue(),
-                ),
-            ))
+                ],
+            ])
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consigna_upload_file_anon';
     }

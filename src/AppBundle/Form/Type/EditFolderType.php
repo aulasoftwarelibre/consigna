@@ -8,7 +8,9 @@
  */
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -18,24 +20,21 @@ class EditFolderType extends AbstractType
     {
         $folder = $builder->getData();
         $builder
-            ->add(
-                'sharedWith',
-                'entity',
-                [
-                    'class' => 'AppBundle\Entity\User',
-                    'multiple' => true,
-                    'label' => 'label.users',
-                    'query_builder' => function (EntityRepository $entityRepository) use ($folder) {
-                        return $entityRepository->createQueryBuilder('u')
-                            ->leftJoin('u.sharedFolders', 'sf')
-                            ->where('sf.id= :id')
-                            ->setParameter('id', $folder->getId());
-                    },
-                ]
-            );
+            ->add('shared_with',  EntityType::class,  [
+                'class' => User::class,
+                'multiple' => true,
+                'label' => 'label.users',
+                'query_builder' => function (EntityRepository $entityRepository) use ($folder) {
+                    return $entityRepository->createQueryBuilder('u')
+                        ->leftJoin('u.sharedFolders', 'sf')
+                        ->where('sf.id= :id')
+                        ->setParameter('id', $folder->getId());
+                },
+            ])
+        ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'folder';
     }

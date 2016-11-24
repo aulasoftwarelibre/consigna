@@ -162,10 +162,6 @@
         <source>help.tags</source>
         <target>Distinga sus envíos de los demás etiquetándolos. Escriba cada etiqueta separada por comas.</target>
       </trans-unit>
-      <trans-unit id="help.password_mismatch">
-        <source>help.password_mismatch</source>
-        <target>Las contraseñas deben coincidir</target>
-      </trans-unit>
 
       <!-- labels -->
       <trans-unit id="label.actions">

@@ -216,15 +216,11 @@ class FileController extends Controller
 
     private function createFileForm($file)
     {
-        $translator = $this->get('translator');
-
         if ($this->getUser() instanceof User) {
-            $type = new CreateFileType($translator);
+            return $this->createForm(CreateFileType::class, $file);
         } else {
-            $type = new CreateFileAnonType($translator);
+            return $this->createForm(CreateFileAnonType::class, $file);
         }
-
-        return $this->createForm($type, $file);
     }
 
     /**

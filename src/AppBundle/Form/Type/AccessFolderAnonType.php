@@ -8,6 +8,7 @@
  */
 namespace AppBundle\Form\Type;
 
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -18,26 +19,24 @@ class AccessFolderAnonType extends AccessFolderType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add(
-                'captcha',
-                'ewz_recaptcha',
-                [
-                    'label' => 'label.captcha',
-                    'attr' => [
-                        'options' => [
-                            'theme' => 'light',
-                            'type' => 'image',
-                        ],
+            ->add('captcha', EWZRecaptchaType::class, [
+                'label' => 'label.captcha',
+                'attr' => [
+                    'options' => [
+                        'size' => 'normal',
+                        'theme' => 'light',
+                        'type' => 'image',
                     ],
-                    'mapped' => false,
-                    'constraints' => [
-                        new IsTrue(),
-                    ],
-                ]
-            );
+                ],
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue(),
+                ],
+            ])
+        ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consigna_folder_anon';
     }

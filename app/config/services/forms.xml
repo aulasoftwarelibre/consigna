@@ -15,7 +15,6 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-
         <service id="consigna.type.tags_text" class="AppBundle\Form\Type\TagsTextType">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <tag name="form.type"/>

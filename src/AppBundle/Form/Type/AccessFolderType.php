@@ -9,6 +9,7 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Folder;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
@@ -41,24 +42,14 @@ class AccessFolderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'password',
-                'password',
-                [
+            ->add('password', PasswordType::class, [
                     'mapped' => false,
-                    'constraints' => new Assert\Callback(
-                        [
-                            'callback' => [$this, 'validate'],
-                        ]
-                    ),
+                    'constraints' => new Assert\Callback([
+                        'callback' => [$this, 'validate'],
+                    ]),
                     'label' => 'label.password',
-                ]
-            );
-    }
-
-    public function getName()
-    {
-        return 'consigna_folder';
+                ])
+            ;
     }
 
     public function validate($plainPassword, ExecutionContextInterface $context)
@@ -67,15 +58,15 @@ class AccessFolderType extends AbstractType
         $folder = $context->getRoot()->getData();
         $encoder = $this->encoderFactory->getEncoder($folder);
 
-        if (false === $encoder->isPasswordValid(
-                $folder->getPassword(),
-                $plainPassword,
-                $folder->getSalt()
-            )
-        ) {
+        if (false === $encoder->isPasswordValid($folder->getPassword(), $plainPassword, $folder->getSalt())) {
             $context->buildViolation($this->translator->trans('alert.invalid_password'))
                 ->atPath('password')
                 ->addViolation();
         }
+    }
+
+    public function getBlockPrefix()
+    {
+        return 'consigna_folder';
     }
 }

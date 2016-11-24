@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use AppBundle\Form\DataTransformer\TagsToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class TagsTextType extends AbstractType
@@ -35,7 +36,7 @@ class TagsTextType extends AbstractType
      */
     public function getParent()
     {
-        return 'text';
+        return TextType::class;
     }
 
     /**
@@ -43,7 +44,7 @@ class TagsTextType extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'tags_text';
     }
