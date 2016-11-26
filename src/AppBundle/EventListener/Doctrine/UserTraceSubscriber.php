@@ -6,6 +6,7 @@
  * Date: 07/08/15
  * Time: 03:46.
  */
+
 namespace AppBundle\EventListener\Doctrine;
 
 use Gedmo\Blameable\BlameableListener;

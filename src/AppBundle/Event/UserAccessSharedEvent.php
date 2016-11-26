@@ -6,6 +6,7 @@
  * Date: 14/08/15
  * Time: 04:48.
  */
+
 namespace AppBundle\Event;
 
 use AppBundle\Entity\User;

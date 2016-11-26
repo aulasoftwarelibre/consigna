@@ -6,6 +6,7 @@
  * Date: 16/08/15
  * Time: 11:24.
  */
+
 namespace AppBundle\Twig;
 
 class TwigSizeExtension extends \Twig_Extension

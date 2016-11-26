@@ -6,6 +6,7 @@
  * Date: 02/08/15
  * Time: 23:14.
  */
+
 namespace AppBundle\Behat;
 
 use Behat\Behat\Context\Context;
@@ -218,9 +219,9 @@ class DefaultContext extends RawMinkContext implements Context, KernelAwareConte
     /**
      * Generate url.
      *
-     * @param string  $route
-     * @param array   $parameters
-     * @param Boolean $absolute
+     * @param string $route
+     * @param array  $parameters
+     * @param bool   $absolute
      *
      * @return string
      */

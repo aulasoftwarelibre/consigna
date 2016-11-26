@@ -6,6 +6,7 @@
  * Date: 18/01/15
  * Time: 17:58.
  */
+
 namespace AppBundle\Behat;
 
 use AppBundle\Entity\User;

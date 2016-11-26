@@ -6,6 +6,7 @@
  * Date: 15/4/15
  * Time: 9:05.
  */
+
 namespace AppBundle\DataFixtures\Alice\Provider;
 
 class ConsignaProvider

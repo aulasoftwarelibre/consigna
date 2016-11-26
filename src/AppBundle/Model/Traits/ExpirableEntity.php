@@ -6,6 +6,7 @@
  * Date: 13/08/15
  * Time: 02:11.
  */
+
 namespace AppBundle\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;

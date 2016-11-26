@@ -6,6 +6,7 @@
  * Date: 22/03/15
  * Time: 17:54.
  */
+
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;

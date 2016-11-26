@@ -6,6 +6,7 @@
  * Date: 13/08/15
  * Time: 23:19.
  */
+
 namespace AppBundle\EventListener;
 
 use AppBundle\Event\ConsignaEvents;

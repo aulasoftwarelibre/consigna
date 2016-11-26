@@ -10,7 +10,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Entity\Folder;
@@ -37,7 +36,6 @@ class FolderVoter extends Voter
     {
         $this->session = $session;
     }
-
 
     /**
      * @{@inheritdoc}

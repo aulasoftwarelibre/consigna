@@ -6,6 +6,7 @@
  * Date: 26/04/15
  * Time: 22:27.
  */
+
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;

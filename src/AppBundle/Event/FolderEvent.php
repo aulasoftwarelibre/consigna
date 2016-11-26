@@ -6,6 +6,7 @@
  * Date: 13/08/15
  * Time: 22:33.
  */
+
 namespace AppBundle\Event;
 
 use AppBundle\Entity\Folder;

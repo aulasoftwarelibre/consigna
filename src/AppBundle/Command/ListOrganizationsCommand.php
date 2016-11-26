@@ -6,6 +6,7 @@
  * Date: 3/05/15
  * Time: 20:23.
  */
+
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Organization;

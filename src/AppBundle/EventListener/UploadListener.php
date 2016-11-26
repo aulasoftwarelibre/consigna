@@ -6,6 +6,7 @@
  * Date: 09/08/15
  * Time: 12:06.
  */
+
 namespace AppBundle\EventListener;
 
 use AppBundle\Doctrine\Extensions\UploadedFileInfo;

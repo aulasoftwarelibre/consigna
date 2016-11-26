@@ -6,6 +6,7 @@
  * Date: 13/08/15
  * Time: 17:41.
  */
+
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;

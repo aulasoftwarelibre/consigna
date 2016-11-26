@@ -6,6 +6,7 @@
  * Date: 13/08/15
  * Time: 22:28.
  */
+
 namespace AppBundle\Event;
 
 final class ConsignaEvents

@@ -6,6 +6,7 @@
  * Date: 8/10/14
  * Time: 9:57.
  */
+
 namespace AppBundle\Behat;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -59,10 +60,10 @@ class CoreContext extends DefaultContext
 ////
 ////         $client = $this->getSession()->getCurrentUrl();
 ////         $client->addSubscriber(new \Guzzle\Plugin\Cookie\CookiePlugin($jar));
-//
+
 //         $request = new \Symfony\Component\HttpFoundation\Request();
 //         $request->get($url);
-//
+
 ////         $request = $client->get($url);
 ////         $this->response = $request->send();
 //     }

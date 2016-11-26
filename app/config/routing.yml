@@ -1,19 +1,19 @@
 uco_user:
-    resource: '@UcoUserBundle/Resources/config/routing.xml'
-    prefix:   '/'
+    resource: "@UcoUserBundle/Resources/config/routing.xml"
+    prefix:   "/"
 
 ssp_bundle:
-    resource: '@SSPGuardBundle/Resources/config/routing/connect.xml'
+    resource: "@SSPGuardBundle/Resources/config/routing/connect.xml"
 
 # app/config/routing.yml
 admin:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: "/admin"
 
 _sonata_admin:
     resource: .
-    type: sonata_admin
-    prefix: /admin
+    type: "sonata_admin"
+    prefix: "/admin"
 
 # liip image
 _liip_imagine:
@@ -22,13 +22,13 @@ _liip_imagine:
 # uploader
 oneup_uploader:
     resource: .
-    type: uploader
+    type: "uploader"
 
 app:
     resource: "@AppBundle/Controller/Frontend/"
-    type:     annotation
-    prefix:     /{_locale}/
+    type:     "annotation"
+    prefix:   "/{_locale}/"
     defaults:
-        _locale: en
+        _locale: "en"
     requirements:
-        _locale: |en|es
+        _locale: "|en|es"

@@ -1,10 +1,9 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: doctrine_extensions.yml }
     - { resource: bundles/ }
     - { resource: services/ }
-    - { resource: '/etc/credentials/consigna.yml', ignore_errors: true }
+    - { resource: "/etc/credentials/consigna.yml", ignore_errors: true }
 
 framework:
     #esi:             ~
@@ -20,7 +19,7 @@ framework:
     csrf_protection: ~
     validation:      { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: ["twig"]
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
@@ -36,7 +35,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:
-        - 'frontend/Default/bootstrap_3_layout.html.twig'
+        - "frontend/Default/bootstrap_3_layout.html.twig"
 
 # Assetic Configuration
 assetic:

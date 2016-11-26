@@ -6,6 +6,7 @@
  * Date: 09/08/15
  * Time: 21:05.
  */
+
 namespace AppBundle\Uploader\Namer;
 
 use Oneup\UploaderBundle\Uploader\File\FileInterface;

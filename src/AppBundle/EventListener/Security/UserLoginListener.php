@@ -6,6 +6,7 @@
  * Date: 27/04/15
  * Time: 20:18.
  */
+
 namespace AppBundle\EventListener\Security;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -43,7 +44,7 @@ class UserLoginListener implements EventSubscriberInterface
             $ex = new DisabledException('alert.organization_disabled');
             $ex->setUser($user);
             throw $ex;
-        };
+        }
 
         if ($this->authorization->isGranted('IS_AUTHENTICATED_FULLY')) {
             $this->session->clear();

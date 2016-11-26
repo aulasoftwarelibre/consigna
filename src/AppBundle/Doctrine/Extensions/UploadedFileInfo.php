@@ -6,6 +6,7 @@
  * Date: 05/08/15
  * Time: 06:26.
  */
+
 namespace AppBundle\Doctrine\Extensions;
 
 use Gedmo\Uploadable\FileInfo\FileInfoInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadedFileInfo implements FileInfoInterface
 {
-    /** @var File  */
+    /** @var File */
     private $uploadedFile;
 
     public function __construct($uploadedFile)

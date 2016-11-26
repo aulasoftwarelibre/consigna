@@ -6,6 +6,7 @@
  * Date: 15/04/15
  * Time: 23:28.
  */
+
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\File;
@@ -98,7 +99,7 @@ class VirusConsignaListener implements EventSubscriberInterface
                 ->setTo('sergio@uco.es')
                 ->setBody($e);
             $mailer->send($message);
-        };
+        }
 
         $this->entityManager->persist($file);
         $this->entityManager->flush();

@@ -6,6 +6,7 @@
  * Date: 16/03/15
  * Time: 17:46.
  */
+
 namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Controller\Controller;

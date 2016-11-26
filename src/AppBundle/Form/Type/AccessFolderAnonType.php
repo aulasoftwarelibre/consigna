@@ -6,6 +6,7 @@
  * Date: 19/03/15
  * Time: 12:58.
  */
+
 namespace AppBundle\Form\Type;
 
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;

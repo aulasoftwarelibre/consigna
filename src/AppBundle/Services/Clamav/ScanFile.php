@@ -8,9 +8,7 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Services\Clamav;
-
 
 use Quahog\Client;
 use Socket\Raw\Factory;

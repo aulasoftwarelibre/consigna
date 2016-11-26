@@ -10,11 +10,9 @@
 
 namespace Uco\Bundle\UserBundle\Security\User;
 
-
 use AppBundle\Entity\User;
 use FOS\UserBundle\Security\UserProvider;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 

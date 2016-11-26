@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Security\Voter;
-
 
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
@@ -25,7 +23,6 @@ class FileVoter extends Voter
     const DELETE = 'DELETE';
     const DOWNLOAD = 'DOWNLOAD';
     const SHARE = 'SHARE';
-
 
     /**
      * @var SessionInterface
@@ -51,14 +48,14 @@ class FileVoter extends Voter
     }
 
     /**
-     * @param string $attribute
-     * @param File $subject
+     * @param string         $attribute
+     * @param File           $subject
      * @param TokenInterface $token
-     * @return boolean
+     *
+     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        dump($subject);
         if (File::SCAN_STATUS_OK !== $subject->getScanStatus()) {
             return false;
         }
@@ -98,5 +95,4 @@ class FileVoter extends Voter
 
         return false;
     }
-
 }
