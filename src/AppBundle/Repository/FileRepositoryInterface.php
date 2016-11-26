@@ -11,7 +11,6 @@
 
 namespace AppBundle\Repository;
 
-
 interface FileRepositoryInterface extends RepositoryInterface
 {
 }

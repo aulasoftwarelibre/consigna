@@ -13,23 +13,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class CreateFolderType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * CreateFileType constructor.
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -45,7 +31,7 @@ class CreateFolderType extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => $this->translator->trans('help.password_mismatch'),
+                'invalid_message' => 'help.password_mismatch',
                 'first_options' => ['label' => 'label.password'],
                 'second_options' => ['label' => 'label.repeat_password'],
             ]);

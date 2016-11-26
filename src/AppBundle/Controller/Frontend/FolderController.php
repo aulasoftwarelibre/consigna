@@ -192,10 +192,7 @@ class FolderController extends Controller
 
     private function createFolderForm($folder)
     {
-        $translator = $this->get('translator');
-        $type = new CreateFolderType($translator);
-
-        return $this->createForm($type, $folder);
+        return $this->createForm(CreateFolderType::class, $folder);
     }
 
     /**
@@ -205,15 +202,10 @@ class FolderController extends Controller
      */
     private function createAccessFolderForm($folder)
     {
-        $factory = $this->get('security.encoder_factory');
-        $translator = $this->get('translator');
-
         if ($this->getUser() instanceof User) {
-            $type = new AccessFolderType($factory, $translator);
+            return $this->createForm(AccessFolderType::class, $folder);
         } else {
-            $type = new AccessFolderAnonType($factory, $translator);
+            return $this->createForm(AccessFolderAnonType::class, $folder);
         }
-
-        return $this->createForm($type, $folder);
     }
 }

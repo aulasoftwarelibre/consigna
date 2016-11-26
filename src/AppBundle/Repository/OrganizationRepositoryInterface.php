@@ -11,7 +11,6 @@
 
 namespace AppBundle\Repository;
 
-
 interface OrganizationRepositoryInterface extends RepositoryInterface
 {
 }

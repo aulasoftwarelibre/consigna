@@ -11,7 +11,6 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\File;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,18 +25,11 @@ class DownloadFileType extends AbstractType
     private $encoderFactory;
 
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * @param EncoderFactoryInterface $encoderFactory
-     * @param TranslatorInterface     $translator
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, TranslatorInterface $translator)
+    public function __construct(EncoderFactoryInterface $encoderFactory)
     {
         $this->encoderFactory = $encoderFactory;
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -60,7 +52,7 @@ class DownloadFileType extends AbstractType
         $encoder = $this->encoderFactory->getEncoder($file);
 
         if (!$encoder->isPasswordValid($file->getPassword(), $plainPassword, $file->getSalt())) {
-            $context->buildViolation($this->translator->trans('alert.invalid_password'))
+            $context->buildViolation('alert.invalid_password')
                 ->atPath('password')
                 ->addViolation();
         }
