@@ -1,5 +1,0 @@
-services:
-    consigna.alice.provider:
-        class: AppBundle\DataFixtures\Alice\Provider\ConsignaProvider
-        tags:
-            - { name: "h4cc_alice_fixtures.provider" }

@@ -15,6 +15,27 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+
+        <service id="consigna.type.access_folder" class="AppBundle\Form\Type\AccessFolderType">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="consigna.type.access_folder_anon" class="AppBundle\Form\Type\AccessFolderAnonType">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="consigna.type.download_folder" class="AppBundle\Form\Type\DownloadFileType">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="consigna.type.download_folder_anon" class="AppBundle\Form\Type\DownloadFileAnonType">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="form.type"/>
+        </service>
+
         <service id="consigna.type.tags_text" class="AppBundle\Form\Type\TagsTextType">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <tag name="form.type"/>
