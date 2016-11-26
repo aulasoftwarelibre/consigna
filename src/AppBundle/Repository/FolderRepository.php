@@ -13,9 +13,8 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\Folder;
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityRepository;
 
-class FolderRepository extends EntityRepository
+class FolderRepository extends EntityRepository implements FolderRepositoryInterface
 {
     public function deleteExpired()
     {

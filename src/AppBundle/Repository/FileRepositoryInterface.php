@@ -12,6 +12,6 @@
 namespace AppBundle\Repository;
 
 
-class OrganizationRepository extends EntityRepository implements OrganizationRepositoryInterface
+interface FileRepositoryInterface extends RepositoryInterface
 {
 }

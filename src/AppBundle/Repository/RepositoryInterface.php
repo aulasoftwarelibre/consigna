@@ -11,7 +11,12 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Model\ResourceInterface;
+use Doctrine\Common\Persistence\ObjectRepository;
 
-class OrganizationRepository extends EntityRepository implements OrganizationRepositoryInterface
+interface RepositoryInterface extends ObjectRepository
 {
+    public function add(ResourceInterface $resource);
+
+    public function remove(ResourceInterface $resource);
 }

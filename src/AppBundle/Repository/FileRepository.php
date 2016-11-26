@@ -14,9 +14,8 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityRepository;
 
-class FileRepository extends EntityRepository
+class FileRepository extends EntityRepository implements FileRepositoryInterface
 {
     public function deleteExpired()
     {
