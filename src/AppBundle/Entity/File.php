@@ -21,19 +21,19 @@ class File implements FileInterface
     /**
      * No virus detected.
      */
-    const SCAN_STATUS_OK = 1;
+    const SCAN_STATUS_OK = 'SCAN_STATUS_OK';
     /**
      * Pending to scan.
      */
-    const SCAN_STATUS_PENDING = 2;
+    const SCAN_STATUS_PENDING = 'SCAN_STATUS_PENDING';
     /**
      * Scanning failed.
      */
-    const SCAN_STATUS_FAILED = 3;
+    const SCAN_STATUS_FAILED = 'SCAN_STATUS_FAILED';
     /**
      * Virus detected.
      */
-    const SCAN_STATUS_INFECTED = 4;
+    const SCAN_STATUS_INFECTED = 'SCAN_STATUS_INFECTED';
 
     /*
      * Hook ip-traceable behavior

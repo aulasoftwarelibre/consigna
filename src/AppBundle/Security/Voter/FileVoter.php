@@ -58,6 +58,7 @@ class FileVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
+        dump($subject);
         if (File::SCAN_STATUS_OK !== $subject->getScanStatus()) {
             return false;
         }

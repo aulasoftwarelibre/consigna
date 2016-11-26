@@ -40,14 +40,4 @@ class TwigSizeExtension extends \Twig_Extension
 
         return sprintf('%.2f TB', $bytes);
     }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'consigna_size';
-    }
 }
