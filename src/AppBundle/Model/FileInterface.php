@@ -1,27 +1,61 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: juanan
- * Date: 8/04/15
- * Time: 13:13.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AppBundle\Model;
 
-use AppBundle\Entity\User;
-
-interface FileInterface
+interface FileInterface extends
+    ExpirableInterface,
+    OwnableInterface,
+    ProtectableInterface,
+    ResourceInterface,
+    ShareableInterface,
+    TaggeableInterface,
+    TimestampableInterface,
+    TraceableInterface,
+    UploadableInterface
 {
-    public function addSharedWith(User $user);
+    /**
+     * No virus detected.
+     */
+    const SCAN_STATUS_OK = 'scan.ok';
+    /**
+     * Pending to scan.
+     */
+    const SCAN_STATUS_PENDING = 'scan.pending';
+    /**
+     * Scanning failed.
+     */
+    const SCAN_STATUS_FAILED = 'scan.failed';
+    /**
+     * Virus detected.
+     */
+    const SCAN_STATUS_INFECTED = 'scan.infected';
 
-    public function eraseCredentials();
+    public function getName();
 
-    public function getPlainPassword();
+    public function setName(string $name);
 
-    public function getSalt();
+    public function getDescription();
 
-    public function getShareCode();
+    public function setDescription(string $description);
 
-    public function setPassword($password);
+    public function getSlug();
+
+    public function setSlug(string $slug);
+
+    public function getFolder();
+
+    public function setFolder(FolderInterface $folder = null);
+
+    public function getScanStatus();
+
+    public function setScanStatus(string $scanStatus);
 }

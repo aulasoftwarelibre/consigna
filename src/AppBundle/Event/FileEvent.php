@@ -2,8 +2,8 @@
 
 namespace AppBundle\Event;
 
+use AppBundle\Model\FileInterface;
 use Symfony\Component\EventDispatcher\Event;
-use AppBundle\Entity\File;
 
 /**
  * Class FileEvent.
@@ -11,20 +11,20 @@ use AppBundle\Entity\File;
 class FileEvent extends Event
 {
     /**
-     * @var File
+     * @var FileInterface
      */
     private $file;
 
     /**
      * @param $file
      */
-    public function __construct(File $file)
+    public function __construct(FileInterface $file)
     {
         $this->file = $file;
     }
 
     /**
-     * @return File
+     * @return FileInterface
      */
     public function getFile()
     {

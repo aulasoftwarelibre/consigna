@@ -55,9 +55,7 @@
         <div class="col-md-12">
             <ul class="file-list">
                 {% for file in files %}
-                    {% if file.scanStatus == 1 %}
-                        {{ elements.folderfile(file) }}
-                    {% endif %}
+                    {{ elements.folderfile(file) }}
                 {% else %}
                     <div class="callout bg-gray color-paletter">
                         {{ 'description.no_files' | trans | raw }}

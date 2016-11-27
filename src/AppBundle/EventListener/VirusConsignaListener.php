@@ -12,7 +12,8 @@ namespace AppBundle\EventListener;
 use AppBundle\Entity\File;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\FileEvent;
-use AppBundle\Services\Clamav\ScanFile;
+use AppBundle\Services\Clamav\ScanedFile;
+use AppBundle\Services\Clamav\ScanFileService;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -38,20 +39,20 @@ class VirusConsignaListener implements EventSubscriberInterface
      */
     private $swiftMailer;
     /**
-     * @var ScanFile
+     * @var ScanFileService
      */
     private $scanFile;
 
     /**
      * @param LoggerInterface $loggerInterface
      * @param EntityManager   $entityManager
-     * @param ScanFile        $scanFile
+     * @param ScanFileService        $scanFile
      * @param Swift_Mailer    $mailer
      */
     public function __construct(
         LoggerInterface $loggerInterface,
         EntityManager $entityManager,
-        ScanFile $scanFile,
+        ScanFileService $scanFile,
         Swift_Mailer $mailer
     ) {
         $this->loggerInterface = $loggerInterface;
@@ -76,16 +77,19 @@ class VirusConsignaListener implements EventSubscriberInterface
     public function onFileUploaded(FileEvent $event)
     {
         $file = $event->getFile();
-        $path = $file->getPath();
 
         try {
-            $result = $this->scanFile->scan($path);
+            $result = $this->scanFile->scan($file);
 
-            if ($result['status'] !== 'OK') {
-                $this->loggerInterface->info('File '.$file.' is infected');
+            if ($result->getStatus() !== ScanedFile::OK) {
+                $this->loggerInterface->info(
+                    sprintf('File %s is infected', $file->getName())
+                );
                 $file->setScanStatus(File::SCAN_STATUS_INFECTED);
             } else {
-                $this->loggerInterface->info('File '.$file.' has been scanned');
+                $this->loggerInterface->info(
+                    sprintf('File %s is clean', $file->getName())
+                );
                 $file->setScanStatus(File::SCAN_STATUS_OK);
             }
         } catch (\Exception $e) {

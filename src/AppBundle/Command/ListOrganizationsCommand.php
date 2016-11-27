@@ -23,19 +23,14 @@ class ListOrganizationsCommand extends ContainerAwareCommand
     {
         $this
             ->setName('consigna:organization:list')
-            ->setDescription('List organizations');
+        ;
     }
 
-    /**
-     * Returns the description for the command.
-     *
-     * @return string The description for the command
-     *
-     * @api
-     */
     public function getDescription()
     {
-        return $this->getContainer()->get('translator')->trans('action.organization_list', [], 'command');
+        $translator = $this->getContainer()->get('translator');
+
+        return $translator->trans('action.organization_list', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -22,7 +22,7 @@ class FolderRepository extends EntityRepository implements FolderRepositoryInter
         $query = $qb
             ->delete('AppBundle:Folder', 'folder')
             ->where('folder.expiresAt < :now')
-            ->andWhere('folder.permanent = :false')
+            ->andWhere('folder.isPermanent = :false')
             ->setParameter('now', new \DateTime())
             ->setParameter('false', false)
             ->getQuery();
@@ -70,7 +70,7 @@ class FolderRepository extends EntityRepository implements FolderRepositoryInter
             ->addSelect('organization')
             ->where($qb->expr()->orX(
                 'folder.expiresAt > :now',
-                'folder.permanent = :true'
+                'folder.isPermanent = :true'
             ))
             ->orderBy($orderBy[0], $orderBy[1])
             ->setParameter('now', new \DateTime())
@@ -84,7 +84,7 @@ class FolderRepository extends EntityRepository implements FolderRepositoryInter
         }
 
         if ($shared) {
-            $query = $query->leftJoin('folder.sharedWith', 'users')
+            $query = $query->leftJoin('folder.sharedWithUsers', 'users')
                 ->andWhere('users.id = :id')
                 ->setParameter('id', $shared->getId())
             ;

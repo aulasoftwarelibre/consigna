@@ -13,6 +13,7 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\File;
 use AppBundle\Entity\User;
+use AppBundle\Model\FileInterface;
 use Doctrine\ORM\AbstractQuery;
 
 class FileRepository extends EntityRepository implements FileRepositoryInterface
@@ -108,11 +109,11 @@ class FileRepository extends EntityRepository implements FileRepositoryInterface
             ->where('file.scanStatus = :status')
             ->andWhere($qb->expr()->orX(
                 $qb->expr()->andX('file.folder IS NULL', 'file.expiresAt > :now'),
-                $qb->expr()->andX('folder.permanent = false and folder.expiresAt > :now'),
-                'folder.permanent = true'
+                $qb->expr()->andX('folder.isPermanent = false and folder.expiresAt > :now'),
+                'folder.isPermanent = true'
             ))
             ->orderBy($orderBy[0], $orderBy[1])
-            ->setParameter('status', File::SCAN_STATUS_OK)
+            ->setParameter('status', FileInterface::SCAN_STATUS_OK)
             ->setParameter('now', new \DateTime())
         ;
 
@@ -123,7 +124,7 @@ class FileRepository extends EntityRepository implements FileRepositoryInterface
         }
 
         if ($shared) {
-            $query = $query->leftJoin('file.sharedWith', 'users')
+            $query = $query->leftJoin('file.sharedWithUsers', 'users')
                 ->andWhere('users.id = :id')
                 ->setParameter('id', $shared->getId())
             ;

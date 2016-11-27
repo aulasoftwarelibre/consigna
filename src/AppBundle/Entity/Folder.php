@@ -1,149 +1,147 @@
 <?php
+/**
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ExpirableTrait;
 use AppBundle\Model\FileInterface;
-use AppBundle\Model\Traits\ExpirableEntity;
+use AppBundle\Model\FolderInterface;
+use AppBundle\Model\OwneableTrait;
+use AppBundle\Model\ProtectableTrait;
+use AppBundle\Model\ShareableTrait;
+use AppBundle\Model\TaggeableTrait;
+use AppBundle\Model\TagInterface;
+use AppBundle\Model\TimestampableTrait;
+use AppBundle\Model\TraceableTrait;
+use AppBundle\Model\UserInterface;
+use AppBundle\Util\RandomStringGenerator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\IpTraceable\Traits\IpTraceableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Folder.
+ * Class Folder.
  *
- * @ORM\Table(name="folder")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FolderRepository")
+ * @ORM\Table(name="folder")
  */
-class Folder implements FileInterface
+class Folder implements FolderInterface
 {
-    /*
-     * Hook ip-traceable behavior
-     * updates createdFromIp, updatedFromIp fields
-     */
-    use IpTraceableEntity;
+    use ExpirableTrait;
 
-    /*
-     * Hook timestampable behavior
-     * updates createdAt, updatedAt fields
-     */
-    use TimestampableEntity;
+    use ProtectableTrait;
 
-    /*
-     * Hook expirable behaviour
-     */
-    use ExpirableEntity;
+    use OwneableTrait;
+
+    use ShareableTrait;
+
+    use TaggeableTrait;
+
+    use TimestampableTrait;
+
+    use TraceableTrait;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      * @Assert\Length(min="3", max="255")
      * @Assert\NotBlank()
      */
-    private $name;
-
-    /**
-     * @var User
-     *
-     * @Gedmo\Blameable(on="create")
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="folders")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     */
-    private $owner;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="folders")
-     */
-    private $tags;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="sharedFolders")
-     */
-    private $sharedWith;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="File", mappedBy="folder", cascade="all")
-     */
-    private $files;
+    protected $name;
 
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $slug;
-
-    /**
-     * Encrypted password. Must be persisted.
-     *
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    private $password;
+    protected $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(type="string", length=127, unique=true)
+     * @Gedmo\Slug(fields={"name"}, unique=true)
      */
-    private $salt;
-
-    /**
-     * @var string
-     */
-    private $plainPassword;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="shareCode", type="string", length=255)
-     */
-    private $shareCode;
+    protected $slug;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="is_permanent", type="boolean")
+     * @ORM\Column(type="boolean")
      */
-    private $permanent;
+    protected $isPermanent;
 
     /**
-     * Construct.
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="folder", cascade={"persist"})
+     */
+    protected $files;
+
+    /**
+     * @var UserInterface
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Model\UserInterface", inversedBy="folders")
+     * @Gedmo\Blameable(on="create")
+     */
+    protected $owner;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Model\UserInterface", inversedBy="sharedFolders")
+     * @ORM\JoinTable(name="folder_shared_user",
+     *      joinColumns={@ORM\JoinColumn(name="folder_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
+     */
+    protected $sharedWithUsers;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Model\TagInterface", inversedBy="folders")
+     * @ORM\JoinTable(name="folder_tags",
+     *      joinColumns={@ORM\JoinColumn(name="folder_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     * )
+     */
+    protected $tags;
+
+    /**
+     * Folder constructor.
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sharedWith = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->shareCode = base64_encode(bin2hex(openssl_random_pseudo_bytes(15)));
-        $this->permanent = false;
+        $this->files = new ArrayCollection();
+        $this->isPermanent = false;
+        $this->salt = RandomStringGenerator::length(16);
+        $this->sharedCode = RandomStringGenerator::length(16);
+        $this->sharedWithUsers = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
-     * To String.
-     *
-     * @return string
+     * To string.
      */
     public function __toString()
     {
@@ -151,8 +149,14 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get name.
-     *
+     * @return int|null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return string
      */
     public function getName()
@@ -161,13 +165,11 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set name.
-     *
      * @param string $name
      *
      * @return Folder
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -175,18 +177,26 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get id.
-     *
-     * @return int
+     * @return string
      */
-    public function getId()
+    public function getDescription()
     {
-        return $this->id;
+        return $this->description;
     }
 
     /**
-     * Get slug.
+     * @param string $description
      *
+     * @return Folder
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getSlug()
@@ -195,13 +205,11 @@ class Folder implements FileInterface
     }
 
     /**
-     * Set slug.
-     *
      * @param string $slug
      *
      * @return Folder
      */
-    public function setSlug($slug)
+    public function setSlug(string $slug)
     {
         $this->slug = $slug;
 
@@ -209,173 +217,27 @@ class Folder implements FileInterface
     }
 
     /**
-     * Get password.
-     *
      * @return string
      */
-    public function getPassword()
+    public function isPermanent()
     {
-        return $this->password;
+        return $this->isPermanent;
     }
 
     /**
-     * Set password.
-     *
-     * @param string $password
+     * @param bool $permanent
      *
      * @return Folder
      */
-    public function setPassword($password)
+    public function setPermanent(bool $permanent)
     {
-        $this->password = $password;
+        $this->isPermanent = $permanent;
 
         return $this;
     }
 
     /**
-     * Get salt.
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * Set salt.
-     *
-     * @param string $salt
-     *
-     * @return Folder
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get shareCode.
-     *
-     * @return string
-     */
-    public function getShareCode()
-    {
-        return $this->shareCode;
-    }
-
-    /**
-     * Set shareCode.
-     *
-     * @param string $shareCode
-     *
-     * @return Folder
-     */
-    public function setShareCode($shareCode)
-    {
-        $this->shareCode = $shareCode;
-
-        return $this;
-    }
-
-    /**
-     * Add tags.
-     *
-     * @param \AppBundle\Entity\Tag $tags
-     *
-     * @return Folder
-     */
-    public function addTag(\AppBundle\Entity\Tag $tags)
-    {
-        $this->tags[] = $tags;
-
-        return $this;
-    }
-
-    /**
-     * Remove tags.
-     *
-     * @param \AppBundle\Entity\Tag $tags
-     */
-    public function removeTag(\AppBundle\Entity\Tag $tags)
-    {
-        $this->tags->removeElement($tags);
-    }
-
-    /**
-     * Get tags.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Add sharedWith.
-     *
-     * @param \AppBundle\Entity\User $sharedWith
-     *
-     * @return Folder
-     */
-    public function addSharedWith(\AppBundle\Entity\User $sharedWith)
-    {
-        $this->sharedWith[] = $sharedWith;
-
-        return $this;
-    }
-
-    /**
-     * Remove sharedWith.
-     *
-     * @param \AppBundle\Entity\User $sharedWith
-     */
-    public function removeSharedWith(\AppBundle\Entity\User $sharedWith)
-    {
-        $this->sharedWith->removeElement($sharedWith);
-    }
-
-    /**
-     * Get sharedWith.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSharedWith()
-    {
-        return $this->sharedWith;
-    }
-
-    /**
-     * Add files.
-     *
-     * @param \AppBundle\Entity\File $files
-     *
-     * @return Folder
-     */
-    public function addFile(\AppBundle\Entity\File $files)
-    {
-        $this->files[] = $files;
-
-        return $this;
-    }
-
-    /**
-     * Remove files.
-     *
-     * @param \AppBundle\Entity\File $files
-     */
-    public function removeFile(\AppBundle\Entity\File $files)
-    {
-        $this->files->removeElement($files);
-    }
-
-    /**
-     * Get files.
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getFiles()
     {
@@ -383,96 +245,24 @@ class Folder implements FileInterface
     }
 
     /**
-     * Has access.
+     * @param FileInterface $file
      *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return bool
+     * @return $this
      */
-    public function hasAccess($user)
+    public function addFile(FileInterface $file)
     {
-        if ($this->getOwner() == $user) {
-            return true;
-        }
-
-        foreach ($this->sharedWith as $member) {
-            if ($user == $member) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Get owner.
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getOwner()
-    {
-        return $this->owner;
-    }
-
-    /**
-     * Set owner.
-     *
-     * @param \AppBundle\Entity\User $owner
-     *
-     * @return Folder
-     */
-    public function setOwner(\AppBundle\Entity\User $owner)
-    {
-        $this->owner = $owner;
+        $file->setFolder($this);
+        $this->files->add($file);
 
         return $this;
     }
 
     /**
-     * Get plain password.
-     *
-     * @return string
+     * @param FileInterface $file
      */
-    public function getPlainPassword()
+    public function removeFile(FileInterface $file)
     {
-        return $this->plainPassword;
-    }
-
-    /**
-     * Set plain password.
-     *
-     * @param string $plainPassword
-     */
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
-    }
-
-    /**
-     * Get permanent.
-     *
-     * @return bool
-     */
-    public function isPermanent()
-    {
-        return $this->permanent;
-    }
-
-    /**
-     * Set permanent.
-     *
-     * @param bool $permanent
-     */
-    public function setPermanent($permanent)
-    {
-        $this->permanent = $permanent;
-    }
-
-    /**
-     * Remove credentials.
-     */
-    public function eraseCredentials()
-    {
-        $this->setPlainPassword(null);
+        $file->setFolder(null);
+        $this->files->removeElement($file);
     }
 }

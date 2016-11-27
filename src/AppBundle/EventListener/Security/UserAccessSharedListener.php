@@ -1,17 +1,12 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: sergio
- * Date: 14/08/15
- * Time: 04:41.
- */
 
 namespace AppBundle\EventListener\Security;
 
-use AppBundle\Entity\User;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\UserAccessSharedEvent;
+use AppBundle\Model\ShareableInterface;
+use AppBundle\Model\UserInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -51,14 +46,15 @@ class UserAccessSharedListener implements EventSubscriberInterface
     public function onAccess(UserAccessSharedEvent $event, $eventName = null)
     {
         $user = $event->getUser();
+        /** @var ShareableInterface $object */
         $object = $event->getObject();
 
-        if ($user instanceof User) {
-            $object->addSharedWith($user);
+        if ($user instanceof UserInterface) {
+            $object->addSharedWithUser($user);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
         } else {
-            $this->session->set($object->getShareCode(), time());
+            $this->session->set($object->getSharedCode(), time());
         }
     }
 }

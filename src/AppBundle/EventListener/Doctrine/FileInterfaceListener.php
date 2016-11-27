@@ -9,7 +9,7 @@
 
 namespace AppBundle\EventListener\Doctrine;
 
-use AppBundle\Model\FileInterface;
+use AppBundle\Model\ProtectableInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -44,7 +44,7 @@ class FileInterfaceListener implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $object = $args->getObject();
-        if ($object instanceof FileInterface) {
+        if ($object instanceof ProtectableInterface) {
             $this->updateUserFields($object);
         }
     }
@@ -52,19 +52,17 @@ class FileInterfaceListener implements EventSubscriber
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $object = $args->getObject();
-        if ($object instanceof FileInterface) {
+        if ($object instanceof ProtectableInterface) {
             $this->updateUserFields($object);
         }
     }
 
-    protected function updateUserFields(FileInterface $object)
+    protected function updateUserFields(ProtectableInterface $object)
     {
-        if ($object instanceof FileInterface) {
-            if (0 !== strlen($password = $object->getPlainPassword())) {
-                $encoder = $this->encoderFactory->getEncoder($object);
-                $object->setPassword($encoder->encodePassword($password, $object->getSalt()));
-                $object->eraseCredentials();
-            }
+        if (0 !== strlen($password = $object->getPlainPassword())) {
+            $encoder = $this->encoderFactory->getEncoder($object);
+            $object->setPassword($encoder->encodePassword($password, $object->getSalt()));
+            $object->eraseCredentials();
         }
     }
 }

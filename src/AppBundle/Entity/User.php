@@ -1,16 +1,31 @@
 <?php
+/**
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\FileInterface;
+use AppBundle\Model\FolderInterface;
+use AppBundle\Model\OrganizationInterface;
+use AppBundle\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * @ORM\Entity()
+ * Class User.
+ *
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
+class User extends BaseUser implements UserInterface
 {
     /**
      * @ORM\Id
@@ -20,17 +35,13 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(name="sir_id", type="string", length=255, nullable=true)
+     * @var OrganizationInterface|null
+     * @ORM\ManyToOne(targetEntity="AppBundle\Model\OrganizationInterface", inversedBy="users")
      */
-    protected $sir_id;
+    protected $organization;
 
     /**
-     * @ORM\Column(name="sir_access_token", type="string", length=255, nullable=true)
-     */
-    protected $sir_access_token;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Group")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Model\GroupInterface")
      * @ORM\JoinTable(name="fos_user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
@@ -39,46 +50,49 @@ class User extends BaseUser
     protected $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="File", mappedBy="owner")
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="owner", cascade={"persist", "remove"})
      */
-    private $files;
+    protected $files;
 
     /**
-     * @ORM\OneToMany(targetEntity="Folder", mappedBy="owner")
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Model\FolderInterface", mappedBy="owner", cascade={"persist", "remove"})
      */
-    private $folders;
+    protected $folders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="sharedWith")
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="sharedWithUsers", cascade={"persist", "remove"})
      */
-    private $sharedFolders;
+    protected $sharedFiles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="File", mappedBy="sharedWith")
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FolderInterface", mappedBy="sharedWithUsers", cascade={"persist", "remove"})
      */
-    private $sharedFiles;
+    protected $sharedFolders;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Organization", inversedBy="users")
-     */
-    private $organization;
-
-    /**
-     * Construct.
+     * User constructor.
      */
     public function __construct()
     {
         parent::__construct();
+
         $this->files = new ArrayCollection();
-        $this->sharedFolders = new ArrayCollection();
-        $this->sharedFiles = new ArrayCollection();
+        $this->folders = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->sharedFiles = new ArrayCollection();
+        $this->sharedFolders = new ArrayCollection();
     }
 
     /**
-     * Get id.
-     *
-     * @return int
+     * @return mixed
      */
     public function getId()
     {
@@ -86,201 +100,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set id.
-     *
-     * @param int $id
-     *
-     * @return User
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSirId()
-    {
-        return $this->sir_id;
-    }
-
-    /**
-     * @param mixed $sir_id
-     */
-    public function setSirId($sir_id)
-    {
-        $this->sir_id = $sir_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSirAccessToken()
-    {
-        return $this->sir_access_token;
-    }
-
-    /**
-     * @param mixed $sir_access_token
-     */
-    public function setSirAccessToken($sir_access_token)
-    {
-        $this->sir_access_token = $sir_access_token;
-    }
-
-    /**
-     * Add files.
-     *
-     * @param \AppBundle\Entity\File $files
-     *
-     * @return User
-     */
-    public function addFile(\AppBundle\Entity\File $files)
-    {
-        $this->files[] = $files;
-
-        return $this;
-    }
-
-    /**
-     * Remove files.
-     *
-     * @param \AppBundle\Entity\File $files
-     */
-    public function removeFile(\AppBundle\Entity\File $files)
-    {
-        $this->files->removeElement($files);
-    }
-
-    /**
-     * Get files.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFolders()
-    {
-        return $this->folders;
-    }
-
-    /**
-     * @param mixed $folders
-     */
-    public function setFolders($folders)
-    {
-        $this->folders = $folders;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSharedFolders()
-    {
-        return $this->sharedFolders;
-    }
-
-    /**
-     * @param mixed $sharedFolders
-     */
-    public function setSharedFolders($sharedFolders)
-    {
-        $this->sharedFolders = $sharedFolders;
-    }
-
-    /**
-     * Add folders.
-     *
-     * @param \AppBundle\Entity\Folder $folders
-     *
-     * @return User
-     */
-    public function addFolder(\AppBundle\Entity\Folder $folders)
-    {
-        $this->folders[] = $folders;
-
-        return $this;
-    }
-
-    /**
-     * Remove folders.
-     *
-     * @param \AppBundle\Entity\Folder $folders
-     */
-    public function removeFolder(\AppBundle\Entity\Folder $folders)
-    {
-        $this->folders->removeElement($folders);
-    }
-
-    /**
-     * Add sharedFolders.
-     *
-     * @param \AppBundle\Entity\Folder $sharedFolders
-     *
-     * @return User
-     */
-    public function addSharedFolder(\AppBundle\Entity\Folder $sharedFolders)
-    {
-        $this->sharedFolders[] = $sharedFolders;
-
-        return $this;
-    }
-
-    /**
-     * Remove sharedFolders.
-     *
-     * @param \AppBundle\Entity\Folder $sharedFolders
-     */
-    public function removeSharedFolder(\AppBundle\Entity\Folder $sharedFolders)
-    {
-        $this->sharedFolders->removeElement($sharedFolders);
-    }
-
-    /**
-     * Add sharedFiles.
-     *
-     * @param \AppBundle\Entity\User $sharedFiles
-     *
-     * @return User
-     */
-    public function addSharedFile(\AppBundle\Entity\User $sharedFiles)
-    {
-        $this->sharedFiles[] = $sharedFiles;
-
-        return $this;
-    }
-
-    /**
-     * Remove sharedFiles.
-     *
-     * @param \AppBundle\Entity\User $sharedFiles
-     */
-    public function removeSharedFile(\AppBundle\Entity\User $sharedFiles)
-    {
-        $this->sharedFiles->removeElement($sharedFiles);
-    }
-
-    /**
-     * Get sharedFiles.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSharedFiles()
-    {
-        return $this->sharedFiles;
-    }
-
-    /**
-     * @return \AppBundle\Entity\Organization
+     * @return OrganizationInterface|null
      */
     public function getOrganization()
     {
@@ -288,11 +108,137 @@ class User extends BaseUser
     }
 
     /**
-     * @param \AppBundle\Entity\Organization $organization
+     * @param OrganizationInterface|null $organization
+     *
+     * @return User
      */
-    public function setOrganization($organization)
+    public function setOrganization(OrganizationInterface $organization = null)
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param FileInterface $file
+     *
+     * @return $this
+     */
+    public function addFile(FileInterface $file)
+    {
+        $file->setOwner($this);
+        $this->files->add($file);
+
+        return $this;
+    }
+
+    /**
+     * @param FileInterface $file
+     *
+     * @return $this
+     */
+    public function removeFile(FileInterface $file)
+    {
+        $file->setOwner(null);
+        $this->files->removeElement($file);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
+     * @param FolderInterface $folder
+     *
+     * @return $this
+     */
+    public function addFolder(FolderInterface $folder)
+    {
+        $folder->setOwner($this);
+        $this->folders->add($folder);
+
+        return $this;
+    }
+
+    /**
+     * @param FolderInterface $folder
+     *
+     * @return $this
+     */
+    public function removeFolder(FolderInterface $folder)
+    {
+        $folder->setOwner(null);
+        $this->folders->removeElement($folder);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSharedFiles()
+    {
+        return $this->sharedFiles;
+    }
+
+    /**
+     * @param FileInterface $sharedFile
+     *
+     * @return $this
+     */
+    public function addSharedFile(FileInterface $sharedFile)
+    {
+        $this->sharedFiles->add($sharedFile);
+
+        return $this;
+    }
+
+    /**
+     * @param FileInterface $sharedFile
+     *
+     * @return $this
+     */
+    public function removeSharedFile(FileInterface $sharedFile)
+    {
+        $this->sharedFiles->removeElement($sharedFile);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSharedFolders()
+    {
+        return $this->sharedFolders;
+    }
+
+    /**
+     * @param FolderInterface $sharedFolder
+     *
+     * @return $this
+     */
+    public function addSharedFolder(FolderInterface $sharedFolder)
+    {
+        $this->sharedFolders->add($sharedFolder);
+
+        return $this;
+    }
+
+    /**
+     * @param FolderInterface $sharedFolder
+     */
+    public function removeSharedFolder(FolderInterface $sharedFolder)
+    {
+        $this->sharedFolders->removeElement($sharedFolder);
     }
 
     /**
@@ -304,7 +250,7 @@ class User extends BaseUser
      * @param bool   $img  True to return a complete IMG tag False for just the URL
      * @param array  $atts Optional, additional key/value attributes to include in the IMG tag
      *
-     * @return string containing either just a URL or a complete image tag
+     * @return String containing either just a URL or a complete image tag
      * @source http://gravatar.com/site/implement/images/php/
      */
     public function getGravatar($s = 80, $d = 'mm', $r = 'g', $img = false, $atts = [])
@@ -319,7 +265,6 @@ class User extends BaseUser
             }
             $url .= ' />';
         }
-
         return $url;
     }
 }

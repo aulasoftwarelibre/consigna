@@ -54,13 +54,17 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
             if ($organization instanceof Organization
                 && !$this->getContainer()->get('consigna.repository.organization')->findOneBy(['code' => $organization->getCode()])
             ) {
-                $output->writeln($translator->trans('new_organization', ['%name%' => $organization], 'command'));
+                $output->writeln(
+                    $translator->trans('new_organization', ['%name%' => $organization], 'command')
+                );
                 $manager->persist($organization);
             }
         }
         $manager->flush();
 
-        $output->writeln($translator->trans('action.database_success', [], 'command'));
+        $output->writeln(
+            $translator->trans('action.database_success', [], 'command')
+        );
     }
 
     private function scrapping()
@@ -90,7 +94,7 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
             $organization = new Organization();
             $organization->setName($university);
             $organization->setCode($metadata['sHO']);
-            $organization->setIsEnabled(true);
+            $organization->enable();
 
             return $organization;
         });

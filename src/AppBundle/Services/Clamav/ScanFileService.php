@@ -10,19 +10,23 @@
 
 namespace AppBundle\Services\Clamav;
 
+use AppBundle\Model\FileInterface;
 use Quahog\Client;
 use Socket\Raw\Factory;
 
-class ScanFile implements ScanFileInterface
+class ScanFileService implements ScanFileServiceInterface
 {
-    public function scan($file)
+    /**
+     * @{@inheritdoc}
+     */
+    public function scan(FileInterface $file)
     {
         $factory = new Factory();
         $socket = $factory->createClient('clamav:3310');
 
         $quahog = new Client($socket);
-        $result = $quahog->scanFile($file);
+        $result = $quahog->scanFile($file->getPath());
 
-        return $result;
+        return new ScanedFile($file, $result);
     }
 }

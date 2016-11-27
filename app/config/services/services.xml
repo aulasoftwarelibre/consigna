@@ -72,7 +72,7 @@
 
         <!-- others -->
 
-        <service id="consigna.service.scan_file" class="AppBundle\Services\Clamav\ScanFile">
+        <service id="consigna.service.scan_file" class="AppBundle\Services\Clamav\ScanFileService">
         </service>
 
         <service id="consigna.namer.real" class="AppBundle\Uploader\Namer\RealNamer">

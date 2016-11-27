@@ -10,10 +10,10 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Doctrine\Extensions\UploadedFileInfo;
-use AppBundle\Entity\File;
-use AppBundle\Entity\Folder;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\FileEvent;
+use AppBundle\Model\FileInterface;
+use AppBundle\Model\FolderInterface;
 use Oneup\UploaderBundle\Event\PostUploadEvent;
 use Oneup\UploaderBundle\Event\PreUploadEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -55,15 +55,16 @@ class UploadListener
     {
         $request = $event->getRequest();
         $folder_id = $request->headers->get('X-Consigna-Folder');
-        /** @var Folder $folder */
+        /** @var FolderInterface $folder */
         $folder = $this->container->get('consigna.repository.folder')->findOneBy(['id' => $folder_id]);
 
-        $file = new File();
+        $file = $this->container->get('consigna.factory.file')->createNew();
         $file->setFolder($folder);
         $file->setName($event->getFile());
+
         $this->container->get('gedmo.listener.uploadable')->addEntityFileInfo(
             $file,
-            new UploadedFileInfo($file->getName())
+            new UploadedFileInfo($event->getFile())
         );
 
         $em = $this->container->get('doctrine')->getManager();
@@ -73,11 +74,11 @@ class UploadListener
         $this->container->get('event_dispatcher')->dispatch(ConsignaEvents::FILE_UPLOAD_SUCCESS, new FileEvent($file));
 
         switch ($file->getScanStatus()) {
-            case FILE::SCAN_STATUS_FAILED:
-                throw new UploadException($this->container->get('translator')->trans('upload.virus.failed'));
+            case FileInterface::SCAN_STATUS_FAILED:
+                throw new UploadException('upload.virus.failed');
                 break;
-            case FILE::SCAN_STATUS_INFECTED:
-                throw new UploadException($this->container->get('translator')->trans('upload.virus'));
+            case FileInterface::SCAN_STATUS_INFECTED:
+                throw new UploadException('upload.virus');
                 break;
         }
     }

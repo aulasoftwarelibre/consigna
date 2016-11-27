@@ -1,85 +1,80 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: juanan
- * Date: 29/04/15
- * Time: 11:38.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\OrganizationInterface;
+use AppBundle\Model\ToggleableTrait;
+use AppBundle\Model\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class Organization.
+ *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganizationRepository")
  * @ORM\Table(name="organization")
- * @UniqueEntity("code")
  */
-class Organization
+class Organization implements OrganizationInterface
 {
+    use ToggleableTrait;
+
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\Length(min="1", max="255")
+     * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=50, unique=true)
-     * @Assert\Length(min="1", max="50")
+     * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $code;
+    protected $code;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="is_enabled", type="boolean", nullable=true)
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Model\UserInterface", mappedBy="organization", cascade={"persist", "remove"})
      */
-    private $isEnabled;
+    protected $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="organization")
-     * @Assert\Valid()
-     */
-    private $users;
-
-    /**
-     * Constructor.
+     * Organization constructor.
      */
     public function __construct()
     {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
-     * Return name.
-     *
+     * To string.
      * @return string
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->getName();
     }
 
     /**
-     * Get id.
-     *
-     * @return int
+     * @return int|null
      */
     public function getId()
     {
@@ -87,22 +82,6 @@ class Organization
     }
 
     /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Organization
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name.
-     *
      * @return string
      */
     public function getName()
@@ -111,22 +90,18 @@ class Organization
     }
 
     /**
-     * Set code.
-     *
-     * @param string $code
+     * @param string $name
      *
      * @return Organization
      */
-    public function setCode($code)
+    public function setName(string $name)
     {
-        $this->code = $code;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get code.
-     *
      * @return string
      */
     public function getCode()
@@ -135,60 +110,48 @@ class Organization
     }
 
     /**
-     * Set isEnabled.
-     *
-     * @param bool $isEnabled
+     * @param string $code
      *
      * @return Organization
      */
-    public function setIsEnabled($isEnabled)
+    public function setCode(string $code)
     {
-        $this->isEnabled = $isEnabled;
+        $this->code = $code;
 
         return $this;
     }
 
     /**
-     * Get isEnabled.
-     *
-     * @return bool
-     */
-    public function getIsEnabled()
-    {
-        return $this->isEnabled;
-    }
-
-    /**
-     * Add users.
-     *
-     * @param \AppBundle\Entity\User $users
-     *
-     * @return Organization
-     */
-    public function addUser(\AppBundle\Entity\User $users)
-    {
-        $this->users[] = $users;
-
-        return $this;
-    }
-
-    /**
-     * Remove users.
-     *
-     * @param \AppBundle\Entity\User $users
-     */
-    public function removeUser(\AppBundle\Entity\User $users)
-    {
-        $this->users->removeElement($users);
-    }
-
-    /**
-     * Get users.
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return $this
+     */
+    public function addUser(UserInterface $user)
+    {
+        $user->setOrganization($this);
+        $this->users->add($user);
+
+        return $this;
+    }
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return $this
+     */
+    public function removeUser(UserInterface $user)
+    {
+        $user->setOrganization(null);
+        $this->users->removeElement($user);
+
+        return $this;
     }
 }

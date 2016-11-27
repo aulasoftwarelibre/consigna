@@ -11,8 +11,9 @@
 
 namespace AppBundle\Security\Voter;
 
-use AppBundle\Entity\File;
 use AppBundle\Entity\User;
+use AppBundle\Model\FileInterface;
+use AppBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -36,7 +37,7 @@ class FileVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        if (!$subject instanceof File) {
+        if (!$subject instanceof FileInterface) {
             return false;
         }
 
@@ -49,14 +50,14 @@ class FileVoter extends Voter
 
     /**
      * @param string         $attribute
-     * @param File           $subject
+     * @param FileInterface  $subject
      * @param TokenInterface $token
      *
      * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        if (File::SCAN_STATUS_OK !== $subject->getScanStatus()) {
+        if (FileInterface::SCAN_STATUS_OK !== $subject->getScanStatus()) {
             return false;
         }
 
@@ -74,12 +75,12 @@ class FileVoter extends Voter
                 break;
 
             case self::DOWNLOAD:
-                if ($user instanceof User) {
-                    if ($subject->hasAccess($user)) {
+                if ($user instanceof UserInterface) {
+                    if ($this->hasAccess($user, $subject)) {
                         return true;
                     }
                 } else {
-                    if ($this->session->has($subject->getShareCode())) {
+                    if ($this->session->has($subject->getSharedCode())) {
                         return true;
                     }
                 }
@@ -91,6 +92,21 @@ class FileVoter extends Voter
                     return true;
                 }
                 break;
+        }
+
+        return false;
+    }
+
+    private function hasAccess(UserInterface $user, FileInterface $file)
+    {
+        if ($file->getOwner() == $user) {
+            return true;
+        }
+
+        foreach ($file->getSharedWithUsers() as $sharedWithUser) {
+            if ($user == $sharedWithUser) {
+                return true;
+            }
         }
 
         return false;

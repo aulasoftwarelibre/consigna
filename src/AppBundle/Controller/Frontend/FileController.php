@@ -10,6 +10,7 @@ use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\UserAccessSharedEvent;
 use AppBundle\Form\Type\DownloadFileAnonType;
 use AppBundle\Form\Type\DownloadFileType;
+use AppBundle\Model\FileInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -29,8 +30,7 @@ use AppBundle\Event\FileEvent;
 class FileController extends Controller
 {
     /**
-     * @ParamConverter("file", options={"repository_method" = "findOneActiveBySlug"})
-     * @Route("/s/{shareCode}", name="file_access_share")
+     * @Route("/s/{sharedCode}", name="file_access_share")
      */
     public function accessSharedAction(File $file)
     {
@@ -193,10 +193,10 @@ class FileController extends Controller
 
             $this->dispatch(ConsignaEvents::FILE_UPLOAD_SUCCESS, new FileEvent($file));
 
-            if ($file->getScanStatus() == File::SCAN_STATUS_OK) {
+            if ($file->getScanStatus() == FileInterface::SCAN_STATUS_OK) {
                 $this->addFlashTrans('success', 'upload.success', ['%file%' => $file]);
             } else {
-                if ($file->getScanStatus() == File::SCAN_STATUS_FAILED) {
+                if ($file->getScanStatus() == FileInterface::SCAN_STATUS_FAILED) {
                     $this->addFlashTrans('danger', 'upload.failed', ['%file%' => $file]);
                 } else {
                     $this->addFlashTrans('danger', 'upload.virus', ['%file%' => $file]);
@@ -230,15 +230,10 @@ class FileController extends Controller
      */
     private function createDownloadFileForm($file)
     {
-        $factory = $this->get('security.encoder_factory');
-        $translator = $this->get('translator');
-
         if ($this->getUser() instanceof User) {
-            $type = new DownloadFileType($factory, $translator);
+            return $this->createForm(DownloadFileType::class, $file);
         } else {
-            $type = new DownloadFileAnonType($factory, $translator);
+            return $this->createForm(DownloadFileAnonType::class, $file);
         }
-
-        return $this->createForm($type, $file);
     }
 }

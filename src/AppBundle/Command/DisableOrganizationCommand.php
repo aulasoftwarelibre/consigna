@@ -24,37 +24,35 @@ class DisableOrganizationCommand extends ContainerAwareCommand
             ->addArgument('code');
     }
 
-    /**
-     * Returns the description for the command.
-     *
-     * @return string The description for the command
-     *
-     * @api
-     */
     public function getDescription()
     {
-        return $this->getContainer()->get('translator')->trans('action.organization_disable', [], 'command');
+        $translator = $this->getContainer()->get('translator');
+
+        return $translator->trans('action.organization_disable', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $translator = $this->getContainer()->get('translator');
-        $manager = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $repository = $this->getContainer()->get('consigna.repository.organization');
 
-        $organization = $this->getContainer()->get('consigna.repository.organization')->findOneBy([
+        $organization = $repository->findOneBy([
             'code' => $input->getArgument('code'),
         ]);
 
         if (!$organization) {
-            $output->writeln($translator->trans('action.organization_missing', [], 'command'));
+            $output->writeln(
+                $translator->trans('action.organization_missing', [], 'command')
+            );
 
             return 1;
         }
 
         $organization->setisEnabled(false);
-        $manager->persist($organization);
-        $manager->flush();
+        $repository->add($organization);
 
-        $output->writeln($translator->trans('action.organization_disable_success', ['%name%' => $organization], 'command'));
+        $output->writeln(
+            $translator->trans('action.organization_disable_success', ['%name%' => $organization], 'command')
+        );
     }
 }

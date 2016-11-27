@@ -12,6 +12,10 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
     <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="alert.invalid_password">
+                <source>alert.invalid_password</source>
+                <target>La contraseña no es correcta</target>
+            </trans-unit>
             <trans-unit id="help.password_mismatch">
                 <source>help.password_mismatch</source>
                 <target>Las contraseñas deben coincidir.</target>

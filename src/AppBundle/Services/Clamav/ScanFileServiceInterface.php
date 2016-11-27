@@ -10,7 +10,14 @@
 
 namespace AppBundle\Services\Clamav;
 
-interface ScanFileInterface
+use AppBundle\Model\FileInterface;
+
+interface ScanFileServiceInterface
 {
-    public function scan($file);
+    /**
+     * @param FileInterface $file
+     *
+     * @return ScanedFile
+     */
+    public function scan(FileInterface $file);
 }

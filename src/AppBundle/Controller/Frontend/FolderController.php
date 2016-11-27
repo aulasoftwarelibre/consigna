@@ -34,8 +34,7 @@ class FolderController extends Controller
 {
     /**
      * @Method({"GET"})
-     * @ParamConverter("folder", options={"repository_method" = "findOneActiveBySlug"})
-     * @Route("/s/{shareCode}", name="folder_access_share")
+     * @Route("/s/{sharedCode}", name="folder_access_share")
      */
     public function accessShareAction(Folder $folder)
     {
@@ -138,7 +137,7 @@ class FolderController extends Controller
      */
     public function shareAction(Folder $folder, Request $request)
     {
-        $form = $this->createForm(new EditFolderType(), $folder);
+        $form = $this->createForm(EditFolderType::class, $folder);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

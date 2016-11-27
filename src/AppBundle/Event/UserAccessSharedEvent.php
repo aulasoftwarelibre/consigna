@@ -9,36 +9,36 @@
 
 namespace AppBundle\Event;
 
-use AppBundle\Entity\User;
-use AppBundle\Model\FileInterface;
+use AppBundle\Model\ShareableInterface;
+use AppBundle\Model\UserInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class UserAccessSharedEvent extends Event
 {
     /**
-     * @var FileInterface
+     * @var ShareableInterface
      */
     private $object;
 
     /**
-     * @var User
+     * @var UserInterface
      */
     private $user;
 
     /**
      * UserAccessSharedEvent constructor.
      *
-     * @param FileInterface $object
-     * @param User|null     $user
+     * @param ShareableInterface $object
+     * @param UserInterface|null     $user
      */
-    public function __construct(FileInterface $object, User $user = null)
+    public function __construct(ShareableInterface $object, UserInterface $user = null)
     {
         $this->object = $object;
         $this->user = $user;
     }
 
     /**
-     * @return FileInterface
+     * @return ShareableInterface
      */
     public function getObject()
     {
@@ -46,7 +46,7 @@ class UserAccessSharedEvent extends Event
     }
 
     /**
-     * @return User
+     * @return UserInterface
      */
     public function getUser()
     {

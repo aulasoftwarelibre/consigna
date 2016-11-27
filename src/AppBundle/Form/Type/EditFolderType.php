@@ -21,7 +21,7 @@ class EditFolderType extends AbstractType
     {
         $folder = $builder->getData();
         $builder
-            ->add('shared_with',  EntityType::class,  [
+            ->add('shared_with_users',  EntityType::class,  [
                 'class' => User::class,
                 'multiple' => true,
                 'label' => 'label.users',

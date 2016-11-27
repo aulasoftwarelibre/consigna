@@ -12,8 +12,9 @@
 
 namespace AppBundle\Security\Voter;
 
-use AppBundle\Entity\Folder;
 use AppBundle\Entity\User;
+use AppBundle\Model\FolderInterface;
+use AppBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -42,7 +43,7 @@ class FolderVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        if (!$subject instanceof Folder) {
+        if (!$subject instanceof FolderInterface) {
             return false;
         }
 
@@ -54,7 +55,11 @@ class FolderVoter extends Voter
     }
 
     /**
-     * @{@inheritdoc}
+     * @param string $attribute
+     * @param FolderInterface $subject
+     * @param TokenInterface $token
+     *
+     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
@@ -68,11 +73,11 @@ class FolderVoter extends Voter
             case self::ACCESS:
             case self::DOWNLOAD:
                 if ($user instanceof User) {
-                    if ($subject->hasAccess($user)) {
+                    if ($this->hasAccess($user, $subject)) {
                         return true;
                     }
                 } else {
-                    if ($this->session->has($subject->getShareCode())) {
+                    if ($this->session->has($subject->getSharedCode())) {
                         return true;
                     }
                 }
@@ -91,6 +96,21 @@ class FolderVoter extends Voter
                     return true;
                 }
                 break;
+        }
+
+        return false;
+    }
+
+    private function hasAccess(UserInterface $user, FolderInterface $folder)
+    {
+        if ($folder->getOwner() == $user) {
+            return true;
+        }
+
+        foreach ($folder->getSharedWithUsers() as $member) {
+            if ($user == $member) {
+                return true;
+            }
         }
 
         return false;

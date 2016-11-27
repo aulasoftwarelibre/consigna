@@ -10,10 +10,10 @@
 
 namespace Uco\Bundle\UserBundle\Security;
 
-use AppBundle\Doctrine\ORM\OrganizationRepository;
 use AppBundle\Entity\Organization;
 use AppBundle\Entity\User;
-use AppBundle\Exception\InvalidOrganization;
+use AppBundle\Exception\OrganizationNotFound;
+use AppBundle\Repository\OrganizationRepositoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Sgomez\Bundle\SSPGuardBundle\Security\Authenticator\SSPGuardAuthenticator;
 use Sgomez\Bundle\SSPGuardBundle\SimpleSAMLphp\AuthSourceRegistry;
@@ -32,7 +32,7 @@ class UcoAuthenticator extends SSPGuardAuthenticator
      */
     private $userManager;
     /**
-     * @var OrganizationRepository
+     * @var OrganizationRepositoryInterface
      */
     private $organizationRepository;
 
@@ -53,8 +53,8 @@ class UcoAuthenticator extends SSPGuardAuthenticator
         } catch (UsernameNotFoundException $e) {
             /** @var Organization $organization */
             $organization = $this->organizationRepository->findOneBy(['code' => $credentials['sHO'][0]]);
-            if (!$organization || $organization->getIsEnabled() === false) {
-                throw new InvalidOrganization();
+            if (!$organization || $organization->isEnabled() === false) {
+                throw new OrganizationNotFound();
             }
 
             /** @var User $user */

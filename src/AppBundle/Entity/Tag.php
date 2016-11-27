@@ -11,6 +11,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\FileInterface;
+use AppBundle\Model\FolderInterface;
+use AppBundle\Model\TagInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TagRepository")
  */
-class Tag
+class Tag implements TagInterface
 {
     /**
      * @var int
@@ -42,14 +46,14 @@ class Tag
 
     /**
      * @var Tag
-     * @ORM\ManyToMany(targetEntity="File", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="tags")
      * @Assert\Valid()
      */
     private $files;
 
     /**
      * @var Tag
-     * @ORM\ManyToMany(targetEntity="Folder", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FolderInterface", mappedBy="tags")
      * @Assert\Valid()
      */
     private $folders;
@@ -59,8 +63,8 @@ class Tag
      */
     public function __construct()
     {
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->folders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files = new ArrayCollection();
+        $this->folders = new ArrayCollection();
     }
 
     /**
@@ -90,7 +94,7 @@ class Tag
      *
      * @return Tag
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -110,11 +114,11 @@ class Tag
     /**
      * Add files.
      *
-     * @param \AppBundle\Entity\File $files
+     * @param FileInterface $files
      *
      * @return Tag
      */
-    public function addFile(\AppBundle\Entity\File $files)
+    public function addFile(FileInterface $files)
     {
         $this->files[] = $files;
 
@@ -124,9 +128,9 @@ class Tag
     /**
      * Remove files.
      *
-     * @param \AppBundle\Entity\File $files
+     * @param FileInterface $files
      */
-    public function removeFile(\AppBundle\Entity\File $files)
+    public function removeFile(FileInterface $files)
     {
         $this->files->removeElement($files);
     }
@@ -144,11 +148,11 @@ class Tag
     /**
      * Add folders.
      *
-     * @param \AppBundle\Entity\Folder $folders
+     * @param FolderInterface $folders
      *
      * @return Tag
      */
-    public function addFolder(\AppBundle\Entity\Folder $folders)
+    public function addFolder(FolderInterface $folders)
     {
         $this->folders[] = $folders;
 
@@ -158,9 +162,9 @@ class Tag
     /**
      * Remove folders.
      *
-     * @param \AppBundle\Entity\Folder $folders
+     * @param FolderInterface $folders
      */
-    public function removeFolder(\AppBundle\Entity\Folder $folders)
+    public function removeFolder(FolderInterface $folders)
     {
         $this->folders->removeElement($folders);
     }

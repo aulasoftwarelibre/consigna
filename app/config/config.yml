@@ -70,6 +70,13 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        resolve_target_entities:
+            AppBundle\Model\FileInterface: AppBundle\Entity\File
+            AppBundle\Model\FolderInterface: AppBundle\Entity\Folder
+            AppBundle\Model\GroupInterface: AppBundle\Entity\Group
+            AppBundle\Model\OrganizationInterface: AppBundle\Entity\Organization
+            AppBundle\Model\UserInterface: AppBundle\Entity\User
+            AppBundle\Model\TagInterface: AppBundle\Entity\Tag
 
 # Swiftmailer Configuration
 swiftmailer:

@@ -10,7 +10,7 @@
 namespace AppBundle\EventListener\Doctrine;
 
 use AppBundle\Entity\File;
-use AppBundle\Model\Traits\ExpirableEntity;
+use AppBundle\Model\ExpirableInterface;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 class ExpirableListener
@@ -24,11 +24,9 @@ class ExpirableListener
 
     public function prePersist(LifecycleEventArgs $args)
     {
-
-        /** @var ExpirableEntity $entity */
         $entity = $args->getObject();
 
-        if (in_array('AppBundle\Model\Traits\ExpirableEntity', class_uses($entity))) {
+        if ($entity instanceof ExpirableInterface) {
             if ($entity instanceof File && $entity->getFolder()) {
                 $entity->setExpiresAt(null);
             } else {

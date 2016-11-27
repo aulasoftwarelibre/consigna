@@ -1,7 +1,7 @@
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: "sha512"
-        AppBundle\Model\FileInterface: "sha512"
+        AppBundle\Model\ProtectableInterface: "sha512"
 
  
     role_hierarchy:

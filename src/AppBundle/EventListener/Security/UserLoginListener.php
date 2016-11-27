@@ -1,14 +1,9 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: sergio
- * Date: 27/04/15
- * Time: 20:18.
- */
 
 namespace AppBundle\EventListener\Security;
 
+use AppBundle\Model\UserInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -33,25 +28,6 @@ class UserLoginListener implements EventSubscriberInterface
     }
 
     /**
-     * Do the magic.
-     *
-     * @param InteractiveLoginEvent $event
-     */
-    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
-    {
-        $user = $event->getAuthenticationToken()->getUser();
-        if (!$user->getOrganization()->getIsEnabled()) {
-            $ex = new DisabledException('alert.organization_disabled');
-            $ex->setUser($user);
-            throw $ex;
-        }
-
-        if ($this->authorization->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $this->session->clear();
-        }
-    }
-
-    /**
      * @{@inheritdoc}
      */
     public static function getSubscribedEvents()
@@ -59,5 +35,27 @@ class UserLoginListener implements EventSubscriberInterface
         return [
             'security.interactive_login' => 'onSecurityInteractiveLogin',
         ];
+    }
+
+    /**
+     * Do the magic.
+     *
+     * @param InteractiveLoginEvent $event
+     */
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    {
+        /** @var UserInterface $user */
+        $user = $event->getAuthenticationToken()->getUser();
+
+        if (!$user->getOrganization()->isEnabled()) {
+            $ex = new DisabledException('alert.organization_disabled');
+            $ex->setUser($user);
+
+            throw $ex;
+        }
+
+        if ($this->authorization->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $this->session->clear();
+        }
     }
 }
