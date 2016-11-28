@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Doctrine\Extensions;
 
 use Gedmo\Uploadable\FileInfo\FileInfoInterface;

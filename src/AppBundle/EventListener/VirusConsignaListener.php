@@ -46,7 +46,7 @@ class VirusConsignaListener implements EventSubscriberInterface
     /**
      * @param LoggerInterface $loggerInterface
      * @param EntityManager   $entityManager
-     * @param ScanFileService        $scanFile
+     * @param ScanFileService $scanFile
      * @param Swift_Mailer    $mailer
      */
     public function __construct(

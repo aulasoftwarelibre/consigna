@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Model;
-
 
 use Doctrine\Common\Collections\Collection;
 
@@ -25,7 +23,7 @@ trait TaggeableTrait
     protected $tags;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addTag(TagInterface $tag)
     {
@@ -35,7 +33,7 @@ trait TaggeableTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeTag(TagInterface $tag)
     {
@@ -43,7 +41,7 @@ trait TaggeableTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTags()
     {

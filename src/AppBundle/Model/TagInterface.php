@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Model;
-
 
 interface TagInterface extends ResourceInterface
 {

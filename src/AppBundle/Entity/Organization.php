@@ -66,6 +66,7 @@ class Organization implements OrganizationInterface
 
     /**
      * To string.
+     *
      * @return string
      */
     public function __toString()

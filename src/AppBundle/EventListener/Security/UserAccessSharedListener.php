@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\EventListener\Security;
 
 use AppBundle\Event\ConsignaEvents;

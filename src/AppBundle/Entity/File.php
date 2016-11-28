@@ -18,7 +18,6 @@ use AppBundle\Model\OwneableTrait;
 use AppBundle\Model\ProtectableTrait;
 use AppBundle\Model\ShareableTrait;
 use AppBundle\Model\TaggeableTrait;
-use AppBundle\Model\TagInterface;
 use AppBundle\Model\TimestampableTrait;
 use AppBundle\Model\TraceableTrait;
 use AppBundle\Model\UploadableTrait;

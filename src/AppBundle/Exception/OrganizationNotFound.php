@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Exception;
-
 
 class OrganizationNotFound extends \InvalidArgumentException
 {

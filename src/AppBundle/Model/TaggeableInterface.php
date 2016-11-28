@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-
 namespace AppBundle\Model;
-
 
 use Doctrine\Common\Collections\Collection;
 
@@ -22,7 +20,7 @@ interface TaggeableInterface
      *
      * @param TagInterface $tag
      *
-     * @return Object
+     * @return object
      */
     public function addTag(TagInterface $tag);
 
@@ -39,5 +37,4 @@ interface TaggeableInterface
      * @return Collection
      */
     public function getTags();
-
 }

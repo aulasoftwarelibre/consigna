@@ -55,9 +55,9 @@ class FolderVoter extends Voter
     }
 
     /**
-     * @param string $attribute
+     * @param string          $attribute
      * @param FolderInterface $subject
-     * @param TokenInterface $token
+     * @param TokenInterface  $token
      *
      * @return bool
      */

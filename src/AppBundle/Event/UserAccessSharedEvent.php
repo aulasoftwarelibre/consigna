@@ -29,7 +29,7 @@ class UserAccessSharedEvent extends Event
      * UserAccessSharedEvent constructor.
      *
      * @param ShareableInterface $object
-     * @param UserInterface|null     $user
+     * @param UserInterface|null $user
      */
     public function __construct(ShareableInterface $object, UserInterface $user = null)
     {
