@@ -11,6 +11,8 @@
 
 namespace AppBundle\Factory;
 
+use Component\Core\Factory\FactoryInterface;
+
 interface FolderFactoryInterface extends FactoryInterface
 {
 }

@@ -13,6 +13,7 @@ namespace AppBundle\Factory;
 
 use AppBundle\Model\UserInterface;
 use AppBundle\Repository\OrganizationRepositoryInterface;
+use Component\Core\Factory\FactoryInterface;
 
 class UserFactory implements UserFactoryInterface
 {
@@ -44,6 +45,7 @@ class UserFactory implements UserFactoryInterface
 
     /**
      * @param string $code
+     *
      * @return UserInterface
      */
     public function createNewFromOrganization(string $code)
@@ -58,6 +60,4 @@ class UserFactory implements UserFactoryInterface
 
         return $user;
     }
-
-
 }

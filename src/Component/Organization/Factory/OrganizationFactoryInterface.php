@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Factory;
+namespace Component\Organization\Factory;
+
+use Component\Core\Factory\FactoryInterface;
 
 interface OrganizationFactoryInterface extends FactoryInterface
 {

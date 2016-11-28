@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Factory;
+namespace Component\Organization\Factory;
 
+use Component\Core\Factory\FactoryInterface;
 use AppBundle\Model\OrganizationInterface;
 
 class OrganizationFactory implements OrganizationFactoryInterface

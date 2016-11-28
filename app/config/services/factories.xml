@@ -18,7 +18,7 @@
 
         <service id="consigna.factory.file" class="AppBundle\Factory\FileFactory">
             <argument type="service">
-                <service class="AppBundle\Factory\Factory">
+                <service class="Component\Core\Factory\Factory">
                     <argument>AppBundle\Entity\File</argument>
                 </service>
             </argument>
@@ -26,15 +26,15 @@
 
         <service id="consigna.factory.folder" class="AppBundle\Factory\FolderFactory">
             <argument type="service">
-                <service class="AppBundle\Factory\Factory">
+                <service class="Component\Core\Factory\Factory">
                     <argument>AppBundle\Entity\Folder</argument>
                 </service>
             </argument>
         </service>
 
-        <service id="consigna.factory.organization" class="AppBundle\Factory\OrganizationFactory">
+        <service id="consigna.factory.organization" class="Component\Organization\Factory\OrganizationFactory">
             <argument type="service">
-                <service class="AppBundle\Factory\Factory">
+                <service class="Component\Core\Factory\Factory">
                     <argument>AppBundle\Entity\Organization</argument>
                 </service>
             </argument>
@@ -42,7 +42,7 @@
 
         <service id="consigna.factory.user" class="AppBundle\Factory\UserFactory">
             <argument type="service">
-                <service class="AppBundle\Factory\Factory">
+                <service class="Component\Core\Factory\Factory">
                     <argument>AppBundle\Entity\User</argument>
                 </service>
             </argument>

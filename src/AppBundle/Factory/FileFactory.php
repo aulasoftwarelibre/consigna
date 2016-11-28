@@ -12,6 +12,7 @@
 namespace AppBundle\Factory;
 
 use AppBundle\Model\FileInterface;
+use Component\Core\Factory\FactoryInterface;
 
 class FileFactory implements FileFactoryInterface
 {

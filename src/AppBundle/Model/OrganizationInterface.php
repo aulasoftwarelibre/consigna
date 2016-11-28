@@ -15,11 +15,27 @@ interface OrganizationInterface extends
     ToggleableInterface,
     ResourceInterface
 {
+    /**
+     * @return string
+     */
     public function getName();
 
+    /**
+     * @param string $name
+     *
+     * @return OrganizationInterface
+     */
     public function setName(string $name);
 
+    /**
+     * @return string
+     */
     public function getCode();
 
+    /**
+     * @param string $code
+     *
+     * @return OrganizationInterface
+     */
     public function setCode(string $code);
 }

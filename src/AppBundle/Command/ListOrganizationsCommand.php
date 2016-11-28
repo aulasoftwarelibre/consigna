@@ -50,7 +50,7 @@ class ListOrganizationsCommand extends ContainerAwareCommand
             $table->addRow([
                 $organization->getName(),
                 $organization->getCode(),
-                $organization->getIsEnabled() ? '<info>YES</info>' : '<error>NO</error>',
+                $organization->isEnabled() ? '<info>YES</info>' : '<error>NO</error>',
 
             ]);
         }

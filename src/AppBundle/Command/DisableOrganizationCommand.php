@@ -48,8 +48,7 @@ class DisableOrganizationCommand extends ContainerAwareCommand
             return 1;
         }
 
-        $organization->setisEnabled(false);
-        $repository->add($organization);
+        $this->getContainer()->get('consigna.manager.organization')->disableOrganization($organization);
 
         $output->writeln(
             $translator->trans('action.organization_disable_success', ['%name%' => $organization], 'command')

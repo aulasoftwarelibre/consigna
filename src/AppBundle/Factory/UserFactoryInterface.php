@@ -11,6 +11,8 @@
 
 namespace AppBundle\Factory;
 
+use Component\Core\Factory\FactoryInterface;
+
 interface UserFactoryInterface extends FactoryInterface
 {
     public function createNewFromOrganization(string $code);

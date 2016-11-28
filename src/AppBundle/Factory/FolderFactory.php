@@ -12,6 +12,7 @@
 namespace AppBundle\Factory;
 
 use AppBundle\Model\FolderInterface;
+use Component\Core\Factory\FactoryInterface;
 
 class FolderFactory implements FolderFactoryInterface
 {

@@ -48,8 +48,7 @@ class EnableOrganizationCommand extends ContainerAwareCommand
             return 1;
         }
 
-        $organization->setisEnabled(true);
-        $repository->add($organization);
+        $this->getContainer()->get('consigna.manager.organization')->enableOrganization($organization);
 
         $output->writeln(
             $translator->trans('action.organization_enable_success', ['%name%' => $organization], 'command')

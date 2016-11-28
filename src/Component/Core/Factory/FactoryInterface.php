@@ -9,11 +9,9 @@
  * file that was distributed with this source code.
  */
 
+namespace Component\Core\Factory;
 
-namespace AppBundle\Services\Updater;
-
-
-class OrganizationUpdater
+interface FactoryInterface
 {
-
+    public function createNew();
 }

@@ -29,13 +29,6 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
         ;
     }
 
-    /**
-     * Returns the description for the command.
-     *
-     * @return string The description for the command
-     *
-     * @api
-     */
     public function getDescription()
     {
         return $this->getContainer()->get('translator')->trans('action.database_init', [], 'command');
@@ -44,23 +37,23 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $translator = $this->getContainer()->get('translator');
-        $manager = $this->getContainer()->get('doctrine.orm.entity_manager');
+
+        $organizationDirector = $this->getContainer()->get('consigna.director.organization');
+        $organizationManager = $this->getContainer()->get('consigna.manager.organization');
 
         $output->writeln($translator->trans('reading_data', [], 'command'));
         $organizations = $this->scrapping();
 
         /** @var Organization $organization */
         foreach ($organizations as $organization) {
-            if ($organization instanceof Organization
-                && !$this->getContainer()->get('consigna.repository.organization')->findOneBy(['code' => $organization->getCode()])
-            ) {
-                $output->writeln(
-                    $translator->trans('new_organization', ['%name%' => $organization], 'command')
-                );
-                $manager->persist($organization);
+            if (isset($organization['code'])) {
+                if ($found = $organizationDirector->findOneBy(['code' => $organization['code']])) {
+                    $organizationManager->updateOrganization($found, $organization['name']);
+                } else {
+                    $organizationManager->createOrganization($organization['name'], $organization['code']);
+                }
             }
         }
-        $manager->flush();
 
         $output->writeln(
             $translator->trans('action.database_success', [], 'command')
@@ -91,10 +84,10 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
                 return;
             }
 
-            $organization = new Organization();
-            $organization->setName($university);
-            $organization->setCode($metadata['sHO']);
-            $organization->enable();
+            $organization = [
+                'name' => $university,
+                'code' => $metadata['sHO'],
+            ];
 
             return $organization;
         });

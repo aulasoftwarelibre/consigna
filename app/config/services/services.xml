@@ -78,6 +78,20 @@
         <service id="consigna.namer.real" class="AppBundle\Uploader\Namer\RealNamer">
         </service>
 
+        <!-- component -->
+
+        <!-- organization -->
+
+        <service id="consigna.director.organization" class="Component\Core\Services\ObjectDirector">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="consigna.repository.organization"/>
+            <argument type="service" id="consigna.factory.organization"/>
+        </service>
+
+        <service id="consigna.manager.organization" class="Component\Organization\Services\OrganizationManager">
+            <argument type="service" id="consigna.director.organization"/>
+        </service>
+
     </services>
 
 </container>
