@@ -10,7 +10,7 @@
 namespace AppBundle\EventListener\Doctrine;
 
 use AppBundle\Entity\File;
-use AppBundle\Model\ExpirableInterface;
+use Component\Core\Model\Interfaces\ExpirableInterface;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 class ExpirableListener

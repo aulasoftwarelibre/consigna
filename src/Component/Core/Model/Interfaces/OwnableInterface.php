@@ -9,15 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Core\Model\Interfaces;
 
-interface TimestampableInterface
+use AppBundle\Model\UserInterface;
+
+interface OwnableInterface
 {
-    public function getCreatedAt();
+    public function getOwner();
 
-    public function setCreatedAt(\DateTime $createdAt);
-
-    public function getUpdatedAt();
-
-    public function setUpdatedAt(\DateTime $updatedAt);
+    public function setOwner(UserInterface $user = null);
 }

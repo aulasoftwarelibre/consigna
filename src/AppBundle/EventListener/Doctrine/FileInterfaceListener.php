@@ -9,7 +9,7 @@
 
 namespace AppBundle\EventListener\Doctrine;
 
-use AppBundle\Model\ProtectableInterface;
+use Component\Core\Model\Interfaces\ProtectableInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;

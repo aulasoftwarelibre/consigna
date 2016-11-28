@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Entity;
+namespace Component\Organization\Model;
 
-use AppBundle\Model\OrganizationInterface;
-use AppBundle\Model\ToggleableTrait;
 use AppBundle\Model\UserInterface;
+use Component\Organization\Model\Interfaces\OrganizationInterface;
+use Component\Core\Model\Traits\ToggleableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Organization.
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganizationRepository")
+ * @ORM\Entity(repositoryClass="Component\Organization\Repository\OrganizationRepository")
  * @ORM\Table(name="organization")
  */
 class Organization implements OrganizationInterface

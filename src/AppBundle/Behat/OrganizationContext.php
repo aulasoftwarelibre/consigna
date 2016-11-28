@@ -9,7 +9,7 @@
 
 namespace AppBundle\Behat;
 
-use AppBundle\Entity\Organization;
+use Component\Organization\Model\Organization;
 use Behat\Gherkin\Node\TableNode;
 use Sensio\Bundle\FrameworkExtraBundle\Security\ExpressionLanguage;
 

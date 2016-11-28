@@ -11,7 +11,7 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Model\ResourceInterface;
+use Component\Core\Model\Interfaces\ResourceInterface;
 use Doctrine\ORM\EntityRepository as BaseEntityRepository;
 
 /**

@@ -9,8 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Repository;
+namespace Component\Core\Model\Interfaces;
 
-interface OrganizationRepositoryInterface extends RepositoryInterface
+interface TraceableInterface
 {
+    public function getCreatedFromIp();
+
+    public function setCreatedFromIp(string $createdFromIp);
 }

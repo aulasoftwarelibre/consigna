@@ -10,10 +10,10 @@
 
 namespace Uco\Bundle\UserBundle\Security;
 
-use AppBundle\Entity\Organization;
+use Component\Organization\Model\Organization;
 use AppBundle\Entity\User;
 use AppBundle\Exception\OrganizationNotFound;
-use AppBundle\Repository\OrganizationRepositoryInterface;
+use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Sgomez\Bundle\SSPGuardBundle\Security\Authenticator\SSPGuardAuthenticator;
 use Sgomez\Bundle\SSPGuardBundle\SimpleSAMLphp\AuthSourceRegistry;

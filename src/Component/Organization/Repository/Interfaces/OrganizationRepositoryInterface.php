@@ -9,14 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Repository;
+namespace Component\Organization\Repository\Interfaces;
 
-use Component\Core\Model\Interfaces\ResourceInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 
-interface RepositoryInterface extends ObjectRepository
+interface OrganizationRepositoryInterface extends ObjectRepository
 {
-    public function add(ResourceInterface $resource);
-
-    public function remove(ResourceInterface $resource);
 }

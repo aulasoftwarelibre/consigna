@@ -11,6 +11,8 @@
 
 namespace AppBundle\Model;
 
+use Component\Core\Model\Interfaces\ResourceInterface;
+
 interface TagInterface extends ResourceInterface
 {
     public function getName();

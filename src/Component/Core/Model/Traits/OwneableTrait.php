@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Core\Model\Traits;
 
+use AppBundle\Model\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 

@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Core\Model\Interfaces;
+
+use AppBundle\Model\UserInterface;
 
 interface ShareableInterface
 {

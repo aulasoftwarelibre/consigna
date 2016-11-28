@@ -9,7 +9,7 @@
 
 namespace AppBundle\Event;
 
-use AppBundle\Model\ShareableInterface;
+use Component\Core\Model\Interfaces\ShareableInterface;
 use AppBundle\Model\UserInterface;
 use Symfony\Component\EventDispatcher\Event;
 

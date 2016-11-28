@@ -13,7 +13,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
 use AppBundle\Model\FolderInterface;
-use AppBundle\Model\OrganizationInterface;
+use Component\Organization\Model\Interfaces\OrganizationInterface;
 use AppBundle\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,7 +36,7 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @var OrganizationInterface|null
-     * @ORM\ManyToOne(targetEntity="AppBundle\Model\OrganizationInterface", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="Components\Organization\Model\Interfaces\OrganizationInterface", inversedBy="users")
      */
     protected $organization;
 

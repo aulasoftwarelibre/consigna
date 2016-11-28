@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Organization;
 
-interface OwnableInterface
+final class ConsignaOrganizationEvents
 {
-    public function getOwner();
+    const ORGANIZATION_ENABLED = 'consigna.organization.enabled';
 
-    public function setOwner(UserInterface $user = null);
+    const ORGANIZATION_DISABLED = 'consigna.organization.disabled';
 }

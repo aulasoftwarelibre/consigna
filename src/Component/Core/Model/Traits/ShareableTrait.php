@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Core\Model\Traits;
 
+use AppBundle\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 trait ShareableTrait

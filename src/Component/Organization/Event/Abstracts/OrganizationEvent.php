@@ -9,31 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Factory;
+namespace Component\Organization\Event\Abstracts;
 
-use Component\Core\Factory\FactoryInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
+use Symfony\Component\EventDispatcher\Event;
 
-class OrganizationFactory implements OrganizationFactoryInterface
+abstract class OrganizationEvent extends Event
 {
     /**
-     * @var FactoryInterface
+     * @var OrganizationInterface
      */
-    private $factory;
+    private $organization;
 
-    /**
-     * OrganizationFactory constructor.
-     */
-    public function __construct(FactoryInterface $factory)
+    public function __construct(OrganizationInterface $organization)
     {
-        $this->factory = $factory;
+        $this->organization = $organization;
     }
 
     /**
      * @return OrganizationInterface
      */
-    public function createNew()
+    public function getOrganization()
     {
-        return $this->factory->createNew();
+        return $this->organization;
     }
 }

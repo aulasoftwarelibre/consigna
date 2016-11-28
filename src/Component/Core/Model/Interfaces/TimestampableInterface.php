@@ -9,8 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Repository;
+namespace Component\Core\Model\Interfaces;
 
-class OrganizationRepository extends EntityRepository implements OrganizationRepositoryInterface
+interface TimestampableInterface
 {
+    public function getCreatedAt();
+
+    public function setCreatedAt(\DateTime $createdAt);
+
+    public function getUpdatedAt();
+
+    public function setUpdatedAt(\DateTime $updatedAt);
 }

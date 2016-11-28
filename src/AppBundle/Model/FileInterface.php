@@ -11,6 +11,16 @@
 
 namespace AppBundle\Model;
 
+use Component\Core\Model\Interfaces\ExpirableInterface;
+use Component\Core\Model\Interfaces\OwnableInterface;
+use Component\Core\Model\Interfaces\ProtectableInterface;
+use Component\Core\Model\Interfaces\ResourceInterface;
+use Component\Core\Model\Interfaces\ShareableInterface;
+use Component\Core\Model\Interfaces\TaggeableInterface;
+use Component\Core\Model\Interfaces\TimestampableInterface;
+use Component\Core\Model\Interfaces\TraceableInterface;
+use Component\Core\Model\Interfaces\UploadableInterface;
+
 interface FileInterface extends
     ExpirableInterface,
     OwnableInterface,

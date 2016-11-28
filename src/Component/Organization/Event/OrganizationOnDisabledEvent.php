@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Organization\Event;
 
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Component\Organization\Event\Abstracts\OrganizationEvent;
 
-trait TimestampableTrait
+final class OrganizationOnDisabledEvent extends OrganizationEvent
 {
-    use TimestampableEntity;
 }

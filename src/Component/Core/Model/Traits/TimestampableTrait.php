@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Core\Model\Traits;
 
-interface TraceableInterface
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+
+trait TimestampableTrait
 {
-    public function getCreatedFromIp();
-
-    public function setCreatedFromIp(string $createdFromIp);
+    use TimestampableEntity;
 }

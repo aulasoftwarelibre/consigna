@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Core\Model\Traits;
 
+use AppBundle\Model\TagInterface;
 use Doctrine\Common\Collections\Collection;
 
 trait TaggeableTrait

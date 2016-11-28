@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Organization\Event;
 
-interface ExpirableInterface
+use Component\Organization\Event\Abstracts\OrganizationEvent;
+
+final class OrganizationOnEnabledEvent extends OrganizationEvent
 {
-    public function getExpiresAt();
-
-    public function setExpiresAt(\DateTime $expiresAt);
 }

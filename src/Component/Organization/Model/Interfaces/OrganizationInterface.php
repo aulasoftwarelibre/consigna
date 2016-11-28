@@ -9,7 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Organization\Model\Interfaces;
+
+use Component\Core\Model\Interfaces\ResourceInterface;
+use Component\Core\Model\Interfaces\ToggleableInterface;
 
 interface OrganizationInterface extends
     ToggleableInterface,

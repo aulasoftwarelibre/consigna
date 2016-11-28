@@ -11,6 +11,8 @@
 
 namespace AppBundle\Model;
 
+use Component\Core\Model\Interfaces\ResourceInterface;
+use Component\Organization\Model\Interfaces\OrganizationInterface;
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 
 interface UserInterface extends

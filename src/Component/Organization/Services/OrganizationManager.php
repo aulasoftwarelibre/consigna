@@ -11,7 +11,8 @@
 
 namespace Component\Organization\Services;
 
-use AppBundle\Model\OrganizationInterface;
+use Component\Organization\EventDispatcher\OrganizationEventDispatcher;
+use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Component\Core\Services\ObjectDirector;
 
 class OrganizationManager
@@ -20,10 +21,17 @@ class OrganizationManager
      * @var ObjectDirector
      */
     private $organizationDirector;
+    /**
+     * @var OrganizationEventDispatcher
+     */
+    private $organizationEventDispatcher;
 
-    public function __construct(ObjectDirector $organizationDirector)
-    {
+    public function __construct(
+        ObjectDirector $organizationDirector,
+        OrganizationEventDispatcher $organizationEventDispatcher
+    ) {
         $this->organizationDirector = $organizationDirector;
+        $this->organizationEventDispatcher = $organizationEventDispatcher;
     }
 
     public function createOrganization(string $name, string $sho)
@@ -58,7 +66,14 @@ class OrganizationManager
     public function disableOrganization(OrganizationInterface $organization)
     {
         $organization->disable();
-        $this->organizationDirector->save($organization);
+
+        $this
+            ->organizationDirector
+            ->save($organization);
+
+        $this
+            ->organizationEventDispatcher
+            ->dispatchOrganizationOnEnabledEvent($organization);
 
         return $this;
     }
@@ -67,7 +82,14 @@ class OrganizationManager
         OrganizationInterface $organization
     ) {
         $organization->enable();
-        $this->organizationDirector->save($organization);
+
+        $this
+            ->organizationDirector
+            ->save($organization);
+
+        $this
+            ->organizationEventDispatcher
+            ->dispatchOrganizationOnDisabledEvent($organization);
 
         return $this;
     }

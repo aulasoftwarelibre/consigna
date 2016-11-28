@@ -11,15 +11,15 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Model\ExpirableTrait;
+use Component\Core\Model\Traits\ExpirableTrait;
 use AppBundle\Model\FileInterface;
 use AppBundle\Model\FolderInterface;
-use AppBundle\Model\OwneableTrait;
-use AppBundle\Model\ProtectableTrait;
-use AppBundle\Model\ShareableTrait;
-use AppBundle\Model\TaggeableTrait;
-use AppBundle\Model\TimestampableTrait;
-use AppBundle\Model\TraceableTrait;
+use Component\Core\Model\Traits\OwneableTrait;
+use Component\Core\Model\Traits\ProtectableTrait;
+use Component\Core\Model\Traits\ShareableTrait;
+use Component\Core\Model\Traits\TaggeableTrait;
+use Component\Core\Model\Traits\TimestampableTrait;
+use Component\Core\Model\Traits\TraceableTrait;
 use AppBundle\Model\UserInterface;
 use AppBundle\Util\RandomStringGenerator;
 use Doctrine\Common\Collections\ArrayCollection;

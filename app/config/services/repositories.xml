@@ -26,9 +26,9 @@
             <argument>AppBundle\Entity\Folder</argument>
         </service>
 
-        <service id="consigna.repository.organization" class="AppBundle\Repository\OrganizationRepository">
+        <service id="consigna.repository.organization" class="Component\Organization\Repository\OrganizationRepository">
             <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
-            <argument>AppBundle\Entity\Organization</argument>
+            <argument>Component\Organization\Model\Organization</argument>
         </service>
 
         <service id="consigna.repository.tag" class="AppBundle\Repository\TagRepository">

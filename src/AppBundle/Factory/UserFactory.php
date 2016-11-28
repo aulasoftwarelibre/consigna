@@ -12,7 +12,7 @@
 namespace AppBundle\Factory;
 
 use AppBundle\Model\UserInterface;
-use AppBundle\Repository\OrganizationRepositoryInterface;
+use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
 use Component\Core\Factory\FactoryInterface;
 
 class UserFactory implements UserFactoryInterface
