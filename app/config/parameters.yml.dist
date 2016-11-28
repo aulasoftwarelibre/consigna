@@ -23,7 +23,8 @@ parameters:
     recaptcha_private_key: ~
 
     expire_date: 7 days
-    antivirus_path: /usr/bin/clamdscan
+    clamav_host: localhost
+    clamav_port: 3310
 
     supported_languages: ['es', 'en']
 

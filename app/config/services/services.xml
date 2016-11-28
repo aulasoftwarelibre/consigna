@@ -73,6 +73,8 @@
         <!-- others -->
 
         <service id="consigna.service.scan_file" class="AppBundle\Services\Clamav\ScanFileService">
+            <argument>%clamav_host%</argument>
+            <argument>%clamav_port%</argument>
         </service>
 
         <service id="consigna.namer.real" class="AppBundle\Uploader\Namer\RealNamer">

@@ -17,12 +17,27 @@ use Socket\Raw\Factory;
 class ScanFileService implements ScanFileServiceInterface
 {
     /**
+     * @var string
+     */
+    private $host;
+    /**
+     * @var string
+     */
+    private $port;
+
+    public function __construct(string $host, string $port)
+    {
+        $this->host = $host;
+        $this->port = $port;
+    }
+
+    /**
      * @{@inheritdoc}
      */
     public function scan(FileInterface $file)
     {
         $factory = new Factory();
-        $socket = $factory->createClient('clamav:3310');
+        $socket = $factory->createClient($this->host.':'.$this->port);
 
         $quahog = new Client($socket);
         $result = $quahog->scanFile($file->getPath());
