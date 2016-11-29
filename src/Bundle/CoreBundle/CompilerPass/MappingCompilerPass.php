@@ -28,12 +28,6 @@ class MappingCompilerPass extends AbstractMappingCompilerPass
             ->addEntityMapping(
                 $container,
                 'default',
-                'Component\Folder\Model\Folder',
-                '@ConsignaCoreBundle/Resources/config/doctrine/Folder.orm.xml'
-            )
-            ->addEntityMapping(
-                $container,
-                'default',
                 'AppBundle\Entity\Group',
                 '@ConsignaCoreBundle/Resources/config/doctrine/Group.orm.xml'
             )

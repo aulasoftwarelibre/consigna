@@ -34,6 +34,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Uco\Bundle\UserBundle\UcoUserBundle(),
             new Bundle\CoreBundle\ConsignaCoreBundle(),
+            new Bundle\FolderBundle\ConsignaFolderBundle(),
             new Bundle\OrganizationBundle\ConsignaOrganizationBundle(),
         );
 
