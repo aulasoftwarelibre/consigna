@@ -16,64 +16,45 @@ use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 use AppBundle\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * Class User.
- *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @ORM\Table(name="fos_user")
  */
 class User extends BaseUser implements UserInterface
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
      */
     protected $id;
 
     /**
-     * @var OrganizationInterface|null
-     * @ORM\ManyToOne(targetEntity="Component\Organization\Model\Interfaces\OrganizationInterface", inversedBy="users")
+     * @var OrganizationInterface
      */
     protected $organization;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\GroupInterface")
-     * @ORM\JoinTable(name="fos_user_user_group",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
-     * )
+     * @var ArrayCollection
      */
     protected $groups;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="owner", cascade={"persist", "remove"})
      */
     protected $files;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", mappedBy="owner", cascade={"persist", "remove"})
      */
     protected $folders;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="sharedWithUsers", cascade={"persist", "remove"})
      */
     protected $sharedFiles;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", mappedBy="sharedWithUsers", cascade={"persist", "remove"})
      */
     protected $sharedFolders;
 

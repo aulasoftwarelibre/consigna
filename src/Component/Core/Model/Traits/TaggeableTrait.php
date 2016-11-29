@@ -18,8 +18,6 @@ trait TaggeableTrait
 {
     /**
      * @var Collection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\TaggleableInterface")
      */
     protected $tags;
 

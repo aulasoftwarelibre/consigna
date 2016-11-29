@@ -15,7 +15,6 @@ trait ExpirableTrait
 {
     /**
      * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $expiresAt;
 

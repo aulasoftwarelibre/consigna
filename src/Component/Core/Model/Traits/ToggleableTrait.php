@@ -11,13 +11,9 @@
 
 namespace Component\Core\Model\Traits;
 
-use Doctrine\ORM\Mapping as ORM;
-
 trait ToggleableTrait
 {
     /**
-     * @ORM\Column(type="boolean")
-     *
      * @var bool
      */
     protected $enabled = true;

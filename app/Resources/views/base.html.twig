@@ -173,7 +173,11 @@
             <!-- Main Footer -->
             <footer class="main-footer">
                 <!-- To the right -->
-                {{ render(controller('AppBundle:Frontend/Default:consignaStatistics')) }}
+                <div class="pull-right hidden-xs">
+                    {% set statistics = consigna_statistics() %}
+                    {{ 'label.statistics' | transchoice(statistics['files'], { '%total%': statistics['total'] | size }) }}
+                </div>
+
                 <!-- Default to the left -->
                 <strong>Copyleft <i class="fa fa-copyright fa-flip-horizontal"></i> 2015 <a href="https://www.uco.es/aulasoftwarelibre">Aula de Software Libre</a>.</strong>
             </footer>

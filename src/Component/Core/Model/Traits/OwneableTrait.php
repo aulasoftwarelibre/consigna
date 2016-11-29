@@ -12,7 +12,6 @@
 namespace Component\Core\Model\Traits;
 
 use AppBundle\Model\UserInterface;
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 trait OwneableTrait
@@ -20,8 +19,6 @@ trait OwneableTrait
     /**
      * @var UserInterface
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Model\UserInterface")
-     * @ORM\JoinColumn(nullable=true)
      * @Gedmo\Blameable(on="create")
      */
     protected $owner;

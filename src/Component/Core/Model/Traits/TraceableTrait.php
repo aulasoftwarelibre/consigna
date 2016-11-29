@@ -11,7 +11,6 @@
 
 namespace Component\Core\Model\Traits;
 
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 trait TraceableTrait
@@ -19,7 +18,6 @@ trait TraceableTrait
     /**
      * @var string
      * @Gedmo\IpTraceable(on="create")
-     * @ORM\Column(length=45, nullable=true)
      */
     protected $createdFromIp;
 

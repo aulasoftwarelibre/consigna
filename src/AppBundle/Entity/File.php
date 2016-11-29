@@ -11,9 +11,9 @@
 
 namespace AppBundle\Entity;
 
-use Component\Core\Model\Traits\ExpirableTrait;
 use AppBundle\Model\FileInterface;
-use Component\Folder\Model\Interfaces\FolderInterface;
+use AppBundle\Util\RandomStringGenerator;
+use Component\Core\Model\Traits\ExpirableTrait;
 use Component\Core\Model\Traits\OwneableTrait;
 use Component\Core\Model\Traits\ProtectableTrait;
 use Component\Core\Model\Traits\ShareableTrait;
@@ -21,17 +21,13 @@ use Component\Core\Model\Traits\TaggeableTrait;
 use Component\Core\Model\Traits\TimestampableTrait;
 use Component\Core\Model\Traits\TraceableTrait;
 use Component\Core\Model\Traits\UploadableTrait;
-use AppBundle\Model\UserInterface;
-use AppBundle\Util\RandomStringGenerator;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class File.
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FileRepository")
- * @ORM\Table(name="file")
  * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback", appendNumber=true)
  */
 class File implements FileInterface
@@ -44,9 +40,9 @@ class File implements FileInterface
 
     use ShareableTrait;
 
-    use TimestampableTrait;
-
     use TaggeableTrait;
+
+    use TimestampableTrait;
 
     use TraceableTrait;
 
@@ -54,80 +50,35 @@ class File implements FileInterface
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      */
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=127, unique=true)
      * @Gedmo\Slug(fields={"name"}, unique=true)
      */
     protected $slug;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=256)
      */
     protected $scanStatus;
 
     /**
      * @var FolderInterface
-     *
-     * @ORM\ManyToOne(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", inversedBy="files")
-     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $folder;
-
-    /**
-     * @var UserInterface
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Model\UserInterface", inversedBy="files")
-     * @ORM\JoinColumn(nullable=true)
-     * @Gedmo\Blameable(on="create")
-     */
-    protected $owner;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\UserInterface", inversedBy="sharedFiles")
-     * @ORM\JoinTable(name="file_shared_user",
-     *      joinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
-     */
-    protected $sharedWithUsers;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\TagInterface", inversedBy="files")
-     * @ORM\JoinTable(name="file_tags",
-     *      joinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
-     * )
-     */
-    protected $tags;
 
     /**
      * File constructor.

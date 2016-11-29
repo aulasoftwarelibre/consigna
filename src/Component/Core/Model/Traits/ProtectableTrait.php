@@ -17,15 +17,11 @@ trait ProtectableTrait
      * Encrypted password. Must be persisted.
      *
      * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      */
     private $salt;
 

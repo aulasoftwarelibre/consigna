@@ -17,6 +17,7 @@
     <services>
 
         <service id="consigna.extension.size" class="AppBundle\Twig\TwigSizeExtension">
+            <argument type="service" id="consigna.repository.file"/>
             <tag name="twig.extension"/>
         </service>
 

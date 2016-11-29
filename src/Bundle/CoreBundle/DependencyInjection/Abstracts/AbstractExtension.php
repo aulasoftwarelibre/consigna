@@ -40,6 +40,22 @@ abstract class AbstractExtension extends Extension
 
     abstract protected function getConfigFilesLocation();
 
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        $configuration = $this->getConfigurationInstance();
+
+        if ($configuration) {
+            $container->addObjectResource($configuration);
+        }
+
+        return $configuration;
+    }
+
+    protected function getConfigurationInstance()
+    {
+        return null;
+    }
+
     protected function loadFiles(array $configFiles, ContainerBuilder $container)
     {
         $loader = new Loader\XmlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));

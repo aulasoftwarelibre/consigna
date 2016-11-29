@@ -71,20 +71,7 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
-        mappings:
-            Component:
-                type: 'annotation'
-                prefix: Component\Folder\Model
-                dir: '%kernel.root_dir%/../src/Component/Folder/Model'
-                alias: FolderBundle
-                is_bundle: false
-            Organization:
-                type: 'annotation'
-                prefix: Component\Organization\Model
-                dir: '%kernel.root_dir%/../src/Component/Organization/Model'
-                alias: OrganizationBundle
-                is_bundle: false
+        auto_mapping: false
         resolve_target_entities:
             AppBundle\Model\FileInterface: AppBundle\Entity\File
             Component\Folder\Model\Interfaces\FolderInterface: Component\Folder\Model\Folder

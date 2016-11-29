@@ -15,13 +15,9 @@ use AppBundle\Model\UserInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Component\Core\Model\Traits\ToggleableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Organization.
- *
- * @ORM\Entity(repositoryClass="Component\Organization\Repository\OrganizationRepository")
- * @ORM\Table(name="organization")
  */
 class Organization implements OrganizationInterface
 {
@@ -29,30 +25,21 @@ class Organization implements OrganizationInterface
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      */
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255, unique=true)
      */
     protected $code;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Model\UserInterface", mappedBy="organization", cascade={"persist", "remove"})
      */
     protected $users;
 

@@ -12,33 +12,23 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
-use Component\Folder\Model\Interfaces\FolderInterface;
 use AppBundle\Model\TagInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Tag.
- *
- * @ORM\Table(name="tag")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TagRepository")
+ * Class Tag.
  */
 class Tag implements TagInterface
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=50)
      * @Assert\Length(min="1", max="50")
      * @Assert\NotBlank()
      */
@@ -46,14 +36,12 @@ class Tag implements TagInterface
 
     /**
      * @var Tag
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="tags")
      * @Assert\Valid()
      */
     private $files;
 
     /**
      * @var Tag
-     * @ORM\ManyToMany(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", mappedBy="tags")
      * @Assert\Valid()
      */
     private $folders;

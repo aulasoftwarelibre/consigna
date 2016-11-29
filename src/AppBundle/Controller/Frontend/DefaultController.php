@@ -76,18 +76,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function consignaStatisticsAction()
-    {
-        $statistics = $this->get('consigna.repository.file')->sizeAndNumOfFiles();
-
-        return $this->render('frontend/Default/statistics.html.twig',
-            ['statistics' => $statistics]
-        );
-    }
-
-    /**
      * Creates a form to delete a entity.
      *
      * @return \Symfony\Component\Form\Form The form

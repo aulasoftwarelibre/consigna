@@ -18,15 +18,11 @@ trait ShareableTrait
 {
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      */
     protected $sharedCode;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\UserInterface")
      */
     protected $sharedWithUsers;
 

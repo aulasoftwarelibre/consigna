@@ -36,13 +36,13 @@ class FileRepository extends EntityRepository implements FileRepositoryInterface
 
     public function sizeAndNumOfFiles()
     {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('
-            SELECT SUM(c.size) total, COUNT (c) files
-            FROM AppBundle:File c
-            WHERE c.scanStatus = :status
-        ');
-        $query->setParameter('status', File::SCAN_STATUS_OK);
+        $qb = $this->createQueryBuilder('o');
+        $query = $qb
+            ->select('SUM(o.size) AS total')
+            ->addSelect('COUNT (o) AS files')
+            ->where('o.scanStatus = :status')
+            ->setParameter('status', File::SCAN_STATUS_OK)
+            ->getQuery();
 
         return $query->getOneOrNullResult(AbstractQuery::HYDRATE_ARRAY);
     }

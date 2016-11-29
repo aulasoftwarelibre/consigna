@@ -11,14 +11,33 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Repository\FileRepository;
+
 class TwigSizeExtension extends \Twig_Extension
 {
+    /**
+     * @var FileRepository
+     */
+    private $fileRepository;
+
+    public function __construct(FileRepository $fileRepository)
+    {
+        $this->fileRepository = $fileRepository;
+    }
+
     private $units = [
         'bytes',
         'KB',
         'MB',
         'GB',
     ];
+
+    public function getFunctions()
+    {
+        return [
+            new \Twig_SimpleFunction('consigna_statistics', [$this, 'getStatistics']),
+        ];
+    }
 
     /**
      * Returns a list of filters to add to the existing list.
@@ -30,6 +49,11 @@ class TwigSizeExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFilter('size', array($this, 'size')),
         ];
+    }
+
+    public function getStatistics()
+    {
+        return $this->fileRepository->sizeAndNumOfFiles();
     }
 
     public function size($bytes)

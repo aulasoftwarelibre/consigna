@@ -20,18 +20,12 @@ use Component\Core\Model\Traits\ShareableTrait;
 use Component\Core\Model\Traits\TaggeableTrait;
 use Component\Core\Model\Traits\TimestampableTrait;
 use Component\Core\Model\Traits\TraceableTrait;
-use AppBundle\Model\UserInterface;
 use AppBundle\Util\RandomStringGenerator;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Folder.
- *
- * @ORM\Entity(repositoryClass="Component\Folder\Repository\FolderRepository")
- * @ORM\Table(name="folder")
  */
 class Folder implements FolderInterface
 {
@@ -51,78 +45,43 @@ class Folder implements FolderInterface
 
     /**
      * @var int|null
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="3", max="255")
-     * @Assert\NotBlank()
      */
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=127, unique=true)
      * @Gedmo\Slug(fields={"name"}, unique=true)
      */
     protected $slug;
 
     /**
      * @var bool
-     *
-     * @ORM\Column(type="boolean")
      */
     protected $isPermanent;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Model\FileInterface", mappedBy="folder", cascade={"persist"})
      */
     protected $files;
 
     /**
-     * @var UserInterface
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Model\UserInterface", inversedBy="folders")
-     * @Gedmo\Blameable(on="create")
-     */
-    protected $owner;
-
-    /**
      * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\UserInterface", inversedBy="sharedFolders")
-     * @ORM\JoinTable(name="folder_shared_user",
-     *      joinColumns={@ORM\JoinColumn(name="folder_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
      */
     protected $sharedWithUsers;
 
     /**
      * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\TagInterface", inversedBy="folders")
-     * @ORM\JoinTable(name="folder_tags",
-     *      joinColumns={@ORM\JoinColumn(name="folder_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
-     * )
      */
     protected $tags;
 

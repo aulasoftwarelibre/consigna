@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\User" repository-class="AppBundle\Repository\UserRepository" table="fos_user">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <one-to-many target-entity="AppBundle\Entity\File" mapped-by="owner" field="files">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many target-entity="Component\Folder\Model\Folder" mapped-by="owner" field="folders">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one target-entity="Component\Organization\Model\Organization"  inversed-by="users" field="organization">
+            <join-column nullable="false"/>
+        </many-to-one>
+
+        <many-to-many target-entity="AppBundle\Entity\File" field="sharedFiles" mapped-by="sharedWithUsers">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </many-to-many>
+
+        <many-to-many target-entity="Component\Folder\Model\Folder" field="sharedFolders" mapped-by="sharedWithUsers">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </many-to-many>
+
+        <many-to-many target-entity="AppBundle\Entity\Group" field="groups">
+            <join-table name="fos_user_group">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="group_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>

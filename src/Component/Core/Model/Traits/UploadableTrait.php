@@ -11,7 +11,6 @@
 
 namespace Component\Core\Model\Traits;
 
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 trait UploadableTrait
@@ -24,7 +23,6 @@ trait UploadableTrait
     /**
      * @var string
      *
-     * @ORM\Column(name="mime_type", type="string")
      * @Gedmo\UploadableFileMimeType
      */
     private $mimeType;
@@ -32,7 +30,6 @@ trait UploadableTrait
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255)
      * @Gedmo\UploadableFilePath
      */
     private $path;
@@ -40,7 +37,6 @@ trait UploadableTrait
     /**
      * @var int
      *
-     * @ORM\Column(name="size", type="decimal")
      * @Gedmo\UploadableFileSize
      */
     private $size;
