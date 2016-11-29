@@ -57,7 +57,7 @@
         <service id="consigna.factory.organization" class="Component\Organization\Factory\OrganizationFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">
-                    <argument>AppBundle\Entity\Organization</argument>
+                    <argument>Component\Organization\Model\Organization</argument>
                 </service>
             </argument>
         </service>
