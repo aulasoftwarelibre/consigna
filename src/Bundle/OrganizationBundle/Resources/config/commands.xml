@@ -14,8 +14,6 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <!-- commands -->
-
         <service id="consigna.organization.command" class="Component\Organization\Command\Abstracts\AbstractOrganizationCommand" abstract="true">
             <argument type="service" id="consigna.manager.organization"/>
             <argument type="service" id="consigna.repository.organization"/>
@@ -36,44 +34,6 @@
 
         <service id="consigna.organization.command.update" class="Component\Organization\Command\OrganizationUpdateCommand" parent="consigna.organization.command">
             <tag name="console.command"/>
-        </service>
-
-        <!-- directors -->
-
-        <service id="consigna.director.organization" class="Component\Core\Services\ObjectDirector">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="consigna.repository.organization"/>
-            <argument type="service" id="consigna.factory.organization"/>
-        </service>
-
-        <!-- event dispatcher -->
-
-        <service id="consigna.event_dispatcher.organization" class="Component\Organization\EventDispatcher\OrganizationEventDispatcher">
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
-        <!-- factories -->
-
-        <service id="consigna.factory.organization" class="Component\Organization\Factory\OrganizationFactory">
-            <argument type="service">
-                <service class="Component\Core\Factory\Factory">
-                    <argument>Component\Organization\Model\Organization</argument>
-                </service>
-            </argument>
-        </service>
-
-        <!-- repositories -->
-
-        <service id="consigna.repository.organization" class="Component\Organization\Repository\OrganizationRepository">
-            <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
-            <argument>Component\Organization\Model\Organization</argument>
-        </service>
-
-        <!-- services -->
-
-        <service id="consigna.manager.organization" class="Component\Organization\Services\OrganizationManager">
-            <argument type="service" id="consigna.director.organization"/>
-            <argument type="service" id="consigna.event_dispatcher.organization"/>
         </service>
     </services>
 </container>

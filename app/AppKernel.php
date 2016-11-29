@@ -33,6 +33,8 @@ class AppKernel extends Kernel
 
             new AppBundle\AppBundle(),
             new Uco\Bundle\UserBundle\UcoUserBundle(),
+            new Bundle\CoreBundle\ConsignaCoreBundle(),
+            new Bundle\OrganizationBundle\ConsignaOrganizationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
