@@ -9,8 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Repository;
+namespace Component\Folder;
 
-interface FolderRepositoryInterface extends RepositoryInterface
+final class ConsignaFolderEvents
 {
+    const FOLDER_CREATED = 'consigna.folder.created';
+
+    const FOLDER_PREDELETE = 'consigna.folder.predelete';
+
+    const FOLDER_DELETED = 'consigna.folder.delete';
 }

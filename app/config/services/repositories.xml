@@ -21,11 +21,6 @@
             <argument>AppBundle\Entity\File</argument>
         </service>
 
-        <service id="consigna.repository.folder" class="AppBundle\Repository\FolderRepository">
-            <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
-            <argument>AppBundle\Entity\Folder</argument>
-        </service>
-
         <service id="consigna.repository.tag" class="AppBundle\Repository\TagRepository">
             <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
             <argument>AppBundle\Entity\Tag</argument>

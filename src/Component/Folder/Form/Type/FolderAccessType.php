@@ -1,23 +1,25 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: jamartinez
- * Date: 19/03/15
- * Time: 12:58.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace AppBundle\Form\Type;
+namespace Component\Folder\Form\Type;
 
-use AppBundle\Entity\Folder;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class AccessFolderType extends AbstractType
+class FolderAccessType extends AbstractType
 {
     /**
      * @var EncoderFactoryInterface
@@ -47,7 +49,7 @@ class AccessFolderType extends AbstractType
 
     public function validate($plainPassword, ExecutionContextInterface $context)
     {
-        /** @var Folder $folder */
+        /** @var FolderInterface $folder */
         $folder = $context->getRoot()->getData();
         $encoder = $this->encoderFactory->getEncoder($folder);
 
@@ -60,6 +62,6 @@ class AccessFolderType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'consigna_folder';
+        return 'consigna_folder_access';
     }
 }

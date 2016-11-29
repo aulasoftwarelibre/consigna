@@ -13,7 +13,7 @@
 namespace AppBundle\Security\Voter;
 
 use AppBundle\Entity\User;
-use AppBundle\Model\FolderInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use AppBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

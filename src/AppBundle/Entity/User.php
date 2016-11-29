@@ -12,7 +12,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
-use AppBundle\Model\FolderInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 use AppBundle\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -36,7 +36,7 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @var OrganizationInterface|null
-     * @ORM\ManyToOne(targetEntity="Components\Organization\Model\Interfaces\OrganizationInterface", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="Component\Organization\Model\Interfaces\OrganizationInterface", inversedBy="users")
      */
     protected $organization;
 
@@ -59,7 +59,7 @@ class User extends BaseUser implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Model\FolderInterface", mappedBy="owner", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", mappedBy="owner", cascade={"persist", "remove"})
      */
     protected $folders;
 
@@ -73,7 +73,7 @@ class User extends BaseUser implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FolderInterface", mappedBy="sharedWithUsers", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", mappedBy="sharedWithUsers", cascade={"persist", "remove"})
      */
     protected $sharedFolders;
 

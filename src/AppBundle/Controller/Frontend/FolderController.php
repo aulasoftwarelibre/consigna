@@ -10,15 +10,15 @@
 namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Controller\Controller;
-use AppBundle\Entity\Folder;
+use Component\Folder\Model\Folder;
 use AppBundle\Entity\User;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\FolderEvent;
 use AppBundle\Event\UserAccessSharedEvent;
-use AppBundle\Form\Type\AccessFolderAnonType;
-use AppBundle\Form\Type\AccessFolderType;
-use AppBundle\Form\Type\CreateFolderType;
-use AppBundle\Form\Type\EditFolderType;
+use Component\Folder\Form\Type\FolderAnonAccessType;
+use Component\Folder\Form\Type\FolderAccessType;
+use Component\Folder\Form\Type\FolderCreateType;
+use Component\Folder\Form\Type\FolderEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -108,7 +108,7 @@ class FolderController extends Controller
      */
     public function newAction(Request $request)
     {
-        $folder = new Folder();
+        $folder = $this->get('consigna.factory.folder')->createNew();
         $form = $this->createFolderForm($folder);
         $form->handleRequest($request);
 
@@ -137,7 +137,7 @@ class FolderController extends Controller
      */
     public function shareAction(Folder $folder, Request $request)
     {
-        $form = $this->createForm(EditFolderType::class, $folder);
+        $form = $this->createForm(FolderEditType::class, $folder);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -191,7 +191,7 @@ class FolderController extends Controller
 
     private function createFolderForm($folder)
     {
-        return $this->createForm(CreateFolderType::class, $folder);
+        return $this->createForm(FolderCreateType::class, $folder);
     }
 
     /**
@@ -202,9 +202,9 @@ class FolderController extends Controller
     private function createAccessFolderForm($folder)
     {
         if ($this->getUser() instanceof User) {
-            return $this->createForm(AccessFolderType::class, $folder);
+            return $this->createForm(FolderAccessType::class, $folder);
         } else {
-            return $this->createForm(AccessFolderAnonType::class, $folder);
+            return $this->createForm(FolderAnonAccessType::class, $folder);
         }
     }
 }

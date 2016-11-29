@@ -9,7 +9,7 @@
 
 namespace AppBundle\Event;
 
-use AppBundle\Entity\Folder;
+use Component\Folder\Model\Folder;
 use Symfony\Component\EventDispatcher\Event;
 
 class FolderEvent extends Event

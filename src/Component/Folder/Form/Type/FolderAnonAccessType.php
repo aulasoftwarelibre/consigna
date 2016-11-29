@@ -1,19 +1,21 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: jamartinez
- * Date: 19/03/15
- * Time: 12:58.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace AppBundle\Form\Type;
+namespace Component\Folder\Form\Type;
 
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class AccessFolderAnonType extends AccessFolderType
+class FolderAnonAccessType extends FolderAccessType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -39,6 +41,6 @@ class AccessFolderAnonType extends AccessFolderType
 
     public function getBlockPrefix()
     {
-        return 'consigna_folder_anon';
+        return 'consigna_folder_anon_access';
     }
 }

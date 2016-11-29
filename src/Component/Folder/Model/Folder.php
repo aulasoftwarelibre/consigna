@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Entity;
+namespace Component\Folder\Model;
 
 use Component\Core\Model\Traits\ExpirableTrait;
 use AppBundle\Model\FileInterface;
-use AppBundle\Model\FolderInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Core\Model\Traits\OwneableTrait;
 use Component\Core\Model\Traits\ProtectableTrait;
 use Component\Core\Model\Traits\ShareableTrait;
@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Folder.
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FolderRepository")
+ * @ORM\Entity(repositoryClass="Component\Folder\Repository\FolderRepository")
  * @ORM\Table(name="folder")
  */
 class Folder implements FolderInterface

@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Repository;
+namespace Component\Folder\Repository;
 
-use AppBundle\Entity\Folder;
-use AppBundle\Entity\User;
+use AppBundle\Model\UserInterface;
+use AppBundle\Repository\EntityRepository;
+use Component\Folder\Repository\Interfaces\FolderRepositoryInterface;
 
 class FolderRepository extends EntityRepository implements FolderRepositoryInterface
 {
@@ -20,7 +21,7 @@ class FolderRepository extends EntityRepository implements FolderRepositoryInter
     {
         $qb = $this->_em->createQueryBuilder();
         $query = $qb
-            ->delete('AppBundle:Folder', 'folder')
+            ->delete('FolderBundle:Folder', 'folder')
             ->where('folder.expiresAt < :now')
             ->andWhere('folder.isPermanent = :false')
             ->setParameter('now', new \DateTime())
@@ -52,14 +53,14 @@ class FolderRepository extends EntityRepository implements FolderRepositoryInter
     }
 
     /**
-     * @param User|null $owner
-     * @param User|null $shared
-     * @param null      $search
-     * @param array     $orderBy
+     * @param UserInterface|null $owner
+     * @param UserInterface|null $shared
+     * @param null               $search
+     * @param array              $orderBy
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    protected function getQueryActive(User $owner = null, User $shared = null, $search = null, array $orderBy = ['folder.name', 'ASC'])
+    protected function getQueryActive(UserInterface $owner = null, UserInterface $shared = null, $search = null, array $orderBy = ['folder.name', 'ASC'])
     {
         $qb = $this->createQueryBuilder('folder');
         $query = $qb->leftJoin('folder.tags', 'tags')

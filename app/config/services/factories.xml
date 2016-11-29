@@ -24,14 +24,6 @@
             </argument>
         </service>
 
-        <service id="consigna.factory.folder" class="AppBundle\Factory\FolderFactory">
-            <argument type="service">
-                <service class="Component\Core\Factory\Factory">
-                    <argument>AppBundle\Entity\Folder</argument>
-                </service>
-            </argument>
-        </service>
-
         <service id="consigna.factory.user" class="AppBundle\Factory\UserFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">

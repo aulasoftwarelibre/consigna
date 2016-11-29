@@ -5,6 +5,7 @@ imports:
     - { resource: services/ }
     - { resource: components/ }
     - { resource: "/etc/credentials/consigna.yml", ignore_errors: true }
+    - { resource: "/etc/credentials/parameters.yml", ignore_errors: true }
 
 framework:
     #esi:             ~
@@ -72,16 +73,23 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         mappings:
+            Component:
+                type: 'annotation'
+                prefix: Component\Folder\Model
+                dir: '%kernel.root_dir%/../src/Component/Folder/Model'
+                alias: FolderBundle
+                is_bundle: false
             Organization:
                 type: 'annotation'
                 prefix: Component\Organization\Model
                 dir: '%kernel.root_dir%/../src/Component/Organization/Model'
+                alias: OrganizationBundle
                 is_bundle: false
         resolve_target_entities:
             AppBundle\Model\FileInterface: AppBundle\Entity\File
-            AppBundle\Model\FolderInterface: AppBundle\Entity\Folder
+            Component\Folder\Model\Interfaces\FolderInterface: Component\Folder\Model\Folder
             AppBundle\Model\GroupInterface: AppBundle\Entity\Group
-            Components\Organization\Model\Interfaces\OrganizationInterface: Component\Organization\Model\Organization
+            Component\Organization\Model\Interfaces\OrganizationInterface: Component\Organization\Model\Organization
             AppBundle\Model\UserInterface: AppBundle\Entity\User
             AppBundle\Model\TagInterface: AppBundle\Entity\Tag
 

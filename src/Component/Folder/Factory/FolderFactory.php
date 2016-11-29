@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Factory;
+namespace Component\Folder\Factory;
 
-use AppBundle\Model\FolderInterface;
+use Component\Folder\Factory\Interfaces\FolderFactoryInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Core\Factory\FactoryInterface;
 
 class FolderFactory implements FolderFactoryInterface

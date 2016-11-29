@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\Folder\Model\Interfaces;
 
+use AppBundle\Model\FileInterface;
 use Component\Core\Model\Interfaces\ExpirableInterface;
 use Component\Core\Model\Interfaces\OwnableInterface;
 use Component\Core\Model\Interfaces\ProtectableInterface;

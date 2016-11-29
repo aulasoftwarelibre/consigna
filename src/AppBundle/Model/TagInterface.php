@@ -12,6 +12,7 @@
 namespace AppBundle\Model;
 
 use Component\Core\Model\Interfaces\ResourceInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 
 interface TagInterface extends ResourceInterface
 {

@@ -13,7 +13,7 @@ use AppBundle\Doctrine\Extensions\UploadedFileInfo;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\FileEvent;
 use AppBundle\Model\FileInterface;
-use AppBundle\Model\FolderInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Oneup\UploaderBundle\Event\PostUploadEvent;
 use Oneup\UploaderBundle\Event\PreUploadEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;

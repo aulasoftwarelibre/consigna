@@ -13,7 +13,7 @@ namespace AppBundle\Entity;
 
 use Component\Core\Model\Traits\ExpirableTrait;
 use AppBundle\Model\FileInterface;
-use AppBundle\Model\FolderInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Core\Model\Traits\OwneableTrait;
 use Component\Core\Model\Traits\ProtectableTrait;
 use Component\Core\Model\Traits\ShareableTrait;
@@ -93,7 +93,7 @@ class File implements FileInterface
     /**
      * @var FolderInterface
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Model\FolderInterface", inversedBy="files")
+     * @ORM\ManyToOne(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", inversedBy="files")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $folder;

@@ -12,7 +12,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\FileInterface;
-use AppBundle\Model\FolderInterface;
+use Component\Folder\Model\Interfaces\FolderInterface;
 use AppBundle\Model\TagInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -53,7 +53,7 @@ class Tag implements TagInterface
 
     /**
      * @var Tag
-     * @ORM\ManyToMany(targetEntity="AppBundle\Model\FolderInterface", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Component\Folder\Model\Interfaces\FolderInterface", mappedBy="tags")
      * @Assert\Valid()
      */
     private $folders;

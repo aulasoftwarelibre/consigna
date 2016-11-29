@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Factory;
+namespace Component\Folder\Factory\Interfaces;
 
 use Component\Core\Factory\FactoryInterface;
 
