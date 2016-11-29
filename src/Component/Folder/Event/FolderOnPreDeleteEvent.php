@@ -11,8 +11,8 @@
 
 namespace Component\Folder\Event;
 
-use Component\Folder\Event\Abstracts\FolderEvent;
+use Component\Folder\Event\Abstracts\AbstractFolderEvent;
 
-class FolderOnPreDeleteEvent extends FolderEvent
+class FolderOnPreDeleteEvent extends AbstractFolderEvent
 {
 }

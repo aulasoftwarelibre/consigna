@@ -11,8 +11,8 @@
 
 namespace Component\Organization\Event;
 
-use Component\Organization\Event\Abstracts\OrganizationEvent;
+use Component\Organization\Event\Abstracts\AbstractOrganizationEvent;
 
-final class OrganizationOnEnabledEvent extends OrganizationEvent
+final class OrganizationOnEnabledEvent extends AbstractOrganizationEvent
 {
 }

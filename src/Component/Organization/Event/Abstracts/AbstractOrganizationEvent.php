@@ -14,7 +14,7 @@ namespace Component\Organization\Event\Abstracts;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Symfony\Component\EventDispatcher\Event;
 
-abstract class OrganizationEvent extends Event
+abstract class AbstractOrganizationEvent extends Event
 {
     /**
      * @var OrganizationInterface

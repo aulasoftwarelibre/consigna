@@ -14,7 +14,7 @@ namespace Component\Folder\Event\Abstracts;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Symfony\Component\EventDispatcher\Event;
 
-class FolderEvent extends Event
+class AbstractFolderEvent extends Event
 {
     /**
      * @var FolderInterface
