@@ -12,7 +12,7 @@ namespace Uco\Bundle\UserBundle\Security;
 
 use Component\Organization\Model\Organization;
 use AppBundle\Entity\User;
-use AppBundle\Exception\OrganizationNotFound;
+use Component\Organization\Exception\OrganizationNotFound;
 use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Sgomez\Bundle\SSPGuardBundle\Security\Authenticator\SSPGuardAuthenticator;
