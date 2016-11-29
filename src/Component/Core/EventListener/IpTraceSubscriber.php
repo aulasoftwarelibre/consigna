@@ -1,13 +1,15 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 07/08/15
- * Time: 03:17.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace AppBundle\EventListener\Doctrine;
+namespace Component\Core\EventListener;
 
 use Gedmo\IpTraceable\IpTraceableListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

@@ -14,47 +14,31 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-<services>
+    <services>
+        <!-- listeners -->
 
-    <!-- listeners -->
+        <service id="gedmo.listener.blameable" class="Gedmo\Blameable\BlameableListener">
+            <tag name="doctrine.event_subscriber" connection="default"/>
+        </service>
 
-    <service id="gedmo.listener.blameable" class="Gedmo\Blameable\BlameableListener">
-        <tag name="doctrine.event_subscriber" connection="default"/>
-    </service>
+        <service id="gedmo.listener.iptraceable" class="Gedmo\IpTraceable\IpTraceableListener">
+            <tag name="doctrine.event_subscriber" connection="default"/>
+        </service>
 
-    <service id="gedmo.listener.iptraceable" class="Gedmo\IpTraceable\IpTraceableListener">
-        <tag name="doctrine.event_subscriber" connection="default"/>
-    </service>
+        <service id="gedmo.listener.sluggable" class="Gedmo\Sluggable\SluggableListener">
+            <tag name="doctrine.event_subscriber" connection="default"/>
+        </service>
 
-    <service id="gedmo.listener.sluggable" class="Gedmo\Sluggable\SluggableListener">
-        <tag name="doctrine.event_subscriber" connection="default"/>
-    </service>
+        <service id="gedmo.listener.timestampable" class="Gedmo\Timestampable\TimestampableListener">
+            <tag name="doctrine.event_subscriber" connection="default"/>
+        </service>
 
-    <service id="gedmo.listener.timestampable" class="Gedmo\Timestampable\TimestampableListener">
-        <tag name="doctrine.event_subscriber" connection="default"/>
-    </service>
+        <service id="gedmo.listener.uploadable" class="Gedmo\Uploadable\UploadableListener">
+            <tag name="doctrine.event_subscriber" connection="default"/>
+            <call method="setDefaultPath">
+                <argument>%kernel.root_dir%/../private</argument>
+            </call>
+        </service>
 
-    <service id="gedmo.listener.uploadable" class="Gedmo\Uploadable\UploadableListener">
-        <tag name="doctrine.event_subscriber" connection="default"/>
-        <call method="setDefaultPath">
-            <argument>%kernel.root_dir%/../private</argument>
-        </call>
-    </service>
-
-
-    <!-- subscribers -->
-
-    <service id="consigna.listener.iptrace" class="AppBundle\EventListener\Doctrine\IpTraceSubscriber">
-        <argument type="service" id="gedmo.listener.iptraceable"/>
-        <argument type="service" id="request_stack"/>
-        <tag name="kernel.event_subscriber"/>
-    </service>
-
-    <service id="consigna.listener.usertrace" class="AppBundle\EventListener\Doctrine\UserTraceSubscriber">
-        <argument type="service" id="gedmo.listener.blameable"/>
-        <argument type="service" id="security.token_storage"/>
-        <argument type="service" id="security.authorization_checker"/>
-        <tag name="kernel.event_subscriber"/>
-    </service>
-</services>
+    </services>
 </container>

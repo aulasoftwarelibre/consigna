@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- event listeners -->
+
+        <service id="consigna.listener.iptrace" class="Component\Core\EventListener\IpTraceSubscriber">
+            <argument type="service" id="gedmo.listener.iptraceable"/>
+            <argument type="service" id="request_stack"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.usertrace" class="Component\Core\EventListener\UserTraceSubscriber">
+            <argument type="service" id="gedmo.listener.blameable"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="security.authorization_checker"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.expirable" class="Component\Core\EventListener\Doctrine\ExpirableListener">
+            <argument>%expire_date%</argument>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.file_interface" class="Component\Core\EventListener\Doctrine\FileInterfaceListener">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+    </services>
+</container>

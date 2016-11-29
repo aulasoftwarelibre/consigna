@@ -9,54 +9,51 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Command;
+namespace Component\Organization\Command;
 
+use Component\Organization\Command\Abstracts\AbstractOrganizationCommand;
+use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Component\Organization\Model\Organization;
 use Goutte\Client;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
-class ScrappingOrganizationsCommand extends ContainerAwareCommand
+class OrganizationUpdateCommand extends AbstractOrganizationCommand
 {
     const URL = 'https://www.rediris.es/sir/idps.php';
 
     protected function configure()
     {
         $this
-            ->setName('consigna:database:initialize')
+            ->setName('consigna:organization:update')
         ;
     }
 
     public function getDescription()
     {
-        return $this->getContainer()->get('translator')->trans('action.database_init', [], 'command');
+        return $this->translator->trans('action.database_init', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $translator = $this->getContainer()->get('translator');
-
-        $organizationDirector = $this->getContainer()->get('consigna.director.organization');
-        $organizationManager = $this->getContainer()->get('consigna.manager.organization');
-
-        $output->writeln($translator->trans('reading_data', [], 'command'));
+        $output->writeln($this->translator->trans('reading_data', [], 'command'));
         $organizations = $this->scrapping();
 
         /** @var Organization $organization */
         foreach ($organizations as $organization) {
             if (isset($organization['code'])) {
-                if ($found = $organizationDirector->findOneBy(['code' => $organization['code']])) {
-                    $organizationManager->updateOrganization($found, $organization['name']);
+                $found = $this->organizationRepository->findOneBy(['code' => $organization['code']]);
+                if ($found instanceof OrganizationInterface) {
+                    $this->organizationManager->updateOrganization($found, $organization['name']);
                 } else {
-                    $organizationManager->createOrganization($organization['name'], $organization['code']);
+                    $this->organizationManager->createOrganization($organization['name'], $organization['code']);
                 }
             }
         }
 
         $output->writeln(
-            $translator->trans('action.database_success', [], 'command')
+            $this->translator->trans('action.database_success', [], 'command')
         );
     }
 
@@ -81,7 +78,7 @@ class ScrappingOrganizationsCommand extends ContainerAwareCommand
             });
 
             if (empty($metadata['sHO'])) {
-                return;
+                return null;
             }
 
             $organization = [

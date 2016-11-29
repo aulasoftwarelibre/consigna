@@ -1,13 +1,15 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: juanan
- * Date: 8/04/15
- * Time: 13:20.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace AppBundle\EventListener\Doctrine;
+namespace Component\Core\EventListener\Doctrine;
 
 use Component\Core\Model\Interfaces\ProtectableInterface;
 use Doctrine\Common\EventSubscriber;
@@ -35,10 +37,10 @@ class FileInterfaceListener implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::prePersist,
             Events::preUpdate,
-        );
+        ];
     }
 
     public function prePersist(LifecycleEventArgs $args)

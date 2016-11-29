@@ -24,21 +24,12 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="consigna.listener.expirable" class="AppBundle\EventListener\Doctrine\ExpirableListener">
-            <argument>%expire_date%</argument>
-            <tag name="doctrine.event_listener" event="prePersist"/>
-        </service>
-
         <service id="consigna.listener.user_access_shared" class="AppBundle\EventListener\Security\UserAccessSharedListener">
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="session"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="consigna.listener.file_interface" class="AppBundle\EventListener\Doctrine\FileInterfaceListener">
-            <argument type="service" id="security.encoder_factory"/>
-            <tag name="doctrine.event_subscriber"/>
-        </service>
 
         <service id="consigna.listener.virus" class="AppBundle\EventListener\VirusConsignaListener">
             <argument type="service" id="logger"/>
@@ -80,24 +71,6 @@
         <service id="consigna.namer.real" class="AppBundle\Uploader\Namer\RealNamer">
         </service>
 
-        <!-- component -->
-
-        <!-- organization -->
-
-        <service id="consigna.director.organization" class="Component\Core\Services\ObjectDirector">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="consigna.repository.organization"/>
-            <argument type="service" id="consigna.factory.organization"/>
-        </service>
-
-        <service id="consigna.event_dispatcher.organization" class="Component\Organization\EventDispatcher\OrganizationEventDispatcher">
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
-        <service id="consigna.manager.organization" class="Component\Organization\Services\OrganizationManager">
-            <argument type="service" id="consigna.director.organization"/>
-            <argument type="service" id="consigna.event_dispatcher.organization"/>
-        </service>
 
     </services>
 

@@ -9,13 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Command;
+namespace Component\Organization\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Component\Organization\Command\Abstracts\AbstractOrganizationCommand;
+use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class EnableOrganizationCommand extends ContainerAwareCommand
+class OrganizationEnableCommand extends AbstractOrganizationCommand
 {
     protected function configure()
     {
@@ -26,32 +27,27 @@ class EnableOrganizationCommand extends ContainerAwareCommand
 
     public function getDescription()
     {
-        $translator = $this->getContainer()->get('translator');
-
-        return $translator->trans('action.organization_enable', [], 'command');
+        return $this->translator->trans('action.organization_enable', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $translator = $this->getContainer()->get('translator');
-        $repository = $this->getContainer()->get('consigna.repository.organization');
-
-        $organization = $repository->findOneBy([
+        $organization = $this->organizationRepository->findOneBy([
             'code' => $input->getArgument('code'),
         ]);
 
-        if (!$organization) {
+        if (!($organization instanceof OrganizationInterface)) {
             $output->writeln(
-                $translator->trans('action.organization_missing', [], 'command')
+                $this->translator->trans('action.organization_missing', [], 'command')
             );
 
             return 1;
         }
 
-        $this->getContainer()->get('consigna.manager.organization')->enableOrganization($organization);
+        $this->organizationManager->enableOrganization($organization);
 
         $output->writeln(
-            $translator->trans('action.organization_enable_success', ['%name%' => $organization], 'command')
+            $this->translator->trans('action.organization_enable_success', ['%name%' => $organization], 'command')
         );
     }
 }

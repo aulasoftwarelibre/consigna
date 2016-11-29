@@ -32,14 +32,6 @@
             </argument>
         </service>
 
-        <service id="consigna.factory.organization" class="Component\Organization\Factory\OrganizationFactory">
-            <argument type="service">
-                <service class="Component\Core\Factory\Factory">
-                    <argument>AppBundle\Entity\Organization</argument>
-                </service>
-            </argument>
-        </service>
-
         <service id="consigna.factory.user" class="AppBundle\Factory\UserFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">
