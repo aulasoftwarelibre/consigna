@@ -23,6 +23,7 @@ use Component\Core\Model\Traits\TraceableTrait;
 use Component\Core\Model\Traits\UploadableTrait;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
