@@ -12,30 +12,51 @@
 namespace Bundle\OrganizationBundle\DependencyInjection;
 
 use Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
+use Mmoreram\BaseBundle\DependencyInjection\BaseConfiguration;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class ConsignaOrganizationExtension extends AbstractExtension
 {
     const EXTENSION_NAME = 'consigna_organization';
 
-    protected function getConfigFiles($config)
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlias()
+    {
+        return static::EXTENSION_NAME;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFiles(array $config): array
     {
         return [
             'commands',
             'directors',
             'eventDispatcher',
             'factories',
-            'repositories',
             'services',
         ];
     }
 
-    protected function getConfigFilesLocation()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFilesLocation(): string
     {
         return __DIR__.'/../Resources/config';
     }
 
-    public function getAlias()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigurationInstance(): ? ConfigurationInterface
     {
-        return static::EXTENSION_NAME;
+        return new BaseConfiguration(
+            static::EXTENSION_NAME,
+            $this->mappingBagProvider
+        );
     }
 }

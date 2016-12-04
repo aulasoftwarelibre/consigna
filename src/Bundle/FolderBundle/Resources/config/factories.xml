@@ -15,7 +15,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna.factory.folder" class="Component\Folder\Factory\FolderFactory">
+        <service id="consigna_folder.factory.folder" class="Component\Folder\Factory\FolderFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">
                     <argument>Component\Folder\Model\Folder</argument>

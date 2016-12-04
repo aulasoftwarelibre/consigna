@@ -11,59 +11,96 @@
 
 namespace Bundle\CoreBundle\DependencyInjection\Abstracts;
 
+use Mmoreram\BaseBundle\DependencyInjection\BaseExtension;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-abstract class AbstractExtension extends Extension
+abstract class AbstractExtension extends BaseExtension
 {
+    /**
+     * Loads a specific configuration.
+     *
+     * @param array            $config    An array of configuration values
+     * @param ContainerBuilder $container A ContainerBuilder instance
+     *
+     * @throws \InvalidArgumentException When provided tag is not defined in this extension
+     *
+     * @api
+     */
     public function load(array $config, ContainerBuilder $container)
     {
+        $container->addObjectResource($this);
+
         $configuration = $this->getConfiguration($config, $container);
         if ($configuration instanceof ConfigurationInterface) {
             $config = $this->processConfiguration($configuration, $config);
-            // TODO: Something with this
+            $this->applyParametrizedValues($config, $container);
         }
 
         $configFiles = $this->getConfigFiles($config);
         if (!empty($configFiles)) {
             $this->loadFiles($configFiles, $container);
         }
+
+        $this->postLoad($config, $container);
     }
 
-    protected function getConfigFiles($config)
-    {
-        return [];
-    }
-
-    abstract protected function getConfigFilesLocation();
-
-    public function getConfiguration(array $config, ContainerBuilder $container)
-    {
-        $configuration = $this->getConfigurationInstance();
-
-        if ($configuration) {
-            $container->addObjectResource($configuration);
+    /**
+     * Apply parametrized values.
+     *
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    private function applyParametrizedValues(
+        array $config,
+        ContainerBuilder $container
+    ) {
+        $parametrizationValues = $this->getParametrizationValues($config);
+        if (is_array($parametrizationValues)) {
+            $container
+                ->getParameterBag()
+                ->add($parametrizationValues);
         }
-
-        return $configuration;
     }
 
-    protected function getConfigurationInstance()
+    /**
+     * Process configuration.
+     *
+     * @param ConfigurationInterface $configuration Configuration object
+     * @param array                  $configs       Configuration stack
+     *
+     * @return array configuration processed
+     */
+    private function processConfiguration(ConfigurationInterface $configuration, array $configs)
     {
-        return null;
+        $processor = new Processor();
+
+        return $processor->processConfiguration($configuration, $configs);
     }
 
-    protected function loadFiles(array $configFiles, ContainerBuilder $container)
+    /**
+     * Load multiple files.
+     *
+     * @param array            $configFiles Config files
+     * @param ContainerBuilder $container   Container
+     */
+    private function loadFiles(array $configFiles, ContainerBuilder $container)
     {
-        $loader = new Loader\XmlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
+        $loader = new XmlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
 
         foreach ($configFiles as $configFile) {
+            if (is_array($configFile)) {
+                if (isset($configFile[1]) && false === $configFile[1]) {
+                    continue;
+                }
+
+                $configFile = $configFile[0];
+            }
+
             $loader->load($configFile.'.xml');
         }
-
-        return $this;
     }
 }

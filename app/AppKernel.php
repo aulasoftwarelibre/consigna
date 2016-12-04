@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Mmoreram\BaseBundle\BaseBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
             new Sgomez\Bundle\SSPGuardBundle\SSPGuardBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),

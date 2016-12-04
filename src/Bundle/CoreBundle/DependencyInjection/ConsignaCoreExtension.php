@@ -13,20 +13,29 @@ class ConsignaCoreExtension extends AbstractExtension
 {
     const EXTENSION_NAME = 'consigna_core';
 
-    protected function getConfigFiles($config)
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlias()
+    {
+        return static::EXTENSION_NAME;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFiles(array $config): array
     {
         return [
             'eventDispatcher',
         ];
     }
 
-    protected function getConfigFilesLocation()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFilesLocation(): string
     {
         return __DIR__.'/../Resources/config';
-    }
-
-    public function getAlias()
-    {
-        return static::EXTENSION_NAME;
     }
 }

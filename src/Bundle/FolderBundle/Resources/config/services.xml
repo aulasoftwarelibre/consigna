@@ -15,9 +15,12 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna.manager.folder" class="Component\Folder\Services\FolderManager">
-            <argument type="service" id="consigna.director.folder"/>
-            <argument type="service" id="consigna.event_dispatcher.folder"/>
+        <service id="consigna_folder.manager.folder" class="Component\Folder\Services\FolderManager">
+            <argument type="service" id="consigna_folder.director.folder"/>
+            <argument type="service" id="consigna_folder.event_dispatcher.folder"/>
+        </service>
+
+        <service id="consigna.repository.folder" alias="consigna_folder.object_repository.folder">
         </service>
     </services>
 </container>

@@ -15,7 +15,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna.event_dispatcher.folder" class="Component\Folder\EventDispatcher\FolderEventDispatcher">
+        <service id="consigna_folder.event_dispatcher.folder" class="Component\Folder\EventDispatcher\FolderEventDispatcher">
             <argument type="service" id="event_dispatcher"/>
         </service>
     </services>

@@ -11,16 +11,22 @@
 
 namespace Bundle\OrganizationBundle;
 
-use Bundle\OrganizationBundle\CompilerPass\MappingCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Bundle\OrganizationBundle\CompilerPass\ConsignaOrganizationMappingBagProvider;
+use Bundle\OrganizationBundle\DependencyInjection\ConsignaOrganizationExtension;
+use Mmoreram\BaseBundle\BaseBundle;
+use Mmoreram\BaseBundle\CompilerPass\MappingCompilerPass;
 
-class ConsignaOrganizationBundle extends Bundle
+class ConsignaOrganizationBundle extends BaseBundle
 {
-    public function build(ContainerBuilder $container)
+    public function getCompilerPasses()
     {
-        parent::build($container);
+        return [
+            new MappingCompilerPass(new ConsignaOrganizationMappingBagProvider()),
+        ];
+    }
 
-        $container->addCompilerPass(new MappingCompilerPass());
+    public function getContainerExtension()
+    {
+        return new ConsignaOrganizationExtension(new ConsignaOrganizationMappingBagProvider());
     }
 }

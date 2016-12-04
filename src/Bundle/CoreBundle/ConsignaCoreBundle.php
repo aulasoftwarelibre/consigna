@@ -2,16 +2,13 @@
 
 namespace Bundle\CoreBundle;
 
-use Bundle\CoreBundle\CompilerPass\MappingCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Bundle\CoreBundle\DependencyInjection\ConsignaCoreExtension;
+use Mmoreram\BaseBundle\BaseBundle;
 
-class ConsignaCoreBundle extends Bundle
+class ConsignaCoreBundle extends BaseBundle
 {
-    public function build(ContainerBuilder $container)
+    public function getContainerExtension()
     {
-        parent::build($container);
-
-        $container->addCompilerPass(new MappingCompilerPass());
+        return new ConsignaCoreExtension();
     }
 }

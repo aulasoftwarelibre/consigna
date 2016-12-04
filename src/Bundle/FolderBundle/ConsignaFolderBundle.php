@@ -11,16 +11,22 @@
 
 namespace Bundle\FolderBundle;
 
-use Bundle\FolderBundle\CompilerPass\MappingCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Bundle\FolderBundle\CompilerPass\ConsignaFolderMappingBagProvider;
+use Bundle\FolderBundle\DependencyInjection\ConsignaFolderExtension;
+use Mmoreram\BaseBundle\BaseBundle;
+use Mmoreram\BaseBundle\CompilerPass\MappingCompilerPass;
 
-class ConsignaFolderBundle extends Bundle
+class ConsignaFolderBundle extends BaseBundle
 {
-    public function build(ContainerBuilder $container)
+    public function getCompilerPasses()
     {
-        parent::build($container);
+        return [
+            new MappingCompilerPass(new ConsignaFolderMappingBagProvider()),
+        ];
+    }
 
-        $container->addCompilerPass(new MappingCompilerPass());
+    public function getContainerExtension()
+    {
+        return new ConsignaFolderExtension(new ConsignaFolderMappingBagProvider());
     }
 }

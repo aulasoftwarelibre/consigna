@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: bundles/ }
     - { resource: services/ }
+    - { resource: '@BaseBundle/Resources/config/providers.yml' }
     - { resource: "/etc/credentials/consigna.yml", ignore_errors: true }
     - { resource: "/etc/credentials/parameters.yml", ignore_errors: true }
 
