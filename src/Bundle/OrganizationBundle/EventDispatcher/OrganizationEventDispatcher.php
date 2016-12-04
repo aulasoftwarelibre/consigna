@@ -11,11 +11,11 @@
 
 namespace Bundle\OrganizationBundle\EventDispatcher;
 
+use Bundle\CoreBundle\EventDispatcher\Abstracts\AbstractEventDispatcher;
 use Bundle\OrganizationBundle\ConsignaOrganizationEvents;
 use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Bundle\OrganizationBundle\Event\OrganizationOnDisabledEvent;
 use Bundle\OrganizationBundle\Event\OrganizationOnEnabledEvent;
-use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
 class OrganizationEventDispatcher extends AbstractEventDispatcher
 {

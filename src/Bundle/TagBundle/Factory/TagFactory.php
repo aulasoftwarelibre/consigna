@@ -11,9 +11,9 @@
 
 namespace Bundle\TagBundle\Factory;
 
+use Bundle\CoreBundle\Factory\FactoryInterface;
 use Bundle\TagBundle\Entity\Intefaces\TagInterface;
 use Bundle\TagBundle\Factory\Interfaces\TagFactoryInterface;
-use Component\Core\Factory\FactoryInterface;
 
 class TagFactory implements TagFactoryInterface
 {

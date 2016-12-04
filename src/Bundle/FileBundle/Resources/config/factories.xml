@@ -17,7 +17,7 @@
     <services>
         <service id="consigna_file.factory.file" class="Bundle\FileBundle\Factory\FileFactory">
             <argument type="service">
-                <service class="Component\Core\Factory\Factory">
+                <service class="Bundle\CoreBundle\Factory\Factory">
                     <argument>Bundle\FileBundle\Entity\File</argument>
                 </service>
             </argument>

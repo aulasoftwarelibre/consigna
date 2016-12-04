@@ -11,7 +11,7 @@
 
 namespace Bundle\TagBundle\EventDispatcher;
 
-use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
+use Bundle\CoreBundle\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
 class TagEventDispatcher extends AbstractEventDispatcher
 {

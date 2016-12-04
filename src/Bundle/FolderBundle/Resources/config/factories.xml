@@ -17,7 +17,7 @@
     <services>
         <service id="consigna_folder.factory.folder" class="Bundle\FolderBundle\Factory\FolderFactory">
             <argument type="service">
-                <service class="Component\Core\Factory\Factory">
+                <service class="Bundle\CoreBundle\Factory\Factory">
                     <argument>Bundle\FolderBundle\Entity\Folder</argument>
                 </service>
             </argument>

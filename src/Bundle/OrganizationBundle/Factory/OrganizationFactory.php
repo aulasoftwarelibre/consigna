@@ -11,9 +11,9 @@
 
 namespace Bundle\OrganizationBundle\Factory;
 
+use Bundle\CoreBundle\Factory\FactoryInterface;
 use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Bundle\OrganizationBundle\Factory\Interfaces\OrganizationFactoryInterface;
-use Component\Core\Factory\FactoryInterface;
 
 class OrganizationFactory implements OrganizationFactoryInterface
 {

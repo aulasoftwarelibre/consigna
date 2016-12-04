@@ -18,7 +18,7 @@
     <services>
         <service id="consigna_user.factory.user" class="Bundle\UserBundle\Factory\UserFactory">
             <argument type="service">
-                <service class="Component\Core\Factory\Factory">
+                <service class="Bundle\CoreBundle\Factory\Factory">
                     <argument>Bundle\UserBundle\Entity\User</argument>
                 </service>
             </argument>

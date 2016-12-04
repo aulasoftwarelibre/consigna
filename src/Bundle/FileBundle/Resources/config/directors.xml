@@ -14,7 +14,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="consigna_file.director.file" class="Component\Core\Services\ObjectDirector">
+        <service id="consigna_file.director.file" class="Bundle\CoreBundle\Services\ObjectDirector">
             <argument type="service" id="consigna_file.object_manager.file"/>
             <argument type="service" id="consigna_file.object_repository.file"/>
             <argument type="service" id="consigna_file.factory.file"/>

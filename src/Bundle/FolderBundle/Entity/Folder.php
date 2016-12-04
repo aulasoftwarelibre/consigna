@@ -12,15 +12,15 @@
 namespace Bundle\FolderBundle\Entity;
 
 use AppBundle\Util\RandomStringGenerator;
+use Bundle\CoreBundle\Model\Traits\ExpirableTrait;
+use Bundle\CoreBundle\Model\Traits\OwneableTrait;
+use Bundle\CoreBundle\Model\Traits\ProtectableTrait;
+use Bundle\CoreBundle\Model\Traits\ShareableTrait;
+use Bundle\CoreBundle\Model\Traits\TaggeableTrait;
+use Bundle\CoreBundle\Model\Traits\TimestampableTrait;
+use Bundle\CoreBundle\Model\Traits\TraceableTrait;
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
-use Component\Core\Model\Traits\ExpirableTrait;
-use Component\Core\Model\Traits\OwneableTrait;
-use Component\Core\Model\Traits\ProtectableTrait;
-use Component\Core\Model\Traits\ShareableTrait;
-use Component\Core\Model\Traits\TaggeableTrait;
-use Component\Core\Model\Traits\TimestampableTrait;
-use Component\Core\Model\Traits\TraceableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

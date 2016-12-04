@@ -11,8 +11,8 @@
 
 namespace Bundle\FileBundle\Services;
 
+use Bundle\CoreBundle\Services\ObjectDirector;
 use Bundle\FileBundle\EventDispatcher\FileEventDispatcher;
-use Component\Core\Services\ObjectDirector;
 
 class FileManager
 {

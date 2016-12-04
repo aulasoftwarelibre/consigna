@@ -11,8 +11,8 @@
 
 namespace Bundle\TagBundle\Services;
 
+use Bundle\CoreBundle\Services\ObjectDirector;
 use Bundle\TagBundle\Entity\Intefaces\TagInterface;
-use Component\Core\Services\ObjectDirector;
 
 class TagManager
 {

@@ -11,9 +11,9 @@
 
 namespace Bundle\FileBundle\Factory;
 
+use Bundle\CoreBundle\Factory\FactoryInterface;
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Bundle\FileBundle\Factory\Interfaces\FileFactoryInterface;
-use Component\Core\Factory\FactoryInterface;
 
 class FileFactory implements FileFactoryInterface
 {

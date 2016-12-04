@@ -11,15 +11,15 @@
 
 namespace Bundle\FolderBundle\Entity\Interfaces;
 
+use Bundle\CoreBundle\Model\Interfaces\ExpirableInterface;
+use Bundle\CoreBundle\Model\Interfaces\OwnableInterface;
+use Bundle\CoreBundle\Model\Interfaces\ProtectableInterface;
+use Bundle\CoreBundle\Model\Interfaces\ResourceInterface;
+use Bundle\CoreBundle\Model\Interfaces\ShareableInterface;
+use Bundle\CoreBundle\Model\Interfaces\TaggeableInterface;
+use Bundle\CoreBundle\Model\Interfaces\TimestampableInterface;
+use Bundle\CoreBundle\Model\Interfaces\TraceableInterface;
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
-use Component\Core\Model\Interfaces\ExpirableInterface;
-use Component\Core\Model\Interfaces\OwnableInterface;
-use Component\Core\Model\Interfaces\ProtectableInterface;
-use Component\Core\Model\Interfaces\ResourceInterface;
-use Component\Core\Model\Interfaces\ShareableInterface;
-use Component\Core\Model\Interfaces\TaggeableInterface;
-use Component\Core\Model\Interfaces\TimestampableInterface;
-use Component\Core\Model\Interfaces\TraceableInterface;
 
 interface FolderInterface extends
     ExpirableInterface,

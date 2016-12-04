@@ -11,9 +11,9 @@
 
 namespace Bundle\FolderBundle\Factory;
 
+use Bundle\CoreBundle\Factory\FactoryInterface;
 use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Bundle\FolderBundle\Factory\Interfaces\FolderFactoryInterface;
-use Component\Core\Factory\FactoryInterface;
 
 class FolderFactory implements FolderFactoryInterface
 {

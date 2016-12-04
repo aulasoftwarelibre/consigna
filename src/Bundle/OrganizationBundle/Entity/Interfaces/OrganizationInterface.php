@@ -11,8 +11,8 @@
 
 namespace Bundle\OrganizationBundle\Entity\Interfaces;
 
-use Component\Core\Model\Interfaces\ResourceInterface;
-use Component\Core\Model\Interfaces\ToggleableInterface;
+use Bundle\CoreBundle\Model\Interfaces\ResourceInterface;
+use Bundle\CoreBundle\Model\Interfaces\ToggleableInterface;
 
 interface OrganizationInterface extends
     ToggleableInterface,

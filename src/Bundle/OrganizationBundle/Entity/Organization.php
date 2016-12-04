@@ -11,9 +11,9 @@
 
 namespace Bundle\OrganizationBundle\Entity;
 
+use Bundle\CoreBundle\Model\Traits\ToggleableTrait;
 use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Bundle\UserBundle\Entity\Interfaces\UserInterface;
-use Component\Core\Model\Traits\ToggleableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

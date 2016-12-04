@@ -11,9 +11,9 @@
 
 namespace Bundle\FolderBundle\Services;
 
+use Bundle\CoreBundle\Services\ObjectDirector;
 use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Bundle\FolderBundle\EventDispatcher\FolderEventDispatcher;
-use Component\Core\Services\ObjectDirector;
 
 class FolderManager
 {

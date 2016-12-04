@@ -11,10 +11,10 @@
 
 namespace Bundle\UserBundle\Entity\Interfaces;
 
+use Bundle\CoreBundle\Model\Interfaces\ResourceInterface;
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
-use Component\Core\Model\Interfaces\ResourceInterface;
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 
 interface UserInterface extends

@@ -11,12 +11,12 @@
 
 namespace Bundle\FolderBundle\EventDispatcher;
 
+use Bundle\CoreBundle\EventDispatcher\Abstracts\AbstractEventDispatcher;
 use Bundle\FolderBundle\ConsignaFolderEvents;
 use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Bundle\FolderBundle\Event\FolderOnCreatedEvent;
 use Bundle\FolderBundle\Event\FolderOnDeletedEvent;
 use Bundle\FolderBundle\Event\FolderOnPreDeleteEvent;
-use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
 class FolderEventDispatcher extends AbstractEventDispatcher
 {

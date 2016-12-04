@@ -11,9 +11,9 @@
 
 namespace Bundle\OrganizationBundle\Services;
 
+use Bundle\CoreBundle\Services\ObjectDirector;
 use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Bundle\OrganizationBundle\EventDispatcher\OrganizationEventDispatcher;
-use Component\Core\Services\ObjectDirector;
 
 class OrganizationManager
 {

@@ -11,7 +11,7 @@
 
 namespace Bundle\FileBundle\EventDispatcher;
 
-use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
+use Bundle\CoreBundle\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
 class FileEventDispatcher extends AbstractEventDispatcher
 {

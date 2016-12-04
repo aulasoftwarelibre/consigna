@@ -11,7 +11,7 @@
 
 namespace Bundle\FileBundle\Factory\Interfaces;
 
-use Component\Core\Factory\FactoryInterface;
+use Bundle\CoreBundle\Factory\FactoryInterface;
 
 interface FileFactoryInterface extends FactoryInterface
 {

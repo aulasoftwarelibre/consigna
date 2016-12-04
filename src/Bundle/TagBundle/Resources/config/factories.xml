@@ -17,7 +17,7 @@
     <services>
         <service id="consigna_tag.factory.tag" class="Bundle\TagBundle\Factory\TagFactory">
             <argument type="service">
-                <service class="Component\Core\Factory\Factory">
+                <service class="Bundle\CoreBundle\Factory\Factory">
                     <argument>Bundle\TagBundle\Entity\Tag</argument>
                 </service>
             </argument>

@@ -16,7 +16,7 @@
     <services>
         <service id="consigna_organization.factory.organization" class="Bundle\OrganizationBundle\Factory\OrganizationFactory">
             <argument type="service">
-                <service class="Component\Core\Factory\Factory">
+                <service class="Bundle\CoreBundle\Factory\Factory">
                     <argument>Bundle\OrganizationBundle\Entity\Organization</argument>
                 </service>
             </argument>

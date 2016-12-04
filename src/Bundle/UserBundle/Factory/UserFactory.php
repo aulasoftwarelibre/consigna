@@ -11,10 +11,10 @@
 
 namespace Bundle\UserBundle\Factory;
 
+use Bundle\CoreBundle\Factory\FactoryInterface;
 use Bundle\OrganizationBundle\Repository\Interfaces\OrganizationRepositoryInterface;
 use Bundle\UserBundle\Entity\Interfaces\UserInterface;
 use Bundle\UserBundle\Factory\Interfaces\UserFactoryInterface;
-use Component\Core\Factory\FactoryInterface;
 
 class UserFactory implements UserFactoryInterface
 {
