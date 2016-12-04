@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Factory\Interfaces;
+namespace Bundle\OrganizationBundle;
 
-use Component\Core\Factory\FactoryInterface;
-
-interface OrganizationFactoryInterface extends FactoryInterface
+final class ConsignaOrganizationEvents
 {
+    const ORGANIZATION_ENABLED = 'consigna.organization.enabled';
+
+    const ORGANIZATION_DISABLED = 'consigna.organization.disabled';
 }

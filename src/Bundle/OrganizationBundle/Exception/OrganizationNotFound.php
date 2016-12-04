@@ -9,11 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Repository;
+namespace Bundle\OrganizationBundle\Exception;
 
-use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
-use Doctrine\ORM\EntityRepository;
-
-class OrganizationRepository extends EntityRepository implements OrganizationRepositoryInterface
+class OrganizationNotFound extends \InvalidArgumentException
 {
+    public $message = 'Organization not found';
 }

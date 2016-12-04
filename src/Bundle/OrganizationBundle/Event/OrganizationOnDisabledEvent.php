@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Event;
+namespace Bundle\OrganizationBundle\Event;
 
-use Component\Organization\Event\Abstracts\AbstractOrganizationEvent;
+use Bundle\OrganizationBundle\Event\Abstracts\AbstractOrganizationEvent;
 
-final class OrganizationOnEnabledEvent extends AbstractOrganizationEvent
+final class OrganizationOnDisabledEvent extends AbstractOrganizationEvent
 {
 }

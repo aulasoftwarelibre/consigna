@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Exception;
+namespace Bundle\OrganizationBundle\Event;
 
-class OrganizationNotFound extends \InvalidArgumentException
+use Bundle\OrganizationBundle\Event\Abstracts\AbstractOrganizationEvent;
+
+final class OrganizationOnEnabledEvent extends AbstractOrganizationEvent
 {
-    public $message = 'Organization not found';
 }

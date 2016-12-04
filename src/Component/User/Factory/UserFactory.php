@@ -11,8 +11,8 @@
 
 namespace Component\User\Factory;
 
+use Bundle\OrganizationBundle\Repository\Interfaces\OrganizationRepositoryInterface;
 use Component\Core\Factory\FactoryInterface;
-use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
 use Component\User\Factory\Interfaces\UserFactoryInterface;
 use Component\User\Model\Interfaces\UserInterface;
 

@@ -15,8 +15,8 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
     <entity
-            name="Component\Organization\Model\Organization"
-            repository-class="Component\Organization\Repository\OrganizationRepository"
+            name="Bundle\OrganizationBundle\Entity\Organization"
+            repository-class="Bundle\OrganizationBundle\Repository\OrganizationRepository"
             table="organization"
     >
         <id name="id" type="integer" column="id">

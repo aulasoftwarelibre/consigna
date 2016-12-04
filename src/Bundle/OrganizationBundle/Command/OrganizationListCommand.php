@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Command;
+namespace Bundle\OrganizationBundle\Command;
 
-use Component\Organization\Command\Abstracts\AbstractOrganizationCommand;
-use Component\Organization\Model\Organization;
+use Bundle\OrganizationBundle\Command\Abstracts\AbstractOrganizationCommand;
+use Bundle\OrganizationBundle\Entity\Organization;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

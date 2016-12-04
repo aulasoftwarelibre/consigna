@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\EventDispatcher;
+namespace Bundle\OrganizationBundle\EventDispatcher;
 
+use Bundle\OrganizationBundle\ConsignaOrganizationEvents;
+use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
+use Bundle\OrganizationBundle\Event\OrganizationOnDisabledEvent;
+use Bundle\OrganizationBundle\Event\OrganizationOnEnabledEvent;
 use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
-use Component\Organization\ConsignaOrganizationEvents;
-use Component\Organization\Event\OrganizationOnDisabledEvent;
-use Component\Organization\Event\OrganizationOnEnabledEvent;
-use Component\Organization\Model\Interfaces\OrganizationInterface;
 
 class OrganizationEventDispatcher extends AbstractEventDispatcher
 {

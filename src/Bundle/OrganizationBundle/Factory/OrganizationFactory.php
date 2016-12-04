@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Factory;
+namespace Bundle\OrganizationBundle\Factory;
 
+use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
+use Bundle\OrganizationBundle\Factory\Interfaces\OrganizationFactoryInterface;
 use Component\Core\Factory\FactoryInterface;
-use Component\Organization\Factory\Interfaces\OrganizationFactoryInterface;
-use Component\Organization\Model\Interfaces\OrganizationInterface;
 
 class OrganizationFactory implements OrganizationFactoryInterface
 {

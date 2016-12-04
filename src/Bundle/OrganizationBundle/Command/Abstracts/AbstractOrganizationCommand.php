@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Command\Abstracts;
+namespace Bundle\OrganizationBundle\Command\Abstracts;
 
-use Component\Organization\Repository\OrganizationRepository;
-use Component\Organization\Services\OrganizationManager;
+use Bundle\OrganizationBundle\Repository\OrganizationRepository;
+use Bundle\OrganizationBundle\Services\OrganizationManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Translation\TranslatorInterface;
 

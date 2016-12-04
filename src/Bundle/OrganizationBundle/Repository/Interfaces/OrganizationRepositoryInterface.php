@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Repository\Interfaces;
+namespace Bundle\OrganizationBundle\Repository\Interfaces;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 

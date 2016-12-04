@@ -9,25 +9,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Command;
+namespace Bundle\OrganizationBundle\Command;
 
-use Component\Organization\Command\Abstracts\AbstractOrganizationCommand;
-use Component\Organization\Model\Interfaces\OrganizationInterface;
+use Bundle\OrganizationBundle\Command\Abstracts\AbstractOrganizationCommand;
+use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class OrganizationEnableCommand extends AbstractOrganizationCommand
+class OrganizationDisableCommand extends AbstractOrganizationCommand
 {
     protected function configure()
     {
         $this
-            ->setName('consigna:organization:enable')
+            ->setName('consigna:organization:disable')
             ->addArgument('code');
     }
 
     public function getDescription()
     {
-        return $this->translator->trans('action.organization_enable', [], 'command');
+        return $this->translator->trans('action.organization_disable', [], 'command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -44,10 +44,10 @@ class OrganizationEnableCommand extends AbstractOrganizationCommand
             return 1;
         }
 
-        $this->organizationManager->enableOrganization($organization);
+        $this->organizationManager->disableOrganization($organization);
 
         $output->writeln(
-            $this->translator->trans('action.organization_enable_success', ['%name%' => $organization], 'command')
+            $this->translator->trans('action.organization_disable_success', ['%name%' => $organization], 'command')
         );
     }
 }

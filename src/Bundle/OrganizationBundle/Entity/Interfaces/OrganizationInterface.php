@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Model\Interfaces;
+namespace Bundle\OrganizationBundle\Entity\Interfaces;
 
 use Component\Core\Model\Interfaces\ResourceInterface;
 use Component\Core\Model\Interfaces\ToggleableInterface;

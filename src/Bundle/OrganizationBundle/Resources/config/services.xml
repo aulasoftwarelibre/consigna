@@ -14,7 +14,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="consigna_organization.manager.organization" class="Component\Organization\Services\OrganizationManager">
+        <service id="consigna_organization.manager.organization" class="Bundle\OrganizationBundle\Services\OrganizationManager">
             <argument type="service" id="consigna_organization.director.organization"/>
             <argument type="service" id="consigna_organization.event_dispatcher.organization"/>
         </service>

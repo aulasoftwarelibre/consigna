@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Event;
+namespace Bundle\OrganizationBundle\Factory\Interfaces;
 
-use Component\Organization\Event\Abstracts\AbstractOrganizationEvent;
+use Component\Core\Factory\FactoryInterface;
 
-final class OrganizationOnDisabledEvent extends AbstractOrganizationEvent
+interface OrganizationFactoryInterface extends FactoryInterface
 {
 }

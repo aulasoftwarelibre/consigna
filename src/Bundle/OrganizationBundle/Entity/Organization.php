@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Model;
+namespace Bundle\OrganizationBundle\Entity;
 
+use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Component\Core\Model\Traits\ToggleableTrait;
-use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 

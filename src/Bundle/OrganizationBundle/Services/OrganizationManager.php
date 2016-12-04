@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Services;
+namespace Bundle\OrganizationBundle\Services;
 
+use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
+use Bundle\OrganizationBundle\EventDispatcher\OrganizationEventDispatcher;
 use Component\Core\Services\ObjectDirector;
-use Component\Organization\EventDispatcher\OrganizationEventDispatcher;
-use Component\Organization\Model\Interfaces\OrganizationInterface;
 
 class OrganizationManager
 {

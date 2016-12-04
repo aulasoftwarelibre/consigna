@@ -14,10 +14,10 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="consigna_organization.factory.organization" class="Component\Organization\Factory\OrganizationFactory">
+        <service id="consigna_organization.factory.organization" class="Bundle\OrganizationBundle\Factory\OrganizationFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">
-                    <argument>Component\Organization\Model\Organization</argument>
+                    <argument>Bundle\OrganizationBundle\Entity\Organization</argument>
                 </service>
             </argument>
         </service>

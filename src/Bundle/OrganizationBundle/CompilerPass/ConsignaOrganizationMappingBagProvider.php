@@ -23,7 +23,7 @@ class ConsignaOrganizationMappingBagProvider implements MappingBagProvider
         return XmlMappingBagCollection::create(
             ['organization' => 'Organization'],
             '@ConsignaOrganizationBundle',
-            'Component\Organization\Model',
+            'Bundle\OrganizationBundle\Entity',
             ConsignaOrganizationExtension::EXTENSION_NAME
         );
     }

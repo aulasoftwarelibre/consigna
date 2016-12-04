@@ -14,25 +14,25 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="consigna_organization.command" class="Component\Organization\Command\Abstracts\AbstractOrganizationCommand" abstract="true">
+        <service id="consigna_organization.command" class="Bundle\OrganizationBundle\Command\Abstracts\AbstractOrganizationCommand" abstract="true">
             <argument type="service" id="consigna_organization.manager.organization"/>
             <argument type="service" id="consigna_organization.object_repository.organization"/>
             <argument type="service" id="translator"/>
         </service>
 
-        <service id="consigna_organization.command.disable" class="Component\Organization\Command\OrganizationDisableCommand" parent="consigna_organization.command">
+        <service id="consigna_organization.command.disable" class="Bundle\OrganizationBundle\Command\OrganizationDisableCommand" parent="consigna_organization.command">
             <tag name="console.command"/>
         </service>
 
-        <service id="consigna_organization.command.enable" class="Component\Organization\Command\OrganizationEnableCommand" parent="consigna_organization.command">
+        <service id="consigna_organization.command.enable" class="Bundle\OrganizationBundle\Command\OrganizationEnableCommand" parent="consigna_organization.command">
             <tag name="console.command"/>
         </service>
 
-        <service id="consigna_organization.command.list" class="Component\Organization\Command\OrganizationListCommand" parent="consigna_organization.command">
+        <service id="consigna_organization.command.list" class="Bundle\OrganizationBundle\Command\OrganizationListCommand" parent="consigna_organization.command">
             <tag name="console.command"/>
         </service>
 
-        <service id="consigna_organization.command.update" class="Component\Organization\Command\OrganizationUpdateCommand" parent="consigna_organization.command">
+        <service id="consigna_organization.command.update" class="Bundle\OrganizationBundle\Command\OrganizationUpdateCommand" parent="consigna_organization.command">
             <tag name="console.command"/>
         </service>
     </services>

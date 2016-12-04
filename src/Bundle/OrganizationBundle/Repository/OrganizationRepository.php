@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization;
+namespace Bundle\OrganizationBundle\Repository;
 
-final class ConsignaOrganizationEvents
+use Bundle\OrganizationBundle\Repository\Interfaces\OrganizationRepositoryInterface;
+use Doctrine\ORM\EntityRepository;
+
+class OrganizationRepository extends EntityRepository implements OrganizationRepositoryInterface
 {
-    const ORGANIZATION_ENABLED = 'consigna.organization.enabled';
-
-    const ORGANIZATION_DISABLED = 'consigna.organization.disabled';
 }

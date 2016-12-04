@@ -13,7 +13,7 @@ namespace Component\User\Model;
 
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
-use Component\Organization\Model\Interfaces\OrganizationInterface;
+use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;

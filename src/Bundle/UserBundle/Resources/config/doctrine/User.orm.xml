@@ -34,7 +34,7 @@
             </cascade>
         </one-to-many>
 
-        <many-to-one target-entity="Component\Organization\Model\Organization"  inversed-by="users" field="organization">
+        <many-to-one target-entity="Bundle\OrganizationBundle\Entity\Organization"  inversed-by="users" field="organization">
             <join-column nullable="false"/>
         </many-to-one>
 

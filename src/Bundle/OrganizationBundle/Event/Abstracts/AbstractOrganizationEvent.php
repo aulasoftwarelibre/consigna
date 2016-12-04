@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Event\Abstracts;
+namespace Bundle\OrganizationBundle\Event\Abstracts;
 
-use Component\Organization\Model\Interfaces\OrganizationInterface;
+use Bundle\OrganizationBundle\Entity\Interfaces\OrganizationInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 abstract class AbstractOrganizationEvent extends Event
