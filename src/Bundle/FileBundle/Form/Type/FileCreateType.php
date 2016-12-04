@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Form\Type;
+namespace Bundle\FileBundle\Form\Type;
 
 use Bundle\TagBundle\Form\Type\TagsTextType;
 use Symfony\Component\Form\AbstractType;
@@ -50,7 +50,7 @@ class FileCreateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => '\Component\File\Model\File',
+            'data_class' => '\Bundle\FileBundle\Entity\File',
         ]);
     }
 

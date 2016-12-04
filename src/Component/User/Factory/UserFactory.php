@@ -11,10 +11,10 @@
 
 namespace Component\User\Factory;
 
+use Component\Core\Factory\FactoryInterface;
+use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
 use Component\User\Factory\Interfaces\UserFactoryInterface;
 use Component\User\Model\Interfaces\UserInterface;
-use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
-use Component\Core\Factory\FactoryInterface;
 
 class UserFactory implements UserFactoryInterface
 {

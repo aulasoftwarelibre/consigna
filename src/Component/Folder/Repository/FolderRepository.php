@@ -11,8 +11,8 @@
 
 namespace Component\Folder\Repository;
 
-use Component\User\Model\Interfaces\UserInterface;
 use Component\Folder\Repository\Interfaces\FolderRepositoryInterface;
+use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\ORM\EntityRepository;
 
 class FolderRepository extends EntityRepository implements FolderRepositoryInterface

@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Factory\Interfaces;
+namespace Bundle\FileBundle\EventDispatcher;
 
-use Component\Core\Factory\FactoryInterface;
+use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
-interface FileFactoryInterface extends FactoryInterface
+class FileEventDispatcher extends AbstractEventDispatcher
 {
 }

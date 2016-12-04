@@ -15,7 +15,7 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-    <entity name="Component\File\Model\File" repository-class="Component\File\Repository\FileRepository" table="file">
+    <entity name="Bundle\FileBundle\Entity\File" repository-class="Bundle\FileBundle\Repository\FileRepository" table="file">
         <gedmo:uploadable filename-generator="SHA1" callback="configureFileCallback" append-number="true"/>
 
         <id name="id" type="integer" column="id">

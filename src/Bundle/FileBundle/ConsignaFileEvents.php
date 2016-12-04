@@ -9,10 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Repository\Interfaces;
+namespace Bundle\FileBundle;
 
-use Doctrine\Common\Persistence\ObjectRepository;
-
-interface FileRepositoryInterface extends ObjectRepository
+final class ConsignaFileEvents
 {
 }

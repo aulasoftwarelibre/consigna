@@ -11,7 +11,7 @@
 
 namespace Component\User\Model;
 
-use Component\File\Model\Interfaces\FileInterface;
+use Bundle\FileBundle\Model\Interfaces\FileInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Component\User\Model\Interfaces\UserInterface;

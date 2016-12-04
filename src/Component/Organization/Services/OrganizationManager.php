@@ -11,9 +11,9 @@
 
 namespace Component\Organization\Services;
 
+use Component\Core\Services\ObjectDirector;
 use Component\Organization\EventDispatcher\OrganizationEventDispatcher;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
-use Component\Core\Services\ObjectDirector;
 
 class OrganizationManager
 {

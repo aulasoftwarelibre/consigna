@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Form\Type;
+namespace Bundle\FileBundle\Form\Type;
 
-use Component\File\Model\File;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Bundle\FileBundle\Entity\File;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class FileDownloadType extends AbstractType
 {

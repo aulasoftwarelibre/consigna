@@ -20,7 +20,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <one-to-many target-entity="Component\File\Model\File" mapped-by="owner" field="files">
+        <one-to-many target-entity="Bundle\FileBundle\Entity\File" mapped-by="owner" field="files">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -38,7 +38,7 @@
             <join-column nullable="false"/>
         </many-to-one>
 
-        <many-to-many target-entity="Component\File\Model\File" field="sharedFiles" mapped-by="sharedWithUsers">
+        <many-to-many target-entity="Bundle\FileBundle\Entity\File" field="sharedFiles" mapped-by="sharedWithUsers">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

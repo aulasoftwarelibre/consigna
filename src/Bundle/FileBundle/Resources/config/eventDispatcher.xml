@@ -15,7 +15,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna_file.event_dispatcher.file" class="Component\File\EventDispatcher\FileEventDispatcher">
+        <service id="consigna_file.event_dispatcher.file" class="Bundle\FileBundle\EventDispatcher\FileEventDispatcher">
             <argument type="service" id="event_dispatcher"/>
         </service>
     </services>

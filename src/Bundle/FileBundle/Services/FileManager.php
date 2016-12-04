@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Services;
+namespace Bundle\FileBundle\Services;
 
+use Bundle\FileBundle\EventDispatcher\FileEventDispatcher;
 use Component\Core\Services\ObjectDirector;
-use Component\File\EventDispatcher\FileEventDispatcher;
 
 class FileManager
 {

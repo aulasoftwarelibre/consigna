@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Model\Interfaces;
+namespace Bundle\FileBundle\Entity\Interfaces;
 
 use Component\Core\Model\Interfaces\ExpirableInterface;
 use Component\Core\Model\Interfaces\OwnableInterface;

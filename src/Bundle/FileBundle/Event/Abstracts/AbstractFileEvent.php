@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Event\Abstracts;
+namespace Bundle\FileBundle\Event\Abstracts;
 
-use Component\File\Model\Interfaces\FileInterface;
+use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class AbstractFileEvent extends Event

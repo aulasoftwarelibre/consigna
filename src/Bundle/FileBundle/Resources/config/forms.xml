@@ -15,20 +15,20 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna_file.type.file_create" class="Component\File\Form\Type\FileCreateType">
+        <service id="consigna_file.type.file_create" class="Bundle\FileBundle\Form\Type\FileCreateType">
             <tag name="form.type"/>
         </service>
         
-        <service id="consigna_file.type.file_anon_create" class="Component\File\Form\Type\FileAnonCreateType">
+        <service id="consigna_file.type.file_anon_create" class="Bundle\FileBundle\Form\Type\FileAnonCreateType">
             <tag name="form.type"/>
         </service>
 
-        <service id="consigna_file.type.download_folder" class="Component\File\Form\Type\FileDownloadType">
+        <service id="consigna_file.type.download_folder" class="Bundle\FileBundle\Form\Type\FileDownloadType">
             <argument type="service" id="security.encoder_factory"/>
             <tag name="form.type"/>
         </service>
 
-        <service id="consigna_file.type.download_folder_anon" class="Component\File\Form\Type\FileAnonDownloadType">
+        <service id="consigna_file.type.download_folder_anon" class="Bundle\FileBundle\Form\Type\FileAnonDownloadType">
             <argument type="service" id="security.encoder_factory"/>
             <tag name="form.type"/>
         </service>

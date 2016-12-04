@@ -11,9 +11,9 @@
 
 namespace Component\Folder\Factory;
 
+use Component\Core\Factory\FactoryInterface;
 use Component\Folder\Factory\Interfaces\FolderFactoryInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
-use Component\Core\Factory\FactoryInterface;
 
 class FolderFactory implements FolderFactoryInterface
 {

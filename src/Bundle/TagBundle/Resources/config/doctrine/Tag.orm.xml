@@ -21,7 +21,7 @@
 
         <field name="name" length="50"/>
 
-        <many-to-many target-entity="Component\File\Model\File" field="files" mapped-by="tags">
+        <many-to-many target-entity="Bundle\FileBundle\Entity\File" field="files" mapped-by="tags">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

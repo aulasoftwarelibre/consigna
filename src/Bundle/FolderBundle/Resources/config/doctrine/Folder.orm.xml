@@ -50,7 +50,7 @@
             <gedmo:timestampable on="update"/>
         </field>
 
-        <one-to-many target-entity="Component\File\Model\File" mapped-by="folder" field="files">
+        <one-to-many target-entity="Bundle\FileBundle\Entity\File" mapped-by="folder" field="files">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Form\Type;
+namespace Bundle\FileBundle\Form\Type;
 
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class FileAnonCreateType extends FileCreateType
+class FileAnonDownloadType extends FileDownloadType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -40,6 +40,6 @@ class FileAnonCreateType extends FileCreateType
 
     public function getBlockPrefix()
     {
-        return 'consigna_upload_file_anon';
+        return 'consigna_download_file_anon';
     }
 }

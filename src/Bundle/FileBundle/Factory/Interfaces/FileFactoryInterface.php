@@ -9,8 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File;
+namespace Bundle\FileBundle\Factory\Interfaces;
 
-final class ConsignaFileEvents
+use Component\Core\Factory\FactoryInterface;
+
+interface FileFactoryInterface extends FactoryInterface
 {
 }

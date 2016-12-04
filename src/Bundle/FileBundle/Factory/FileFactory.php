@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Factory;
+namespace Bundle\FileBundle\Factory;
 
+use Bundle\FileBundle\Entity\Interfaces\FileInterface;
+use Bundle\FileBundle\Factory\Interfaces\FileFactoryInterface;
 use Component\Core\Factory\FactoryInterface;
-use Component\File\Factory\Interfaces\FileFactoryInterface;
-use Component\File\Model\Interfaces\FileInterface;
 
 class FileFactory implements FileFactoryInterface
 {

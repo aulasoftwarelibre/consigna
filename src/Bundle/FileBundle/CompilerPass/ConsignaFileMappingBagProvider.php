@@ -23,7 +23,7 @@ class ConsignaFileMappingBagProvider implements MappingBagProvider
         return XmlMappingBagCollection::create(
             ['file' => 'File'],
             '@ConsignaFileBundle',
-            'Component\File\Model',
+            'Bundle\FileBundle\Entity',
             ConsignaFileExtension::EXTENSION_NAME
         );
     }

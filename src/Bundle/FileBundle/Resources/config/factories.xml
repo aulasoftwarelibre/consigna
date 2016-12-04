@@ -15,10 +15,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna_file.factory.file" class="Component\File\Factory\FileFactory">
+        <service id="consigna_file.factory.file" class="Bundle\FileBundle\Factory\FileFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">
-                    <argument>Component\File\Model\File</argument>
+                    <argument>Bundle\FileBundle\Entity\File</argument>
                 </service>
             </argument>
         </service>

@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\EventDispatcher;
+namespace Bundle\FileBundle\Repository\Interfaces;
 
-use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
+use Doctrine\Common\Persistence\ObjectRepository;
 
-class FileEventDispatcher extends AbstractEventDispatcher
+interface FileRepositoryInterface extends ObjectRepository
 {
 }

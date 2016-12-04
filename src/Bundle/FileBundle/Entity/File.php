@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\File\Model;
+namespace Bundle\FileBundle\Entity;
 
 use AppBundle\Util\RandomStringGenerator;
+use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Component\Core\Model\Traits\ExpirableTrait;
 use Component\Core\Model\Traits\OwneableTrait;
 use Component\Core\Model\Traits\ProtectableTrait;
@@ -20,7 +21,6 @@ use Component\Core\Model\Traits\TaggeableTrait;
 use Component\Core\Model\Traits\TimestampableTrait;
 use Component\Core\Model\Traits\TraceableTrait;
 use Component\Core\Model\Traits\UploadableTrait;
-use Component\File\Model\Interfaces\FileInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
