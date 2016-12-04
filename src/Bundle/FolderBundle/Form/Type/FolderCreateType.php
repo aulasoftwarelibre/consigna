@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Form\Type;
+namespace Bundle\FolderBundle\Form\Type;
 
 use Bundle\TagBundle\Form\Type\TagsTextType;
 use Symfony\Component\Form\AbstractType;

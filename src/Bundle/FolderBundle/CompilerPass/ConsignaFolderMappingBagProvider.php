@@ -23,7 +23,7 @@ class ConsignaFolderMappingBagProvider implements MappingBagProvider
         return XmlMappingBagCollection::create(
             ['folder' => 'Folder'],
             '@ConsignaFolderBundle',
-            'Component\Folder\Model',
+            'Bundle\FolderBundle\Entity',
             ConsignaFolderExtension::EXTENSION_NAME
         );
     }

@@ -15,7 +15,7 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-    <entity name="Component\Folder\Model\Folder" repository-class="Component\Folder\Repository\FolderRepository" table="folder">
+    <entity name="Bundle\FolderBundle\Entity\Folder" repository-class="Bundle\FolderBundle\Repository\FolderRepository" table="folder">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>

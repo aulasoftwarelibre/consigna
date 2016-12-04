@@ -11,6 +11,7 @@
 
 namespace Bundle\FileBundle\Entity\Interfaces;
 
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Component\Core\Model\Interfaces\ExpirableInterface;
 use Component\Core\Model\Interfaces\OwnableInterface;
 use Component\Core\Model\Interfaces\ProtectableInterface;
@@ -20,7 +21,6 @@ use Component\Core\Model\Interfaces\TaggeableInterface;
 use Component\Core\Model\Interfaces\TimestampableInterface;
 use Component\Core\Model\Interfaces\TraceableInterface;
 use Component\Core\Model\Interfaces\UploadableInterface;
-use Component\Folder\Model\Interfaces\FolderInterface;
 
 interface FileInterface extends
     ExpirableInterface,

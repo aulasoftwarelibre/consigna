@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\EventDispatcher;
+namespace Bundle\FolderBundle\EventDispatcher;
 
+use Bundle\FolderBundle\ConsignaFolderEvents;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
+use Bundle\FolderBundle\Event\FolderOnCreatedEvent;
+use Bundle\FolderBundle\Event\FolderOnDeletedEvent;
+use Bundle\FolderBundle\Event\FolderOnPreDeleteEvent;
 use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
-use Component\Folder\ConsignaFolderEvents;
-use Component\Folder\Event\FolderOnCreatedEvent;
-use Component\Folder\Event\FolderOnDeletedEvent;
-use Component\Folder\Event\FolderOnPreDeleteEvent;
-use Component\Folder\Model\Interfaces\FolderInterface;
 
 class FolderEventDispatcher extends AbstractEventDispatcher
 {

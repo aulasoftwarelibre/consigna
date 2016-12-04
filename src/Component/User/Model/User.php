@@ -11,8 +11,8 @@
 
 namespace Component\User\Model;
 
-use Bundle\FileBundle\Model\Interfaces\FileInterface;
-use Component\Folder\Model\Interfaces\FolderInterface;
+use Bundle\FileBundle\Entity\Interfaces\FileInterface;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;

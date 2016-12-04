@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Bundle\FileBundle\Entity\Interfaces;
+namespace Bundle\FolderBundle\Entity\Interfaces;
 
+use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Component\Core\Model\Interfaces\ExpirableInterface;
 use Component\Core\Model\Interfaces\OwnableInterface;
 use Component\Core\Model\Interfaces\ProtectableInterface;
@@ -19,10 +20,8 @@ use Component\Core\Model\Interfaces\ShareableInterface;
 use Component\Core\Model\Interfaces\TaggeableInterface;
 use Component\Core\Model\Interfaces\TimestampableInterface;
 use Component\Core\Model\Interfaces\TraceableInterface;
-use Component\Core\Model\Interfaces\UploadableInterface;
-use Component\Folder\Model\Interfaces\FolderInterface;
 
-interface FileInterface extends
+interface FolderInterface extends
     ExpirableInterface,
     OwnableInterface,
     ProtectableInterface,
@@ -30,26 +29,8 @@ interface FileInterface extends
     ShareableInterface,
     TaggeableInterface,
     TimestampableInterface,
-    TraceableInterface,
-    UploadableInterface
+    TraceableInterface
 {
-    /**
-     * No virus detected.
-     */
-    const SCAN_STATUS_OK = 'scan.ok';
-    /**
-     * Pending to scan.
-     */
-    const SCAN_STATUS_PENDING = 'scan.pending';
-    /**
-     * Scanning failed.
-     */
-    const SCAN_STATUS_FAILED = 'scan.failed';
-    /**
-     * Virus detected.
-     */
-    const SCAN_STATUS_INFECTED = 'scan.infected';
-
     public function getName();
 
     public function setName(string $name);
@@ -62,11 +43,13 @@ interface FileInterface extends
 
     public function setSlug(string $slug);
 
-    public function getFolder();
+    public function isPermanent();
 
-    public function setFolder(FolderInterface $folder = null);
+    public function setPermanent(bool $permanent);
 
-    public function getScanStatus();
+    public function getFiles();
 
-    public function setScanStatus(string $scanStatus);
+    public function addFile(FileInterface $file);
+
+    public function removeFile(FileInterface $file);
 }

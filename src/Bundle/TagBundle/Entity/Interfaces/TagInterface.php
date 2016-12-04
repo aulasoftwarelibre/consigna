@@ -12,8 +12,8 @@
 namespace Bundle\TagBundle\Entity\Interfaces;
 
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Component\Core\Model\Interfaces\ResourceInterface;
-use Component\Folder\Model\Interfaces\FolderInterface;
 
 interface TagInterface extends ResourceInterface
 {

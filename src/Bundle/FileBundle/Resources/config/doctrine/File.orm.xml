@@ -64,7 +64,7 @@
             <gedmo:timestampable on="update"/>
         </field>
 
-        <many-to-one target-entity="Component\Folder\Model\Folder" field="folder" inversed-by="files">
+        <many-to-one target-entity="Bundle\FolderBundle\Entity\Folder" field="folder" inversed-by="files">
             <join-column on-delete="CASCADE" nullable="true"/>
         </many-to-one>
 

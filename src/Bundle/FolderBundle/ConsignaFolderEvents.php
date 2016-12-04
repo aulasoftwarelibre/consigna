@@ -9,10 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Event;
+namespace Bundle\FolderBundle;
 
-use Component\Folder\Event\Abstracts\AbstractFolderEvent;
-
-final class FolderOnDeletedEvent extends AbstractFolderEvent
+final class ConsignaFolderEvents
 {
+    const FOLDER_CREATED = 'consigna.folder.created';
+
+    const FOLDER_PREDELETE = 'consigna.folder.predelete';
+
+    const FOLDER_DELETED = 'consigna.folder.delete';
 }

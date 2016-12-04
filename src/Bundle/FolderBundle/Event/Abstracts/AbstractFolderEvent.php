@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Event\Abstracts;
+namespace Bundle\FolderBundle\Event\Abstracts;
 
-use Component\Folder\Model\Interfaces\FolderInterface;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class AbstractFolderEvent extends Event

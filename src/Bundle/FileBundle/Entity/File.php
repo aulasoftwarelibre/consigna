@@ -13,6 +13,7 @@ namespace Bundle\FileBundle\Entity;
 
 use AppBundle\Util\RandomStringGenerator;
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Component\Core\Model\Traits\ExpirableTrait;
 use Component\Core\Model\Traits\OwneableTrait;
 use Component\Core\Model\Traits\ProtectableTrait;
@@ -21,7 +22,6 @@ use Component\Core\Model\Traits\TaggeableTrait;
 use Component\Core\Model\Traits\TimestampableTrait;
 use Component\Core\Model\Traits\TraceableTrait;
 use Component\Core\Model\Traits\UploadableTrait;
-use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

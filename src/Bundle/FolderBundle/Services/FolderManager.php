@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Services;
+namespace Bundle\FolderBundle\Services;
 
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
+use Bundle\FolderBundle\EventDispatcher\FolderEventDispatcher;
 use Component\Core\Services\ObjectDirector;
-use Component\Folder\EventDispatcher\FolderEventDispatcher;
-use Component\Folder\Model\Interfaces\FolderInterface;
 
 class FolderManager
 {

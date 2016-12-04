@@ -12,8 +12,8 @@
 namespace Bundle\TagBundle\Entity;
 
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Bundle\TagBundle\Entity\Interfaces\TagInterface;
-use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 

@@ -28,7 +28,7 @@
             </cascade>
         </many-to-many>
 
-        <many-to-many target-entity="Component\Folder\Model\Folder" field="folders" mapped-by="tags">
+        <many-to-many target-entity="Bundle\FolderBundle\Entity\Folder" field="folders" mapped-by="tags">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

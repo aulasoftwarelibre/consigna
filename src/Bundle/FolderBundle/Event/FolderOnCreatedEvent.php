@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Factory\Interfaces;
+namespace Bundle\FolderBundle\Event;
 
-use Component\Core\Factory\FactoryInterface;
+use Bundle\FolderBundle\Event\Abstracts\AbstractFolderEvent;
 
-interface FolderFactoryInterface extends FactoryInterface
+final class FolderOnCreatedEvent extends AbstractFolderEvent
 {
 }

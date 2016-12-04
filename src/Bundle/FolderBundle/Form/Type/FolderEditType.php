@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Form\Type;
+namespace Bundle\FolderBundle\Form\Type;
 
 use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\ORM\EntityRepository;

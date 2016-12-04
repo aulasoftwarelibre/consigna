@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Repository\Interfaces;
+namespace Bundle\FolderBundle\Factory\Interfaces;
 
-use Doctrine\Common\Persistence\ObjectRepository;
+use Component\Core\Factory\FactoryInterface;
 
-interface FolderRepositoryInterface extends ObjectRepository
+interface FolderFactoryInterface extends FactoryInterface
 {
 }

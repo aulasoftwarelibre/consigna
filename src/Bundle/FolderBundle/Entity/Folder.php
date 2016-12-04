@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Bundle\FileBundle\Entity;
+namespace Bundle\FolderBundle\Entity;
 
 use AppBundle\Util\RandomStringGenerator;
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Component\Core\Model\Traits\ExpirableTrait;
 use Component\Core\Model\Traits\OwneableTrait;
 use Component\Core\Model\Traits\ProtectableTrait;
@@ -20,14 +21,12 @@ use Component\Core\Model\Traits\ShareableTrait;
 use Component\Core\Model\Traits\TaggeableTrait;
 use Component\Core\Model\Traits\TimestampableTrait;
 use Component\Core\Model\Traits\TraceableTrait;
-use Component\Core\Model\Traits\UploadableTrait;
-use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class File.
+ * Class Folder.
  */
-class File implements FileInterface
+class Folder implements FolderInterface
 {
     use ExpirableTrait;
 
@@ -42,8 +41,6 @@ class File implements FileInterface
     use TimestampableTrait;
 
     use TraceableTrait;
-
-    use UploadableTrait;
 
     /**
      * @var int|null
@@ -66,22 +63,33 @@ class File implements FileInterface
     protected $slug;
 
     /**
-     * @var string
+     * @var bool
      */
-    protected $scanStatus;
+    protected $isPermanent;
 
     /**
-     * @var FolderInterface
+     * @var ArrayCollection
      */
-    protected $folder;
+    protected $files;
 
     /**
-     * File constructor.
+     * @var ArrayCollection
+     */
+    protected $sharedWithUsers;
+
+    /**
+     * @var ArrayCollection
+     */
+    protected $tags;
+
+    /**
+     * Folder constructor.
      */
     public function __construct()
     {
+        $this->files = new ArrayCollection();
+        $this->isPermanent = false;
         $this->salt = RandomStringGenerator::length(16);
-        $this->scanStatus = self::SCAN_STATUS_PENDING;
         $this->sharedCode = RandomStringGenerator::length(16);
         $this->sharedWithUsers = new ArrayCollection();
         $this->tags = new ArrayCollection();
@@ -114,7 +122,7 @@ class File implements FileInterface
     /**
      * @param string $name
      *
-     * @return File
+     * @return Folder
      */
     public function setName(string $name)
     {
@@ -134,7 +142,7 @@ class File implements FileInterface
     /**
      * @param string $description
      *
-     * @return File
+     * @return Folder
      */
     public function setDescription(string $description)
     {
@@ -154,7 +162,7 @@ class File implements FileInterface
     /**
      * @param string $slug
      *
-     * @return File
+     * @return Folder
      */
     public function setSlug(string $slug)
     {
@@ -164,57 +172,52 @@ class File implements FileInterface
     }
 
     /**
-     * @return FolderInterface
-     */
-    public function getFolder()
-    {
-        return $this->folder;
-    }
-
-    /**
-     * @param FolderInterface $folder
-     *
-     * @return File
-     */
-    public function setFolder(FolderInterface $folder = null)
-    {
-        $this->folder = $folder;
-
-        return $this;
-    }
-
-    /**
-     * Set original name.
-     *
-     * @param array $info
-     */
-    public function configureFileCallback(array $info)
-    {
-        $this->name = $info['origFileName'];
-    }
-
-    /**
      * @return string
      */
-    public function getScanStatus()
+    public function isPermanent()
     {
-        return $this->scanStatus;
+        return $this->isPermanent;
     }
 
     /**
-     * @param string $scanStatus
+     * @param bool $permanent
      *
-     * @return File
+     * @return Folder
      */
-    public function setScanStatus(string $scanStatus)
+    public function setPermanent(bool $permanent)
     {
-        $this->scanStatus = $scanStatus;
+        $this->isPermanent = $permanent;
 
         return $this;
     }
 
-    public function getBasename()
+    /**
+     * @return ArrayCollection
+     */
+    public function getFiles()
     {
-        return pathinfo($this->path, PATHINFO_BASENAME);
+        return $this->files;
+    }
+
+    /**
+     * @param FileInterface $file
+     *
+     * @return $this
+     */
+    public function addFile(FileInterface $file)
+    {
+        $file->setFolder($this);
+        $this->files->add($file);
+
+        return $this;
+    }
+
+    /**
+     * @param FileInterface $file
+     */
+    public function removeFile(FileInterface $file)
+    {
+        $file->setFolder(null);
+        $this->files->removeElement($file);
     }
 }

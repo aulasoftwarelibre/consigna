@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Form\Type;
+namespace Bundle\FolderBundle\Form\Type;
 
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;

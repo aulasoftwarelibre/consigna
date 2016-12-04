@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Form\Type;
+namespace Bundle\FolderBundle\Form\Type;
 
-use Component\Folder\Model\Interfaces\FolderInterface;
+use Bundle\FolderBundle\Entity\Interfaces\FolderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;

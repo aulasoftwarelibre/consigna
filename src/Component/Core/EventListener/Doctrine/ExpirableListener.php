@@ -11,8 +11,8 @@
 
 namespace Component\Core\EventListener\Doctrine;
 
+use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Component\Core\Model\Interfaces\ExpirableInterface;
-use Bundle\FileBundle\Model\Interfaces\FileInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;

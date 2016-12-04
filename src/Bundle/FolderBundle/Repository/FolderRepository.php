@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Repository;
+namespace Bundle\FolderBundle\Repository;
 
-use Component\Folder\Repository\Interfaces\FolderRepositoryInterface;
+use Bundle\FolderBundle\Repository\Interfaces\FolderRepositoryInterface;
 use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\ORM\EntityRepository;
 

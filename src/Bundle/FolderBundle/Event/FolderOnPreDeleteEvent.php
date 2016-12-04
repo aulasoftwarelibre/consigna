@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Folder\Event;
+namespace Bundle\FolderBundle\Event;
 
-use Component\Folder\Event\Abstracts\AbstractFolderEvent;
+use Bundle\FolderBundle\Event\Abstracts\AbstractFolderEvent;
 
 class FolderOnPreDeleteEvent extends AbstractFolderEvent
 {

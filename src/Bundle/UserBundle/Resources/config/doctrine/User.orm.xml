@@ -27,7 +27,7 @@
             </cascade>
         </one-to-many>
 
-        <one-to-many target-entity="Component\Folder\Model\Folder" mapped-by="owner" field="folders">
+        <one-to-many target-entity="Bundle\FolderBundle\Entity\Folder" mapped-by="owner" field="folders">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -45,7 +45,7 @@
             </cascade>
         </many-to-many>
 
-        <many-to-many target-entity="Component\Folder\Model\Folder" field="sharedFolders" mapped-by="sharedWithUsers">
+        <many-to-many target-entity="Bundle\FolderBundle\Entity\Folder" field="sharedFolders" mapped-by="sharedWithUsers">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
