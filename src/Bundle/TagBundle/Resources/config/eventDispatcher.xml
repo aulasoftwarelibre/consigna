@@ -15,7 +15,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna_tag.event_dispatcher.tag" class="Component\Tag\EventDispatcher\TagEventDispatcher">
+        <service id="consigna_tag.event_dispatcher.tag" class="Bundle\TagBundle\EventDispatcher\TagEventDispatcher">
             <argument type="service" id="event_dispatcher"/>
         </service>
     </services>

@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\EventDispatcher;
+namespace Bundle\TagBundle\Factory\Interfaces;
 
-use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
+use Component\Core\Factory\FactoryInterface;
 
-class TagEventDispatcher extends AbstractEventDispatcher
+interface TagFactoryInterface extends FactoryInterface
 {
 }

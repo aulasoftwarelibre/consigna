@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Services;
+namespace Bundle\TagBundle\Services;
 
+use Bundle\TagBundle\Entity\Intefaces\TagInterface;
 use Component\Core\Services\ObjectDirector;
-use Component\Tag\Model\Interfaces\TagInterface;
 
 class TagManager
 {

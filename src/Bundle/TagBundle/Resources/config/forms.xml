@@ -14,7 +14,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="consigna_tag.type.tags_text" class="Component\Tag\Form\Type\TagsTextType">
+        <service id="consigna_tag.type.tags_text" class="Bundle\TagBundle\Form\Type\TagsTextType">
             <argument type="service" id="consigna_tag.manager.tag"/>
             <tag name="form.type"/>
         </service>

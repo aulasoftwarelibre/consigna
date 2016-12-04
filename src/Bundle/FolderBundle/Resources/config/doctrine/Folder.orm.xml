@@ -65,7 +65,7 @@
             <gedmo:blameable on="create"/>
         </many-to-one>
 
-        <many-to-many target-entity="Component\Tag\Model\Tag" field="tags" inversed-by="folders">
+        <many-to-many target-entity="Bundle\TagBundle\Entity\Tag" field="tags" inversed-by="folders">
             <join-table name="folder_tags">
                 <join-columns>
                     <join-column name="folder_id" referenced-column-name="id" on-delete="CASCADE"/>

@@ -14,7 +14,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-    <entity name="Component\Tag\Model\Tag" repository-class="Component\Tag\Repository\TagRepository" table="tag">
+    <entity name="Bundle\TagBundle\Entity\Tag" repository-class="Bundle\TagBundle\Repository\TagRepository" table="tag">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>

@@ -15,10 +15,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna_tag.factory.tag" class="Component\Tag\Factory\TagFactory">
+        <service id="consigna_tag.factory.tag" class="Bundle\TagBundle\Factory\TagFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">
-                    <argument>Component\Tag\Model\Tag</argument>
+                    <argument>Bundle\TagBundle\Entity\Tag</argument>
                 </service>
             </argument>
         </service>

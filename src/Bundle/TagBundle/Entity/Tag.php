@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Model;
+namespace Bundle\TagBundle\Entity;
 
+use Bundle\TagBundle\Entity\Interfaces\TagInterface;
 use Component\File\Model\Interfaces\FileInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
-use Component\Tag\Model\Interfaces\TagInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 

@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Form\Type;
+namespace Bundle\TagBundle\Form\Type;
 
-use Component\Tag\Form\DataTransformer\TagsToStringTransformer;
-use Component\Tag\Services\TagManager;
+use Bundle\TagBundle\Form\DataTransformer\TagsToStringTransformer;
+use Bundle\TagBundle\Services\TagManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

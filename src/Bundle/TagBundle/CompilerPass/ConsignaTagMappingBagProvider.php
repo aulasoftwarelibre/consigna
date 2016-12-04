@@ -23,7 +23,7 @@ class ConsignaTagMappingBagProvider implements MappingBagProvider
         return XmlMappingBagCollection::create(
             ['tag' => 'Tag'],
             '@ConsignaTagBundle',
-            'Component\Tag\Model',
+            'Bundle\TagBundle\Entity',
             ConsignaTagExtension::EXTENSION_NAME
         );
     }

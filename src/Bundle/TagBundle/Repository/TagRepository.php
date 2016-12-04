@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Repository\Interfaces;
+namespace Bundle\TagBundle\Repository;
 
-use Doctrine\Common\Persistence\ObjectRepository;
+use Bundle\TagBundle\Repository\Interfaces\TagRepositoryInterface;
+use Doctrine\ORM\EntityRepository;
 
-interface TagRepositoryInterface extends ObjectRepository
+class TagRepository extends EntityRepository implements TagRepositoryInterface
 {
 }

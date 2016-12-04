@@ -1,8 +1,8 @@
 <?php
 
-namespace Component\Tag\Form\DataTransformer;
+namespace Bundle\TagBundle\Form\DataTransformer;
 
-use Component\Tag\Services\TagManager;
+use Bundle\TagBundle\Services\TagManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 

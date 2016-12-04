@@ -9,10 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Factory\Interfaces;
+namespace Bundle\TagBundle;
 
-use Component\Core\Factory\FactoryInterface;
-
-interface TagFactoryInterface extends FactoryInterface
+final class ConsignaTagEvents
 {
 }

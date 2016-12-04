@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Repository;
+namespace Bundle\TagBundle\EventDispatcher;
 
-use Component\Tag\Repository\Interfaces\TagRepositoryInterface;
-use Doctrine\ORM\EntityRepository;
+use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
-class TagRepository extends EntityRepository implements TagRepositoryInterface
+class TagEventDispatcher extends AbstractEventDispatcher
 {
 }

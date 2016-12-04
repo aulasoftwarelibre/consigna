@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Event\Abstracts;
+namespace Bundle\TagBundle\Event\Abstracts;
 
-use Component\Tag\Model\Interfaces\TagInterface;
+use Bundle\TagBundle\Entity\Intefaces\TagInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class AbstractTagEvent extends Event

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Factory;
+namespace Bundle\TagBundle\Factory;
 
+use Bundle\TagBundle\Entity\Intefaces\TagInterface;
+use Bundle\TagBundle\Factory\Interfaces\TagFactoryInterface;
 use Component\Core\Factory\FactoryInterface;
-use Component\Tag\Factory\Interfaces\TagFactoryInterface;
-use Component\Tag\Model\Interfaces\TagInterface;
 
 class TagFactory implements TagFactoryInterface
 {

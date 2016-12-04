@@ -11,7 +11,7 @@
 
 namespace Component\File\Form\Type;
 
-use Component\Tag\Form\Type\TagsTextType;
+use Bundle\TagBundle\Form\Type\TagsTextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

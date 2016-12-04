@@ -9,8 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag;
+namespace Bundle\TagBundle\Repository\Interfaces;
 
-final class ConsignaTagEvents
+use Doctrine\Common\Persistence\ObjectRepository;
+
+interface TagRepositoryInterface extends ObjectRepository
 {
 }

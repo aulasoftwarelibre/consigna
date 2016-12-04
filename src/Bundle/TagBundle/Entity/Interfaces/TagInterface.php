@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Tag\Model\Interfaces;
+namespace Bundle\TagBundle\Entity\Interfaces;
 
 use Component\Core\Model\Interfaces\ResourceInterface;
 use Component\File\Model\Interfaces\FileInterface;

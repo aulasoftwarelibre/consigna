@@ -2,7 +2,7 @@
 
 namespace AppBundle\Behat;
 
-use Component\Tag\Model\Tag;
+use Bundle\TagBundle\Entity\Tag;
 use Behat\Gherkin\Node\TableNode;
 
 class TagContext extends DefaultContext
