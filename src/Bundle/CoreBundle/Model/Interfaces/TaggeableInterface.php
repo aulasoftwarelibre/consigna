@@ -11,7 +11,7 @@
 
 namespace Bundle\CoreBundle\Model\Interfaces;
 
-use Bundle\TagBundle\Model\Interfaces\TagInterface;
+use Bundle\TagBundle\Entity\Interfaces\TagInterface;
 use Doctrine\Common\Collections\Collection;
 
 interface TaggeableInterface
