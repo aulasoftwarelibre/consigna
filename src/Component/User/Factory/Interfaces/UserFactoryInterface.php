@@ -9,13 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Core\Model\Interfaces;
+namespace Component\User\Factory\Interfaces;
 
-use Component\User\Model\Interfaces\UserInterface;
+use Component\Core\Factory\FactoryInterface;
 
-interface OwnableInterface
+interface UserFactoryInterface extends FactoryInterface
 {
-    public function getOwner();
-
-    public function setOwner(UserInterface $user = null);
+    public function createNewFromOrganization(string $code);
 }

@@ -5,7 +5,7 @@ namespace AppBundle\EventListener\Security;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\UserAccessSharedEvent;
 use Component\Core\Model\Interfaces\ShareableInterface;
-use AppBundle\Model\UserInterface;
+use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

@@ -15,12 +15,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="AppBundle\Entity\User" repository-class="AppBundle\Repository\UserRepository" table="fos_user">
+    <entity name="Component\User\Model\User" repository-class="Component\User\Repository\UserRepository" table="fos_user">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
 
-        <one-to-many target-entity="AppBundle\Entity\File" mapped-by="owner" field="files">
+        <one-to-many target-entity="Component\File\Model\File" mapped-by="owner" field="files">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -38,7 +38,7 @@
             <join-column nullable="false"/>
         </many-to-one>
 
-        <many-to-many target-entity="AppBundle\Entity\File" field="sharedFiles" mapped-by="sharedWithUsers">
+        <many-to-many target-entity="Component\File\Model\File" field="sharedFiles" mapped-by="sharedWithUsers">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -52,7 +52,7 @@
             </cascade>
         </many-to-many>
 
-        <many-to-many target-entity="AppBundle\Entity\Group" field="groups">
+        <many-to-many target-entity="Component\User\Model\Group" field="groups">
             <join-table name="fos_user_group">
                 <join-columns>
                     <join-column name="user_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>

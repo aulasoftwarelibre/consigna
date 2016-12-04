@@ -2,7 +2,7 @@
 
 namespace AppBundle\EventListener\Security;
 
-use AppBundle\Model\UserInterface;
+use Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;

@@ -10,7 +10,7 @@
 namespace AppBundle\Event;
 
 use Component\Core\Model\Interfaces\ShareableInterface;
-use AppBundle\Model\UserInterface;
+use Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class UserAccessSharedEvent extends Event

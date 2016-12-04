@@ -11,7 +11,7 @@
 namespace Uco\Bundle\UserBundle\Security;
 
 use Component\Organization\Model\Organization;
-use AppBundle\Entity\User;
+use Component\User\Model\User;
 use Component\Organization\Exception\OrganizationNotFound;
 use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;

@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Bundle\CoreBundle\ConsignaCoreBundle(),
             new Bundle\FolderBundle\ConsignaFolderBundle(),
             new Bundle\OrganizationBundle\ConsignaOrganizationBundle(),
+            new Bundle\UserBundle\ConsignaUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

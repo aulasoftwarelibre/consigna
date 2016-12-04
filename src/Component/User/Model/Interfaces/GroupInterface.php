@@ -9,13 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Core\Model\Interfaces;
+namespace Component\User\Model\Interfaces;
 
-use Component\User\Model\Interfaces\UserInterface;
+use FOS\UserBundle\Model\GroupInterface as BaseGroupInterface;
 
-interface OwnableInterface
+interface GroupInterface extends BaseGroupInterface
 {
-    public function getOwner();
-
-    public function setOwner(UserInterface $user = null);
 }

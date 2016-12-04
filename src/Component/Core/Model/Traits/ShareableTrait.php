@@ -11,7 +11,7 @@
 
 namespace Component\Core\Model\Traits;
 
-use AppBundle\Model\UserInterface;
+use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 trait ShareableTrait

@@ -9,13 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Core\Model\Interfaces;
+namespace Component\User\Model;
 
-use Component\User\Model\Interfaces\UserInterface;
+use Component\User\Model\Interfaces\GroupInterface;
+use FOS\UserBundle\Model\Group as BaseGroup;
 
-interface OwnableInterface
+/**
+ * Class Group.
+ */
+class Group extends BaseGroup implements GroupInterface
 {
-    public function getOwner();
-
-    public function setOwner(UserInterface $user = null);
+    protected $id;
 }

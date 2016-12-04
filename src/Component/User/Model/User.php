@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Entity;
+namespace Component\User\Model;
 
-use AppBundle\Model\FileInterface;
+use Component\File\Model\Interfaces\FileInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
-use AppBundle\Model\UserInterface;
+use Component\User\Model\Interfaces\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 

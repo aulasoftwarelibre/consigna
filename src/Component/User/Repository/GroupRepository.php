@@ -9,13 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Core\Model\Interfaces;
+namespace Component\User\Repository;
 
-use Component\User\Model\Interfaces\UserInterface;
+use Component\User\Repository\Interfaces\GroupRepositoryInterface;
+use Doctrine\ORM\EntityRepository;
 
-interface OwnableInterface
+class GroupRepository extends EntityRepository implements GroupRepositoryInterface
 {
-    public function getOwner();
-
-    public function setOwner(UserInterface $user = null);
 }

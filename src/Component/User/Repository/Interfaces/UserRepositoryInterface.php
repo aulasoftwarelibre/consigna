@@ -9,13 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Core\Model\Interfaces;
+namespace Component\User\Repository\Interfaces;
 
-use Component\User\Model\Interfaces\UserInterface;
+use Doctrine\Common\Persistence\ObjectRepository;
 
-interface OwnableInterface
+interface UserRepositoryInterface extends ObjectRepository
 {
-    public function getOwner();
-
-    public function setOwner(UserInterface $user = null);
 }

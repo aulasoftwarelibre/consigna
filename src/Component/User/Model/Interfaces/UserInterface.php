@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\User\Model\Interfaces;
 
 use Component\Core\Model\Interfaces\ResourceInterface;
+use Component\File\Model\Interfaces\FileInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;

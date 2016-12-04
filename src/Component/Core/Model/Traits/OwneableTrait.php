@@ -11,15 +11,12 @@
 
 namespace Component\Core\Model\Traits;
 
-use AppBundle\Model\UserInterface;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Component\User\Model\Interfaces\UserInterface;
 
 trait OwneableTrait
 {
     /**
      * @var UserInterface
-     *
-     * @Gedmo\Blameable(on="create")
      */
     protected $owner;
 
