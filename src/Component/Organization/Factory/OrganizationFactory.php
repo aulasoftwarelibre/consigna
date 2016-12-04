@@ -12,6 +12,7 @@
 namespace Component\Organization\Factory;
 
 use Component\Core\Factory\FactoryInterface;
+use Component\Organization\Factory\Interfaces\OrganizationFactoryInterface;
 use Component\Organization\Model\Interfaces\OrganizationInterface;
 
 class OrganizationFactory implements OrganizationFactoryInterface

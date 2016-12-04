@@ -11,7 +11,7 @@
 
 namespace Component\Core\Model\Traits;
 
-use AppBundle\Model\TagInterface;
+use Component\Tag\Model\Interfaces\TagInterface;
 use Doctrine\Common\Collections\Collection;
 
 trait TaggeableTrait

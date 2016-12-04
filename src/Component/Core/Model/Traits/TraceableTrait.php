@@ -11,13 +11,10 @@
 
 namespace Component\Core\Model\Traits;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-
 trait TraceableTrait
 {
     /**
      * @var string
-     * @Gedmo\IpTraceable(on="create")
      */
     protected $createdFromIp;
 

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\Organization\Factory;
+namespace Component\Organization\Factory\Interfaces;
 
 use Component\Core\Factory\FactoryInterface;
 

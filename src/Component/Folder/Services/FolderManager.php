@@ -34,6 +34,19 @@ class FolderManager
         $this->folderEventDispatcher = $folderEventDispatcher;
     }
 
+    public function createFolder(FolderInterface $folder)
+    {
+        $this
+            ->folderDirector
+            ->save($folder);
+
+        $this
+            ->folderEventDispatcher
+            ->dispatchFolderOnCreatedEvent($folder);
+
+        return $this;
+    }
+
     public function deleteFolder(FolderInterface $folder)
     {
         $this
@@ -47,5 +60,7 @@ class FolderManager
         $this
             ->folderEventDispatcher
             ->dispatchFolderOnDeletedEvent($folder);
+
+        return $this;
     }
 }

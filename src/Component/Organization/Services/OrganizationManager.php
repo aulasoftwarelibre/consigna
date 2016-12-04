@@ -73,7 +73,7 @@ class OrganizationManager
 
         $this
             ->organizationEventDispatcher
-            ->dispatchOrganizationOnEnabledEvent($organization);
+            ->dispatchOrganizationOnDisabledEvent($organization);
 
         return $this;
     }
@@ -89,7 +89,7 @@ class OrganizationManager
 
         $this
             ->organizationEventDispatcher
-            ->dispatchOrganizationOnDisabledEvent($organization);
+            ->dispatchOrganizationOnEnabledEvent($organization);
 
         return $this;
     }

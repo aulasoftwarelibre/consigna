@@ -11,7 +11,7 @@
 
 namespace Component\Core\Model\Interfaces;
 
-use AppBundle\Model\UserInterface;
+use Component\User\Model\Interfaces\UserInterface;
 
 interface ShareableInterface
 {
