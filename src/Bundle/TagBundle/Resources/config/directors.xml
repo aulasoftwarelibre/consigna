@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="consigna_tag.director.tag" class="Component\Core\Services\ObjectDirector">
+            <argument type="service" id="consigna_tag.object_manager.tag"/>
+            <argument type="service" id="consigna_tag.object_repository.tag"/>
+            <argument type="service" id="consigna_tag.factory.tag"/>
+        </service>
+    </services>
+</container>

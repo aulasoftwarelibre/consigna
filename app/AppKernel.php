@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new Bundle\FileBundle\ConsignaFileBundle(),
             new Bundle\FolderBundle\ConsignaFolderBundle(),
             new Bundle\OrganizationBundle\ConsignaOrganizationBundle(),
+            new Bundle\TagBundle\ConsignaTagBundle(),
             new Bundle\UserBundle\ConsignaUserBundle(),
         );
 

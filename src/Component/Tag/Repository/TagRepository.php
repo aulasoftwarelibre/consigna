@@ -1,0 +1,19 @@
+<?php
+/**
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Component\Tag\Repository;
+
+use Component\Tag\Repository\Interfaces\TagRepositoryInterface;
+use Doctrine\ORM\EntityRepository;
+
+class TagRepository extends EntityRepository implements TagRepositoryInterface
+{
+}
