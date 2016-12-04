@@ -10,10 +10,10 @@
 
 namespace Uco\Bundle\UserBundle\Security;
 
-use Component\Organization\Model\Organization;
-use Component\User\Model\User;
-use Component\Organization\Exception\OrganizationNotFound;
-use Component\Organization\Repository\Interfaces\OrganizationRepositoryInterface;
+use AppBundle\Entity\Interfaces\UserInterface;
+use AppBundle\Entity\Organization;
+use AppBundle\Exception\OrganizationNotFound;
+use AppBundle\Repository\Interfaces\OrganizationRepositoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Sgomez\Bundle\SSPGuardBundle\Security\Authenticator\SSPGuardAuthenticator;
 use Sgomez\Bundle\SSPGuardBundle\SimpleSAMLphp\AuthSourceRegistry;
@@ -57,7 +57,7 @@ class UcoAuthenticator extends SSPGuardAuthenticator
                 throw new OrganizationNotFound();
             }
 
-            /** @var User $user */
+            /** @var UserInterface $user */
             $user = $this->userManager->createUser();
             $user->setUsername($credentials['mail'][0]);
             $user->setEmail($credentials['mail'][0]);
@@ -99,7 +99,7 @@ class UcoAuthenticator extends SSPGuardAuthenticator
     }
 
     /**
-     * @param OrganizationRepository $organizationRepository
+     * @param OrganizationRepositoryInterface $organizationRepository
      */
     public function setOrganizationRepository($organizationRepository)
     {

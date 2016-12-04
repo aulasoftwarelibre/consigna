@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="consigna.manager.file" class="AppBundle\Services\FileManager">
+            <argument type="service" id="consigna.director.file"/>
+            <argument type="service" id="consigna.event_dispatcher.file"/>
+        </service>
+
+        <service id="consigna.repository.file" alias="consigna.object_repository.file">
+        </service>
+
+        <service id="consigna.manager.folder" class="AppBundle\Services\FolderManager">
+            <argument type="service" id="consigna.director.folder"/>
+            <argument type="service" id="consigna.event_dispatcher.folder"/>
+        </service>
+
+        <service id="consigna.repository.folder" alias="consigna.object_repository.folder">
+        </service>
+
+        <service id="consigna.manager.organization" class="AppBundle\Services\OrganizationManager">
+            <argument type="service" id="consigna.director.organization"/>
+            <argument type="service" id="consigna.event_dispatcher.organization"/>
+        </service>
+
+        <service id="consigna.manager.tag" class="AppBundle\Services\TagManager">
+            <argument type="service" id="consigna.director.tag"/>
+            <argument type="service" id="consigna.event_dispatcher.tag"/>
+        </service>
+    </services>
+</container>

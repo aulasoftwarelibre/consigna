@@ -10,7 +10,7 @@
 
 namespace Uco\Bundle\UserBundle\Security\User;
 
-use Component\User\Model\User;
+use AppBundle\Entity\User;
 use FOS\UserBundle\Security\UserProvider;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;

@@ -1,0 +1,24 @@
+<?php
+
+namespace MovedBundle\Behat;
+
+use Behat\Gherkin\Node\TableNode;
+use Bundle\TagBundle\Entity\Tag;
+
+class TagContext extends DefaultContext
+{
+    /**
+     * @Given existing tags:
+     */
+    public function createTagList(TableNode $tableNode)
+    {
+        $em = $this->getEntityManager();
+        foreach ($tableNode as $hash) {
+            $tag = new Tag();
+            $tag->setName($hash['tagName']);
+
+            $em->persist($tag);
+        }
+        $em->flush();
+    }
+}

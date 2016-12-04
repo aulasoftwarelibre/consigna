@@ -16,12 +16,12 @@
 
     <services>
 
-        <service id="consigna.voter.file" class="AppBundle\Security\Voter\FileVoter">
+        <service id="consigna.voter.file" class="MovedBundle\Security\Voter\FileVoter">
             <argument type="service" id="session"/>
             <tag name="security.voter"/>
         </service>
         
-        <service id="consigna.voter.folder" class="AppBundle\Security\Voter\FolderVoter">
+        <service id="consigna.voter.folder" class="MovedBundle\Security\Voter\FolderVoter">
             <argument type="service" id="session"/>
             <tag name="security.voter"/>
         </service>

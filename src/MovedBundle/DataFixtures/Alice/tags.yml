@@ -1,0 +1,3 @@
+\MovedBundle\Entity\Tag:
+    tags{1..15}:
+        name (unique): <tag()>

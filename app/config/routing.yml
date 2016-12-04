@@ -25,10 +25,13 @@ oneup_uploader:
     type: "uploader"
 
 app:
-    resource: "@AppBundle/Controller/Frontend/"
+    resource: "@MovedBundle/Controller/Frontend/"
     type:     "annotation"
     prefix:   "/{_locale}/"
     defaults:
         _locale: "en"
     requirements:
         _locale: "|en|es"
+
+core:
+    resource: "@AppBundle/Resources/config/routing.xml"

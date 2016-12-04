@@ -1,5 +1,0 @@
-\AppBundle\Entity\Organization:
-    organizations:
-        name: Universidad de Cordoba
-        code(unique): uco.es
-        isEnabled: 1

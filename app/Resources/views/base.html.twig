@@ -129,7 +129,7 @@
                     <!-- /.search form -->
 
                     <!-- Sidebar Menu -->
-                    {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active' }) }}
+                    {{ knp_menu_render('MovedBundle:Builder:mainMenu', {'currentClass': 'active' }) }}
                 </section>
                 <!-- /.sidebar -->
             </aside>
@@ -185,7 +185,7 @@
         </div><!-- ./wrapper -->
 
         {% block modal %}
-            {{ render(controller('AppBundle:Frontend/Default:createDeleteForm')) }}
+            {{ render(controller('MovedBundle:Frontend/Default:createDeleteForm')) }}
 
             <div class="modal fade" id="ShareModal" tabindex="-1" role="dialog" aria-labelledby="{{ 'title.share_element' | trans }}" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog">

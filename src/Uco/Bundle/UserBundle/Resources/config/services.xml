@@ -19,7 +19,7 @@
                 <argument type="service" id="fos_user.user_manager.default"/>
             </call>
             <call method="setOrganizationRepository">
-                <argument type="service" id="consigna_organization.object_repository.organization"/>
+                <argument type="service" id="consigna.object_repository.organization"/>
             </call>
         </service>
     </services>

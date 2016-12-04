@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="consigna.director.file" class="AppBundle\Services\ObjectDirector">
+            <argument type="service" id="consigna.object_manager.file"/>
+            <argument type="service" id="consigna.object_repository.file"/>
+            <argument type="service" id="consigna.factory.file"/>
+        </service>
+
+        <service id="consigna.director.folder" class="AppBundle\Services\ObjectDirector">
+            <argument type="service" id="consigna.object_manager.folder"/>
+            <argument type="service" id="consigna.object_repository.folder"/>
+            <argument type="service" id="consigna.factory.folder"/>
+        </service>
+
+        <service id="consigna.director.organization" class="AppBundle\Services\ObjectDirector">
+            <argument type="service" id="consigna.object_manager.organization"/>
+            <argument type="service" id="consigna.object_repository.organization"/>
+            <argument type="service" id="consigna.factory.organization"/>
+        </service>
+
+        <service id="consigna.director.tag" class="AppBundle\Services\ObjectDirector">
+            <argument type="service" id="consigna.object_manager.tag"/>
+            <argument type="service" id="consigna.object_repository.tag"/>
+            <argument type="service" id="consigna.factory.tag"/>
+        </service>
+
+    </services>
+</container>
