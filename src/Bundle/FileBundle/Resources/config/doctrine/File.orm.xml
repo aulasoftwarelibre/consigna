@@ -12,26 +12,37 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-    <entity name="AppBundle\Entity\File" repository-class="AppBundle\Repository\FileRepository" table="file">
+    <entity name="Component\File\Model\File" repository-class="Component\File\Repository\FileRepository" table="file">
+        <gedmo:uploadable filename-generator="SHA1" callback="configureFileCallback" append-number="true"/>
+
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="createdAt" type="datetime"/>
+        <field name="createdAt" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
 
-        <field name="createdFromIp" type="string" length="255" nullable="true"/>
+        <field name="createdFromIp" type="string" length="255" nullable="true">
+            <gedmo:ip-traceable on="create"/>
+        </field>
 
         <field name="description" type="text" nullable="true"/>
 
         <field name="expiresAt" type="datetime" nullable="true"/>
 
-        <field name="mimeType" type="string" length="255"/>
+        <field name="mimeType" type="string" length="255">
+            <gedmo:uploadable-file-mime-type/>
+        </field>
 
         <field name="name" type="string" length="255"/>
 
-        <field name="path" type="string" length="255"/>
+        <field name="path" type="string" length="255">
+            <gedmo:uploadable-file-path/>
+        </field>
 
         <field name="password" type="string" length="255"/>
 
@@ -41,21 +52,28 @@
 
         <field name="sharedCode" type="string" length="255"/>
 
-        <field name="size" type="decimal"/>
+        <field name="size" type="decimal">
+            <gedmo:uploadable-file-size/>
+        </field>
 
-        <field name="slug" length="127" unique="true"/>
+        <field name="slug" length="127" unique="true">
+            <gedmo:slug fields="name"/>
+        </field>
 
-        <field name="updatedAt" type="datetime"/>
+        <field name="updatedAt" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
 
         <many-to-one target-entity="Component\Folder\Model\Folder" field="folder" inversed-by="files">
             <join-column on-delete="CASCADE" nullable="true"/>
         </many-to-one>
 
-        <many-to-one target-entity="AppBundle\Entity\User" field="owner" inversed-by="files">
+        <many-to-one target-entity="Component\User\Model\User" field="owner" inversed-by="files">
             <join-column nullable="true"/>
+            <gedmo:blameable on="create"/>
         </many-to-one>
 
-        <many-to-many target-entity="AppBundle\Entity\Tag" field="tags" inversed-by="files">
+        <many-to-many target-entity="Component\Tag\Model\Tag" field="tags" inversed-by="files">
             <join-table name="file_tags">
                 <join-columns>
                     <join-column name="file_id" referenced-column-name="id" on-delete="CASCADE"/>
@@ -66,7 +84,7 @@
             </join-table>
         </many-to-many>
 
-        <many-to-many target-entity="AppBundle\Entity\User" field="sharedWithUsers" inversed-by="sharedFiles">
+        <many-to-many target-entity="Component\User\Model\User" field="sharedWithUsers" inversed-by="sharedFiles">
             <join-table name="file_shared_user">
                 <join-columns>
                     <join-column name="file_id" referenced-column-name="id" on-delete="CASCADE"/>

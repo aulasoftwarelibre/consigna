@@ -12,9 +12,9 @@
 
 namespace AppBundle\Security\Voter;
 
-use AppBundle\Entity\User;
+use Component\User\Model\User;
 use Component\Folder\Model\Interfaces\FolderInterface;
-use AppBundle\Model\UserInterface;
+use Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;

@@ -12,6 +12,7 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
     <entity name="Component\Folder\Model\Folder" repository-class="Component\Folder\Repository\FolderRepository" table="folder">
@@ -19,9 +20,13 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="createdAt" type="datetime"/>
+        <field name="createdAt" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
 
-        <field name="createdFromIp" type="string" length="255" nullable="true"/>
+        <field name="createdFromIp" type="string" length="255" nullable="true">
+            <gedmo:ip-traceable on="create"/>
+        </field>
 
         <field name="description" type="text" nullable="true"/>
 
@@ -37,11 +42,15 @@
 
         <field name="sharedCode" type="string" length="255"/>
 
-        <field name="slug" length="127" unique="true"/>
+        <field name="slug" length="127" unique="true">
+            <gedmo:slug fields="name"/>
+        </field>
 
-        <field name="updatedAt" type="datetime"/>
+        <field name="updatedAt" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
 
-        <one-to-many target-entity="AppBundle\Entity\File" mapped-by="folder" field="files">
+        <one-to-many target-entity="Component\File\Model\File" mapped-by="folder" field="files">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
@@ -51,11 +60,12 @@
             </order-by>
         </one-to-many>
 
-        <many-to-one target-entity="AppBundle\Entity\User" field="owner" inversed-by="folders">
+        <many-to-one target-entity="Component\User\Model\User" field="owner" inversed-by="folders">
             <join-column nullable="false"/>
+            <gedmo:blameable on="create"/>
         </many-to-one>
 
-        <many-to-many target-entity="AppBundle\Entity\Tag" field="tags" inversed-by="folders">
+        <many-to-many target-entity="Component\Tag\Model\Tag" field="tags" inversed-by="folders">
             <join-table name="folder_tags">
                 <join-columns>
                     <join-column name="folder_id" referenced-column-name="id" on-delete="CASCADE"/>
@@ -66,7 +76,7 @@
             </join-table>
         </many-to-many>
 
-        <many-to-many target-entity="AppBundle\Entity\User" field="sharedWithUsers" inversed-by="sharedFolders">
+        <many-to-many target-entity="Component\User\Model\User" field="sharedWithUsers" inversed-by="sharedFolders">
             <join-table name="folder_shared_user">
                 <join-columns>
                     <join-column name="folder_id" referenced-column-name="id" on-delete="CASCADE"/>

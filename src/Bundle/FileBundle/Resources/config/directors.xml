@@ -13,22 +13,11 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
     <services>
-
-        <service id="consigna.extension.size" class="AppBundle\Twig\TwigSizeExtension">
+        <service id="consigna_file.director.file" class="Component\Core\Services\ObjectDirector">
+            <argument type="service" id="consigna_file.object_manager.file"/>
             <argument type="service" id="consigna_file.object_repository.file"/>
-            <tag name="twig.extension"/>
+            <argument type="service" id="consigna_file.factory.file"/>
         </service>
-
-        <service id="twig.data_extension" class="Twig_Extensions_Extension_Date">
-            <argument type="service" id="translator"/>
-            <tag name="twig.extension"/>
-        </service>
-
-        <!--<service id="twig.text_extension" class="Twig_Extensions_Extension_Text">-->
-            <!--<tag name="twig.extension"/>-->
-        <!--</service>-->
-
     </services>
 </container>

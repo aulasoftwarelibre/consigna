@@ -1,15 +1,17 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: jamartinez
- * Date: 19/03/15
- * Time: 12:58.
+ * This file is part of the Consigna project.
+ *
+ * (c) Juan Antonio Martínez <juanto1990@gmail.com>
+ * (c) Sergio Gómez <sergio@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace AppBundle\Form\Type;
+namespace Component\File\Form\Type;
 
-use AppBundle\Entity\File;
+use Component\File\Model\File;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
@@ -17,7 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-class DownloadFileType extends AbstractType
+class FileDownloadType extends AbstractType
 {
     /**
      * @var EncoderFactoryInterface

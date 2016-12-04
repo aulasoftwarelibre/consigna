@@ -11,7 +11,7 @@
 
 namespace AppBundle\Twig;
 
-use AppBundle\Repository\FileRepository;
+use Component\File\Repository\FileRepository;
 
 class TwigSizeExtension extends \Twig_Extension
 {

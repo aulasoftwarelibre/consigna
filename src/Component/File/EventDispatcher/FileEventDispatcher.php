@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Factory;
+namespace Component\File\EventDispatcher;
 
-use Component\Core\Factory\FactoryInterface;
+use Component\Core\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
-interface UserFactoryInterface extends FactoryInterface
+class FileEventDispatcher extends AbstractEventDispatcher
 {
-    public function createNewFromOrganization(string $code);
 }

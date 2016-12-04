@@ -11,7 +11,7 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\File;
+use Component\File\Model\File;
 use AppBundle\Services\Clamav\ScanedFile;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Event;
 
-use AppBundle\Model\FileInterface;
+use Component\File\Model\Interfaces\FileInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

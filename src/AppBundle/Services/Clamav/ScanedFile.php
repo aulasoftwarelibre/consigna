@@ -11,7 +11,7 @@
 
 namespace AppBundle\Services\Clamav;
 
-use AppBundle\Model\FileInterface;
+use Component\File\Model\Interfaces\FileInterface;
 
 class ScanedFile implements ScanedFileInterface
 {

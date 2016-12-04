@@ -10,15 +10,16 @@
 namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Controller\Controller;
-use Component\Folder\Model\Folder;
-use AppBundle\Entity\User;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\FolderEvent;
 use AppBundle\Event\UserAccessSharedEvent;
-use Component\Folder\Form\Type\FolderAnonAccessType;
 use Component\Folder\Form\Type\FolderAccessType;
+use Component\Folder\Form\Type\FolderAnonAccessType;
 use Component\Folder\Form\Type\FolderCreateType;
 use Component\Folder\Form\Type\FolderEditType;
+use Component\Folder\Model\Folder;
+use Component\Organization\Model\Organization;
+use Component\User\Model\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -108,15 +109,13 @@ class FolderController extends Controller
      */
     public function newAction(Request $request)
     {
-        $folder = $this->get('consigna.factory.folder')->createNew();
-        $form = $this->createFolderForm($folder);
+        $folder = $this->get('consigna_folder.factory.folder')->createNew();
+
+        $form = $this->createForm(FolderCreateType::class, $folder);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $event = new FolderEvent($folder);
-            $this->save($folder);
-
-            $this->dispatch(ConsignaEvents::FOLDER_NEW_SUCCESS, $event);
+            $this->get('consigna_folder.manager.folder')->createFolder($folder);
 
             return $this->redirectToRoute('folder_show', ['slug' => $folder->getSlug()]);
         }
@@ -137,6 +136,9 @@ class FolderController extends Controller
      */
     public function shareAction(Folder $folder, Request $request)
     {
+        $organization = new Organization();
+        $organization = $this->get('consigna.factory.organization')->createNew();
+
         $form = $this->createForm(FolderEditType::class, $folder);
         $form->handleRequest($request);
 
@@ -187,11 +189,6 @@ class FolderController extends Controller
                 'folder' => $folder,
             ]
         );
-    }
-
-    private function createFolderForm($folder)
-    {
-        return $this->createForm(FolderCreateType::class, $folder);
     }
 
     /**

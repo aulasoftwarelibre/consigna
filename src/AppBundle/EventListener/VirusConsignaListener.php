@@ -9,7 +9,7 @@
 
 namespace AppBundle\EventListener;
 
-use AppBundle\Entity\File;
+use Component\File\Model\File;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\FileEvent;
 use AppBundle\Services\Clamav\ScanedFile;

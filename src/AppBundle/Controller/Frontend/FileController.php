@@ -4,13 +4,13 @@ namespace AppBundle\Controller\Frontend;
 
 use AppBundle\Controller\Controller;
 use AppBundle\Doctrine\Extensions\UploadedFileInfo;
-use AppBundle\Entity\File;
-use AppBundle\Entity\User;
+use Component\File\Model\File;
+use Component\User\Model\User;
 use AppBundle\Event\ConsignaEvents;
 use AppBundle\Event\UserAccessSharedEvent;
-use AppBundle\Form\Type\DownloadFileAnonType;
-use AppBundle\Form\Type\DownloadFileType;
-use AppBundle\Model\FileInterface;
+use Component\File\Form\Type\FileAnonDownloadType;
+use Component\File\Form\Type\FileDownloadType;
+use Component\File\Model\Interfaces\FileInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -18,8 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Type\CreateFileType;
-use AppBundle\Form\Type\CreateFileAnonType;
+use Component\File\Form\Type\FileCreateType;
+use Component\File\Form\Type\FileAnonCreateType;
 use AppBundle\Event\FileEvent;
 
 /**
@@ -217,9 +217,9 @@ class FileController extends Controller
     private function createFileForm($file)
     {
         if ($this->getUser() instanceof User) {
-            return $this->createForm(CreateFileType::class, $file);
+            return $this->createForm(FileCreateType::class, $file);
         } else {
-            return $this->createForm(CreateFileAnonType::class, $file);
+            return $this->createForm(FileAnonCreateType::class, $file);
         }
     }
 
@@ -231,9 +231,9 @@ class FileController extends Controller
     private function createDownloadFileForm($file)
     {
         if ($this->getUser() instanceof User) {
-            return $this->createForm(DownloadFileType::class, $file);
+            return $this->createForm(FileDownloadType::class, $file);
         } else {
-            return $this->createForm(DownloadFileAnonType::class, $file);
+            return $this->createForm(FileAnonDownloadType::class, $file);
         }
     }
 }

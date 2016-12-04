@@ -9,7 +9,7 @@
 
 namespace AppBundle\Behat;
 
-use AppBundle\Entity\File;
+use Component\File\Model\File;
 use Component\Folder\Model\Folder;
 use Behat\Gherkin\Node\TableNode;
 

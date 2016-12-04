@@ -11,8 +11,9 @@
 
 namespace Component\Folder\Model;
 
+use AppBundle\Util\RandomStringGenerator;
 use Component\Core\Model\Traits\ExpirableTrait;
-use AppBundle\Model\FileInterface;
+use Component\File\Model\Interfaces\FileInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Component\Core\Model\Traits\OwneableTrait;
 use Component\Core\Model\Traits\ProtectableTrait;
@@ -20,10 +21,7 @@ use Component\Core\Model\Traits\ShareableTrait;
 use Component\Core\Model\Traits\TaggeableTrait;
 use Component\Core\Model\Traits\TimestampableTrait;
 use Component\Core\Model\Traits\TraceableTrait;
-use AppBundle\Util\RandomStringGenerator;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Folder.
@@ -61,8 +59,6 @@ class Folder implements FolderInterface
 
     /**
      * @var string
-     *
-     * @Gedmo\Slug(fields={"name"}, unique=true)
      */
     protected $slug;
 

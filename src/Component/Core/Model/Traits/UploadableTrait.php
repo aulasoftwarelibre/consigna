@@ -11,8 +11,6 @@
 
 namespace Component\Core\Model\Traits;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-
 trait UploadableTrait
 {
     /**
@@ -22,22 +20,16 @@ trait UploadableTrait
 
     /**
      * @var string
-     *
-     * @Gedmo\UploadableFileMimeType
      */
     private $mimeType;
 
     /**
      * @var string
-     *
-     * @Gedmo\UploadableFilePath
      */
     private $path;
 
     /**
      * @var int
-     *
-     * @Gedmo\UploadableFileSize
      */
     private $size;
 

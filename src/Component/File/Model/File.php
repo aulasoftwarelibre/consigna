@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Entity;
+namespace Component\File\Model;
 
-use AppBundle\Model\FileInterface;
 use AppBundle\Util\RandomStringGenerator;
 use Component\Core\Model\Traits\ExpirableTrait;
 use Component\Core\Model\Traits\OwneableTrait;
@@ -21,15 +20,12 @@ use Component\Core\Model\Traits\TaggeableTrait;
 use Component\Core\Model\Traits\TimestampableTrait;
 use Component\Core\Model\Traits\TraceableTrait;
 use Component\Core\Model\Traits\UploadableTrait;
+use Component\File\Model\Interfaces\FileInterface;
 use Component\Folder\Model\Interfaces\FolderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class File.
- *
- * @Gedmo\Uploadable(filenameGenerator="SHA1", callback="configureFileCallback", appendNumber=true)
  */
 class File implements FileInterface
 {
@@ -66,8 +62,6 @@ class File implements FileInterface
 
     /**
      * @var string
-     *
-     * @Gedmo\Slug(fields={"name"}, unique=true)
      */
     protected $slug;
 

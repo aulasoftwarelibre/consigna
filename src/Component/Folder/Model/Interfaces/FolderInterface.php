@@ -11,7 +11,7 @@
 
 namespace Component\Folder\Model\Interfaces;
 
-use AppBundle\Model\FileInterface;
+use Component\File\Model\Interfaces\FileInterface;
 use Component\Core\Model\Interfaces\ExpirableInterface;
 use Component\Core\Model\Interfaces\OwnableInterface;
 use Component\Core\Model\Interfaces\ProtectableInterface;

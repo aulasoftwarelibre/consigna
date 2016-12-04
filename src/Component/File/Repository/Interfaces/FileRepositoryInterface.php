@@ -9,8 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Repository;
+namespace Component\File\Repository\Interfaces;
 
-class GroupRepository extends EntityRepository implements GroupRepositoryInterface
+use Doctrine\Common\Persistence\ObjectRepository;
+
+interface FileRepositoryInterface extends ObjectRepository
 {
 }

@@ -9,10 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Model;
+namespace Component\File;
 
-use FOS\UserBundle\Model\GroupInterface as BaseGroupInterface;
-
-interface GroupInterface extends BaseGroupInterface
+final class ConsignaFileEvents
 {
 }

@@ -10,8 +10,8 @@
 
 namespace AppBundle\Services\Clamav;
 
-use AppBundle\Model\FileInterface;
-use Quahog\Client;
+use Component\File\Model\Interfaces\FileInterface;
+use Xenolope\Quahog\Client;
 use Socket\Raw\Factory;
 
 class ScanFileService implements ScanFileServiceInterface

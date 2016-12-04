@@ -11,7 +11,7 @@
 
 namespace Component\Core\EventListener\Doctrine;
 
-use AppBundle\Model\FileInterface;
+use Component\File\Model\Interfaces\FileInterface;
 use Component\Core\Model\Interfaces\ExpirableInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;

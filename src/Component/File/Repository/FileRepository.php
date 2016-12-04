@@ -9,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Repository;
+namespace Component\File\Repository;
 
-use AppBundle\Entity\File;
-use AppBundle\Entity\User;
-use AppBundle\Model\FileInterface;
+use Component\User\Model\User;
+use Component\File\Model\File;
+use Component\File\Model\Interfaces\FileInterface;
+use Component\File\Repository\Interfaces\FileRepositoryInterface;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityRepository;
 
 class FileRepository extends EntityRepository implements FileRepositoryInterface
 {

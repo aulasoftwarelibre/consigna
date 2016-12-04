@@ -9,15 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Entity;
+namespace Component\File\Factory\Interfaces;
 
-use AppBundle\Model\GroupInterface;
-use FOS\UserBundle\Model\Group as BaseGroup;
+use Component\Core\Factory\FactoryInterface;
 
-/**
- * Class Group.
- */
-class Group extends BaseGroup implements GroupInterface
+interface FileFactoryInterface extends FactoryInterface
 {
-    protected $id;
 }
