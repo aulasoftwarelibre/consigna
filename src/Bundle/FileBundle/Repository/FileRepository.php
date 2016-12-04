@@ -14,7 +14,7 @@ namespace Bundle\FileBundle\Repository;
 use Bundle\FileBundle\Entity\File;
 use Bundle\FileBundle\Entity\Interfaces\FileInterface;
 use Bundle\FileBundle\Repository\Interfaces\FileRepositoryInterface;
-use Component\User\Model\User;
+use Bundle\UserBundle\Entity\User;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 

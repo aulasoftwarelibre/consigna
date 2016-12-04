@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\User\Factory;
+namespace Bundle\UserBundle\Factory;
 
 use Bundle\OrganizationBundle\Repository\Interfaces\OrganizationRepositoryInterface;
+use Bundle\UserBundle\Entity\Interfaces\UserInterface;
+use Bundle\UserBundle\Factory\Interfaces\UserFactoryInterface;
 use Component\Core\Factory\FactoryInterface;
-use Component\User\Factory\Interfaces\UserFactoryInterface;
-use Component\User\Model\Interfaces\UserInterface;
 
 class UserFactory implements UserFactoryInterface
 {

@@ -15,7 +15,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="Component\User\Model\User" repository-class="Component\User\Repository\UserRepository" table="fos_user">
+    <entity name="Bundle\UserBundle\Entity\User" repository-class="Bundle\UserBundle\Repository\UserRepository" table="fos_user">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
@@ -52,7 +52,7 @@
             </cascade>
         </many-to-many>
 
-        <many-to-many target-entity="Component\User\Model\Group" field="groups">
+        <many-to-many target-entity="Bundle\UserBundle\Entity\Group" field="groups">
             <join-table name="fos_user_group">
                 <join-columns>
                     <join-column name="user_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>

@@ -16,10 +16,10 @@
 
 
     <services>
-        <service id="consigna_user.factory.user" class="Component\User\Factory\UserFactory">
+        <service id="consigna_user.factory.user" class="Bundle\UserBundle\Factory\UserFactory">
             <argument type="service">
                 <service class="Component\Core\Factory\Factory">
-                    <argument>Component\User\Model\User</argument>
+                    <argument>Bundle\UserBundle\Entity\User</argument>
                 </service>
             </argument>
             <argument type="service" id="consigna_organization.object_repository.organization"/>

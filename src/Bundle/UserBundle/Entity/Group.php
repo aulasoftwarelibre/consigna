@@ -9,11 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\User\Factory\Interfaces;
+namespace Bundle\UserBundle\Entity;
 
-use Component\Core\Factory\FactoryInterface;
+use Bundle\UserBundle\Entity\Interfaces\GroupInterface;
+use FOS\UserBundle\Model\Group as BaseGroup;
 
-interface UserFactoryInterface extends FactoryInterface
+/**
+ * Class Group.
+ */
+class Group extends BaseGroup implements GroupInterface
 {
-    public function createNewFromOrganization(string $code);
+    protected $id;
 }

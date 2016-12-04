@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\User\Repository;
+namespace Bundle\UserBundle\Repository\Interfaces;
 
-use Component\User\Repository\Interfaces\GroupRepositoryInterface;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Persistence\ObjectRepository;
 
-class GroupRepository extends EntityRepository implements GroupRepositoryInterface
+interface GroupRepositoryInterface extends ObjectRepository
 {
 }

@@ -11,7 +11,7 @@
 
 namespace Bundle\FolderBundle\Form\Type;
 
-use Component\User\Model\Interfaces\UserInterface;
+use Bundle\UserBundle\Entity\Interfaces\UserInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

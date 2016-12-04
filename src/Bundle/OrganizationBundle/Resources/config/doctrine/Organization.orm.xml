@@ -29,7 +29,7 @@
 
         <field name="enabled" type="boolean"/>
 
-        <one-to-many target-entity="Component\User\Model\User" mapped-by="organization" field="users">
+        <one-to-many target-entity="Bundle\UserBundle\Entity\User" mapped-by="organization" field="users">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

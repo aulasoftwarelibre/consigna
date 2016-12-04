@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\User\Repository\Interfaces;
+namespace Bundle\UserBundle\Repository;
 
-use Doctrine\Common\Persistence\ObjectRepository;
+use Bundle\UserBundle\Repository\Interfaces\UserRepositoryInterface;
+use Doctrine\ORM\EntityRepository;
 
-interface UserRepositoryInterface extends ObjectRepository
+class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
 }

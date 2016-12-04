@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\User\Model\Interfaces;
+namespace Bundle\UserBundle\Entity\Interfaces;
 
 use FOS\UserBundle\Model\GroupInterface as BaseGroupInterface;
 

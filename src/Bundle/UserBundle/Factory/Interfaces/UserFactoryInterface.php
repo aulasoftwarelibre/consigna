@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\User\Repository;
+namespace Bundle\UserBundle\Factory\Interfaces;
 
-use Component\User\Repository\Interfaces\UserRepositoryInterface;
-use Doctrine\ORM\EntityRepository;
+use Component\Core\Factory\FactoryInterface;
 
-class UserRepository extends EntityRepository implements UserRepositoryInterface
+interface UserFactoryInterface extends FactoryInterface
 {
+    public function createNewFromOrganization(string $code);
 }

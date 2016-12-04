@@ -12,7 +12,7 @@
 namespace Bundle\FolderBundle\Repository;
 
 use Bundle\FolderBundle\Repository\Interfaces\FolderRepositoryInterface;
-use Component\User\Model\Interfaces\UserInterface;
+use Bundle\UserBundle\Entity\Interfaces\UserInterface;
 use Doctrine\ORM\EntityRepository;
 
 class FolderRepository extends EntityRepository implements FolderRepositoryInterface

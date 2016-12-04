@@ -9,15 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Component\User\Model;
+namespace Bundle\UserBundle\Repository;
 
-use Component\User\Model\Interfaces\GroupInterface;
-use FOS\UserBundle\Model\Group as BaseGroup;
+use Bundle\UserBundle\Repository\Interfaces\GroupRepositoryInterface;
+use Doctrine\ORM\EntityRepository;
 
-/**
- * Class Group.
- */
-class Group extends BaseGroup implements GroupInterface
+class GroupRepository extends EntityRepository implements GroupRepositoryInterface
 {
-    protected $id;
 }

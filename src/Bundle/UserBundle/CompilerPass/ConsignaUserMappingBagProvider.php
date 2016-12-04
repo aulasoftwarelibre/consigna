@@ -26,7 +26,7 @@ class ConsignaUserMappingBagProvider implements MappingBagProvider
                 'group' => 'Group',
             ],
             '@ConsignaUserBundle',
-            'Component\User\Model',
+            'Bundle\UserBundle\Entity',
             ConsignaUserExtension::EXTENSION_NAME
         );
     }
