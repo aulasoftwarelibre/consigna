@@ -65,7 +65,9 @@ trait ShareableTrait
      */
     public function addSharedWithUser(UserInterface $user)
     {
-        $this->sharedWithUsers->add($user);
+        if (!$this->hasAccess($user)) {
+            $this->sharedWithUsers->add($user);
+        }
 
         return $this;
     }
@@ -75,6 +77,17 @@ trait ShareableTrait
      */
     public function removeSharedWithUser(UserInterface $user)
     {
-        $this->sharedWithUsers->removeElement($user);
+        if ($this->hasAccess($user)) {
+            $this->sharedWithUsers->removeElement($user);
+        }
+    }
+
+    private function hasAccess(UserInterface $user)
+    {
+        $this
+            ->getSharedWithUsers()
+            ->exists(function(UserInterface $member) use ($user) {
+                return $user == $member;
+            });
     }
 }

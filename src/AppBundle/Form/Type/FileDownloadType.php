@@ -12,9 +12,13 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\File;
+use AppBundle\Entity\Interfaces\FileInterface;
+use AppBundle\Entity\Interfaces\UserInterface;
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -45,6 +49,25 @@ class FileDownloadType extends AbstractType
                 'label' => 'label.password',
             ])
         ;
+
+        if (is_null($options['user'])) {
+            $builder
+                ->add('captcha', EWZRecaptchaType::class, [
+                    'label' => 'label.captcha',
+                    'attr' => [
+                        'options' => [
+                            'size' => 'normal',
+                            'theme' => 'light',
+                            'type' => 'image',
+                        ],
+                    ],
+                    'mapped' => false,
+                    'constraints' => [
+                        new Assert\IsTrue(),
+                    ],
+                ])
+            ;
+        }
     }
 
     public function validate($plainPassword, ExecutionContextInterface $context)
@@ -59,6 +82,21 @@ class FileDownloadType extends AbstractType
                 ->addViolation();
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setDefaults([
+                'data_class' => FileInterface::class,
+                'user' => null,
+                'validation_groups' => ['Default', 'File'],
+            ])
+            ->addAllowedTypes('user', [UserInterface::class, 'null']);
+    }
+
 
     public function getBlockPrefix()
     {

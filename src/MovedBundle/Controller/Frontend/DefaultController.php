@@ -13,29 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/" , name="homepage")
-     * @Template("frontend/Default/homepage.html.twig")
-     */
-    public function defaultAction()
-    {
-        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy();
-        $files = $this->get('consigna.repository.file')->findActiveFilesBy();
-
-        return [
-            'files' => $files,
-            'folders' => $folders,
-        ];
-    }
-
-    /**
      * @Route("/user/files", name="user_files")
      * @Template("frontend/Default/homepage.html.twig")
      */
     public function myFilesAction()
     {
         $user = $this->getUser();
-        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy(['owner' => $user]);
-        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['owner' => $user]);
+        $folders = $this->get('consigna.object_repository.folder')->findActiveFoldersBy(['owner' => $user]);
+        $files = $this->get('consigna.object_repository.file')->findActiveFilesBy(['owner' => $user]);
 
         return [
             'files' => $files,
@@ -50,8 +35,8 @@ class DefaultController extends Controller
     public function searchAction(Request $request)
     {
         $word = $request->get('word');
-        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy(['search' => $word]);
-        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['search' => $word]);
+        $folders = $this->get('consigna.object_repository.folder')->findActiveFoldersBy(['search' => $word]);
+        $files = $this->get('consigna.object_repository.file')->findActiveFilesBy(['search' => $word]);
 
         return [
             'files' => $files,
@@ -66,8 +51,8 @@ class DefaultController extends Controller
     public function sharedWithMeAction()
     {
         $user = $this->getUser();
-        $folders = $this->get('consigna.repository.folder')->findActiveFoldersBy(['shared' => $user]);
-        $files = $this->get('consigna.repository.file')->findActiveFilesBy(['shared' => $user]);
+        $folders = $this->get('consigna.object_repository.folder')->findActiveFoldersBy(['shared' => $user]);
+        $files = $this->get('consigna.object_repository.file')->findActiveFilesBy(['shared' => $user]);
 
         return [
             'files' => $files,
@@ -75,20 +60,4 @@ class DefaultController extends Controller
         ];
     }
 
-    /**
-     * Creates a form to delete a entity.
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    public function createDeleteFormAction()
-    {
-        $deleteForm = $this->createFormBuilder()
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-
-        return $this->render(':frontend/Default:delete.html.twig', [
-            'delete_form' => $deleteForm->createView(),
-        ]);
-    }
 }

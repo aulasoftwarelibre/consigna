@@ -9,9 +9,9 @@
 
 namespace MovedBundle\Behat;
 
-use Behat\Gherkin\Node\TableNode;
 use AppBundle\Entity\File;
 use AppBundle\Entity\Folder;
+use Behat\Gherkin\Node\TableNode;
 
 class FileContext extends DefaultContext
 {

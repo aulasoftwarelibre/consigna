@@ -38,14 +38,7 @@
             <join-column nullable="false"/>
         </many-to-one>
 
-        <many-to-many target-entity="AppBundle\Entity\File" field="sharedFiles" mapped-by="sharedWithUsers">
-            <cascade>
-                <cascade-persist/>
-                <cascade-remove/>
-            </cascade>
-        </many-to-many>
-
-        <many-to-many target-entity="AppBundle\Entity\Folder" field="sharedFolders" mapped-by="sharedWithUsers">
+        <many-to-many target-entity="AppBundle\Entity\Item" field="sharedItems" mapped-by="sharedWithUsers">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

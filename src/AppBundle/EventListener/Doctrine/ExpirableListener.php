@@ -39,7 +39,7 @@ class ExpirableListener implements EventSubscriber
 
         if ($entity instanceof ExpirableInterface) {
             if ($entity instanceof FileInterface && $entity->getFolder()) {
-                $entity->setExpiresAt(null);
+                $entity->setExpiresAt($entity->getFolder()->getExpiresAt());
             } else {
                 $entity->setExpiresAt($this->expire_date);
             }

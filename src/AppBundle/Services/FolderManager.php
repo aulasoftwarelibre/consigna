@@ -12,6 +12,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Interfaces\FolderInterface;
+use AppBundle\Entity\Interfaces\UserInterface;
 use AppBundle\EventDispatcher\FolderEventDispatcher;
 
 class FolderManager
@@ -61,5 +62,20 @@ class FolderManager
             ->dispatchFolderOnDeletedEvent($folder);
 
         return $this;
+    }
+
+    public function sharedFolderWithUser(FolderInterface $folder, ?UserInterface $user)
+    {
+        if ($user) {
+            $folder->addSharedWithUser($user);
+
+            $this
+                ->folderDirector
+                ->save($folder);
+        }
+
+        $this
+            ->folderEventDispatcher
+            ->dispatchFolderOnSharedEvent($folder, $user);
     }
 }

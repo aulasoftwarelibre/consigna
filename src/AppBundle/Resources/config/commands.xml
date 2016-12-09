@@ -14,25 +14,32 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="consigna.command" class="AppBundle\Command\Abstracts\AbstractOrganizationCommand" abstract="true">
+        <service id="consigna.command.organization" class="AppBundle\Command\Abstracts\AbstractOrganizationCommand" abstract="true">
             <argument type="service" id="consigna.manager.organization"/>
             <argument type="service" id="consigna.object_repository.organization"/>
             <argument type="service" id="translator"/>
         </service>
 
-        <service id="consigna.command.disable" class="AppBundle\Command\OrganizationDisableCommand" parent="consigna.command">
+        <service id="consigna.command.organization.disable" class="AppBundle\Command\OrganizationDisableCommand" parent="consigna.command.organization">
             <tag name="console.command"/>
         </service>
 
-        <service id="consigna.command.enable" class="AppBundle\Command\OrganizationEnableCommand" parent="consigna.command">
+        <service id="consigna.command.organization.enable" class="AppBundle\Command\OrganizationEnableCommand" parent="consigna.command.organization">
             <tag name="console.command"/>
         </service>
 
-        <service id="consigna.command.list" class="AppBundle\Command\OrganizationListCommand" parent="consigna.command">
+        <service id="consigna.command.organization.list" class="AppBundle\Command\OrganizationListCommand" parent="consigna.command.organization">
             <tag name="console.command"/>
         </service>
 
-        <service id="consigna.command.update" class="AppBundle\Command\OrganizationUpdateCommand" parent="consigna.command">
+        <service id="consigna.command.organization.update" class="AppBundle\Command\OrganizationUpdateCommand" parent="consigna.command.organization">
+            <tag name="console.command"/>
+        </service>
+
+        <service id="consigna.command.file.scan" class="AppBundle\Command\FileScanCommand">
+            <argument type="service" id="consigna.director.file"/>
+            <argument type="service" id="consigna.manager.file"/>
+            <argument type="service" id="translator"/>
             <tag name="console.command"/>
         </service>
     </services>

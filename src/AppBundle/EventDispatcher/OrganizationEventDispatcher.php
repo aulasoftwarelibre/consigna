@@ -11,7 +11,7 @@
 
 namespace AppBundle\EventDispatcher;
 
-use AppBundle\ConsignaOrganizationEvents;
+use AppBundle\ConsignaEvents;
 use AppBundle\Entity\Interfaces\OrganizationInterface;
 use AppBundle\Event\OrganizationOnDisabledEvent;
 use AppBundle\Event\OrganizationOnEnabledEvent;
@@ -25,7 +25,7 @@ class OrganizationEventDispatcher extends AbstractEventDispatcher
 
         $this
             ->eventDispatcher
-            ->dispatch(ConsignaOrganizationEvents::ORGANIZATION_ENABLED, $event);
+            ->dispatch(ConsignaEvents::ORGANIZATION_ENABLED, $event);
 
         return $this;
     }
@@ -36,7 +36,7 @@ class OrganizationEventDispatcher extends AbstractEventDispatcher
 
         $this
             ->eventDispatcher
-            ->dispatch(ConsignaOrganizationEvents::ORGANIZATION_DISABLED, $event);
+            ->dispatch(ConsignaEvents::ORGANIZATION_DISABLED, $event);
 
         return $this;
     }

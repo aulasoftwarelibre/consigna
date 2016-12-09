@@ -11,124 +11,34 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Interfaces\FileInterface;
+
 use AppBundle\Entity\Interfaces\FolderInterface;
-use AppBundle\Model\Traits\ExpirableTrait;
-use AppBundle\Model\Traits\OwneableTrait;
-use AppBundle\Model\Traits\ProtectableTrait;
-use AppBundle\Model\Traits\ShareableTrait;
-use AppBundle\Model\Traits\TaggeableTrait;
-use AppBundle\Model\Traits\TimestampableTrait;
-use AppBundle\Model\Traits\TraceableTrait;
+use AppBundle\Entity\Interfaces\ItemInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use MovedBundle\Util\RandomStringGenerator;
 
 /**
  * Class Folder.
  */
-class Folder implements FolderInterface
+class Folder extends Item implements FolderInterface
 {
-    use ExpirableTrait;
-
-    use ProtectableTrait;
-
-    use OwneableTrait;
-
-    use ShareableTrait;
-
-    use TaggeableTrait;
-
-    use TimestampableTrait;
-
-    use TraceableTrait;
-
-    /**
-     * @var int|null
-     */
-    protected $id;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
     /**
      * @var string
      */
     protected $description;
 
     /**
-     * @var string
-     */
-    protected $slug;
-
-    /**
-     * @var bool
-     */
-    protected $isPermanent;
-
-    /**
      * @var ArrayCollection
      */
-    protected $files;
-
-    /**
-     * @var ArrayCollection
-     */
-    protected $sharedWithUsers;
-
-    /**
-     * @var ArrayCollection
-     */
-    protected $tags;
+    protected $items;
 
     /**
      * Folder constructor.
      */
     public function __construct()
     {
-        $this->files = new ArrayCollection();
-        $this->isPermanent = false;
-        $this->salt = RandomStringGenerator::length(16);
-        $this->sharedCode = RandomStringGenerator::length(16);
-        $this->sharedWithUsers = new ArrayCollection();
-        $this->tags = new ArrayCollection();
-    }
+        parent::__construct();
 
-    /**
-     * To string.
-     */
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Folder
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-
-        return $this;
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -152,72 +62,32 @@ class Folder implements FolderInterface
     }
 
     /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     *
-     * @return Folder
-     */
-    public function setSlug(string $slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function isPermanent()
-    {
-        return $this->isPermanent;
-    }
-
-    /**
-     * @param bool $permanent
-     *
-     * @return Folder
-     */
-    public function setPermanent(bool $permanent)
-    {
-        $this->isPermanent = $permanent;
-
-        return $this;
-    }
-
-    /**
      * @return ArrayCollection
      */
-    public function getFiles()
+    public function getItems()
     {
-        return $this->files;
+        return $this->items;
     }
 
     /**
-     * @param FileInterface $file
+     * @param ItemInterface $file
      *
      * @return $this
      */
-    public function addFile(FileInterface $file)
+    public function addItem(ItemInterface $file)
     {
         $file->setFolder($this);
-        $this->files->add($file);
+        $this->items->add($file);
 
         return $this;
     }
 
     /**
-     * @param FileInterface $file
+     * @param ItemInterface $file
      */
-    public function removeFile(FileInterface $file)
+    public function removeItem(ItemInterface $file)
     {
         $file->setFolder(null);
-        $this->files->removeElement($file);
+        $this->items->removeElement($file);
     }
 }

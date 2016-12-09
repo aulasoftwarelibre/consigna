@@ -12,6 +12,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Interfaces\FileInterface;
+use AppBundle\Entity\Interfaces\ItemInterface;
 use AppBundle\Entity\Interfaces\FolderInterface;
 use AppBundle\Entity\Interfaces\OrganizationInterface;
 use AppBundle\Entity\Interfaces\UserInterface;
@@ -51,12 +52,7 @@ class User extends BaseUser implements UserInterface
     /**
      * @var ArrayCollection
      */
-    protected $sharedFiles;
-
-    /**
-     * @var ArrayCollection
-     */
-    protected $sharedFolders;
+    protected $sharedItems;
 
     /**
      * User constructor.
@@ -68,8 +64,7 @@ class User extends BaseUser implements UserInterface
         $this->files = new ArrayCollection();
         $this->folders = new ArrayCollection();
         $this->groups = new ArrayCollection();
-        $this->sharedFiles = new ArrayCollection();
-        $this->sharedFolders = new ArrayCollection();
+        $this->sharedItems = new ArrayCollection();
     }
 
     /**
@@ -167,60 +162,33 @@ class User extends BaseUser implements UserInterface
     /**
      * @return ArrayCollection
      */
-    public function getSharedFiles()
+    public function getSharedItems()
     {
-        return $this->sharedFiles;
+        return $this->sharedItems;
     }
 
     /**
-     * @param FileInterface $sharedFile
+     * @param ItemInterface $sharedItem
      *
      * @return $this
      */
-    public function addSharedFile(FileInterface $sharedFile)
+    public function addSharedItem(ItemInterface $sharedItem)
     {
-        $this->sharedFiles->add($sharedFile);
+        $this->sharedItems->add($sharedItem);
 
         return $this;
     }
 
     /**
-     * @param FileInterface $sharedFile
+     * @param ItemInterface $sharedItem
      *
      * @return $this
      */
-    public function removeSharedFile(FileInterface $sharedFile)
+    public function removeSharedItem(ItemInterface $sharedItem)
     {
-        $this->sharedFiles->removeElement($sharedFile);
+        $this->sharedItems->removeElement($sharedItem);
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getSharedFolders()
-    {
-        return $this->sharedFolders;
-    }
-
-    /**
-     * @param FolderInterface $sharedFolder
-     *
-     * @return $this
-     */
-    public function addSharedFolder(FolderInterface $sharedFolder)
-    {
-        $this->sharedFolders->add($sharedFolder);
-
-        return $this;
-    }
-
-    /**
-     * @param FolderInterface $sharedFolder
-     */
-    public function removeSharedFolder(FolderInterface $sharedFolder)
-    {
-        $this->sharedFolders->removeElement($sharedFolder);
-    }
 
     /**
      * Get either a Gravatar URL or complete image tag for a specified email address.

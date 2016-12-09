@@ -11,11 +11,13 @@
 
 namespace AppBundle\EventDispatcher;
 
-use AppBundle\ConsignaFolderEvents;
+use AppBundle\ConsignaEvents;
 use AppBundle\Entity\Interfaces\FolderInterface;
+use AppBundle\Entity\Interfaces\UserInterface;
 use AppBundle\Event\FolderOnCreatedEvent;
 use AppBundle\Event\FolderOnDeletedEvent;
 use AppBundle\Event\FolderOnPreDeleteEvent;
+use AppBundle\Event\ItemOnSharedEvent;
 use AppBundle\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
 class FolderEventDispatcher extends AbstractEventDispatcher
@@ -26,18 +28,7 @@ class FolderEventDispatcher extends AbstractEventDispatcher
 
         $this
             ->eventDispatcher
-            ->dispatch(ConsignaFolderEvents::FOLDER_CREATED, $event);
-
-        return $this;
-    }
-
-    public function dispatchFolderOnPreDeleteEvent(FolderInterface $folder)
-    {
-        $event = new FolderOnPreDeleteEvent($folder);
-
-        $this
-            ->eventDispatcher
-            ->dispatch(ConsignaFolderEvents::FOLDER_PREDELETE, $event);
+            ->dispatch(ConsignaEvents::FOLDER_CREATED, $event);
 
         return $this;
     }
@@ -48,8 +39,28 @@ class FolderEventDispatcher extends AbstractEventDispatcher
 
         $this
             ->eventDispatcher
-            ->dispatch(ConsignaFolderEvents::FOLDER_DELETED, $event);
+            ->dispatch(ConsignaEvents::FOLDER_DELETED, $event);
 
         return $this;
+    }
+
+    public function dispatchFolderOnPreDeleteEvent(FolderInterface $folder)
+    {
+        $event = new FolderOnPreDeleteEvent($folder);
+
+        $this
+            ->eventDispatcher
+            ->dispatch(ConsignaEvents::FOLDER_PREDELETE, $event);
+
+        return $this;
+    }
+
+    public function dispatchFolderOnSharedEvent(FolderInterface $folder, ?UserInterface $user)
+    {
+        $event = new ItemOnSharedEvent($folder, $user);
+
+        $this
+            ->eventDispatcher
+            ->dispatch(ConsignaEvents::FOLDER_SHARED, $event);
     }
 }

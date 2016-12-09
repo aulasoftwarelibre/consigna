@@ -129,7 +129,7 @@
                     <!-- /.search form -->
 
                     <!-- Sidebar Menu -->
-                    {{ knp_menu_render('MovedBundle:Builder:mainMenu', {'currentClass': 'active' }) }}
+                    {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active' }) }}
                 </section>
                 <!-- /.sidebar -->
             </aside>
@@ -159,7 +159,7 @@
                             {% for message in messages %}
                                 <div class="notice notice-{{ type }} notice-autocloseable">
                                     <button type="button" class="close" aria-hidden="true"><i class="fa fa-clock-o fa-spin"></i></button>
-                                        {{ message }}
+                                        {{ message | trans }}
                                 </div>
                             {% endfor %}
                         {% endfor %}
@@ -185,7 +185,7 @@
         </div><!-- ./wrapper -->
 
         {% block modal %}
-            {{ render(controller('MovedBundle:Frontend/Default:createDeleteForm')) }}
+            {{ render(controller('AppBundle:Homepage:createDeleteForm')) }}
 
             <div class="modal fade" id="ShareModal" tabindex="-1" role="dialog" aria-labelledby="{{ 'title.share_element' | trans }}" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog">

@@ -2,8 +2,24 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
     <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="action.scan_files">
-                <source>action.scan_files</source>
+            <trans-unit id="action.file_scanning">
+                <source>action.file_scanning</source>
+                <target>Escaneando fichero "%file%"... </target>
+            </trans-unit>
+            <trans-unit id="action.file_scanning_result_scan.infected">
+                <source>action.file_scanning_result_scan.infected</source>
+                <target><![CDATA[<error>INFECTADO</error>.]]></target>
+            </trans-unit>
+            <trans-unit id="action.file_scanning_result_scan.failed">
+                <source>action.file_scanning_result_scan.failed</source>
+                <target><![CDATA[<error>FALLO</error>.]]></target>
+            </trans-unit>
+            <trans-unit id="action.file_scanning_result_scan.ok">
+                <source>action.file_scanning_result_scan.ok</source>
+                <target><![CDATA[<info>LIMPIO</info>.]]></target>
+            </trans-unit>
+            <trans-unit id="action.file_scan">
+                <source>action.file_scan</source>
                 <target>Escanear todos los ficheros</target>
             </trans-unit>
             <trans-unit id="action.scan_virus_detected">

@@ -11,12 +11,15 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Interfaces\UserInterface;
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 class FileCreateType extends AbstractType
 {
@@ -44,13 +47,35 @@ class FileCreateType extends AbstractType
                 'first_options' => ['label' => 'label.password'],
                 'second_options' => ['label' => 'label.repeat_password'],
             ]);
+
+        if (is_null($options['user'])) {
+            $builder
+                ->add('captcha', EWZRecaptchaType::class, [
+                    'label' => 'label.captcha',
+                    'attr' => [
+                        'options' => [
+                            'size' => 'normal',
+                            'theme' => 'light',
+                            'type' => 'image',
+                        ],
+                    ],
+                    'mapped' => false,
+                    'constraints' => [
+                        new IsTrue(),
+                    ],
+                ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => '\AppBundle\Entity\File',
-        ]);
+        $resolver
+            ->setDefaults([
+                'data_class' => '\AppBundle\Entity\File',
+                'user' => null,
+                'validation_groups' => ['Default', 'File'],
+            ])
+            ->addAllowedTypes('user', [UserInterface::class, 'null']);
     }
 
     public function getBlockPrefix()

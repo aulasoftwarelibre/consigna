@@ -37,4 +37,12 @@ trait ExpirableTrait
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isPermanent() : bool
+    {
+        return $this->expiresAt === null;
+    }
 }

@@ -38,8 +38,8 @@ class DeleteCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->getContainer()->get('consigna.repository.folder')->deleteExpired();
-        $this->getContainer()->get('consigna.repository.file')->deleteExpired();
+        $this->getContainer()->get('consigna.object_repository.folder')->deleteExpired();
+        $this->getContainer()->get('consigna.object_repository.file')->deleteExpired();
         $output->writeln($this->getContainer()->get('translator')->trans('action.clean_files_success', [], 'command'));
     }
 }

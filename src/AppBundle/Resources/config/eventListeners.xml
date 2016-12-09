@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- annotations -->
+        <service id="consigna.listener.annotation_filter_driver" class="AppBundle\EventListener\Annotation\FilterDriver">
+            <argument type="service" id="annotation_reader"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" priority="-8"/>
+        </service>
+
+        <!-- event listeners -->
+
+        <service id="consigna.listener.iptrace" class="AppBundle\EventListener\IpTraceSubscriber">
+            <argument type="service" id="gedmo.listener.iptraceable"/>
+            <argument type="service" id="request_stack"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.item_shared_with_anon_user" class="AppBundle\EventListener\ItemSharedWithAnonUserListener">
+            <argument type="service" id="session"/>
+            <tag name="kernel.event_listener" event="consigna.folder.shared" method="onShared"/>
+            <tag name="kernel.event_listener" event="consigna.file.shared" method="onShared"/>
+        </service>
+
+        <service id="consigna.listener.file_logger" class="AppBundle\EventListener\FileLoggerListener">
+            <argument type="service" id="logger"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.file_upload" class="AppBundle\EventListener\FileUploadListener">
+            <argument type="service" id="security.authorization_checker"/>
+            <argument type="service" id="security.csrf.token_manager"/>
+            <argument type="service" id="consigna.manager.file"/>
+            <argument type="service" id="consigna.director.file"/>
+            <argument type="service" id="consigna.director.folder"/>
+            <tag name="kernel.event_listener" event="oneup_uploader.pre_upload" method="onPreUpload"/>
+            <tag name="kernel.event_listener" event="oneup_uploader.post_upload" method="onUpload"/>
+        </service>
+
+        <service id="consigna.listener.virus" class="AppBundle\EventListener\FileVirusScanListener">
+            <argument type="service" id="consigna.manager.file"/>
+            <argument type="service" id="logger"/>
+            <argument type="service" id="consigna.service.scan_file"/>
+            <tag name="kernel.event_listener" event="consigna.file.uploaded" method="onFileUploaded"/>
+        </service>
+
+        <service id="consigna.listener.user_created" class="AppBundle\EventListener\UserPreCreatedListener" autowire="true">
+            <tag name="kernel.event_listener" event="consigna.user.precreated" method="onPreCreatedUser"/>
+        </service>
+
+        <service id="consigna.listener.user_login" class="AppBundle\EventListener\UserLoginListener">
+            <argument type="service" id="session"/>
+            <argument type="service" id="security.authorization_checker"/>
+            <tag name="kernel.event_listener" event="security.interactive_login" method="onSecurityInteractiveLogin"/>
+        </service>
+
+        <service id="consigna.listener.user_trace" class="AppBundle\EventListener\UserTraceSubscriber">
+            <argument type="service" id="gedmo.listener.blameable"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="security.authorization_checker"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.expirable" class="AppBundle\EventListener\Doctrine\ExpirableListener">
+            <argument>%expire_date%</argument>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+
+        <service id="consigna.listener.file_interface" class="AppBundle\EventListener\Doctrine\FileInterfaceListener">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="doctrine.event_subscriber"/>
+        </service>
+
+
+        <service id="consigna.listener.request_locale" class="AppBundle\EventListener\RequestLocaleListener">
+            <argument>%supported_languages%</argument>
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="17"/>
+        </service>
+    </services>
+</container>

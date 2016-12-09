@@ -3,8 +3,6 @@
 namespace AppBundle\DependencyInjection;
 
 use AppBundle\DependencyInjection\Abstracts\AbstractExtension;
-use Mmoreram\BaseBundle\DependencyInjection\BaseConfiguration;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -31,10 +29,14 @@ class AppExtension extends AbstractExtension
         return [
             'commands',
             'directors',
-            'eventDispatcher',
+            'eventDispatchers',
+            'eventListeners',
             'factories',
             'forms',
+            'providers',
+            'security',
             'services',
+            'twig',
         ];
     }
 
@@ -44,13 +46,5 @@ class AppExtension extends AbstractExtension
     protected function getConfigFilesLocation(): string
     {
         return __DIR__.'/../Resources/config';
-    }
-
-    protected function getConfigurationInstance(): ? ConfigurationInterface
-    {
-        return new BaseConfiguration(
-            static::EXTENSION_NAME,
-            $this->mappingBagProvider
-        );
     }
 }

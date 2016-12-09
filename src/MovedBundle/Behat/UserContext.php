@@ -9,8 +9,8 @@
 
 namespace MovedBundle\Behat;
 
+use AppBundle\Entity\User;
 use Behat\Gherkin\Node\TableNode;
-use Bundle\UserBundle\Entity\User;
 
 class UserContext extends DefaultContext
 {

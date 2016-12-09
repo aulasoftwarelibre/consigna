@@ -11,44 +11,18 @@
 
 namespace AppBundle\Entity\Interfaces;
 
-use AppBundle\Model\Interfaces\ExpirableInterface;
-use AppBundle\Model\Interfaces\OwnableInterface;
-use AppBundle\Model\Interfaces\ProtectableInterface;
-use AppBundle\Model\Interfaces\ResourceInterface;
-use AppBundle\Model\Interfaces\ShareableInterface;
-use AppBundle\Model\Interfaces\TaggeableInterface;
-use AppBundle\Model\Interfaces\TimestampableInterface;
-use AppBundle\Model\Interfaces\TraceableInterface;
 
 interface FolderInterface extends
-    ExpirableInterface,
-    OwnableInterface,
-    ProtectableInterface,
-    ResourceInterface,
-    ShareableInterface,
-    TaggeableInterface,
-    TimestampableInterface,
-    TraceableInterface
+    ItemInterface
 {
-    public function getName();
-
-    public function setName(string $name);
 
     public function getDescription();
 
     public function setDescription(string $description);
 
-    public function getSlug();
+    public function getItems();
 
-    public function setSlug(string $slug);
+    public function addItem(ItemInterface $file);
 
-    public function isPermanent();
-
-    public function setPermanent(bool $permanent);
-
-    public function getFiles();
-
-    public function addFile(FileInterface $file);
-
-    public function removeFile(FileInterface $file);
+    public function removeItem(ItemInterface $file);
 }

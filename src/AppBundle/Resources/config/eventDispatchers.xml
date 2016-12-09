@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Event dispatchers -->
+
+        <service id="consigna.event_dispatcher.file" class="AppBundle\EventDispatcher\FileEventDispatcher">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="consigna.event_dispatcher.folder" class="AppBundle\EventDispatcher\FolderEventDispatcher">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="consigna.event_dispatcher.organization" class="AppBundle\EventDispatcher\OrganizationEventDispatcher">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="consigna.event_dispatcher.tag" class="AppBundle\EventDispatcher\TagEventDispatcher">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="consigna.event_dispatcher.user" class="AppBundle\EventDispatcher\UserEventDispatcher">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <!-- Filters -->
+
+        <!--<service id="consigna.listener.before_request" class="AppBundle\EventListener\BeforeRequestListener">-->
+            <!--<argument type="service" id="doctrine.orm.entity_manager"/>-->
+            <!--<tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>-->
+        <!--</service>-->
+    </services>
+</container>

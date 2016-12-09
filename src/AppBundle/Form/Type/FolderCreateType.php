@@ -11,10 +11,13 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Folder;
+use AppBundle\Entity\Interfaces\FolderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FolderCreateType extends AbstractType
 {
@@ -40,6 +43,17 @@ class FolderCreateType extends AbstractType
                 'second_options' => [
                     'label' => 'label.repeat_password',
                 ],
+            ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver
+            ->setDefaults([
+                'data_class' => Folder::class,
             ]);
     }
 

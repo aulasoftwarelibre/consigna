@@ -15,30 +15,16 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="consigna.type.file_create" class="AppBundle\Form\Type\FileCreateType">
-            <tag name="form.type"/>
-        </service>
-        
-        <service id="consigna.type.file_anon_create" class="AppBundle\Form\Type\FileAnonCreateType">
-            <tag name="form.type"/>
-        </service>
-
         <service id="consigna.type.download_folder" class="AppBundle\Form\Type\FileDownloadType">
             <argument type="service" id="security.encoder_factory"/>
             <tag name="form.type"/>
         </service>
 
-        <service id="consigna.type.download_folder_anon" class="AppBundle\Form\Type\FileAnonDownloadType">
-            <argument type="service" id="security.encoder_factory"/>
+        <service id="consigna.type.file_create" class="AppBundle\Form\Type\FileCreateType">
             <tag name="form.type"/>
         </service>
 
         <service id="consigna.type.folder_access" class="AppBundle\Form\Type\FolderAccessType">
-            <argument type="service" id="security.encoder_factory"/>
-            <tag name="form.type"/>
-        </service>
-
-        <service id="consigna.type.folder_anon_access" class="AppBundle\Form\Type\FolderAnonAccessType">
             <argument type="service" id="security.encoder_factory"/>
             <tag name="form.type"/>
         </service>

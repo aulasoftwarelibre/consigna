@@ -31,29 +31,9 @@ trait ToggleableTrait
      *
      * @return $this
      */
-    public function setEnabled(bool $enabled)
+    public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function enable()
-    {
-        $this->setEnabled(true);
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function disable()
-    {
-        $this->setEnabled(false);
 
         return $this;
     }

@@ -18,17 +18,17 @@ trait ProtectableTrait
      *
      * @var string
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
      */
-    private $salt;
+    protected $salt;
 
     /**
      * @var string
      */
-    private $plainPassword;
+    protected $plainPassword;
 
     /**
      * @return string

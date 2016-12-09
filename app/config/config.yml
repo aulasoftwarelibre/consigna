@@ -3,7 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: bundles/ }
     - { resource: services/ }
-    - { resource: '@BaseBundle/Resources/config/providers.yml' }
     - { resource: "/etc/credentials/consigna.yml", ignore_errors: true }
     - { resource: "/etc/credentials/parameters.yml", ignore_errors: true }
 
@@ -71,7 +70,11 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: false
+        auto_mapping: true
+        filters:
+            consigna_enabled_entity: \AppBundle\Doctrine\Query\Filter\EnabledEntityFilter
+            consigna_expired_entity: \AppBundle\Doctrine\Query\Filter\ExpiredEntityFilter
+            consigna_scan_clean_file: \AppBundle\Doctrine\Query\Filter\ScanCleanFileFilter
 
 # Swiftmailer Configuration
 swiftmailer:

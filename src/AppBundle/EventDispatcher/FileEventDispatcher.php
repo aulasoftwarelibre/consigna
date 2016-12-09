@@ -11,8 +11,50 @@
 
 namespace AppBundle\EventDispatcher;
 
+use AppBundle\ConsignaEvents;
+use AppBundle\Entity\Interfaces\FileInterface;
+use AppBundle\Entity\Interfaces\UserInterface;
+use AppBundle\Event\FileOnDownloadedEvent;
+use AppBundle\Event\FileOnPreCreateEvent;
+use AppBundle\Event\FileOnUploadedEvent;
+use AppBundle\Event\ItemOnSharedEvent;
 use AppBundle\EventDispatcher\Abstracts\AbstractEventDispatcher;
 
 class FileEventDispatcher extends AbstractEventDispatcher
 {
+    public function dispatchFolderOnPreCreateEvent(FileInterface $file)
+    {
+        $event = new FileOnPreCreateEvent($file);
+
+        $this
+            ->eventDispatcher
+            ->dispatch(ConsignaEvents::FILE_PRECREATE, $event);
+    }
+
+    public function dispatchFileOnSharedEvent(FileInterface $file, ?UserInterface $user)
+    {
+        $event = new ItemOnSharedEvent($file, $user);
+
+        $this
+            ->eventDispatcher
+            ->dispatch(ConsignaEvents::FILE_SHARED, $event);
+    }
+
+    public function dispatchFileOnUploadedEvent(FileInterface $file)
+    {
+        $event = new FileOnUploadedEvent($file);
+
+        $this
+            ->eventDispatcher
+            ->dispatch(ConsignaEvents::FILE_UPLOADED, $event);
+    }
+
+    public function dispatchFileOnDownloadedEvent(FileInterface $file, ?UserInterface $user = null)
+    {
+        $event = new FileOnDownloadedEvent($file, $user);
+
+        $this
+            ->eventDispatcher
+            ->dispatch(ConsignaEvents::FILE_DOWNLOADED, $event);
+    }
 }

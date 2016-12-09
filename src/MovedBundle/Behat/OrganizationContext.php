@@ -9,8 +9,8 @@
 
 namespace MovedBundle\Behat;
 
-use Behat\Gherkin\Node\TableNode;
 use AppBundle\Entity\Organization;
+use Behat\Gherkin\Node\TableNode;
 use Sensio\Bundle\FrameworkExtraBundle\Security\ExpressionLanguage;
 
 class OrganizationContext extends DefaultContext

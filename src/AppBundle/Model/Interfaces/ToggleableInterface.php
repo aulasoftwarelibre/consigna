@@ -23,15 +23,5 @@ interface ToggleableInterface
      *
      * @return $this
      */
-    public function setEnabled(bool $enabled);
-
-    /**
-     * @return $this
-     */
-    public function enable();
-
-    /**
-     * @return $this
-     */
-    public function disable();
+    public function setEnabled($enabled);
 }

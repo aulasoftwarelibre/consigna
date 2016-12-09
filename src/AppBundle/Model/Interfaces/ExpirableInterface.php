@@ -16,4 +16,6 @@ interface ExpirableInterface
     public function getExpiresAt();
 
     public function setExpiresAt(\DateTime $expiresAt);
+
+    public function isPermanent() : bool;
 }

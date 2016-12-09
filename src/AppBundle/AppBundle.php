@@ -12,23 +12,28 @@
 namespace AppBundle;
 
 use AppBundle\DependencyInjection\AppExtension;
-use AppBundle\DependencyInjection\CompilerPass\ConsignaMappingBagProvider;
-use AppBundle\DependencyInjection\CompilerPass\FOSUserMappingCompilerPass;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Mmoreram\BaseBundle\BaseBundle;
-use Mmoreram\BaseBundle\CompilerPass\MappingCompilerPass;
 
 class AppBundle extends BaseBundle
 {
-    public function getCompilerPasses()
+    /**
+     * @inheritDoc
+     */
+    public function boot()
     {
-        return [
-            new FOSUserMappingCompilerPass(),
-            new MappingCompilerPass(new ConsignaMappingBagProvider()),
-        ];
+        $kernel = $this
+            ->container
+            ->get('kernel');
+
+        AnnotationRegistry::registerFile($kernel
+            ->locateResource('@AppBundle/Doctrine/Annotation/Filter.php')
+        );
     }
+
 
     public function getContainerExtension()
     {
-        return new AppExtension(new ConsignaMappingBagProvider());
+        return new AppExtension();
     }
 }

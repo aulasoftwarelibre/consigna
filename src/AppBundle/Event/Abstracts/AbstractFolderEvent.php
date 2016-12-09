@@ -29,7 +29,7 @@ class AbstractFolderEvent extends Event
     /**
      * @return FolderInterface
      */
-    public function getFolder()
+    public function getFolder(): FolderInterface
     {
         return $this->folder;
     }

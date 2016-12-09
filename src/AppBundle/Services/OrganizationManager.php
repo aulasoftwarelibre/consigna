@@ -38,8 +38,7 @@ class OrganizationManager
         $organization = $this->organizationDirector->create()
             ->setName($name)
             ->setCode($sho)
-            ->enable()
-        ;
+            ->setEnabled(true);
 
         $this->organizationDirector->save($organization);
 
@@ -64,7 +63,7 @@ class OrganizationManager
 
     public function disableOrganization(OrganizationInterface $organization)
     {
-        $organization->disable();
+        $organization->setEnabled(false);
 
         $this
             ->organizationDirector
@@ -80,7 +79,7 @@ class OrganizationManager
     public function enableOrganization(
         OrganizationInterface $organization
     ) {
-        $organization->enable();
+        $organization->setEnabled(true);
 
         $this
             ->organizationDirector

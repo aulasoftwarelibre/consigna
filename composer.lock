@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8bbc1980f90b978d71ddeb9032670a00",
-    "content-hash": "7bc5088db81284c0fb13069eaa5c65e8",
+    "hash": "2cda4c8e605db663a1b3ce6eebfb3d33",
+    "content-hash": "b869d86c99231e2a9fb0a6f16713c1f8",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -46,47 +46,6 @@
                 "transliterator"
             ],
             "time": "2015-09-28 16:26:35"
-        },
-        {
-            "name": "blurgroup/quahog",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jonjomckay/quahog.git",
-                "reference": "3a2a9875d9042202381c5851c994fd943c1365dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jonjomckay/quahog/zipball/3a2a9875d9042202381c5851c994fd943c1365dd",
-                "reference": "3a2a9875d9042202381c5851c994fd943c1365dd",
-                "shasum": ""
-            },
-            "require": {
-                "clue/socket-raw": "^1.2",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "^1.6",
-                "phpunit/phpunit": "^4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Xenolope\\Quahog\\": "src/Quahog"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonjo McKay",
-                    "email": "jonjo@jonjomckay.com"
-                }
-            ],
-            "description": "A PHP client library for ClamAV clamd daemon",
-            "time": "2016-11-28 10:52:23"
         },
         {
             "name": "clue/socket-raw",
@@ -723,16 +682,16 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb"
+                "reference": "6276139e0b913a4e5120fc36bb5b0eae8ac549bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/0b89ee55bceb53c60bc4ba32924ac5053e377abb",
-                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/6276139e0b913a4e5120fc36bb5b0eae8ac549bc",
+                "reference": "6276139e0b913a4e5120fc36bb5b0eae8ac549bc",
                 "shasum": ""
             },
             "require": {
@@ -747,7 +706,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -780,7 +739,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2016-06-30 19:26:35"
+            "time": "2016-12-05 18:36:37"
         },
         {
             "name": "doctrine/inflector",
@@ -1107,74 +1066,6 @@
             "time": "2016-09-10 18:51:13"
         },
         {
-            "name": "dunglas/action-bundle",
-            "version": "v0.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dunglas/DunglasActionBundle.git",
-                "reference": "3a72abd4ff43cae6e528c0e5973d9e9cc8945a2b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dunglas/DunglasActionBundle/zipball/3a72abd4ff43cae6e528c0e5973d9e9cc8945a2b",
-                "reference": "3a72abd4ff43cae6e528c0e5973d9e9cc8945a2b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9 <7.2.0",
-                "symfony/config": "~2.8||~3.0",
-                "symfony/dependency-injection": "~2.8||~3.0",
-                "symfony/finder": "~2.8||~3.0",
-                "symfony/http-kernel": "~2.8||~3.0"
-            },
-            "conflict": {
-                "symfony/framework-bundle": "<2.8.5||>3.0,<3.0.5"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.0||^4.6",
-                "sensio/framework-extra-bundle": "^3.0.10",
-                "symfony/browser-kit": "~2.8||~3.0",
-                "symfony/console": "~2.8||~3.0",
-                "symfony/expression-language": "~2.8||~3.0",
-                "symfony/framework-bundle": "~2.8||~3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dunglas\\ActionBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com",
-                    "homepage": "https://dunglas.fr"
-                }
-            ],
-            "description": "Symfony controllers, redesigned",
-            "homepage": "https://dunglas.fr/2016/01/dunglasactionbundle-symfony-controllers-redesigned/",
-            "keywords": [
-                "Autowiring",
-                "action",
-                "controllers",
-                "routing",
-                "symfony"
-            ],
-            "time": "2016-09-29 06:34:48"
-        },
-        {
             "name": "excelwebzone/recaptcha-bundle",
             "version": "v1.4.4",
             "source": {
@@ -1358,12 +1249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "7261f7aa143b4bfdb0b7ddc5df208067fa7be698"
+                "reference": "03ce036476ac45fac6f84cec7542062b12900ecb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/7261f7aa143b4bfdb0b7ddc5df208067fa7be698",
-                "reference": "7261f7aa143b4bfdb0b7ddc5df208067fa7be698",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/03ce036476ac45fac6f84cec7542062b12900ecb",
+                "reference": "03ce036476ac45fac6f84cec7542062b12900ecb",
                 "shasum": ""
             },
             "require": {
@@ -1425,7 +1316,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2016-12-03 17:42:44"
+            "time": "2016-12-08 14:40:38"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -1837,23 +1728,24 @@
         },
         {
             "name": "jms/metadata",
-            "version": "1.5.1",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/metadata.git",
-                "reference": "22b72455559a25777cfd28c4ffda81ff7639f353"
+                "reference": "6a06970a10e0a532fb52d3959547123b84a3b3ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/22b72455559a25777cfd28c4ffda81ff7639f353",
-                "reference": "22b72455559a25777cfd28c4ffda81ff7639f353",
+                "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/6a06970a10e0a532fb52d3959547123b84a3b3ab",
+                "reference": "6a06970a10e0a532fb52d3959547123b84a3b3ab",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "doctrine/cache": "~1.0"
+                "doctrine/cache": "~1.0",
+                "symfony/cache": "~3.1"
             },
             "type": "library",
             "extra": {
@@ -1868,14 +1760,12 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache"
+                "Apache-2.0"
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Class/method/property metadata management in PHP",
@@ -1885,7 +1775,7 @@
                 "xml",
                 "yaml"
             ],
-            "time": "2014-07-12 07:13:19"
+            "time": "2016-12-05 10:18:33"
         },
         {
             "name": "jms/parser-lib",
@@ -2348,12 +2238,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mmoreram/BaseBundle.git",
-                "reference": "69c934727938019a72fd0f819061e60e740237b8"
+                "reference": "749fd10835455358bd7b78f125b1e30c506d6aa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mmoreram/BaseBundle/zipball/69c934727938019a72fd0f819061e60e740237b8",
-                "reference": "69c934727938019a72fd0f819061e60e740237b8",
+                "url": "https://api.github.com/repos/mmoreram/BaseBundle/zipball/749fd10835455358bd7b78f125b1e30c506d6aa9",
+                "reference": "749fd10835455358bd7b78f125b1e30c506d6aa9",
                 "shasum": ""
             },
             "require": {
@@ -2366,11 +2256,11 @@
                 "symfony/http-kernel": "^3.2"
             },
             "require-dev": {
-                "doctrine/doctrine-bundle": "~1.6.4",
+                "doctrine/doctrine-bundle": "^1.6.4",
                 "doctrine/doctrine-fixtures-bundle": "^2.3.0",
                 "friendsofphp/php-cs-fixer": "^1.12.4",
-                "mmoreram/php-formatter": "^1.2.0",
-                "mmoreram/simple-doctrine-mapping": "^1.1.0",
+                "mmoreram/php-formatter": "^1.3.1",
+                "mmoreram/simple-doctrine-mapping": "dev-master",
                 "phpunit/phpunit": "^5.6.4",
                 "sensio/framework-extra-bundle": "^3.0",
                 "symfony/browser-kit": "^3.2",
@@ -2405,7 +2295,84 @@
             "keywords": [
                 "bundle"
             ],
-            "time": "2016-12-03 01:32:30"
+            "time": "2016-12-06 13:01:50"
+        },
+        {
+            "name": "mmoreram/controller-extra-bundle",
+            "version": "v1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mmoreram/ControllerExtraBundle.git",
+                "reference": "023326f342bc0b50404fb7770b58f15d043561f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mmoreram/ControllerExtraBundle/zipball/023326f342bc0b50404fb7770b58f15d043561f8",
+                "reference": "023326f342bc0b50404fb7770b58f15d043561f8",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "^2.5",
+                "php": "^5.4|^7.0",
+                "symfony/config": "^2.8|^3.0",
+                "symfony/dependency-injection": "^2.8|^3.0",
+                "symfony/http-foundation": "^2.8|^3.0",
+                "symfony/http-kernel": "^2.8|^3.0"
+            },
+            "require-dev": {
+                "doctrine/annotations": "~1.0, >=1.2",
+                "doctrine/doctrine-bundle": "~1.2",
+                "doctrine/orm": "^2.5",
+                "fabpot/php-cs-fixer": "1.11",
+                "knplabs/knp-paginator-bundle": "~2.5.1",
+                "mmoreram/php-formatter": "1.1.0",
+                "pagerfanta/pagerfanta": "~1.0",
+                "phpunit/phpunit": "4.8.19",
+                "symfony/browser-kit": "^2.8|^3.0",
+                "symfony/css-selector": "^2.8|^3.0",
+                "symfony/finder": "^2.8|^3.0",
+                "symfony/form": "^2.8|^3.0",
+                "symfony/framework-bundle": "^2.8|^3.0",
+                "symfony/monolog-bundle": "^2.8|^3.0",
+                "symfony/validator": "^2.8|^3.0"
+            },
+            "suggest": {
+                "doctrine/orm": "To use the @Paginator annotation",
+                "knplabs/knp-paginator-bundle": "To use the @Paginator annotation with KNPPaginator support",
+                "pagerfanta/pagerfanta": "To use the @Paginator annotation with Pagerfanta support",
+                "symfony/form": "To use the @Form annotation",
+                "symfony/monolog-bundle": "To use the @Log annotation"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mmoreram\\ControllerExtraBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Morera",
+                    "email": "yuhu@mmoreram.com"
+                }
+            ],
+            "description": "Some specific controller features",
+            "homepage": "https://github.com/mmoreram/ControllerExtraBundle",
+            "keywords": [
+                "Symfony2",
+                "annotations",
+                "controller",
+                "controller-extra-bundle"
+            ],
+            "time": "2015-12-09 10:30:29"
         },
         {
             "name": "mmoreram/simple-doctrine-mapping",
@@ -3073,16 +3040,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.14",
+            "version": "v5.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6"
+                "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e64947de9ebc37732a62f5115164484a9bee7fa6",
-                "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/d294b0665cf09c799e9c1993d5c776a5bf55cb85",
+                "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85",
                 "shasum": ""
             },
             "require": {
@@ -3121,7 +3088,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-10-30 23:18:01"
+            "time": "2016-12-06 07:29:27"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3584,16 +3551,16 @@
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "64caa9e72f11f532c5fe7c69b14884a0951a0a56"
+                "reference": "af9555bcf25dd90da6d1dce8048825860ef94c21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/64caa9e72f11f532c5fe7c69b14884a0951a0a56",
-                "reference": "64caa9e72f11f532c5fe7c69b14884a0951a0a56",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/af9555bcf25dd90da6d1dce8048825860ef94c21",
+                "reference": "af9555bcf25dd90da6d1dce8048825860ef94c21",
                 "shasum": ""
             },
             "require": {
@@ -3659,7 +3626,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2016-10-04 12:09:21"
+            "time": "2016-12-05 08:54:11"
         },
         {
             "name": "sonata-project/exporter",
@@ -4713,6 +4680,47 @@
                 "negotiation"
             ],
             "time": "2015-10-01 07:42:40"
+        },
+        {
+            "name": "xenolope/quahog",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jonjomckay/quahog.git",
+                "reference": "ce2c1fb600e0eaf0e3a9e77d80059cec648041a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jonjomckay/quahog/zipball/ce2c1fb600e0eaf0e3a9e77d80059cec648041a5",
+                "reference": "ce2c1fb600e0eaf0e3a9e77d80059cec648041a5",
+                "shasum": ""
+            },
+            "require": {
+                "clue/socket-raw": "^1.2",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Xenolope\\Quahog\\": "src/Quahog"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonjo McKay",
+                    "email": "jonjo@jonjomckay.com"
+                }
+            ],
+            "description": "A PHP client library for ClamAV clamd daemon",
+            "time": "2016-12-07 22:54:38"
         },
         {
             "name": "zendframework/zend-code",
@@ -6555,28 +6563,28 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "0d3c9c4864142dc6a368fa0d952a8b83215e8740"
+                "reference": "ec278c0bd530edf155c4a00900577b5cb80f559e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/0d3c9c4864142dc6a368fa0d952a8b83215e8740",
-                "reference": "0d3c9c4864142dc6a368fa0d952a8b83215e8740",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/ec278c0bd530edf155c4a00900577b5cb80f559e",
+                "reference": "ec278c0bd530edf155c4a00900577b5cb80f559e",
                 "shasum": ""
             },
             "require": {
                 "symfony/console": "~2.7|~3.0",
                 "symfony/framework-bundle": "~2.7|~3.0",
                 "symfony/process": "~2.7|~3.0",
-                "symfony/yaml": "~2.7|~3.0"
+                "symfony/yaml": "~2.7|~3.0",
+                "twig/twig": "^1.28.2|^2.0"
             },
             "require-dev": {
                 "doctrine/orm": "~2.4",
-                "symfony/doctrine-bridge": "~2.7|~3.0",
-                "twig/twig": "~1.18"
+                "symfony/doctrine-bridge": "~2.7|~3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -6603,7 +6611,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2016-11-07 19:48:31"
+            "time": "2016-12-05 16:01:19"
         },
         {
             "name": "symfony/phpunit-bridge",
@@ -6717,7 +6725,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "blurgroup/quahog": 20,
         "friendsofsymfony/user-bundle": 20,
         "mmoreram/base-bundle": 20
     },

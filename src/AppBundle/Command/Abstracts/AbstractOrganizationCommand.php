@@ -11,7 +11,7 @@
 
 namespace AppBundle\Command\Abstracts;
 
-use AppBundle\Repository\OrganizationRepository;
+use AppBundle\Repository\Interfaces\OrganizationRepositoryInterface;
 use AppBundle\Services\OrganizationManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -23,7 +23,7 @@ abstract class AbstractOrganizationCommand extends Command
      */
     protected $organizationManager;
     /**
-     * @var OrganizationRepository
+     * @var OrganizationRepositoryInterface
      */
     protected $organizationRepository;
     /**
@@ -33,7 +33,7 @@ abstract class AbstractOrganizationCommand extends Command
 
     public function __construct(
         OrganizationManager $organizationManager,
-        OrganizationRepository $organizationRepository,
+        OrganizationRepositoryInterface $organizationRepository,
         TranslatorInterface $translator
     ) {
         parent::__construct();

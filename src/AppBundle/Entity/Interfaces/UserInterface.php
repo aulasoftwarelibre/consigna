@@ -12,11 +12,13 @@
 namespace AppBundle\Entity\Interfaces;
 
 use AppBundle\Model\Interfaces\ResourceInterface;
+use AppBundle\Model\Interfaces\ToggleableInterface;
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 
 interface UserInterface extends
     BaseUserInterface,
-    ResourceInterface
+    ResourceInterface,
+    ToggleableInterface
 {
     /**
      * @return OrganizationInterface
@@ -37,15 +39,9 @@ interface UserInterface extends
 
     public function removeFolder(FolderInterface $folder);
 
-    public function getSharedFiles();
+    public function getSharedItems();
 
-    public function addSharedFile(FileInterface $sharedFile);
+    public function addSharedItem(ItemInterface $sharedItem);
 
-    public function removeSharedFile(FileInterface $sharedFile);
-
-    public function getSharedFolders();
-
-    public function addSharedFolder(FolderInterface $sharedFolder);
-
-    public function removeSharedFolder(FolderInterface $sharedFolder);
+    public function removeSharedItem(ItemInterface $sharedItem);
 }

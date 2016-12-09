@@ -18,17 +18,13 @@
         <service id="consigna.manager.file" class="AppBundle\Services\FileManager">
             <argument type="service" id="consigna.director.file"/>
             <argument type="service" id="consigna.event_dispatcher.file"/>
-        </service>
-
-        <service id="consigna.repository.file" alias="consigna.object_repository.file">
+            <argument type="service" id="consigna.service.scan_file"/>
+            <argument type="service" id="gedmo.listener.uploadable"/>
         </service>
 
         <service id="consigna.manager.folder" class="AppBundle\Services\FolderManager">
             <argument type="service" id="consigna.director.folder"/>
             <argument type="service" id="consigna.event_dispatcher.folder"/>
-        </service>
-
-        <service id="consigna.repository.folder" alias="consigna.object_repository.folder">
         </service>
 
         <service id="consigna.manager.organization" class="AppBundle\Services\OrganizationManager">
@@ -39,6 +35,22 @@
         <service id="consigna.manager.tag" class="AppBundle\Services\TagManager">
             <argument type="service" id="consigna.director.tag"/>
             <argument type="service" id="consigna.event_dispatcher.tag"/>
+        </service>
+
+        <service id="consigna.manager.user" class="AppBundle\Services\UserManager" parent="fos_user.user_manager.default">
+            <call method="setEventDispatcher">
+                <argument type="service" id="consigna.event_dispatcher.user"/>
+            </call>
+        </service>
+
+        <!-- others -->
+
+        <service id="consigna.uploader.namer.real" class="AppBundle\Doctrine\Extensions\Uploader\Namer\RealNamer">
+        </service>
+
+        <service id="consigna.service.scan_file" class="AppBundle\Services\Clamav\ScanFileService">
+            <argument>%clamav_host%</argument>
+            <argument>%clamav_port%</argument>
         </service>
     </services>
 </container>

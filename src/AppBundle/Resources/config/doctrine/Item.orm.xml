@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+
+<!--
+  ~ This file is part of the Consigna project.
+  ~
+  ~ (c) Juan Antonio Martínez <juanto1990@gmail.com>
+  ~ (c) Sergio Gómez <sergio@uco.es>
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+    <entity name="AppBundle\Entity\Item" repository-class="AppBundle\Repository\ItemRepository" table="item" inheritance-type="SINGLE_TABLE">
+        <discriminator-column name="type" type="string" length="255"/>
+        <discriminator-map>
+            <discriminator-mapping value="file" class="File"/>
+            <discriminator-mapping value="folder" class="Folder"/>
+        </discriminator-map>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="createdAt" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+
+        <field name="createdFromIp" type="string" length="255" nullable="true">
+            <gedmo:ip-traceable on="create"/>
+        </field>
+
+        <field name="expiresAt" type="datetime" nullable="true"/>
+
+        <field name="name" type="string" length="255"/>
+
+        <field name="password" type="string" length="255" nullable="true"/>
+
+        <field name="salt" type="string" length="255"/>
+
+        <field name="sharedCode" type="string" length="255"/>
+
+        <field name="slug" length="127" unique="true">
+            <gedmo:slug fields="name"/>
+        </field>
+
+        <field name="updatedAt" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+        <many-to-one target-entity="AppBundle\Entity\User" field="owner">
+            <join-column nullable="true"/>
+            <gedmo:blameable on="create"/>
+        </many-to-one>
+
+        <many-to-many target-entity="AppBundle\Entity\User" field="sharedWithUsers" inversed-by="sharedItems">
+            <join-table name="item_shared_user">
+                <join-columns>
+                    <join-column name="item_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-many target-entity="AppBundle\Entity\Tag" field="tags">
+            <join-table name="file_tags">
+                <join-columns>
+                    <join-column name="file_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="tag_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-one target-entity="AppBundle\Entity\Folder" field="folder" inversed-by="items">
+            <join-column on-delete="CASCADE" nullable="true"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

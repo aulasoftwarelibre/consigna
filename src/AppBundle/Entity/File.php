@@ -13,47 +13,14 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Interfaces\FileInterface;
 use AppBundle\Entity\Interfaces\FolderInterface;
-use AppBundle\Model\Traits\ExpirableTrait;
-use AppBundle\Model\Traits\OwneableTrait;
-use AppBundle\Model\Traits\ProtectableTrait;
-use AppBundle\Model\Traits\ShareableTrait;
-use AppBundle\Model\Traits\TaggeableTrait;
-use AppBundle\Model\Traits\TimestampableTrait;
-use AppBundle\Model\Traits\TraceableTrait;
 use AppBundle\Model\Traits\UploadableTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use MovedBundle\Util\RandomStringGenerator;
 
 /**
  * Class File.
  */
-class File implements FileInterface
+class File extends Item implements FileInterface
 {
-    use ExpirableTrait;
-
-    use ProtectableTrait;
-
-    use OwneableTrait;
-
-    use ShareableTrait;
-
-    use TaggeableTrait;
-
-    use TimestampableTrait;
-
-    use TraceableTrait;
-
     use UploadableTrait;
-
-    /**
-     * @var int|null
-     */
-    protected $id;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * @var string
@@ -63,64 +30,16 @@ class File implements FileInterface
     /**
      * @var string
      */
-    protected $slug;
-
-    /**
-     * @var string
-     */
     protected $scanStatus;
-
-    /**
-     * @var FolderInterface
-     */
-    protected $folder;
 
     /**
      * File constructor.
      */
     public function __construct()
     {
-        $this->salt = RandomStringGenerator::length(16);
+        parent::__construct();
+
         $this->scanStatus = self::SCAN_STATUS_PENDING;
-        $this->sharedCode = RandomStringGenerator::length(16);
-        $this->sharedWithUsers = new ArrayCollection();
-        $this->tags = new ArrayCollection();
-    }
-
-    /**
-     * To string.
-     */
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return File
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -139,46 +58,6 @@ class File implements FileInterface
     public function setDescription(string $description)
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     *
-     * @return File
-     */
-    public function setSlug(string $slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * @return FolderInterface
-     */
-    public function getFolder()
-    {
-        return $this->folder;
-    }
-
-    /**
-     * @param FolderInterface $folder
-     *
-     * @return File
-     */
-    public function setFolder(FolderInterface $folder = null)
-    {
-        $this->folder = $folder;
 
         return $this;
     }
