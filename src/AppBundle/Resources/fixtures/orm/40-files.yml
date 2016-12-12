@@ -1,18 +1,14 @@
 \AppBundle\Entity\File:
     file_{uco,uma,uca}:
         name (unique): "<filename()>"
-        file: "test.pdf"
-        size: "20597"
-        path: "private/test.pdf"
-        mimeType: "application/pdf"
         plainPassword: "secret"
         owner: "@user_<current()>"
 
-    file_folder_{1..4}:
-        name (unique): <filename()>
-        file: test.pdf
-        size: 20597
-        path: private/test.pdf
-        mimeType: application/pdf
-        plainPassword: secret
+    file_folder_{1..2}:
+        name (unique): "<filename()>"
         folder: "@folder_uco"
+        owner: "@user_uco"
+
+    file_anon_{1..2}:
+        name (unique): "<filename()>"
+        plainPassword: "secret"

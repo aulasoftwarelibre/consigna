@@ -59,3 +59,9 @@ services:
         class: AppBundle\Doctrine\DataFixtures\Alice\Provider\ConsignaProvider
         tags:
             - { name: knp_rad_fixtures_load.provider }
+    consigna.alice.processor.file:
+        class: AppBundle\Doctrine\DataFixtures\Alice\Processor\ConsignaFileProcessor
+        arguments:
+            - "@gedmo.listener.uploadable"
+        tags:
+            - { name: knp_rad_fixtures_load.processor }

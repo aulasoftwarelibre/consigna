@@ -18,6 +18,10 @@
                 <source>action.file_scanning_result_scan.ok</source>
                 <target><![CDATA[<info>LIMPIO</info>.]]></target>
             </trans-unit>
+            <trans-unit id="action.file_scanning_result_scan.pending">
+                <source>action.file_scanning_result_scan.pending</source>
+                <target><![CDATA[<error>PENDIENTE</error>.]]></target>
+            </trans-unit>
             <trans-unit id="action.file_scan">
                 <source>action.file_scan</source>
                 <target>Escanear todos los ficheros</target>
