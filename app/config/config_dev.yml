@@ -53,3 +53,9 @@ doctrine:
 
 ewz_recaptcha:
     enabled: false
+
+services:
+    consigna.alice.provider:
+        class: AppBundle\Doctrine\DataFixtures\Alice\Provider\ConsignaProvider
+        tags:
+            - { name: knp_rad_fixtures_load.provider }

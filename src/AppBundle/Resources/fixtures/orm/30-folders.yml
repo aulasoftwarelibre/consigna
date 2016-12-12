@@ -1,0 +1,7 @@
+\AppBundle\Entity\Folder:
+    folder_{uco,uma,uca}:
+        name (unique): "<folder()>"
+        createdAt: "<dateTimeBetween($startDate = '+1 days', $endDate = '+7 days')>"
+        owner: "@user_<current()>"
+        sharedWithUsers: "<numberBetween(1, 2)>x @user_*"
+        plainPassword: "secret"

@@ -1,0 +1,13 @@
+\AppBundle\Entity\Organization:
+    organization_uco.es:
+        name: Universidad de Cordoba
+        code(unique): uco.es
+        enabled: 1
+    organization_uma.es:
+        name: Universidad de Málaga
+        code(unique): uma.es
+        enabled: 1
+    organization_uca.es:
+        name: Universidad de Cádiz
+        code(unique): uca.es
+        enabled: 1

@@ -1,0 +1,36 @@
+\AppBundle\Entity\Group:
+    group_admin:
+        __construct: ['Administradores', ['ROLE_SUPER_ADMIN','ROLE_ADMIN']]
+    group_user:
+        __construct: ['Usuarios', ['ROLE_USER']]
+
+
+\AppBundle\Entity\User:
+    user_admin:
+        username: admin
+        email: admin@localhost.local
+        plainPassword: admin
+        enabled: 1
+        groups: [ "@group_admin" ]
+        organization: "@organization_uco.es"
+    user_{uco}:
+        username: <current()>
+        email: <email()>
+        plainPassword: secret
+        enabled: 1
+        groups: [ "@group_user" ]
+        organization: "@organization_uco.es"
+    user_{uma}:
+        username: <current()>
+        email: <email()>
+        plainPassword: secret
+        enabled: 1
+        groups: [ "@group_user" ]
+        organization: "@organization_uma.es"
+    user_{uca}:
+        username: <current()>
+        email: <email()>
+        plainPassword: secret
+        enabled: 1
+        groups: [ "@group_user" ]
+        organization: "@organization_uca.es"
