@@ -90,7 +90,7 @@ class ItemRepository extends EntityRepository implements ItemRepositoryInterface
             $qb
                 ->andWhere($qb->expr()->orX(
                     'o.name LIKE :search',
-                    'tags.name LIKE :search'
+                    'tag.name LIKE :search'
                 ))
                 ->setParameter('search', '%'.$search.'%');
         }

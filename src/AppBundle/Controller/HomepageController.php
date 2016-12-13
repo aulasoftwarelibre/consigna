@@ -64,7 +64,7 @@ class HomepageController extends Controller
         }
 
         $criteria = [
-            'query' => $request->get('q'),
+            'search' => $request->get('q'),
         ];
 
         $items = $this

@@ -32,12 +32,3 @@ app:
         _locale: "en"
     requirements:
         _locale: "|en|es"
-
-moved:
-    resource: "@MovedBundle/Controller/Frontend/"
-    type:     "annotation"
-    prefix:   "/{_locale}/"
-    defaults:
-        _locale: "en"
-    requirements:
-        _locale: "|en|es"
