@@ -18,14 +18,12 @@ use AppBundle\Model\Interfaces\OwnableInterface;
 use AppBundle\Model\Interfaces\ProtectableInterface;
 use AppBundle\Model\Interfaces\ResourceInterface;
 use AppBundle\Model\Interfaces\ShareableInterface;
-use AppBundle\Model\Interfaces\TaggeableInterface;
 use AppBundle\Model\Interfaces\TimestampableInterface;
 use AppBundle\Model\Interfaces\TraceableInterface;
 
 interface ItemInterface extends
     ExpirableInterface,
     OwnableInterface,
-    TaggeableInterface,
     TimestampableInterface,
     ProtectableInterface,
     ResourceInterface,
@@ -76,4 +74,19 @@ interface ItemInterface extends
      */
     public function setSlug(string $slug): ItemInterface;
 
+    /**
+     * Get tag.
+     *
+     * @return string|null
+     */
+    public function getTag(): ?string;
+
+    /**
+     * Set tag.
+     *
+     * @param string|null $tag
+     *
+     * @return $this
+     */
+    public function setTag(?string $tag);
 }

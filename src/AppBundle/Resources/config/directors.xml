@@ -31,12 +31,5 @@
             <argument type="service" id="consigna.object_repository.organization"/>
             <argument type="service" id="consigna.factory.organization"/>
         </service>
-
-        <service id="consigna.director.tag" class="AppBundle\Services\ObjectDirector">
-            <argument type="service" id="consigna.object_manager.tag"/>
-            <argument type="service" id="consigna.object_repository.tag"/>
-            <argument type="service" id="consigna.factory.tag"/>
-        </service>
-
     </services>
 </container>

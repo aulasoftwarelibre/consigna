@@ -35,10 +35,6 @@ interface FileInterface extends
     const SCAN_STATUS_INFECTED = 'scan.infected';
 
 
-    public function getDescription();
-
-    public function setDescription(string $description);
-
     public function getScanStatus();
 
     public function setScanStatus(string $scanStatus);

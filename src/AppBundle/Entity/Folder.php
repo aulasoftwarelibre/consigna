@@ -22,11 +22,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Folder extends Item implements FolderInterface
 {
     /**
-     * @var string
-     */
-    protected $description;
-
-    /**
      * @var ArrayCollection
      */
     protected $items;
@@ -39,26 +34,6 @@ class Folder extends Item implements FolderInterface
         parent::__construct();
 
         $this->items = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Folder
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
-
-        return $this;
     }
 
     /**

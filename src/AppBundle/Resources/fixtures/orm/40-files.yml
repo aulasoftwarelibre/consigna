@@ -1,8 +1,9 @@
 \AppBundle\Entity\File:
-    file_{uco,uma,uca}:
+    file_{uco, uma, uca}:
         name (unique): "<filename()>"
         plainPassword: "secret"
         owner: "@user_<current()>"
+        tag: "<tag()>"
 
     file_folder_{1..2}:
         name (unique): "<filename()>"
@@ -12,3 +13,4 @@
     file_anon_{1..2}:
         name (unique): "<filename()>"
         plainPassword: "secret"
+        tag: "<tag()>"

@@ -39,14 +39,6 @@
             </argument>
         </service>
 
-        <service id="consigna.factory.tag" class="AppBundle\Factory\TagFactory">
-            <argument type="service">
-                <service class="AppBundle\Factory\Factory">
-                    <argument>AppBundle\Entity\Tag</argument>
-                </service>
-            </argument>
-        </service>
-
         <service id="consigna.factory.user" class="AppBundle\Factory\UserFactory">
             <argument type="service">
                 <service class="AppBundle\Factory\Factory">

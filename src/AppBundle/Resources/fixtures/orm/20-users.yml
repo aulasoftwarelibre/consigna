@@ -7,30 +7,16 @@
 
 \AppBundle\Entity\User:
     user_admin:
-        username: admin
-        email: admin@localhost.local
-        plainPassword: admin
+        username: "admin@uco.es"
+        email: "admin@uco.es"
+        plainPassword: "secret"
         enabled: 1
         groups: [ "@group_admin" ]
-        organization: "@organization_uco.es"
-    user_{uco}:
-        username: <current()>
-        email: <email()>
-        plainPassword: secret
+        organization: "@organization_uco"
+    user_{uco, uma, uca}:
+        username: "<current()>@<current()>.es"
+        email: "<current()>@<current()>.es"
+        plainPassword: "secret"
         enabled: 1
         groups: [ "@group_user" ]
-        organization: "@organization_uco.es"
-    user_{uma}:
-        username: <current()>
-        email: <email()>
-        plainPassword: secret
-        enabled: 1
-        groups: [ "@group_user" ]
-        organization: "@organization_uma.es"
-    user_{uca}:
-        username: <current()>
-        email: <email()>
-        plainPassword: secret
-        enabled: 1
-        groups: [ "@group_user" ]
-        organization: "@organization_uca.es"
+        organization: "@organization_<current()>"

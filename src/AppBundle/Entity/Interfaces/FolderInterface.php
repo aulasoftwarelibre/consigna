@@ -15,11 +15,6 @@ namespace AppBundle\Entity\Interfaces;
 interface FolderInterface extends
     ItemInterface
 {
-
-    public function getDescription();
-
-    public function setDescription(string $description);
-
     public function getItems();
 
     public function addItem(ItemInterface $file);

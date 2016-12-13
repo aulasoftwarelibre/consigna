@@ -36,11 +36,5 @@
         <service id="consigna.type.folder_edit" class="AppBundle\Form\Type\FolderEditType">
             <tag name="form.type"/>
         </service>
-
-        <service id="consigna.type.tags_text" class="AppBundle\Form\Type\TagsTextType">
-            <argument type="service" id="consigna.manager.tag"/>
-            <tag name="form.type"/>
-        </service>
-
     </services>
 </container>

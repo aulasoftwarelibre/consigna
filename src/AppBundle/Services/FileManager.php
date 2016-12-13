@@ -62,7 +62,24 @@ class FileManager
         return $this;
     }
 
-    public function createUploadedFile(File $uploadedFile, FolderInterface $folder = null)
+    public function createFile(FileInterface $file)
+    {
+        $this
+            ->uploadableListener
+            ->addEntityFileInfo($file, new UploadedFileInfo($file->getFile()));
+
+        $this
+            ->fileDirector
+            ->save($file);
+
+        $this
+            ->fileEventDispatcher
+            ->dispatchFileOnUploadedEvent($file);
+
+        return $file;
+    }
+
+    public function createUploadedFile(File $uploadedFile, FolderInterface $folder)
     {
         /** @var FileInterface $file */
         $file = $this

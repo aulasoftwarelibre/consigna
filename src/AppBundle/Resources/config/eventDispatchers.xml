@@ -29,10 +29,6 @@
             <argument type="service" id="event_dispatcher"/>
         </service>
 
-        <service id="consigna.event_dispatcher.tag" class="AppBundle\EventDispatcher\TagEventDispatcher">
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
         <service id="consigna.event_dispatcher.user" class="AppBundle\EventDispatcher\UserEventDispatcher">
             <argument type="service" id="event_dispatcher"/>
         </service>

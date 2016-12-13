@@ -18,8 +18,6 @@
     <entity name="AppBundle\Entity\File" repository-class="AppBundle\Repository\FileRepository" table="file">
         <gedmo:uploadable filename-generator="SHA1" callback="configureFileCallback" append-number="true"/>
 
-        <field name="description" type="text" nullable="true"/>
-
         <field name="mimeType" type="string" length="255">
             <gedmo:uploadable-file-mime-type/>
         </field>

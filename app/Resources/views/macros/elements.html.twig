@@ -17,11 +17,11 @@
                     {% endif -%}
                 </small>
             </p>
+            {% if folder.tag %}
             <ul>
-                {% for tag in folder.tags %}
-                    <li><span class="label label-default"><i class="fa fa-tag"></i> {{ tag }}</span></li>
-                {% endfor %}
+                <li><span class="label label-default"><i class="fa fa-tag"></i> {{ folder.tag }}</span></li>
             </ul>
+            {% endif %}
         </div>
         <div class="actions">
             <ul>
@@ -56,11 +56,11 @@
                     {{ 'file.available_until' | trans({'%deleted%': deleted}) | raw }}
                 </small>
             </p>
+            {% if file.tag %}
             <ul>
-                {% for tag in file.tags %}
-                    <li><span class="label label-default"><i class="fa fa-tag"></i> {{ tag }}</span></li>
-                {% endfor %}
+                <li><span class="label label-default"><i class="fa fa-tag"></i> {{ file.tag }}</span></li>
             </ul>
+            {% endif %}
         </div>
         <div class="actions">
             <ul>
@@ -109,11 +109,11 @@
                 </div>
             {% endif %}
             </p>
+            {% if file.tag %}
             <ul>
-                {% for tag in file.tags %}
-                    <li><span class="label label-default"><i class="fa fa-tag"></i> {{ tag }}</span></li>
-                {% endfor %}
+                <li><span class="label label-default"><i class="fa fa-tag"></i> {{ file.tag }}</span></li>
             </ul>
+            {% endif %}
         </div>
         <div class="actions">
             <ul>

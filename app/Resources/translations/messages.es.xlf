@@ -160,7 +160,7 @@
       <!-- help and error messages -->
       <trans-unit id="help.tags">
         <source>help.tags</source>
-        <target>Distinga sus envíos de los demás etiquetándolos. Escriba cada etiqueta separada por comas.</target>
+        <target>Distinga sus envíos de los demás etiquetándolos.</target>
       </trans-unit>
 
       <!-- labels -->

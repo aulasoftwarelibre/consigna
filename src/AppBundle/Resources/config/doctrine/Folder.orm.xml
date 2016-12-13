@@ -17,8 +17,6 @@
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
     <entity name="AppBundle\Entity\Folder" repository-class="AppBundle\Repository\FolderRepository" table="folder">
 
-        <field name="description" type="text" nullable="true"/>
-
         <one-to-many target-entity="AppBundle\Entity\Item" mapped-by="folder" field="items">
             <cascade>
                 <cascade-persist/>

@@ -145,6 +145,11 @@
         <target>Update folder</target>
       </trans-unit>
 
+      <!-- help and error messages -->
+      <trans-unit id="help.tags">
+        <source>help.tags</source>
+        <target>Distinguish your uploads from others by labeling them.</target>
+      </trans-unit>
 
       <!-- labels -->
       <trans-unit id="label.actions">
@@ -195,7 +200,6 @@
         <source>label.users</source>
         <target>Users</target>
       </trans-unit>
-
 
       <!-- titles -->
       <trans-unit id="title.create_folder">

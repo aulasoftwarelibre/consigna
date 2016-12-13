@@ -19,7 +19,6 @@ use AppBundle\Model\Traits\ExpirableTrait;
 use AppBundle\Model\Traits\OwneableTrait;
 use AppBundle\Model\Traits\ProtectableTrait;
 use AppBundle\Model\Traits\ShareableTrait;
-use AppBundle\Model\Traits\TaggeableTrait;
 use AppBundle\Model\Traits\TimestampableTrait;
 use AppBundle\Model\Traits\TraceableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -44,8 +43,6 @@ abstract class Item implements ItemInterface
 
     use ShareableTrait;
 
-    use TaggeableTrait;
-
     use TimestampableTrait;
 
     use TraceableTrait;
@@ -68,6 +65,11 @@ abstract class Item implements ItemInterface
     /**
      * @var string
      */
+    protected $tag;
+
+    /**
+     * @var string
+     */
     protected $slug;
 
     /**
@@ -82,7 +84,6 @@ abstract class Item implements ItemInterface
         $this->salt = $randomStringGenerator(16);
         $this->sharedCode = $randomStringGenerator(16);
         $this->sharedWithUsers = new ArrayCollection();
-        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -116,7 +117,7 @@ abstract class Item implements ItemInterface
     /**
      * @param FolderInterface $folder
      *
-     * @return File
+     * @return $this
      */
     public function setFolder(FolderInterface $folder = null)
     {
@@ -157,6 +158,26 @@ abstract class Item implements ItemInterface
     public function setSlug(string $slug): ItemInterface
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTag(): ?string
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param string|null $tag
+     *
+     * @return $this
+     */
+    public function setTag(?string $tag)
+    {
+        $this->tag = $tag;
 
         return $this;
     }

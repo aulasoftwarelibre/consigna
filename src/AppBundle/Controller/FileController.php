@@ -168,7 +168,7 @@ class FileController extends Controller
         if ($form->isValid()) {
             $file = $this
                 ->get('consigna.manager.file')
-                ->createUploadedFile($file->getFile());
+                ->createFile($file);
 
             switch ($file->getScanStatus()) {
                 case FileInterface::SCAN_STATUS_OK:

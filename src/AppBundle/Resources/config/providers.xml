@@ -70,18 +70,6 @@
             <autowiring-type>AppBundle\Repository\Interfaces\OrganizationRepositoryInterface</autowiring-type>
         </service>
         
-        <service id="consigna.object_manager.tag" class="Doctrine\Common\Persistence\ObjectManager">
-            <factory service="doctrine" method="getManagerForClass" />
-            <argument>AppBundle\Entity\Tag</argument>
-            <autowiring-type>AppBundle\Entity\Interfaces\TagInterface</autowiring-type>
-        </service>
-
-        <service id="consigna.object_repository.tag" class="Doctrine\Common\Persistence\ObjectRepository">
-            <factory service="doctrine" method="getRepository" />
-            <argument>AppBundle\Entity\Tag</argument>
-            <autowiring-type>AppBundle\Repository\Interfaces\TagRepositoryInterface</autowiring-type>
-        </service>
-        
         <service id="consigna.object_manager.user" class="Doctrine\Common\Persistence\ObjectManager">
             <factory service="doctrine" method="getManagerForClass" />
             <argument>AppBundle\Entity\User</argument>

@@ -12,10 +12,10 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Folder;
-use AppBundle\Entity\Interfaces\FolderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,7 +27,7 @@ class FolderCreateType extends AbstractType
             ->add('name', null, [
                 'label' => 'label.folder_name',
             ])
-            ->add('tags', TagsTextType::class, [
+            ->add('tag', TextType::class, [
                 'label' => 'label.tags',
                 'required' => false,
                 'attr' => [

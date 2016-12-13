@@ -85,7 +85,7 @@ trait ShareableTrait
     private function hasAccess(UserInterface $user)
     {
         $this
-            ->getSharedWithUsers()
+            ->sharedWithUsers
             ->exists(function(UserInterface $member) use ($user) {
                 return $user == $member;
             });

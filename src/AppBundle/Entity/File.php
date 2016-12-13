@@ -12,7 +12,6 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Interfaces\FileInterface;
-use AppBundle\Entity\Interfaces\FolderInterface;
 use AppBundle\Model\Traits\UploadableTrait;
 
 /**
@@ -21,11 +20,6 @@ use AppBundle\Model\Traits\UploadableTrait;
 class File extends Item implements FileInterface
 {
     use UploadableTrait;
-
-    /**
-     * @var string
-     */
-    protected $description;
 
     /**
      * @var string
@@ -40,26 +34,6 @@ class File extends Item implements FileInterface
         parent::__construct();
 
         $this->scanStatus = self::SCAN_STATUS_PENDING;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return File
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
-
-        return $this;
     }
 
     /**

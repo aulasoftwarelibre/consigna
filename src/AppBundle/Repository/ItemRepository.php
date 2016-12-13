@@ -66,12 +66,10 @@ class ItemRepository extends EntityRepository implements ItemRepositoryInterface
         $qb
             ->addSelect('owner')
             ->addSelect('organization')
-            ->addSelect('tag')
             ->leftJoin('o.owner', 'owner')
             ->leftJoin('owner.organization', 'organization')
             ->leftJoin('o.folder', 'folder')
             ->leftJoin('o.sharedWithUsers', 'shared_with_users')
-            ->leftJoin('o.tags', 'tag')
             ->orderBy($orderBy);
 
         if ($owner) {
@@ -90,7 +88,7 @@ class ItemRepository extends EntityRepository implements ItemRepositoryInterface
             $qb
                 ->andWhere($qb->expr()->orX(
                     'o.name LIKE :search',
-                    'tag.name LIKE :search'
+                    'o.tag LIKE :search'
                 ))
                 ->setParameter('search', '%'.$search.'%');
         }
